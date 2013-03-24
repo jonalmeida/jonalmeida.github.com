@@ -25,7 +25,7 @@ I'm a big fan of Sublime Text, so this is a must on any computer I use. The linu
 tar xf Sublime\ Text\ 2.0.1\ x64.tar.bz2
 sudo mv Sublime\ Text\ 2 /opt/
 sudo ln -s /opt/Sublime\ Text\ 2/sublime_text /usr/bin/sublime
-sudo wget https://raw.github.com/jonalmeida/jonalmeida.github.com/master/assets/misc/sublime.desktop /usr/share/applications/sublime.desktop
+sudo wget http://jonalmeida.github.com/assets/misc/sublime.desktop /usr/share/applications/sublime.desktop
 {% endhighlight %}<br>
 
 This last part is optional if you want all your text files to open with Sublime Text.
