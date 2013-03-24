@@ -5,6 +5,11 @@
   {% include JB/analytics-providers/google %}
 {% when "getclicky" %}
   {% include JB/analytics-providers/getclicky %}
+<<<<<<< HEAD
+{% when "mixpanel" %}
+  {% include JB/analytics-providers/mixpanel %}
+=======
+>>>>>>> gh-pages
 {% when "custom" %}
   {% include custom/analytics %}
 {% endcase %}
