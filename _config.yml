@@ -5,9 +5,9 @@ auto: true
 rdiscount:
   extensions: [smart]
 
-name: Jon Almeida
+name: Jonathan Almeida
 url: http://jonalmeida.com
-description: A fantastic blog that is fantastic.
+description: A journal from the Nether and back again.
 twitter: jonalmeida942
 github: jonalmeida
 gravatar_url: http://www.gravatar.com/avatar/58dc5af4d6bc1e0f6fd4c25dea7b2b8e.png
