@@ -25,3 +25,10 @@ comments :
     num_posts: 5
     width: 580
     colorscheme: light
+
+analytics :
+  provider : google
+  google : 
+      tracking_id : 'UA-39596356-1'
+  getclicky :
+    site_id :
