@@ -11,3 +11,17 @@ description: A journal from the Nether and back again.
 twitter: jonalmeida942
 github: jonalmeida
 gravatar_url: http://www.gravatar.com/avatar/58dc5af4d6bc1e0f6fd4c25dea7b2b8e.png
+
+comments :
+  provider : disqus
+  disqus :
+    short_name : jonalmeida
+  livefyre :
+    site_id : 123
+  intensedebate :
+    account : 123abc
+  facebook :
+    appid : 123
+    num_posts: 5
+    width: 580
+    colorscheme: light
