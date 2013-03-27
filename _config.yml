@@ -8,10 +8,10 @@ rdiscount:
 
 name: Jonathan Almeida
 url: http://jonalmeida.github.com
-description: A journal from the Nether and back again.
+description: Life's quirky musings 
 twitter: jonalmeida942
 github: jonalmeida
-gravatar_url: http://www.gravatar.com/avatar/58dc5af4d6bc1e0f6fd4c25dea7b2b8e.png
+gravatar_url: http://www.gravatar.com/avatar/58dc5af4d6bc1e0f6fd4c25dea7b2b8e
 
 comments :
   provider : disqus
