@@ -43,8 +43,8 @@ If you want to take it a further step and push to both remotes at the same time 
 
 {% highlight html %}
 [remote "all"]
-	url = git@github.com:jonalmeida/UberWriter.git
-	url = ssh://jonathan@388aztech.dyndns.org:443/~/Repo/UberWriter.git
+	url = git@github.com:User/MyProject.git
+	url = ssh://my_server/~/Repo/UberWriter.git
 {% endhighlight %}<br>
 
 Now before you push to both the repositories at the same time, make sure both of them are at the same HEAD otherwise it'll not work:
