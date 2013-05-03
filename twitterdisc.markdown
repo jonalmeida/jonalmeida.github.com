@@ -1,7 +1,6 @@
 ---
-layout: post
+layout: plain
 title: Twitter Discover for Google Glass
 ---
 
-###Twitter Discover for Google Glass
 To finish...
