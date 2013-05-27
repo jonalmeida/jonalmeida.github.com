@@ -16,7 +16,7 @@ if [ "$1" == "quack" ]; then
 fi
 {% endhighlight %}<br>
 
-Sure, that works. But not exactly for my needs since I have multiple flags to handle. Which lead me to getopts. Using getopts was a bit fancy, but when you realize how easy it is to implement you'll learn to love it. I'm not going to repeat what Ricardo Salveti has done quite well in his blog here, but after reading it, this was my implementation:
+Sure, that works, but not exactly for my needs since I have multiple flags to handle. Which lead me to getopts. Using getopts was a bit fancy, but when you realize how easy it is to implement you'll learn to love it. I'm not going to repeat what Ricardo Salveti has done quite well in his blog here, but after reading it, this was my implementation:
 {% highlight html %}
 #!/bin/bash
 
@@ -43,7 +43,7 @@ done
 
 In a nutshell, it's a while statement with cases. The "bf:" says that only a flag '-b' needs to be entered by the user, '-f' has a semicolon after it to indicate that it's expecting a value with the flag, similar to writing `foo.sh -f my_value_here`.
 
-The beauty of getopts is that it can handle the same flag multiple times. If you would do that with the current code about it wouldn't spit out any errors, but it wouldn't work as expected. Lets say you wanted to use the '-f' flag twice. The value of MYOPTF would be the value of last -f value used and no other. This can be solved with a small modification:
+The beauty of getopts is that it can handle the same flag multiple times. If you would do that with the current code about it wouldn't spit out any errors, but it wouldn't work as expected. Lets say you wanted to use the '-f' flag twice. The value of MYOPTF would be _the value of last -f value used and no other_. This can be solved with a small modification:
 {% highlight html %}
 #!/bin/bash
 
@@ -60,9 +60,9 @@ done
 
 That should work fine since you have a list of all the values, you can easily iterate through it with a for loop.
 
-The disadvantage (as far as my use case is concerned) with getopts is that it only accepts single character flags so you couldn't use flags like '--help' which the gnu styled arguments and is a bit unfortunate.
+The disadvantage (as far as my use case is concerned) with getopts is that it only accepts single character flags so you couldn't use flags like `--help` which the gnu styled arguments and is a bit unfortunate.
 
-I finally decided to use a hybrid of all the information I put together since I ran into the case where I needed to accept either option '-h' or '--help':
+I finally decided to use a hybrid of all the information I put together since I ran into the case where I needed to accept either option '-h' or `--help`:
 {% highlight html %}
 #!/bin/bash
 
@@ -74,7 +74,7 @@ do
 			exit
 			;;
 		--take-over-world | -t)
-			secretoption
+			secretopt
 			exit
 			;;
 	esac
@@ -82,5 +82,6 @@ do
 done
 {% endhighlight %}<br>
 
-You would have noticed I threw in a bunch of stuff that I didn't mention previously, and that's sort of the assumption I made. Any who, what I've essentially done in `while [ ! $# -eq 0 ]` is I've said, while the number of arguments are not zero, do so and so.
-The $1 is the first argument that's passed the script at execution, to avoid having to write cases for $2, $3, etc. I `shift` the argument off my list once I'm done processing it through my case statements, and then repeat while arguments exist.
+You would have noticed I threw in a bunch of stuff that I didn't mention previously, and that's sort of the assumption I made. 
+What I've essentially done in `while [ ! $# -eq 0 ]` is I've said, while the number of arguments are not zero, do so and so.
+The $1 is the first argument that's passed the script at execution, to avoid having to write cases for $2, $3, etc. I "shift" the argument off my list once I'm done processing it through my case statements, and then repeat while arguments exist.
