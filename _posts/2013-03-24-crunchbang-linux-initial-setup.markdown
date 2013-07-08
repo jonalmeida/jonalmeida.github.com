@@ -88,7 +88,6 @@ After that, run:
 {% highlight html %}
 $ sudo apt-get update
 $ sudo apt-get dist-upgrade
-$ sudo apt-get dist-upgrade
 {% endhighlight %}<br>
 
 This is going to install all the relevant i386 library packages. It varies in size, but it's usually around ~100-200MB and requires a reboot after this.
