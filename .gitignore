@@ -1,18 +1,12 @@
 _site/*
-<<<<<<< HEAD
 _theme_packages/*
-=======
->>>>>>> gh-pages
 
 Thumbs.db
 .DS_Store
 
 !.gitkeep
-<<<<<<< HEAD
 
 .rbenv-version
 .rvmrc
-=======
->>>>>>> gh-pages
 
 *.sublime*
