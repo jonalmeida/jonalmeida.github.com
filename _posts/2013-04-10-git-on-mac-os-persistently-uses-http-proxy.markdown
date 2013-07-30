@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Git on Mac OS persistently users HTTP proxy
+title: Git on Mac OS persistently uses HTTP proxy
 category: posts
 
 ---
