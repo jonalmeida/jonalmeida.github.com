@@ -41,7 +41,7 @@ You can now use that secret key that you can add on your other Google Authentica
 
 For **camera picture syncing** that wasn't too hard as well since this features seems to be supported using Box (which also gives you 50GB of online storage while signing up), but what I really wanted was to have it sync Dropbox. Once again, I went the help of the built-in Android Player and I was able to use the Android version of Dropbox to sync all those cat pictures from my phone to a (safe?) remote location.
 
-**Text Message sync** took a bit more googling, but I eventually came across an application called [SyncLion][synclion] which has almost all the features SMS Backup+ currently has. Since not all apps can run as a service, it lacks the fine feature of auto-sync which I adore oh-so-much. When this comes, it wil be well worth the $2.99 it currently costs on BB World.
+**Text Message sync** took a bit more googling, but I eventually came across an application called [SyncLion][synclion] which has almost all the features SMS Backup+ currently has. Since not all apps can run as a service, it lacks the fine feature of auto-sync which I adore oh-so-much. When this comes, it will be well worth the $2.99 it currently costs on BB World.
 
 Alas, **Ingress** is the only application I can't get on my Q10! Ingress is an augmented reality, location based game created by Google. It's more interesting to play it than to explain so I'll leave that up to you to research. 
 The problems with trying to sideload the android app is that the Android Player doesn't support Google account APIs, for legal reasons I pressume. Authenticating using your Google account is the only way to go about it, so for now I'm stuck..
