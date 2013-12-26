@@ -16,11 +16,11 @@ The first thing I saw when I booted my laptop was conky - time to get a neat loo
 ![alt text][conky_screenshot]<br>
 My T420s needed a special fan controller with a configuration which is handled by [thinkfan][thinkfan].
 
-### Adaptive screen color correction
+### Adaptive screen colour correction
 I came across a nifty application called [f.lux][f.lux] that essentially corrects the colours of your screen to be 'warmer' as the day moves towards the end. The idea behind it is to not allow you get tired from staring at your screen all day. Which in turn, would cause irregular sleep patterns. While flux works perfectly on CrunchBang, I prefer to use it's alternative [Redshift][redshift] for linux OSes and f.lux for Windows/Mac. To be honest, the only reason I do this is because I think the f.lux icon looks out-of-place on most linux window managers - personal preference really. Not to mention that redshift already exists in the repositories, so a simple `sudo apt-get install redshift` solves all your problems. The help pages explain how to use it, but I set redshift to 5000 in ~/.config/openbox/autostart so that it's enabled on boot: `redshift -O 5000`
 
 ### Sublime Text 2 (Text Editor)
-I'm a big fan of Sublime Text, so this is a must on any computer I use. The linux builds are available as a tarball so it doesn't intergrate well out-of-the-box. Below are the terminal commands to extract it to /opt/ and create a desktop link that can be found with any application launcher you use:
+I'm a big fan of Sublime Text, so this is a must on any computer I use. The linux builds are available as a tar ball so it doesn't integrate well out-of-the-box. Below are the terminal commands to extract it to /opt/ and create a desktop link that can be found with any application launcher you use:
 {% highlight html %}
 tar xf Sublime\ Text\ 2.0.1\ x64.tar.bz2
 sudo mv Sublime\ Text\ 2 /opt/
@@ -33,10 +33,10 @@ This last part is optional if you want all your text files to open with Sublime 
 sudo sublime /usr/share/applications/defaults.list
 {% endhighlight %}<br>
 
-Replace all occurences of geany.desktop with sublime.desktop
+Replace all occurrences of geany.desktop with sublime.desktop
 
 ### Application launcher
-CrunchBang comes with a neat, minimalistic (like everything else) app launcher that lives on the bottom of your screen that you can access with Alt + F3. I like using app launchers, but the current keyboard shortcut just doesn't feel comfortable.
+CrunchBang comes with a neat, minimalistic (like everything else) app launcher that lives on the bottom of your screen that you can access with Alt + F3. I like using app launchers, but the current keyboard short-cut just doesn't feel comfortable.
 
 You can change it by going to Settings > Openbox > Edit rc.xml, or open ~/.config/openbox/rc.xml with any text editor and add the configuration below to activate the app launcher with Ctrl + Space:
 {% highlight html %}
@@ -52,7 +52,7 @@ You can change it by going to Settings > Openbox > Edit rc.xml, or open ~/.confi
 {% endhighlight %}<br>
 
 ### Java
-Unfortunately, Java isn't going away anytime soon.
+Unfortunately, Java isn't going away any time soon.
 {% highlight html %}
 sudo apt-get install openjdk-7-jre
 {% endhighlight %}<br>
@@ -93,7 +93,7 @@ $ sudo apt-get dist-upgrade
 This is going to install all the relevant i386 library packages. It varies in size, but it's usually around ~100-200MB and requires a reboot after this.
 
 ### Overview
-I'm quite content with my current setup and I haven't had the need to make any changes to anything so far. Send me a message if there's anything that needs updating or if you might need to clarify something.
+I'm quite content with my current set-up and I haven't had the need to make any changes to anything so far. Send me a message if there's anything that needs updating or if you might need to clarify something.
 
 
 [crunch]: http://crunchbang.org
