@@ -1,8 +1,7 @@
-markdown: rdiscount
+markdown: redcarpet
 pygments: true
 permalink: /posts/:title
 permalink: pretty
-auto: true
 
 rdiscount:
   extensions: [smart]

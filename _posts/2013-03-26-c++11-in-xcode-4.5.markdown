@@ -7,12 +7,13 @@ category: posts
 
 I was messing around with XCode today, and found out clang++ that's available with XCode 4.5.2, already has the C++11 standard available even though g++ still doesn't.
 
-{% highlight bash %}
+``` bash
 jupiter:tmp jonathan$ clang++ --version
 Apple clang version 4.1 (tags/Apple/clang-421.11.66) (based on LLVM 3.1svn)
 Target: x86_64-apple-darwin12.3.0
 Thread model: posix
-{% endhighlight %}<br>
+```
+<br>
 
 You can compile with it using `clang++ --std=c++11 -stdlib=libc++ foo.cxx`.
 
