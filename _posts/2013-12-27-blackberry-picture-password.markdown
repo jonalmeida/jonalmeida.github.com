@@ -26,7 +26,11 @@ You're going to think I'm a bit of a whack job when I try to explain the value o
 
 
 ### Where other platforms fall short
-If we look at the Android pattern method, it seems like a neat idea - create a complicated pattern from a 3x3 matrix. I'm not willing to do the math, but you can tell there are plenty enough combinations available to make it uniquely secure enough for an average user. Let's just assume you can't have a large matrix for now. Where the Android device fails, is it requires you to re-create the same pattern every time at the same location on your screen. This might seem nonsensical to some, but it's fairly easy to figure out someone's pattern when they're unlocked their phone. Having a quick peek, will show the green line trace of the pattern while its being drawn out. Alright, so you have a custom ROM which let's you turn off the tracing so that others around you can't see it. Another way, assuming you've got a hold of the person's device by now, is by the smudge marks from the person's finger that shows the path of the unlock pattern. In fact, I've even figured out a friend's Android unlock pattern using this method just to prove this point to them.
+If we look at the Android pattern method, it seems like a neat idea - create a complicated pattern from a 3x3 matrix. I'm not willing to do the math, but you can tell there are plenty enough combinations available to make it uniquely secure enough for an average user. Let's just assume you can't have a large matrix for now. 
+
+Where the Android device fails, is it requires you to re-create the same pattern every time at the same location on your screen. This might seem nonsensical to some, but it's fairly easy to figure out someone's pattern when they're unlocked their phone. Having a quick peek, will show the green line trace of the pattern while its being drawn out. 
+
+Alright, so you have a custom ROM which let's you turn off the tracing so that others around you can't see it. Another way, assuming you've got a hold of the person's device by now, is by the smudge marks from the person's finger that shows the path of the unlock pattern. In fact, I've even figured out a friend's Android unlock pattern using this method just to prove this point to them.
 
 ![comparison]
 
@@ -40,6 +44,7 @@ Windows 8 had also tried another take on this - instead of using set points to d
 Enter BlackBerry's Picture Password. 
 
 It just needs you line up a number to a set point on a picture- this doesn't seem too trivial. Surely you can figure it out some way? The catch is, a grid of numbers is placed above the picture in a random order (with repetitions) like an overlay between two pictures. Now you have to line up your number (which is randomly placed) to that point and you don't even have to place your finger over that number as well. You move the grid, like your scrolling on a mobile touchscreen browser.
+
 With this method of security, you aren't giving up your number or the selected picture point since the overlooker won't be able to match one with the other.
 
 I jokingly bet with another friend that I could unlock my phone in front of him a hundred times and he still wouldn't manage to figure the combination. Some time later, I found myself repeatedly re-locking my phone and holding a zombie finger above to unlock the device while he closely looked on. I wasn't keeping a score, but \*cough\* *65 tries* \*cough\* later he gave up.
