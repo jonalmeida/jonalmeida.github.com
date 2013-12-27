@@ -22,7 +22,7 @@ I'll be going back to university again come January and there'll be a time where
 
 Related link: [No Managers: Why We Removed Bosses at Treehouse][nomanagers]
 
-[hackernews]: news.ycombinator.com/news
+[hackernews]: http://news.ycombinator.com/news
 [officespace]: http://www.aaronsw.com/weblog/officespace
 [agile]: http://readwrite.com/2013/11/27/agile-development-software
 [cookiemonster]: http://youtu.be/yPBNx6eB18w?t=2m43s
