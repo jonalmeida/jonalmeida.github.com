@@ -62,6 +62,13 @@ a {
   margin-left: 110px;
   margin-right: 20px;
   margin-bottom: 50px; }
+  .content .comments-button {
+    background-color: #60b044;
+    border: none;
+    border-radius: .313em;
+    color: white;
+    padding: 1em;
+    margin: 1em 0; }
   .content h1 {
     color: #333;
     font-family: "Yanone Kaffeesatz", Helvetica, sans-serif;
