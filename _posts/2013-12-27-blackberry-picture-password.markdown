@@ -28,7 +28,7 @@ You're going to think I'm a bit of a whack job when I try to explain the value o
 ### Where other platforms fall short
 If we look at the Android pattern method, it seems like a neat idea - create a complicated pattern from a 3x3 matrix. I'm not willing to do the math, but you can tell there are plenty enough combinations available to make it uniquely secure enough for an average user. Let's just assume you can't have a large matrix for now. 
 
-Where the Android device fails, is it requires you to re-create the same pattern every time at the same location on your screen. This might seem nonsensical to some, but it's fairly easy to figure out someone's pattern when they're unlocked their phone. Having a quick peek, will show the green line trace of the pattern while its being drawn out. 
+Where the Android device fails, is it requires you to re-create the same pattern every time at the same location on your screen. This might seem nonsensical to some, but it's fairly easy to figure out someone's pattern when they've unlocked their phone. Having a quick peek, will show the green line trace of the pattern while its being drawn out. 
 
 Alright, so you have a custom ROM which let's you turn off the tracing so that others around you can't see it. Another way, assuming you've got a hold of the person's device by now, is by the smudge marks from the person's finger that shows the path of the unlock pattern. In fact, I've even figured out a friend's Android unlock pattern using this method just to prove this point to them.
 
