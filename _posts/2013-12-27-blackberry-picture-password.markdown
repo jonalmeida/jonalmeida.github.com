@@ -1,6 +1,6 @@
 ---
 layout: post
-title: The BlackBerry Picture Password is more secure than you think
+title: BlackBerry Picture Password is more secure than you think
 category: posts
 
 ---

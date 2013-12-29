@@ -4,9 +4,10 @@
   <meta charset="utf-8">
   <title>
     {% if page.title %}
-      {{ page.title }} &ndash;
+      {{ page.title }}
+    {% else %}
+      {{ site.name }}
     {% endif %}
-    {{ site.name }}
   </title>
 
   <meta name="author" content="{{ site.name }}" />
