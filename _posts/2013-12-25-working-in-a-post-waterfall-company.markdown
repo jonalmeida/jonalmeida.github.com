@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Working In A Post-Waterfall Development Company
+title: Working in a post-waterfall development company
 category: posts
 
 ---

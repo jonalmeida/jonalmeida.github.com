@@ -120,8 +120,11 @@ a {
       border-radius: 3px;
       padding: 2px 3px; }
   .content img {
+    /* A border alternative
     padding: 3px;
-    border: 1px solid #eeeeee;
+    border: 1px solid #eeeeee;*/
+    -webkit-box-shadow: 3px 3px 3px #7C7C7C;
+    box-shadow: 3px 3px 3px #7C7C7C;
     max-width: 100%; }
   .content hr {
     border: 0;
