@@ -8,8 +8,8 @@ rdiscount:
 
 name: Jonathan Almeida
 url: http://jonalmeida.com
-description: Life's quirky musings 
-twitter: jonalmeida942
+description: Life's quirky musings
+twitter: jonalmeida_
 github: jonalmeida
 gravatar_url: http://www.gravatar.com/avatar/58dc5af4d6bc1e0f6fd4c25dea7b2b8e
 
@@ -29,7 +29,7 @@ comments :
 
 analytics :
   provider : google
-  google : 
+  google :
       tracking_id : 'UA-39596356-1'
   getclicky :
     site_id :
