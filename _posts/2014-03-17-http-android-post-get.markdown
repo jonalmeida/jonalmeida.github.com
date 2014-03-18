@@ -1,11 +1,11 @@
 ---
 layout: post
-title: Android POST and GET requests stored in JSON
+title: Android HTTP POST and GET requests stored in JSON
 category: posts
 
 ---
 
-In my current project, I'm currently working on making an Android client send simple POST and GET requests for data to a web API. I finally managed to get it working using the [HTTP Apache library][1].
+In my current project, I'm currently working on making an Android client send simple HTTP POST and GET requests for data to a web API. I finally managed to get it working using the [HTTP Apache library][1].
 
 > **Note:** I un-indented the code so it would fit better on the page even though it looks a bit ugly. You might be better off copying it to your text editor to read it better.
 
