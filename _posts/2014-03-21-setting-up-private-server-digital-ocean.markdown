@@ -42,7 +42,7 @@ git --bare init
 Clients would add the remote as:
 
 ``` bash
-git remote add origin ssh://jonathan@jonalmeida.dyndns.org/location/of/my-repo.git
+git remote add origin ssh://jonathan@atlas.somedomain.com/location/of/my-repo.git
 ```
 ### Configuring clients
 Most Linux OSes come with a PPTP client installed so setting that up is quite trivial.
