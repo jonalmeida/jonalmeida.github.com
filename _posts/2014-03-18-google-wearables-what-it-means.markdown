@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Android Wear, is our Digital Bill of Rights?
+title: Android Wear is our Digital Bill of Rights?
 category: posts
 
 ---
@@ -28,7 +28,7 @@ I can understand why the feds want to monitor the Internet and various communica
 
 Now is no better time to push for a Digital Bill of Rights right before something as massive as this happens. With the huge number of Android users out there, slapping on a smart watch with them that's always sending information from the watch, to the phone, to god knows where. This is also right before the many rumours that Apple is also going to be entering the device wearable market.
 
-I also purposefully ignored Samsung's watch since I find their exclusive 'Samsung phones only' compatibility very limiting. 
+I also purposefully ignored Samsung's watch since I find their exclusive 'Samsung phones only' compatibility very limiting.
 
 [1]: http://googleblog.blogspot.ca/2014/03/sharing-whats-up-our-sleeve-android.html
 [2]: https://news.ycombinator.com/item?id=7422858
