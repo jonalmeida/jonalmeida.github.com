@@ -73,7 +73,7 @@ dpkg --add-architecture i386
 Then add `[arch=amd64,i386]` to each line of `/etc/apt/sources.list`<br>
 It should look something like this:
 
-``` bash linenos:true
+``` bash
 ## CRUNCHBANG
 ## Compatible with Debian Wheezy, but use at your own risk.
 deb [arch=amd64,i386] http://packages.crunchbang.org/waldorf waldorf main
