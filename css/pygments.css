@@ -1,8 +1,7 @@
 .highlight {
   margin: 0;
   background-color: #eee;
-  word-wrap: break-word;
-  font-size: 1em;
+  font-size: 12px;
   padding: 0px 15px;
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;

@@ -12,8 +12,6 @@ With the BlackBerry 10.2.1 release a new security feature called Picture Passwor
 N4BB.com has a nice video showing how it works:
 
 <iframe 
-  width="560" 
-  height="315" 
   src="http://www.youtube.com/embed/ucpQ_0iHrWg" 
   frameborder="0" 
   allowfullscreen>

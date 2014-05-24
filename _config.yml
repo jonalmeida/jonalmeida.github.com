@@ -1,10 +1,13 @@
 markdown: redcarpet
-pygments: true
+highlighter: true
 permalink: /posts/:title
 permalink: pretty
 
 rdiscount:
   extensions: [smart]
+
+gems:
+  - jekyll-sitemap
 
 name: Jonathan Almeida
 url: http://jonalmeida.com

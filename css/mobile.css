@@ -8,7 +8,7 @@
   .sidebar .name {
     display: inline; }
     .sidebar .name #fname, .sidebar .name #lname {
-      font-size: 4em; }
+      font-size: 25px; }
   .sidebar .meta {
     display: none; }
   .sidebar ul {
@@ -18,21 +18,17 @@
   .sidebar .sections {
     margin: 0; }
     .sidebar .sections a {
-      font-size: 3em;
+      font-size: 16px;
       margin: 0 20px 0 0;
-      padding: 5px 0px; }
+      padding: 5px 10px; }
 
 .content {
   margin: 0;
-  max-width: 100%;
-  padding: 5px 25px; }
+  padding: 5px 25px;
+  width: inherit; }
   .content h1 {
     margin: 0 0 5px 0; }
-.content .listing {
-  margin: 10px 0 0 0;
-  padding: 0;
-  font-family: Helvetica, sans-serif;
-  width: 95%;
-  position: fixed; }
-  .content .listing li {
-  font-size: 2em; }
+  .content iframe {
+    width: inherit;
+    height: inherit; }
+
