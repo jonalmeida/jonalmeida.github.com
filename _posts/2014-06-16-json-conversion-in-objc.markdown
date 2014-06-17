@@ -12,11 +12,14 @@ An Objective-C Category is something I just learned about recently. It lets you 
 I wrote a small class that extends `NSData`, `NSString` and `NSDictionary` giving them class methods to return a JSON object from one type to another.
 
 ```
+(Table CSS currently look fugly so this is my alternative)
+---------------------------------------------------
 |     Type     | NSData | NSString | NSDictionary |
 |--------------|--------|----------|--------------|
 |    NSData    |  n/a   |          |              |
 |   NSString   |        |   n/a    |              |
 | NSDictionary |        |          |     n/a      |
+---------------------------------------------------
 ```
 
 ## Usage
