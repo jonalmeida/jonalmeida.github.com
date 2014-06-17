@@ -13,7 +13,7 @@ I wrote a small class that extends `NSData`, `NSString` and `NSDictionary` givin
 
 ---
 
-|     Type     | NSData | NSString | NSDictionary |
+|Type          | NSData | NSString | NSDictionary |
 |--------------|:------:|:--------:|:------------:|
 |    NSData    |  n/a   |          |              |
 |   NSString   |        |   n/a    |              |
