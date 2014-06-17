@@ -14,14 +14,14 @@ I wrote a small class that extends `NSData`, `NSString` and `NSDictionary` givin
 ---
 
 |     Type     | NSData | NSString | NSDictionary |
-|--------------|------|--------|------------|
-|    NSData    |  n/a|        |            |
-|   NSString   |      | n/a       |            |
-| NSDictionary |      |        |    n/a      |
+|--------------|:------:|:--------:|:------------:|
+|    NSData    |  n/a   |          |              |
+|   NSString   |        |   n/a    |              |
+| NSDictionary |        |          |     n/a      |
 
 ## Usage
 
-Using the category class is simple. Simply drop the `JsonEncoder.h` and `JsonEncoder.m` into your project. And use it similar to the examples below.
+Using the category class is trivial. Simply drop the `JsonEncoder.h` and `JsonEncoder.m` into your project. And use it similar to the examples below.
 
 ### Converting NSString
 A string that is correctly escaped and in the right syntax:
