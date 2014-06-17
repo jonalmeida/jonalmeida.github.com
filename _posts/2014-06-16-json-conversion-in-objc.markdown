@@ -13,6 +13,7 @@ I wrote a small class that extends `NSData`, `NSString` and `NSDictionary` givin
 
 ```
 (Table CSS currently look fugly so this is my alternative)
+
 ---------------------------------------------------
 |     Type     | NSData | NSString | NSDictionary |
 |--------------|--------|----------|--------------|
