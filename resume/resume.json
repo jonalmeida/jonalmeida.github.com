@@ -1,0 +1,231 @@
+{
+    "settings": {
+        "glyphicons": true
+    },
+    "firstname": "Jonathan",
+    "familyname": "Almeida",
+    "linkedin_id": "jonalmeida",
+    "github_id": "jonalmeida",
+    "bio_data": {
+        "email": "me @ jonalmeida.com",
+        "phone": "+1 (226) 347-1360",
+        "website": "jonalmeida.com",
+        "stars": [
+            "Linux",
+            "Java",
+            "C++",
+            "Git"
+        ],
+        "summary": {
+            "points": [
+                "Independant, competent and highly productive with responsibilities",
+                "Identity: <a href=\"https://keybase.io/jonalmeida\">keybase.io/jonalmeida</a>"
+            ]
+        },
+        "github_projects": {
+            "details": [
+                {
+                    "project_name": "snowplow/snowplow-java-tracker",
+                    "tagline": "Adds analytics to your Java desktop and server apps, servlets and games.",
+                    "description": [
+                        "A Java based Snowplow event tracker built using primarily Jackson JSON and Apache HTTP library."
+                    ]
+                },
+                {
+                    "project_name": "snowplow/snowplow-ios-tracker",
+                    "tagline": "Snowplow event tracker for iOS 7+. Adds analytics to your iOS apps and games.",
+                    "description": [
+                        "An Objectve-C static library for sending Snowplow events, using AFNetworking and native libraries."
+                    ]
+                },
+                {
+                    "project_name": "snowplow/snowplow-android-tracker",
+                    "tagline": "Snowplow event tracker for Android. Add analytics to your Android apps and games.",
+                    "description": [
+                        "Inherting from the Java Tracker, the Android tracker extends it's functionality with Android specifics."
+                    ]
+                },
+                {
+                    "project_name": "jonalmeida/geo_android",
+                    "tagline": "Android client for Pseudochat",
+                    "description": [
+                        "Anonymously posts messages viewable to other users only within that location.",
+                        "Single-handedly architectured the client UI and service."
+                    ]
+                },
+                {
+                    "project_name": "evilolive/Notepad",
+                    "tagline": "A simple notepad iOS app with Markdown support",
+                    "description": [
+                        "A very simple note taking application, intended to have Markdown support."
+                    ]
+                }
+            ]
+        },
+        "skills": {
+            "details": [
+                {
+                    "type": "Programming Languages",
+                    "items": [
+                        "Python",
+                        "Java",
+                        "C/C++",
+                        "Javascript",
+                        "Objectve-C",
+                        "Bash",
+                        "Qt/QML"
+                    ]
+                },
+                {
+                    "type": "Databases",
+                    "items": [
+                        "MySQL/SQLite",
+                        "PostgreSQL"
+                    ]
+                },
+                {
+                    "type": "Systems",
+                    "items": [
+                        "GitHub",
+                        "JIRA",
+                        "PRZilla"
+                    ]
+                }
+            ]
+        },
+        "education": {
+            "schools": [
+                {
+                    "degree": "Bachelors of Science",
+                    "major": "Computer Science",
+                    "institution": "University of Windsor",
+                    "graduation_year": 2015
+                },
+                {
+                    "degree": "Edexcel GCE & IGCSE",
+                    "major": "-",
+                    "institution": "St. Mary's Catholic High School, Dubai",
+                    "graduation_year": 2010
+                }
+            ]
+        },
+        "acad_achievements": {
+            "items": [
+                "University of Windsor Entrance Scholarship ($4000).",
+                "University of Windsor Residence Entrance Scholarship ($6000)"
+            ]
+        },
+        "experience": {
+            "items": [
+                {
+                    "title": "Software Developer Intern",
+                    "organisation": "Snowplow Analytics Ltd.",
+                    "from": "May. 2014",
+                    "to": "August. 2014",
+                    "details": [
+                        "Created the Snowplow iOS event tracker and released the <a href=\"http://snowplowanalytics.com/tags.html#ios\">initial version</a>.",
+                        "Rewrote and modularized the Snowplow Java event tracker along with new features and functionality; released <a href=\"http://snowplowanalytics.com/tags.html#java\">multiple version updates</a> over time.",
+                        "Created the Snowplow Android event tracker inheriting from the Java core library for the <a href=\"http://snowplowanalytics.com/tags.html#android\">initial version</a>.",
+                        "Setup Travis continuous integration build environments for running unit tests.",
+                        "Managed and prioritized related issues within the projects using GitHub Issues."
+                    ],
+                    "technology_used": {
+                        "tools": [
+                            "Xcode",
+                            "Android Developer Studio",
+                            "Eclipse",
+                            "Travis CI",
+                            "SQLite",
+                            "Git/GitHub"
+                        ]
+                    }
+                },
+                {
+                    "title": "Software Developer Intern",
+                    "organisation": "BlackBerry",
+                    "from": "May. 2013",
+                    "to": "Dec. 2013",
+                    "details": [
+                        "Single handedly developed and maintained management of the [Notification Settings in Cascades/Qt](http://jonalmeida.com/resume/notification_screenshots) (a task not usually reserved for internship developers).",
+                        "Responded to Quality Assurance and incorporated re-design to the same Notification settings UI frontend/backend to enhance new product requirements and API’s",
+                        "Assisted and collaborated with other internal teams to provide specific requirements to the UI.",
+                        "Worked on IPC and parsing information from the BlackBerry 10 notification service.",
+                        "Created an automation test build machine as a Jenkins node to the existing internal Jenkins farm.",
+                        "Developed G-test test cases for verifying API communication on the BlackBerry 10 platform.",
+                        "Managed and prioritized related issues within the project using JIRA."
+                    ],
+                    "technology_used": {
+                        "tools": [
+                            "Qt/QML",
+                            "Cascades",
+                            "Eclipse",
+                            "G-test",
+                            "Robot Framework",
+                            "SQLite",
+                            "Git/Gerrit"
+                        ]
+                    }
+                },
+                {
+                    "title": "Slipstream Software Test Developer Intern",
+                    "organisation": "BlackBerry",
+                    "from": "May. 2012",
+                    "to": "Dec. 2012",
+                    "details": [
+                        "Primary support for remote QA team with issues they would encounter during their testing.",
+                        "Created test cases from situational matrixes for Blackberry 10 Bridge project.",
+                        "Investigation and verification into issues that were being seen on an infrastructure level of development.",
+                        "Investigation of issues related to local network discovery and services between handheld and Windows desktops.",
+                        "Mentored junior coops on a daily basis with all the above mentioned tasks.",
+                        "Was selected to work in multiple war rooms with various cross-departmental teams on time sensitive projects.",
+                        "Received ‘&itShows’ Employee Recognition Award (four stars) for collaboration - an inter departmental award, that requires nomination by fellow staff and required both manager and director approval to receive."
+                    ],
+                    "technology_used": {
+                        "tools": [
+                            "PRZilla",
+                            "BlackBerry OS",
+                            "BlackBerry 10",
+                            "Git/Gerrit"
+                        ]
+                    }
+                },
+                {
+                    "title": "I.T. Services Help Desk",
+                    "organisation": "University of Windsor",
+                    "location": "Windsor, Canada",
+                    "from": "Aug. 2011",
+                    "to": "Apr. 2012",
+                    "details": [
+                        "Network troubleshooting, accessing university resources through personal computers.",
+                        "Provided support for installation as well as solving technical issues over the phone or remotely."
+                    ],
+                    "technology_used": {
+                        "tools": [
+                            "Lotus Notes 8",
+                            "Novell NetWare",
+                            "Trend Micro"
+                        ]
+                    }
+                }
+            ]
+        },
+        "undergrad_courses": [
+            {
+                "name": "Computer Networks",
+                "url": "http://cs.uwindsor.ca/"
+            },
+            {
+                "name": "Graph Theory",
+                "url": "http://cs.uwindsor.ca/"
+            },
+            {
+                "name": "Data structures and Algorithms in Java",
+                "url": "http://cs.uwindsor.ca/"
+            },
+            {
+                "name": "Advanced C++11",
+                "url": "http://cs.uwindsor.ca/"
+            }
+        ]
+    }
+}

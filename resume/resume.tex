@@ -1,0 +1,170 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Welcome to writeLaTeX --- just edit your LaTeX on the left,
+% and we'll compile it for you on the right. If you give
+% someone the link to this page, they can edit at the same
+% time. See the help menu above for more info. Enjoy!
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[11pt,a4paper]{moderncv}
+
+\moderncvtheme[black]{classic}
+
+\usepackage[utf8]{inputenc}
+\usepackage[scale=0.8]{geometry}
+
+\firstname{Jonathan}
+\familyname{\mbox{Almeida}}
+\title{\small Linux $\star$ Java $\star$ C++ $\star$ Git}
+\phone{+1 (226) 347-1360}
+\email{me @ jonalmeida.com}
+\homepage{jonalmeida.com}
+\social[linkedin]{jonalmeida}
+\social[github]{jonalmeida}
+
+% the ConTeXt symbol
+\def\ConTeXt{%
+  C%
+  \kern-.0333emo%
+  \kern-.0333emn%
+  \kern-.0667em\TeX%
+  \kern-.0333emt}
+
+% command and color used in this document, independently from moderncv 
+\definecolor{see}{rgb}{0.5,0.5,0.5}% for web links
+\newcommand{\up}[1]{\ensuremath{^\textrm{\scriptsize#1}}}% for text subscripts
+\renewcommand{\labelitemi}{$\circ$}
+
+%----------------------------------------------------------------------------------
+%            content
+%----------------------------------------------------------------------------------
+\begin{document}
+\maketitle
+\vspace*{-1cm}
+
+\section{\textsc{Qualifications summary}}
+		\cvitem{\textbullet}{Independant, competent and highly productive with responsibilities}
+		\cvitem{\textbullet}{Identity: \href{https://keybase.io/jonalmeida}{keybase.io/jonalmeida}}
+
+\section{\textsc{Technical Skills}}
+		\cvitem{\textbullet}{\textbf{Programming Languages}: Python, Java, C/C++, Javascript, Objectve-C, Bash, Qt/QML}
+		\cvitem{\textbullet}{\textbf{Databases}: MySQL/SQLite, PostgreSQL}
+		\cvitem{\textbullet}{\textbf{Systems}: GitHub, JIRA, PRZilla}
+
+\section{\textsc{GitHub Projects}}
+		\cvitem{\textbullet}{\textbf{\href{http://github.com/snowplow/snowplow-java-tracker}{snowplow/snowplow-java-tracker}} - Adds analytics to your Java desktop and server apps, servlets and games.}
+		\vspace*{-0.15cm}
+		\cvitem{}{
+			{\footnotesize 
+				\begin{itemize}
+				\item A Java based Snowplow event tracker built using primarily Jackson JSON and Apache HTTP library.	
+				\end{itemize}
+			}
+		}
+		\vspace*{-0.5cm}
+		\cvitem{\textbullet}{\textbf{\href{http://github.com/snowplow/snowplow-ios-tracker}{snowplow/snowplow-ios-tracker}} - Snowplow event tracker for iOS 7+. Adds analytics to your iOS apps and games.}
+		\vspace*{-0.15cm}
+		\cvitem{}{
+			{\footnotesize 
+				\begin{itemize}
+				\item An Objectve-C static library for sending Snowplow events, using AFNetworking and native libraries.	
+				\end{itemize}
+			}
+		}
+		\vspace*{-0.5cm}
+		\cvitem{\textbullet}{\textbf{\href{http://github.com/snowplow/snowplow-android-tracker}{snowplow/snowplow-android-tracker}} - Snowplow event tracker for Android. Add analytics to your Android apps and games.}
+		\vspace*{-0.15cm}
+		\cvitem{}{
+			{\footnotesize 
+				\begin{itemize}
+				\item Inherting from the Java Tracker, the Android tracker extends it's functionality with Android specifics.	
+				\end{itemize}
+			}
+		}
+		\vspace*{-0.5cm}
+		\cvitem{\textbullet}{\textbf{\href{http://github.com/jonalmeida/geo\_android}{jonalmeida/geo\_android}} - Android client for Pseudochat}
+		\vspace*{-0.15cm}
+		\cvitem{}{
+			{\footnotesize 
+				\begin{itemize}
+				\item Anonymously posts messages viewable to other users only within that location.\item Single-handedly architectured the client UI and service.	
+				\end{itemize}
+			}
+		}
+		\vspace*{-0.5cm}
+		\cvitem{\textbullet}{\textbf{\href{http://github.com/evilolive/Notepad}{evilolive/Notepad}} - A simple notepad iOS app with Markdown support}
+		\vspace*{-0.15cm}
+		\cvitem{}{
+			{\footnotesize 
+				\begin{itemize}
+				\item A very simple note taking application, intended to have Markdown support.	
+				\end{itemize}
+			}
+		}
+		\vspace*{-0.5cm}
+
+\section{\textsc{Professional Experience}}
+%    \cventry{years}{degree/job title}{institution/employer}{localization}{grade}{description}
+		\cventry{May. 2014 - August. 2014}{Software Developer Intern}{Snowplow Analytics Ltd}{}{}{
+			{\footnotesize 
+				\begin{itemize}
+				\item Created the Snowplow iOS event tracker and released the {\color{see}\href{http://snowplowanalytics.com/tags.html\#ios}{initial version}}.\item Rewrote and modularized the Snowplow Java event tracker along with new features and functionality; released {\color{see}\href{http://snowplowanalytics.com/tags.html\#java}{multiple version updates}} over time.\item Created the Snowplow Android event tracker inheriting from the Java core library for the {\color{see}\href{http://snowplowanalytics.com/tags.html\#android}{initial version}}.\item Setup Travis continuous integration build environments for running unit tests.\item Managed and prioritized related issues within the projects using GitHub Issues.	
+				\item Technologies got to work on:
+				Xcode, Android Developer Studio, Eclipse, Travis CI, SQLite, Git/GitHub
+				\end{itemize}
+			}
+		}
+		\cventry{May. 2013 - Dec. 2013}{Software Developer Intern}{BlackBerry}{}{}{
+			{\footnotesize 
+				\begin{itemize}
+				\item Single handedly developed and maintained management of the {\color{see} \href{http://jonalmeida.com/resume/notification\_screenshots}{Notification Settings in Cascades/Qt}} (a task not usually reserved for internship developers).\item Responded to Quality Assurance and incorporated re-design to the same Notification settings UI frontend/backend to enhance new product requirements and API’s\item Assisted and collaborated with other internal teams to provide specific requirements to the UI.\item Worked on IPC and parsing information from the BlackBerry 10 notification service.\item Created an automation test build machine as a Jenkins node to the existing internal Jenkins farm.\item Developed G-test test cases for verifying API communication on the BlackBerry 10 platform.\item Managed and prioritized related issues within the project using JIRA.	
+				\item Technologies got to work on:
+				Qt/QML, Cascades, Eclipse, G-test, Robot Framework, SQLite, Git/Gerrit
+				\end{itemize}
+			}
+		}
+		\cventry{May. 2012 - Dec. 2012}{Slipstream Software Test Developer Intern}{BlackBerry}{}{}{
+			{\footnotesize 
+				\begin{itemize}
+				\item Primary support for remote QA team with issues they would encounter during their testing.\item Created test cases from situational matrixes for Blackberry 10 Bridge project.\item Investigation and verification into issues that were being seen on an infrastructure level of development.\item Investigation of issues related to local network discovery and services between handheld and Windows desktops.\item Mentored junior coops on a daily basis with all the above mentioned tasks.\item Was selected to work in multiple war rooms with various cross-departmental teams on time sensitive projects.\item Received ‘\&itShows’ Employee Recognition Award (four stars) for collaboration - an inter departmental award, that requires nomination by fellow staff and required both manager and director approval to receive.	
+				\item Technologies got to work on:
+				PRZilla, BlackBerry OS, BlackBerry 10, Git/Gerrit
+				\end{itemize}
+			}
+		}
+		\cventry{Aug. 2011 - Apr. 2012}{I.T. Services Help Desk}{University of Windsor}{Windsor, Canada}{}{
+			{\footnotesize 
+				\begin{itemize}
+				\item Network troubleshooting, accessing university resources through personal computers.\item Provided support for installation as well as solving technical issues over the phone or remotely.	
+				\item Technologies got to work on:
+				Lotus Notes 8, Novell NetWare, Trend Micro
+				\end{itemize}
+			}
+		}
+
+
+\section{\textsc{Education}}
+%    \cventry{years}{degree/job title}{institution/employer}{localization}{grade}{description}
+\cventry{2015}{Bachelors of Science, Computer Science}{University of Windsor}{}{}{}
+\cventry{2010}{Edexcel GCE \& IGCSE}{St. Mary's Catholic High School, Dubai}{}{}{}
+
+\section{\textsc{Academic Achievements}}
+		% \cvitem{LHS}{RHS}
+		\cvitem{\textbullet}{University of Windsor Entrance Scholarship (\$4000).}
+		% \cvitem{LHS}{RHS}
+		\cvitem{\textbullet}{University of Windsor Residence Entrance Scholarship (\$6000)}
+
+
+\section{\textsc{Undergraduate Courses Taken}}
+		\cvlistdoubleitem
+		{\href{http://cs.uwindsor.ca/}{Computer Networks}}{\href{http://cs.uwindsor.ca/}{Graph Theory}}	
+		\cvlistdoubleitem
+		{\href{http://cs.uwindsor.ca/}{Data structures and Algorithms in Java}}{\href{http://cs.uwindsor.ca/}{Advanced C++11}}	
+
+
+
+
+
+
+\end{document}
+%% end of file `page.tex'.
