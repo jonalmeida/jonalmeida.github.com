@@ -5,11 +5,11 @@ category: posts
 
 ---
 
-I finally got down to writing this post after settling down back at university wth a proper schedule. When people ask about my last internship at Snowplow Analytics, they're always surprised and asking the same question, "Really? A remote internship? How does that work?". I wanted to write this down to show others what I've learned from my first remote work experience.
+I finally got down to writing this post after settling down back at university wth a proper schedule. When people ask about my last internship at [Snowplow Analytics](http://snowplowanalytics.com), they're always surprised and asking the same question, "Really? A remote internship? How does that work?". I wanted to write this down to show others what I've learned from my first remote work experience.
 
-### Pyjamas were my only work clothing
+### Pyjamas were not my only work clothing
 
-Yes, it's true at first that since you're working from home. You don't physcally interact with people, so you don't have to dress up any specific way. I started by waking up and then watch YouTube videos or read some news sites for a bit. Then pivot straight to opening my work environment and begin checking my email. An hour and a half later, I'd realize I hadn't eaten yet, so I'd go do that then clean up and get back at it until lunch. Some times I'd go straight from bed to emails until lunch (while snacking) to actually getting myself cleaned up. All of this was fun to do at first, just because I couldn't.
+Yes, it's true at first that since you're working from home, you don't physcally interact with people much, so you don't have to dress up in any specific way. I started my day by waking up and then watch YouTube videos or read some news sites for a bit. Then pivot straight to opening my work environment and begin checking my email. An hour and a half later, I'd realize I hadn't eaten yet, so I'd go do that then clean up and get back at it until lunch. Some times I'd go straight from bed to emails until lunch (while snacking) to actually getting myself cleaned up. All of this was fun to do at first, just because I couldn't.
 
 > ![I'm an adult... I guess..][adult]<br>
 
