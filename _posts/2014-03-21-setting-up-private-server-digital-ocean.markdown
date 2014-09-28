@@ -21,6 +21,7 @@ There's nothing to really say or explain about their set-up process. It's just e
 > 2. In your gitlab.yml file: `relative_url_root: /gitlab`
 > 3. In your unicorn.rb: `ENV['RAILS_RELATIVE_URL_ROOT'] = "/gitlab"`
 > 4. In ../gitlab-shell/config.yml: `gitlab_url: "http://127.0.0.1/gitlab"`
+> 5. In lib/support/nginx/gitlab : do not use asset gzipping, remove block starting with "location ~ ^/(assets)/"
 
 -----
 
