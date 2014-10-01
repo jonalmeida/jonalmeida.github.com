@@ -22,14 +22,14 @@ I'm taking down notes for Sam Altman's class, How to Start a Startup and I figur
 - What you need to succeed in a startup, is not expertise in startups.
 	- You take a french class to learn french.
 	- You take a startup class to succeed is to understand your users.
-- One of the characteristic mistakes of young founders: going through the motions of starting a startup.
+- One of the characteristic mistakes of young founders: going through the motions of starting a startup (SAS).
   - i.e. renting a office, hiring some friends, BUT NOT understanding their users and making something users want.
 - Motion of starting a startup was termed "playing house".
 - College classes are as artificial as running laps.
 - "Growth hacks" == "Bullshit"
 
 ## 3. Gaming the system
-- Starting a startup is where gamging the system stops working
+- SAS is where gamging the system stops working
 - Gaming the system might work in bigger companies.
 - In startups, there's no boss to trick.
 - Users only care about, "Does your software work?"
@@ -45,8 +45,8 @@ I'm taking down notes for Sam Altman's class, How to Start a Startup and I figur
 	- As the "daddy", he can't show fear or weakness
 	- Billionaire's can't complain about having a difficult life
 - In all successful YC companies, all founders say, "It never gets easier".
-- Starting a startup is like having kids?
-- People seem to think that you should start a startup in college.
+- SAS is like having kids?
+- People seem to think that you should SAS in college.
 	- You can't do this as a student because it takes up your entire life.
 	- Which one do you do then? (Be a student or SAS?)
 		- Hint: Don't do it in college. Period.
@@ -88,7 +88,7 @@ Q. *How can a non-technical founder most contribute to a startup?*
 **Ans.** If the startup is working in a specific domain, the non-technical one would be the doing the main tasks of getting the company to work. The technical one would just be writing the interfaces to use it (i.e. Android or iPhone app).
 If it was a technology startup, the non-technical founder does sales "and brings coffee and cheeseburgers to the programmer" (+1).
 
-Q. *Do you see value in business school for those who want to pursue entrepreneurship?*
+Q. *Do you see value in business schools for those who want to pursue entrepreneurship?*
 **Ans. ** Nope. Business Schools (BS) was designed for management. You only have management in an already successful startup. BS are trying to be that, but aren't doing it right.
 
 Q. *Management is only a problem if you're successful. What about those two or three people?*
