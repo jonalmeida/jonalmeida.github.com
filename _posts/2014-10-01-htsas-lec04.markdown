@@ -5,7 +5,7 @@ category: posts
 
 ---
 
-I'm taking down notes for Sam Altman's class, How to Start a Startup and I figured I'd start sharing them. This is for the [fourth lecture](https://www.youtube.com/watch?v=ii1jcLg-eIQ) with the following notes:
+I'm taking down notes for Sam Altman's class, How to Start a Startup and I figured I'd start sharing them. This is for the [fourth lecture](https://www.youtube.com/watch?v=yP176MBG9Tk) with the following notes:
 
 # Building a Product
 
