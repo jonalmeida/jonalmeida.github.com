@@ -85,42 +85,54 @@ Re-visiting: What can you do as a 20 year old?
 - i.e. Just.Learn.
 
 Q. *How can a non-technical founder most contribute to a startup?*
+
 **Ans.** If the startup is working in a specific domain, the non-technical one would be the doing the main tasks of getting the company to work. The technical one would just be writing the interfaces to use it (i.e. Android or iPhone app).
 If it was a technology startup, the non-technical founder does sales "and brings coffee and cheeseburgers to the programmer" (+1).
 
 Q. *Do you see value in business schools for those who want to pursue entrepreneurship?*
+
 **Ans. ** Nope. Business Schools (BS) was designed for management. You only have management in an already successful startup. BS are trying to be that, but aren't doing it right.
 
 Q. *Management is only a problem if you're successful. What about those two or three people?*
+
 **Ans.** The first hires aren't people you need to "manage". You have to treat them are almost like founders. They should be motivated by the same thing as your startup.
 
 Q. *Do you think we're currently in a bubble?*
+
 **Ans.** *Non-valuable question*
 
 Q. *People start labs that are supposed to start startups. Does this seem like a good idea?*
+
 **Ans.** They quite possibly could, but you don't have your own money to start these things.
 
 Q. *What advice do you have for female co-founders when you're pursing funding?*
+
 **Ans.** Female founders empirically have a harder time at raising funding.
   - Make your startup do really well.
   - Growth graphs have no gender, so let VCs fall in love with that.
 
 Q. *What would you (PG) learn in college right now?*
+
 **Ans.** Physics.
 
 Q. *What are your recurring systems in your work and personal life that make you efficient?*
+
 **Ans.** 
   - Having kids: you have no time left, so it forces you to focus because you have no choice.
   - Being forced to work with deadlines you can't avoid (which you have to sometimes create yourself).
 
 Q. *When is it a good time to turn a side project into a startup?*
+
 **Ans.** You will know. When it starts to take up your entire life that you don't have time for anything else.
 
 Q. *What to do when you have growth, but not very impressive one?*
+
 **Ans.** Read, "[Do things that don't scale](http://paulgraham.com/ds.html)".
 
 Q. *What are your strategies to figure out "what matters"?*
+
 **Ans.** If something (like technology) is spreading, anything on the edge is an interesting idea (i.e. bleeding edge).
 
 Q. *If you hire people you like, you start to get a mono-culture. How do you avoid that?*
+
 **Ans.** The advantages that you know and like are far greater than the disadvantages of having a mono-culture.

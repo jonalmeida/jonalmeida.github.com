@@ -1,0 +1,185 @@
+---
+layout: post
+title: How to Start a Startup - Lecture 5 Notes
+category: posts
+
+---
+
+I'm taking down notes for Sam Altman's class, How to Start a Startup and I figured I'd start sharing them. This is for the [fifth lecture](https://www.youtube.com/watch?v=5_0dVHMpJlo) with the following notes:
+
+# Strategy & Competition
+
+## Capturing value
+- If you're starting a company, aim for monopoly and avoid competition.
+
+### What makes a business valuable?
+- If you have a valuable company:
+	1. That it creates X dollars of value for the world
+	2. That you make Y% of X
+- People forget: X and Y are independent variables
+- Comparing airlines to Google:
+	- We can see airliners make more money than Google
+	- However, Google's profit margin is much higher (21% to 0.2%)
+
+### Perfect competition
+- Pros:
+	- Easy to model
+	- Efficient in a static world
+	- Politically salable
+- Cons:
+	- Psychologically unhealthy
+	- Irrelevant in a dynamic world
+	- Preempts question of value
+
+### Monopoly
+- Pros:
+	- Incentive to innovate
+	- Stable, long-term planning
+	- Deeper project financing
+	- symptomatic of creation
+- Cons:
+	- Lower output, higher prices
+	- Price discrimination
+	- Stifle Innovation
+	- Tying
+
+- These are the two kinds of companies (it really is black & white).
+	- This is not understood well because people are constantly lying about the nature of the business they are in.
+
+## The lies that people tell
+*(diagram of two firms to show perception)*
+
+- People who have monopolies pretend not to:
+	- They don't want the government coming after them
+	- Pretend they have incredible competition
+- People who have a lot of competition:
+	- "We are doing something unique!"
+- This causes a distortion because of the lies.
+- *(diagram showing this information in set theory)*
+	- Union shows monopoly saying, "We're in a narrow market".
+	- Intersection shows non-monopoly saying, "We're actually unique in this fast market".
+
+**Example:**
+
+- You open a restaurants
+- No one wants to invest because restaurants don't make money
+- You then lie and say something like, "We're the only British food in Palo Alto"
+	- Two intersections are made here: British food & Palo Alto
+
+**Example 2:**
+
+- Blockbuster movie you want to make on football hackers who try to catch sharks (?)
+- You say, "It's incredibly hard to make money in movies"
+	- The union here: football, hackers, sharks
+
+**Example 3 (Startup version):**
+
+- Startups that use the same buzz words: sharing, mobile, social, apps, sharing mobile, social apps.
+- Are these even real business?
+- "The something of somewhere, is really just the nothing of no where."
+
+**Example 4 (Large enterprise):**
+
+- Search engine market (Google): Describes itself as an advertising company.
+	- Advertising is part of online advertising, which is part of all advertising, which is part of global advertising.
+- Or saying it's a technology company
+	- Technology market consists with automobiles, smartphones, cloud, social network.
+	- "There's competition for us everywhere!"
+
+## How to build a monopoly
+
+- Go after small markets
+- It's easier to dominate a small market than a large one
+- If you think your initial market might be too big, it almost certainly is
+	- You haven't properly defined the market you're going after
+
+**Example:**
+Amazon started as just a bookstore. It has all the books in the world. It's online, there are things on it that you couldn't do before.
+Gradually expand to different kinds of ecommerce.
+
+**Example:**
+Ebay started selling pez dispensers -> beanie babies -> auctioning of different kinds of goods.
+
+- Counter Intuitive: these companies started in markets so small, that people don't think that they're valuable when they get started.
+
+**Example:**
+PayPal started with power sellers on ebay. It was a small market of people selling junk on the internet.
+
+### Start big and then shrink
+- Clean tech bubble companies started in big markets
+- You have tons of competitors and you don't even now who your competitors are
+- You DO NOT want to be the 4th online pet food company, or the 10th solar panel company, etc.
+- Large existing markets are very hard to get into
+
+## Last mover advantage
+Characteristics of monopolies:
+
+- Proprietary Technology
+- Network Effects
+- Economics of scale
+- Branding
+
+- All happy companies are different because they are doing something very unique.
+- All unhappy companies are alike because they fail to escape the sameness i.e. competition.
+
+- Have a technology that is an order of magnitude better than the next best thing.
+	- A very powerful improvement in a key dimension
+	- Something completely new is an infinite improvement better
+	- TLDR; get a massive delta over the next best thing
+
+- Branding:
+	- It can create great value, hard to invest in companies that work only in branding.
+
+- You want to be the "last mover", the last company in that category
+	- e.g. Microsoft was the last software company (for a long time)
+	- e.g. Google was the last search engine
+
+- Value in these companies exist far in the future.
+- **Note:** SV seems to overvalue growth rates and undervalues durability.
+- *(Chess analogy about being the last player)*
+
+## History of innovation
+- Innovation can become extremely valuable and often the creators/inventors do not get rewarded for this.
+	- This happens because X and Y are independent
+- History of science shows: Y = 0%
+	- Scientists are often deluded into thinking that they live in a just universe and will be rewarded for their work and inventions
+- E.g. (Einstein) smartest physicist of the 20th century, you come up with general relativity, you don't get to be a billionaire/millionaire. 
+
+- Two broad categories of people who have come up with new ideas and made money off of it:
+	- Vertically integrated complex monopolies (e.g. Ford, Standard Oil).
+		- Key to Elon Musk's Space X and Tesla is this structure
+		- There was no single massive breakthrough in technology, but integrating all the pieces together (better than competitors).
+
+## Psychology of competition
+- We think of the losers as people who can't compete.
+- We need to rethink this thinking:
+	1. We don't always understand this monopoly competition dicotomy intellectually
+	2. People lie about it (see above)
+	3. There's also a psychological blindspot
+		1. We find it reassuring if other people are doing things
+		2. Mimetic preferences
+	4. We think of competition as a form a validation
+
+- "Don't always go through the tiny little door that everyone is trying to rush through, maybe go around the corner and go through the vast gate that no one is taking."
+
+Q. *Monopolies and perfect competition often look similar. How do you easily tell the difference?*
+
+**Ans.** Ask the question: what is the actual market?
+
+Q. *Which of the aspects of monopolies that you mentioned, do you think software companies like Google excel at?*
+
+**Ans.** They have network effects, they had the proprietary technology that gave them the initial page rank algorithm which was an order of magnitude better. They had the economies of scale with the need to store all these sites. So Google basically had all four.
+
+Q. *undistinguishable question*
+
+**Ans.** Palantir started with the intelligence market that used a very different approach. 
+
+Q. *What do you think about lean startups, iterative thinking where you get feedback from people vs complexity that may not work?*
+
+**Ans.** Personally sceptical of all lean startup methodologies. The really great companies did something more of a quantum improvement that really differentiated them from everybody else. Typically, did not do massive surveys.
+
+If you take enough time to figure out what people want, you most often will have missed the boat by then.
+
+Q. *If you were someone who worked at a high paying company for 6 months, left to Stanford in comp sci. How would you recommend rethinking .. (undistinguishable bit)*
+
+**Ans.** There isn't any easy psychological formula to avoid it. Never under-estimate how big the problem really is.

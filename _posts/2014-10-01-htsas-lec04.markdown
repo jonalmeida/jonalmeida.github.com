@@ -139,5 +139,6 @@ I'm taking down notes for Sam Altman's class, How to Start a Startup and I figur
 		- The graph should start with an exponential growth.
 
 Q. *If your users already have a product that they're comfortable with, how do you get them to switch?*
+
 **Ans. ** Find the moments, when you're product is much more different from their original product. E.g. If you had a party and you needed the place to be cleaned the next day, you would advertise the next day cleaning part. That's when they start using it with the initial product and start to realize how your solution is better.
 "These are the 50 ways we're better than product X!" is harder to sell rather than a few points that clearly differentiate yourself.
