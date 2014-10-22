@@ -11,7 +11,7 @@ category: posts
 I'm taking down notes for Sam Altman's class, How to Start a Startup and I figured I'd start sharing them. This is for the [seventh lecture](https://www.youtube.com/watch?v=sz_LgBAGYyo) with the following notes:
 
 # Making Products Users Love
-
+	
 - How do we make things that have a passionate user base.
 - Our users are unconditionally want it to be successful: the products, and the company behind it.
 - Growth is the interaction between Conversion and Churn.
