@@ -1,0 +1,145 @@
+---
+layout: post
+title: How to Start a Startup - Lecture 10 Notes
+category: posts
+
+---
+
+I'm taking down notes for Sam Altman's class, How to Start a Startup and I figured I'd start sharing them. This is for the [tenth lecture](https://www.youtube.com/watch?v=RfWgVWGEuGE) with the following notes:
+
+# Building Culture
+
+## What is Company Culture?
+- Everyday _(a)_ and _(b)_ for each member of the team in pursuit of our company _(c)_.
+	- (a) = assumptions, beliefs, values, core values
+	- (b) = behaviours, actions
+	- (c) = goals, bhag (big hairy audacious goal), mission.
+
+### Why is matters?
+ - **First Principles** that you go back to when you make decisions.
+ - **Alignment** people to values that matter to the company.
+ - **Stability** to fall back on.
+ - **Trust** each other with.
+ - **Exclusion**
+ - **Retention**
+
+- It takes time to come up with a set of culture values that the company believes in.
+- Took a year to ask employees what core values they wanted and bring it down to 10.
+- Everyone says we want honest, service, team work, etc.
+- Instil the idea that it's company first, department, team and then yourself.
+
+### Elements of high performing teams
+- **Trust** you can actually have debates if you have conflict and debate.
+- **Conflict** if you don't have conflict and debate, it's just the blind leading the blind
+- **Commitment** people are not willing to commit then.
+- **Accountability** people are not held accountable to things they committed to
+- **Results** you can't get results then.
+
+### Best practices
+- Incorporate your mission to your values
+- Perforamnce - think harder, deeper, longer
+- Interview for culture fit (!)
+- Evaluate performance on culture
+- Make it a daily habit - if you don't you eventually stop doing it and the company slowly dies
+
+## Q/A with Brian (Airbnb)
+### Q. The process by which you came to realize that culture was important?
+
+**Ans.** 
+
+- Airbnb was supposed to be the idea to pay the rent to think of the big idea.
+- We were lucky to have a team that were up to your level (see lecture 9 notes).
+- Founders are like parents
+	- The company is the children: it's up to the "parents" to set the right attitude.
+	- You would want your child to endure and out live you.
+- **Core values learned:**
+	- Behaviours that change over time
+	- Some principles that never change.
+
+### Q. How long did it take you to hire your first employee?
+
+**Ans.** 
+
+- First employee was the first engineer.
+- Interviewed for 4 months.
+- Your first engineer was bringing in DNA to your company
+	- There would be a 1000 people like this person.
+	- Do I want to work with 1000 of this kind of people
+	- You want diversity of backgrounds, age, etc.
+		- *You don't want diversity of values*
+
+### Q. What are Airbnb's values?
+
+**Ans.** 
+
+1. Champion the mission - we want to hire people for the mission.
+2. Be creative & frugal
+*(better to watch this bit with the stories)*
+
+### Q. How does having a story culture helped you make strong decisions?
+
+**Ans.**
+Three things no one tells you about culture:
+
+1. No one ever tells you about culture
+2. It's hard to measure
+3. It doesn't pay off in the short-term
+
+- Interview for World Class & they fit the culture.
+
+### Q. Culture and brand were two sides of the same coin. Talk about branding for a bit.
+
+**Ans.**
+
+- There's no such thing as a good or bad culture. A culture that's good for someone doesn't necessarily have to be a good culture for you.
+- Brand is the connection between you and customers. If you have a really strong culture, the brand will come through.
+
+
+### Q. How did you communicate what Airbnb does in the early days?
+
+**Ans.**
+
+- Early days, we communicated like a utility - it's a cheap alternative to hotels.
+	- This under-cut the ideas.
+- Did a lot of story telling.
+- Articulate the vision over and over again.
+
+### Q. How do we make sure the hosts are re-enforcing the culture of Airbnb?
+
+**Ans.**
+
+- Late to realizing this, but are gradually re-inforcing this in every step of the way.
+- Bad hosts were seriously affecting the business.
+- Hosts are partners. Had to get hosts that believed in this same values.
+- The super-host program gives them extra support and stuff.
+
+### Q. Airbnb has made contributions to the open source community. Thoughts on how that contributes to the thoughts around the development team?
+
+**Ans.**
+
+- We try to be a generally open culture.
+- Strong identification of the team.
+	- Every company needed a mote that protects from your competition.
+	- Wanted to be better technology. Changed this to be giving the best experience in the world instead.
+- The engineers (with those same strong culture values) independently decided this was a thing they should do.
+
+### Q. There weren't that many visitors to the site when trying to get off the ground. How did you get users to the site?
+
+**Ans.**
+
+- (Not about culture)
+- "It's better to have 100 people who love you, than to have a million people that just kinda sorta like you." - PG
+- **To get 100 people to love you, you need to do things that don't scale.**
+- Living with your users and spending time with them.
+- Giving them attention to the point that they were really passionate.
+- A lot of things were done manually for the users.
+- Until they knew exactly what the perfect service was, *only then did they create the tools and technology to do it.*
+
+### Q. A lot of people think Airbnb is more of a marketing company? Thoughts?
+
+**Ans.**
+
+- Have to work with a lot of things like people's *ACTUAL* security since there are people sleeping in their hosts' sheets.
+- Countries that need to be convinced that this is a good thing for them.
+- Matching the right people with the right hosts.
+- These are just a few of the things that they have to do, so it would be wrong to call them a marketing company.
