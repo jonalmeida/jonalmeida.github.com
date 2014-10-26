@@ -18,7 +18,7 @@
         ],
         "summary": {
             "points": [
-                "Independent, competent and highly productive with responsibilities",
+                "Independent, competent and highly productive with responsibilities.",
                 "Identity: <a href=\"https://keybase.io/jonalmeida\">keybase.io/jonalmeida</a>"
             ]
         },
@@ -43,21 +43,6 @@
                     "tagline": "Snowplow event tracker for Android. Add analytics to your Android apps and games.",
                     "description": [
                         "Inherting from the Java Tracker, the Android tracker extends it's functionality with Android specifics."
-                    ]
-                },
-                {
-                    "project_name": "jonalmeida/geo_android",
-                    "tagline": "Android client for Pseudochat",
-                    "description": [
-                        "Anonymously posts messages viewable to other users only within that location.",
-                        "Single-handedly architectured the client UI and service."
-                    ]
-                },
-                {
-                    "project_name": "evilolive/Notepad",
-                    "tagline": "A simple notepad iOS app with Markdown support",
-                    "description": [
-                        "A very simple note taking application, intended to have Markdown support."
                     ]
                 }
             ]
@@ -119,7 +104,7 @@
             "items": [
                 {
                     "title": "Software Developer Intern",
-                    "organisation": "Snowplow Analytics Ltd.",
+                    "organisation": "Snowplow Analytics Ltd",
                     "from": "May. 2014",
                     "to": "August. 2014",
                     "details": [
@@ -142,16 +127,16 @@
                 },
                 {
                     "title": "Software Developer Intern",
-                    "organisation": "BlackBerry",
+                    "organisation": "BlackBerry Ltd",
                     "from": "May. 2013",
                     "to": "Dec. 2013",
                     "details": [
                         "Single handedly developed and maintained management of the [Notification Settings in Cascades/Qt](http://jonalmeida.com/resume/notification_screenshots) (a task not usually reserved for internship developers).",
-                        "Responded to Quality Assurance and incorporated re-design to the same Notification settings UI frontend/backend to enhance new product requirements and API’s",
+                        "Responded to QA and incorporated re-design to the same Notification settings UI frontend/backend to enhance new product requirements and API’s",
                         "Assisted and collaborated with other internal teams to provide specific requirements to the UI.",
                         "Worked on IPC and parsing information from the BlackBerry 10 notification service.",
                         "Created an automation test build machine as a Jenkins node to the existing internal Jenkins farm.",
-                        "Developed G-test test cases for verifying API communication on the BlackBerry 10 platform.",
+                        "Developed GTest test cases for verifying API communication on the BlackBerry 10 platform.",
                         "Managed and prioritized related issues within the project using JIRA."
                     ],
                     "technology_used": {
@@ -168,7 +153,7 @@
                 },
                 {
                     "title": "Slipstream Software Test Developer Intern",
-                    "organisation": "BlackBerry",
+                    "organisation": "BlackBerry Ltd",
                     "from": "May. 2012",
                     "to": "Dec. 2012",
                     "details": [
