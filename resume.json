@@ -19,6 +19,10 @@
         "github_projects": {
             "details": [
                 {
+                    "project_name": "jonalmeida/hack-the-north-crazyflie",
+                    "tagline": "Crazyflie nano quadcopter controlled with a Leapmotion controller."
+                },
+                {
                     "project_name": "snowplow/snowplow-java-tracker",
                     "tagline": "Adds analytics to your Java desktop and server apps, servlets and games."
                 },
