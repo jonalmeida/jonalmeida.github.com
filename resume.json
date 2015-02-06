@@ -19,6 +19,10 @@
         "github_projects": {
             "details": [
                 {
+                    "project_name": "vicinium/vicinium-android",
+                    "tagline": "A micro location-based chat application for Android; like IRC, but location-based."
+                },
+                {
                     "project_name": "jonalmeida/hack-the-north-crazyflie",
                     "tagline": "Crazyflie nano quadcopter controlled with a Leapmotion controller."
                 },

@@ -7,6 +7,7 @@ Technical Skills
     - Databases: MySQL/SQLite, PostgreSQL
     - Systems: GitHub, JIRA, PRZilla
 Github Projects
+    - vicinium/vicinium-android - A micro location-based chat application for Android; like IRC, but location-based.
     - jonalmeida/hack-the-north-crazyflie - Crazyflie nano quadcopter controlled with a Leapmotion controller.
     - snowplow/snowplow-java-tracker - Adds analytics to your Java desktop and server apps, servlets and games.
     - snowplow/snowplow-ios-tracker - Snowplow event tracker for iOS 7+. Adds analytics to your iOS apps and games.
