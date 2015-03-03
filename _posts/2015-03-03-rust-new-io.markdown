@@ -39,9 +39,6 @@ println!("We read a new line: {}", buffer_string);
 A simple example for writing to a file is to start by creating your [`Path`][path], and an [`OpenOptions`][openoptions]. An `OpenOptions` is how you provide the file permissons and that you would need to read or write to a file appropriately.
 
 ``` rust
-let path = Path::new("test_file.txt");
-// We can also just use a string slice:
-// let path = "test_file.txt";
 let mut options = OpenOptions::new();
 // We want to write to our file as well as append new data to it.
 options.write(true).append(true);
@@ -51,8 +48,10 @@ options.write(true).append(true);
 You can also add `.read(true)` instead read permissions as an alternate way to read from the file. Although, the interesting part about `OpenOptions` is that you can re-use the options set for multiple files:
 
 ``` rust
-// Two different files
-let path = "test_file.txt";
+// We can create a Path
+let path = Path::new("test_file.txt");
+
+// or we can also just use a string slice:
 let path2 = "test_file2.txt";
 
 // We create file options to write
