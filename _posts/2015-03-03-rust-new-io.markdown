@@ -40,6 +40,8 @@ A simple example for writing to a file is to start by creating your [`Path`][pat
 
 ``` rust
 let path = Path::new("test_file.txt");
+// We can also just use a string slice:
+// let path = "test_file.txt";
 let mut options = OpenOptions::new();
 // We want to write to our file as well as append new data to it.
 options.write(true).append(true);
@@ -50,16 +52,16 @@ You can also add `.read(true)` instead read permissions as an alternate way to r
 
 ``` rust
 // Two different files
-let path = Path::new("test_file.txt");
-let path2 = Path::new("test_file2.txt"); 
+let path = "test_file.txt";
+let path2 = "test_file2.txt";
 
 // We create file options to write
 let mut options = OpenOptions::new();
 options.write(true)
 
 // Both of these should be valid
-let file: Result<File, Error> = options.open(&path.clone());
-let file2: Result<File, Error> = options.open(&path2.clone());
+let file: Result<File, Error> = options.open(path);
+let file2: Result<File, Error> = options.open(path2);
 ```
 <br>
 ### The actual writing bit
