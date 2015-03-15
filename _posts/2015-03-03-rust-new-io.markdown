@@ -45,7 +45,7 @@ options.write(true).append(true);
 ```
 <br>
 
-You can also add `.read(true)` instead read permissions as an alternate way to read from the file. Although, the interesting part about `OpenOptions` is that you can re-use the options set for multiple files:
+You can also add `.read(true)` for read permissions as an alternate way to read from the file. Although, the interesting part about `OpenOptions` is that you can re-use the options set for multiple files:
 
 ``` rust
 // We can create a Path
