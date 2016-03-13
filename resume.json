@@ -1,6 +1,6 @@
 {
     "settings": {
-        "glyphicons": true
+        "icons" : true
     },
     "firstname": "Jonathan",
     "familyname": "Almeida",
@@ -8,35 +8,27 @@
     "github_id": "jonalmeida",
     "bio_data": {
         "email": "me@jonalmeida.com",
-        "phone": "+1 (226) 347-1360",
         "website": "keybase.io/jonalmeida",
-        "stars": [
-            "Linux",
-            "Java",
-            "C++",
-            "Git"
-        ],
+        "stars": ["Android","Python","Git","C/C++"],
         "github_projects": {
             "details": [
                 {
+                    "project_name": "jonalmeida/ws-p2p",
+                    "description": [
+                        "Peer-to-peer network with causally ordered messages using WebSockets with Rust."
+                    ]
+                },
+                {
                     "project_name": "vicinium/vicinium-android",
-                    "tagline": "A micro location-based chat application for Android; like IRC, but location-based."
+                    "description": [
+                        "A micro location-based chat application for Android; like IRC, but location-based."
+                    ]
                 },
                 {
                     "project_name": "jonalmeida/hack-the-north-crazyflie",
-                    "tagline": "Crazyflie nano quadcopter controlled with a Leapmotion controller."
-                },
-                {
-                    "project_name": "snowplow/snowplow-java-tracker",
-                    "tagline": "Adds analytics to your Java desktop and server apps, servlets and games."
-                },
-                {
-                    "project_name": "snowplow/snowplow-ios-tracker",
-                    "tagline": "Snowplow event tracker for iOS 7+. Adds analytics to your iOS apps and games."
-                },
-                {
-                    "project_name": "snowplow/snowplow-android-tracker",
-                    "tagline": "Snowplow event tracker for Android. Add analytics to your Android apps and games."
+                    "description": [
+                        "Micro-quadcopter controlled with a Leap Motion controller."
+                    ]
                 }
             ]
         },
@@ -47,26 +39,20 @@
                     "items": [
                         "Python",
                         "Java",
-                        "C/C++",
+                        "C++",
                         "Javascript",
-                        "Objective-C",
+                        "Rust",
                         "Bash",
                         "Qt/QML"
                     ]
                 },
                 {
-                    "type": "Databases",
+                    "type": "Frameworks & Other",
                     "items": [
-                        "MySQL/SQLite",
-                        "PostgreSQL"
-                    ]
-                },
-                {
-                    "type": "Systems",
-                    "items": [
-                        "GitHub",
-                        "JIRA",
-                        "PRZilla"
+                        "Firebase",
+                        "Parse",
+                        "NodeJS",
+                        "MySQL/SQLite"
                     ]
                 }
             ]
@@ -78,106 +64,104 @@
                     "major": "Computer Science",
                     "institution": "University of Windsor",
                     "graduation_year": 2016
-                },
-                {
-                    "degree": "Edexcel GCE & IGCSE",
-                    "major": "-",
-                    "institution": "St. Mary's Catholic High School, Dubai",
-                    "graduation_year": 2010
                 }
-            ]
-        },
-        "acad_achievements": {
-            "items": [
-                "University of Windsor Entrance Scholarship ($4000).",
-                "University of Windsor Residence Entrance Scholarship ($6000)"
             ]
         },
         "experience": {
             "items": [
                 {
-                    "title": "Software Developer Intern",
-                    "organisation": "Snowplow Analytics Ltd",
-                    "from": "May. 2014",
-                    "to": "August. 2014",
+                    "title": "Firefox Mobile Intern",
+                    "organisation": "Mozilla",
+		            "location": "San Francisco",
+                    "from": "June. 2015",
+                    "to": "Sept. 2015",
                     "details": [
-                        "Rewrote and modularized the Java event tracker along with new features and functionality; released <a href=\"http://snowplowanalytics.com/tags.html#java\">multiple version updates</a> over time.",
-                        "Released the <a href=\"http://snowplowanalytics.com/tags.html#ios\">iOS</a> & <a href=\"http://snowplowanalytics.com/tags.html#android\">Android</a> event tracker, inheriting from the Java core library.",
-                        "Setup continuous integration build environments for running unit tests. Managed and prioritized related issues within the projects using GitHub Issues."
+                        "\"[Click-to-view images](http://www.ghacks.net/2015/09/30/firefox-for-android-gets-click-to-play-for-pictures/)\" in Firefox for Android to reduce bandwidth usages.",
+                        "Setup a remote device farm for accessing un-used devices for a team spread across multiple offices.",
+                        "Converting [Quick Search](https://medium.com/@antlam/quick-search-bdd374257e75) ListView for more performant RecyclerView."
                     ],
                     "technology_used": {
                         "tools": [
-                            "Xcode",
-                            "Android Developer Studio",
-                            "Eclipse",
-                            "Travis CI",
-                            "SQLite",
-                            "Git/GitHub"
+                            "Android",
+                            "Javascript"
                         ]
                     }
                 },
                 {
                     "title": "Software Developer Intern",
-                    "organisation": "BlackBerry Ltd",
+                    "organisation": "Snowplow Analytics Ltd.",
+                    "from": "May. 2014",
+                    "to": "Aug. 2014",
+                    "details": [
+                        "Created and modularized the Java event tracker; released [multiple version updates.](http://snowplowanalytics.com/tags.html#java)",
+                        "Released the [iOS](http://snowplowanalytics.com/tags.html#ios) and [Android](http://snowplowanalytics.com/tags.html#android) trackers, inheriting from the Java core library.",
+                        "Managed and prioritized feature release schedules on GitHub; CI integration, etc."
+                    ]
+                },
+                {
+                    "title": "Software Developer Intern",
+                    "organisation": "BlackBerry Ltd.",
                     "from": "May. 2013",
                     "to": "Dec. 2013",
                     "details": [
                         "Single handedly developed and maintained management of the [Notification Settings in Cascades/Qt](http://jonalmeida.com/resume/notification_screenshots) (a task not usually reserved for internship developers).",
-                        "Responded to QA and incorporated re-design to the same Notification settings UI frontend/backend to enhance new product requirements and API’s",
-                        "Assisted and collaborated with other internal teams to provide specific requirements to the UI.",
+                        "Worked with QA and product team to redesign and re-architecture the Settings UI to meet new product and technical requirements.",
+                        "Implemented deep linking for third-party applications to link to their Settings UI.",
                         "Created an automation test build machine as a Jenkins node to the existing internal Jenkins farm while creating GTest test cases for it."
                     ],
                     "technology_used": {
                         "tools": [
                             "Qt/QML",
-                            "Cascades",
-                            "Eclipse",
-                            "G-test",
-                            "Robot Framework",
-                            "SQLite",
-                            "Git/Gerrit"
+                            "C++",
+                            "Jenkins",
+                            "Bash"
                         ]
                     }
                 },
                 {
-                    "title": "Slipstream Software Test Developer Intern",
-                    "organisation": "BlackBerry Ltd",
+                    "title": "Software Test Developer Intern",
+                    "organisation": "BlackBerry Ltd.",
                     "from": "May. 2012",
                     "to": "Dec. 2012",
                     "details": [
                         "Primary support for remote QA team with issues they would encounter during their testing.",
-                        "Created test cases from situational matrices for Blackberry 10 Bridge project.",
-                        "Investigation and verification into issues that were being seen on an infrastructure level of development.",
+                        "Investigation and verification into issues seen on an infrastructure level of development.",
                         "Mentored junior coops on a daily basis with all the above mentioned tasks.",
-                        "Selected to work in multiple war rooms with cross-departmental teams on time sensitive projects.",
-                        "Received ‘&itShows’ Employee Recognition Award (four stars) for collaboration - an inter departmental award, that requires nomination by fellow staff and required both manager and director approval to receive."
-                    ],
-                    "technology_used": {
-                        "tools": [
-                            "PRZilla",
-                            "BlackBerry OS",
-                            "BlackBerry 10",
-                            "Git/Gerrit"
-                        ]
-                    }
+                        "Work in multiple war rooms with cross-departmental teams on time sensitive projects.",
+                        "Received ‘&itShows’ Employee Recognition Award for collaboration - an inter departmental award, that requires nomination by fellow staff and required both manager and director approval to receive."
+                    ]
                 },
                 {
                     "title": "I.T. Services Help Desk",
                     "organisation": "University of Windsor",
-                    "location": "Windsor, Canada",
                     "from": "Aug. 2011",
                     "to": "Apr. 2012",
                     "details": [
-                        "Network troubleshooting, accessing university resources through personal computers.",
                         "Provided support for installation as well as solving technical issues over the phone or remotely."
                     ],
                     "technology_used": {
                         "tools": [
-                            "Lotus Notes 8",
+                            "Lotus Notes",
                             "Novell NetWare",
                             "Trend Micro"
                         ]
                     }
+                }
+            ]
+        },
+        "other_projects": {
+            "items": [
+                {
+                    "headline": "Held workshops for introductions to Git/version control."
+                },
+                {
+                    "headline": "Technical Reviewer for Global Hackathon Seoul (reviewed 1000+ global applicants)."
+                },
+                {
+                    "headline": "Mentored at various hackathons.",
+                    "points": [
+                        "McHacks, WearHacks, UofTHacks, HackWesterm, etc."
+                    ]
                 }
             ]
         }

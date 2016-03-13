@@ -1,4 +1,4 @@
-\documentclass[11pt,a4paper]{moderncv}
+ss[11pt,a4paper]{moderncv}
 
 \moderncvtheme[black]{classic}
 
@@ -7,8 +7,8 @@
 
 \firstname{Jonathan}
 \familyname{\mbox{Almeida}}
-\title{\small Linux $\star$ Java $\star$ C++ $\star$ Git}
-\phone{+1 (226) 347-1360}
+\title{\small Android $\star$ Python $\star$ Git $\star$ C/C++}
+
 \email{me@jonalmeida.com}
 \homepage{keybase.io/jonalmeida}
 \social[linkedin]{jonalmeida}
@@ -32,100 +32,115 @@
 %----------------------------------------------------------------------------------
 \begin{document}
 \maketitle
-\vspace*{-1.0cm}
+\vspace*{-1cm}
 
 
 \section{\textsc{Technical Skills}}
-		\cvitem{\textbullet}{\textbf{Programming Languages}: Python, Java, C/C++, Javascript, Objective-C, Bash, Qt/QML}
-		\cvitem{\textbullet}{\textbf{Databases}: MySQL/SQLite, PostgreSQL}
-		\cvitem{\textbullet}{\textbf{Systems}: GitHub, JIRA, PRZilla}
+        \cvitem{\textbullet}{\textbf{Programming Languages}: Python, Java, C++, Javascript, Rust, Bash, Qt/QML}
+        \cvitem{\textbullet}{\textbf{Frameworks \& Other}: Firebase, Parse, NodeJS, MySQL/SQLite}
 
-\section{\textsc{Github Projects}}
-        \cvitem{\textbullet}{\textbf{\href{https://github.com/vicinium/vicinium-android}{vicinium/vicinium-android}}}
-		\vspace*{-0.15cm}
+\section{\textsc{GitHub Projects}}
+        \cvitem{\textbullet}{\textbf{\href{http://github.com/jonalmeida/ws-p2p}{jonalmeida/ws-p2p}}}
+        \vspace*{-0.15cm}
         \cvitem{}{
-			{\footnotesize
+            {\footnotesize
+                \begin{itemize}
+                \item Peer-to-peer network with causally ordered messages using WebSockets with Rust.
+                \end{itemize}
+            }
+        }
+        \vspace*{-0.5cm}
+        \cvitem{\textbullet}{\textbf{\href{http://github.com/vicinium/vicinium-android}{vicinium/vicinium-android}}}
+        \vspace*{-0.15cm}
+        \cvitem{}{
+            {\footnotesize
                 \begin{itemize}
                 \item A micro location-based chat application for Android; like IRC, but location-based.
                 \end{itemize}
-			}
-		}
+            }
+        }
         \vspace*{-0.5cm}
-        \cvitem{\textbullet}{\textbf{\href{https://github.com/jonalmeida/hack-the-north-crazyflie}{jonalmeida/hack-the-north-crazyflie}}}
-		\vspace*{-0.15cm}
+        \cvitem{\textbullet}{\textbf{\href{http://github.com/jonalmeida/hack-the-north-crazyflie}{jonalmeida/hack-the-north-crazyflie}}}
+        \vspace*{-0.15cm}
         \cvitem{}{
-			{\footnotesize
+            {\footnotesize
                 \begin{itemize}
-                \item Crazyflie nano quadcopter controlled with a Leapmotion controller.
+                \item Micro-quadcopter controlled with a Leap Motion controller.
                 \end{itemize}
-			}
-		}
-		\vspace*{-0.5cm}
-		\cvitem{\textbullet}{\textbf{\href{http://github.com/snowplow/snowplow-java-tracker}{snowplow/snowplow-java-tracker}}}
-		\vspace*{-0.15cm}
-        \cvitem{}{
-			{\footnotesize
-                \begin{itemize}
-                \item Adds analytics to your Java desktop and server apps, servlets and games.
-                \end{itemize}
-			}
-		}
-		\vspace*{-0.5cm}
-		\cvitem{\textbullet}{\textbf{\href{http://github.com/snowplow/snowplow-ios-tracker}{snowplow/snowplow-ios-tracker}}}
-		\vspace*{-0.15cm}
-		\cvitem{}{
-			{\footnotesize
-                \begin{itemize}
-                \item Snowplow event tracker for iOS 7+. Adds analytics to your iOS apps and games.
-                \end{itemize}
-			}
-		}
-		\vspace*{-0.5cm}
-		\cvitem{\textbullet}{\textbf{\href{http://github.com/snowplow/snowplow-android-tracker}{snowplow/snowplow-android-tracker}}}
-		\vspace*{-0.15cm}
-		\cvitem{}{
-			{\footnotesize
-                \begin{itemize}
-                \item Snowplow event tracker for Android. Add analytics to your Android apps and games.
-                \end{itemize}
-			}
-		}
-		\vspace*{-0.5cm}
+            }
+        }
+        \vspace*{-0.5cm}
 
 \section{\textsc{Professional Experience}}
 %    \cventry{years}{degree/job title}{institution/employer}{localization}{grade}{description}
-		\cventry{May. 2014 - August. 2014}{Software Developer Intern}{Snowplow Analytics Ltd}{}{}{
-			{\footnotesize
-				\begin{itemize}
-				\item Rewrote and modularized the Java event tracker along with new features and functionality; released {\color{see}\href{http://snowplowanalytics.com/tags.htm\#java}{multiple version updates}} over time.\item Released the {\color{see}\href{http://snowplowanalytics.com/tags.html\#ios}{iOS}} \& {\color{see}\href{http://snowplowanalytics.com/tags.html\#android}{Android}} event tracker, inheriting from the Java core library.\item Setup continuous integration build environments for running unit tests. Managed and prioritized related issues within the projects using GitHub Issues.\end{itemize}
-			}
-		}
-		\cventry{May. 2013 - Dec. 2013}{Software Developer Intern}{BlackBerry Ltd}{}{}{
-			{\footnotesize
-				\begin{itemize}
-				\item Single handedly developed and maintained management of the {\color{see} \href{http://jonalmeida.com/resume/notification\_screenshots}{Notification Settings in Cascades/Qt}} (a task not usually reserved for internship developers).\item Responded to QA and incorporated re-design to the same Notification settings UI frontend/backend to enhance new product requirements and API’s\item Assisted and collaborated with other internal teams to provide specific requirements to the UI.\item Created an automation test build machine as a Jenkins node to the existing internal Jenkins farm while creating GTest test cases for it.\end{itemize}
-			}
-		}
-		\cventry{May. 2012 - Dec. 2012}{Slipstream Software Test Developer Intern}{BlackBerry Ltd}{}{}{
-			{\footnotesize
-				\begin{itemize}
-				\item Primary support for remote QA team with issues they would encounter during their testing.\item Investigation and verification into issues seen on an infrastructure level of development.\item Mentored junior coops on a daily basis with all the above mentioned tasks.\item Selected to work in multiple war rooms with cross-departmental teams on time sensitive projects.\item Received ‘\&itShows’ Employee Recognition Award (four stars) for collaboration - an inter departmental award, that requires nomination by fellow staff and required both manager and director approval to receive.\end{itemize}
-			}
-		}
-        \cventry{Aug. 2011 - Apr. 2012}{I.T. Services Help Desk}{University of Windsor}{Windsor, Canada}{}{
-			{\footnotesize
-				\begin{itemize}
-				\item Network troubleshooting, accessing university resources through personal computers.\item Provided support for installation as well as solving technical issues over the phone or remotely.
-				\item Technologies got to work on: Lotus Notes 8, Novell NetWare, Trend Micro
-				\end{itemize}
-			}
-		}
+        \cventry{June. 2015 - Sept. 2015}{Firefox Mobile Intern}{Mozilla}{San Francisco}{}{
+            {\footnotesize
+                \begin{itemize}
+                \item "{\color{see} \href{http://www.ghacks.net/2015/09/30/firefox-for-android-gets-click-to-play-for-pictures/}{Click-to-view images}}" in Firefox for Android to reduce bandwidth usages.\item Setup a remote device farm for accessing un-used devices for a team spread across multiple offices.\item Converting {\color{see} \href{https://medium.com/@antlam/quick-search-bdd374257e75}{Quick Search}} ListView for more performant RecyclerView.
+                \item Technologies got to work on:
+                Android, Javascript
+                \end{itemize}
+            }
+        }
+        \cventry{May. 2014 - Aug. 2014}{Software Developer Intern}{Snowplow Analytics Ltd.}{}{}{
+            {\footnotesize
+                \begin{itemize}
+                \item Created and modularized the Java event tracker; released {\color{see} \href{http://snowplowanalytics.com/tags.html\#java}{multiple version updates.}}\item Released the {\color{see} \href{http://snowplowanalytics.com/tags.html\#ios}{iOS}} and {\color{see} \href{http://snowplowanalytics.com/tags.html\#android}{Android}} trackers, inheriting from the Java core library.\item Managed and prioritized feature release schedules on GitHub; CI integration, etc.
+                \end{itemize}
+            }
+        }
+        \cventry{May. 2013 - Dec. 2013}{Software Developer Intern}{BlackBerry Ltd.}{}{}{
+            {\footnotesize
+                \begin{itemize}
+                \item Single handedly developed and maintained management of the {\color{see} \href{http://jonalmeida.com/resume/notification\_screenshots}{Notification Settings in Cascades/Qt}} (a task not usually reserved for internship developers).\item Worked with QA and product team to redesign and re-architecture the Settings UI to meet new product and technical requirements.\item Implemented deep linking for third-party applications to link to their Settings UI.\item Created an automation test build machine as a Jenkins node to the existing internal Jenkins farm while creating GTest test cases for it.
+                \item Technologies got to work on:
+                Qt/QML, C++, Jenkins, Bash
+                \end{itemize}
+            }
+        }
+        \cventry{May. 2012 - Dec. 2012}{Software Test Developer Intern}{BlackBerry Ltd.}{}{}{
+            {\footnotesize
+                \begin{itemize}
+                \item Primary support for remote QA team with issues they would encounter during their testing.\item Investigation and verification into issues seen on an infrastructure level of development.\item Mentored junior coops on a daily basis with all the above mentioned tasks.\item Work in multiple war rooms with cross-departmental teams on time sensitive projects.\item Received ‘\&itShows’ Employee Recognition Award for collaboration - an inter departmental award, that requires nomination by fellow staff and required both manager and director approval to receive.
+                \end{itemize}
+            }
+        }
+        \cventry{Aug. 2011 - Apr. 2012}{I.T. Services Help Desk}{University of Windsor}{}{}{
+            {\footnotesize
+                \begin{itemize}
+                \item Provided support for installation as well as solving technical issues over the phone or remotely.
+                \item Technologies got to work on:
+                Lotus Notes, Novell NetWare, Trend Micro
+                \end{itemize}
+            }
+        }
 
+\section{\textsc{Other Personal Projects}}
+        \cvitem{\textbullet}{Held workshops for introductions to Git/version control.}
+        \cvitem{\textbullet}{Technical Reviewer for Global Hackathon Seoul (reviewed 1000+ global applicants).}
+        \cvitem{\textbullet}{Mentored at various hackathons.}
+        \vspace*{-0.15cm}
+        \cvitem{}{
+            {\footnotesize
+                \begin{itemize}
+                \item McHacks, WearHacks, UofTHacks, HackWesterm, etc.
+                \end{itemize}
+            }
+        }
+        \vspace*{-0.5cm}
 
 \section{\textsc{Education}}
 %    \cventry{years}{degree/job title}{institution/employer}{localization}{grade}{description}
 \cventry{2016}{Bachelors of Science, Computer Science}{University of Windsor}{}{}{}
-\cventry{2010}{Edexcel GCE \& IGCSE}{St. Mary's Catholic High School, Dubai}{}{}{}
+
+
+
+
+
+
+
 
 
 \end{document}
+%% end of file `page.tex'.
+

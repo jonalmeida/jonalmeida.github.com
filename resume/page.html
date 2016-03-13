@@ -1,155 +1,143 @@
-		<link rel="stylesheet" type="text/css" href="public/css/bootstrap.min.css" />
-		<script>document.getElementById('github-png').innerHTML = '<img src="public/images/github.png" style="width:22px"></img> ';
-		</script>
+<link rel="stylesheet" type="text/css" href="public/css/bootstrap.min.css" />
 <link rel="stylesheet" type="text/css" href="public/css/screen.css" />
+<link rel="stylesheet" type="text/css" href="public/css/mobile.css" />
 <div id="page">
-	<div class="contact-details">
-		<span class="glyphicon glyphicon-envelope"></span> me@jonalmeida.com<br/>
-		<span class="glyphicon glyphicon-earphone"></span> +1 (226) 347-1360<br/>
-		<span class="glyphicon glyphicon-globe"></span>
-		<a href="keybase.io/jonalmeida"> keybase.io/jonalmeida</a>
+	<div id="top-contact">
+		<div class="contact-details">
+			<div class="icon-envelope icon-square"></div> me@jonalmeida.com<br />
+			<div class="icon-globe icon-square"></div><a href="keybase.io/jonalmeida"> keybase.io/jonalmeida</a>
+		</div>
 	</div>
-
-	<h1 class="emphnext">Jonathan Almeida</h1><br/>
-	<span class="stars">
-		 Linux <span class="glyphicon glyphicon-star-empty"></span>
-		 Java <span class="glyphicon glyphicon-star-empty"></span>
-		 C++ <span class="glyphicon glyphicon-star-empty"></span>
-		 Git
+	
+	<h1 class="emphnext">Jonathan Almeida</h1>
+	<span class="stars" style="clear:left">
+		 Android <div class="icon-star-o icon-star"></div>
+		 Python <div class="icon-star-o icon-star"></div>
+		 Git <div class="icon-star-o icon-star"></div>
+		 C/C++ 
 	</span>
-	<br/>
+	<br/><br/>
 
 
-	<h2><span id="github-png"></span>GitHub Projects</h2>
+	<h2><div class="icon-github icon-square"></div> GitHub Projects</h2>
 	<ul>
-        <li><a href="https://github.com/vicinium/vicinium-android">vicinium/vicinium-android</a>
-		 &raquo; A micro location-based chat application for Android; like IRC, but location-based.
+		<li><a href="https://github.com/jonalmeida/ws-p2p">jonalmeida/ws-p2p</a>
+		
 			<ul>
+				<li>Peer-to-peer network with causally ordered messages using WebSockets with Rust.</li>
 			</ul>
 		</li>
-        <li><a href="https://github.com/jonalmeida/hack-the-north-crazyflie">jonalmeida/hack-the-north-crazyflie</a>
-		 &raquo; Crazyflie nano quadcopter controlled with a Leapmotion controller.
+		<li><a href="https://github.com/vicinium/vicinium-android">vicinium/vicinium-android</a>
+		
 			<ul>
+				<li>A micro location-based chat application for Android; like IRC, but location-based.</li>
 			</ul>
 		</li>
-		<li><a href="https://github.com/snowplow/snowplow-java-tracker">snowplow/snowplow-java-tracker</a>
-		 &raquo; Adds analytics to your Java desktop and server apps, servlets and games.
+		<li><a href="https://github.com/jonalmeida/hack-the-north-crazyflie">jonalmeida/hack-the-north-crazyflie</a>
+		
 			<ul>
-			</ul>
-		</li>
-		<li><a href="https://github.com/snowplow/snowplow-ios-tracker">snowplow/snowplow-ios-tracker</a>
-		 &raquo; Snowplow event tracker for iOS 7+. Adds analytics to your iOS apps and games.
-			<ul>
-			</ul>
-		</li>
-		<li><a href="https://github.com/snowplow/snowplow-android-tracker">snowplow/snowplow-android-tracker</a>
-		 &raquo; Snowplow event tracker for Android. Add analytics to your Android apps and games.
-			<ul>
+				<li>Micro-quadcopter controlled with a Leap Motion controller.</li>
 			</ul>
 		</li>
 	</ul>
 
-	<h2><span class="glyphicon glyphicon-th-list"></span> Technical skills</h2>
+	<h2><div class="icon-th-list icon-square"></div> Technical Skills</h2>
 	<ul class="languages">
-		<li>Programming Languages:
+		<li>Programming Languages: 
 			<span class="label label-default">Python</span>
 			<span class="label label-default">Java</span>
-			<span class="label label-default">C/C++</span>
+			<span class="label label-default">C++</span>
 			<span class="label label-default">Javascript</span>
-			<span class="label label-default">Objective-C</span>
+			<span class="label label-default">Rust</span>
 			<span class="label label-default">Bash</span>
 			<span class="label label-default">Qt/QML</span>
 		</li>
-		<li>Databases:
+		<li>Frameworks &amp; Other: 
+			<span class="label label-default">Firebase</span>
+			<span class="label label-default">Parse</span>
+			<span class="label label-default">NodeJS</span>
 			<span class="label label-default">MySQL/SQLite</span>
-			<span class="label label-default">PostgreSQL</span>
-		</li>
-		<li>Systems:
-			<span class="label label-default">GitHub</span>
-			<span class="label label-default">JIRA</span>
-			<span class="label label-default">PRZilla</span>
 		</li>
 	</ul>
 
-	<h2><span class="glyphicon glyphicon-book"></span> Education</h2>
-	<table class="table education">
-		<tr>
-			<th>Degree</th><th>Major</th><th>Institution</th><th nowrap>Graduation Year</th>
-		</tr>
-		<tr>
-			<td>Bachelors of Science</td><td>Computer Science</td><td>University of Windsor</td><td align="center">2016</td>
-		</tr>
-		<tr>
-			<td>Edexcel GCE &amp; IGCSE</td><td>-</td><td>St. Mary's Catholic High School, Dubai</td><td align="center">2010</td>
-		</tr>
-	</table>
+	<h2><div class="icon-mortar-board icon-rect"></div> Education</h2>
+	<div id="mobile-table">
+		<div class="table-responsive">
+			<table class="table education">
+				<tr>
+					<th>Degree</th><th>Major</th><th>Institution</th><th nowrap>Graduation Year</th>
+				</tr>
+				<tr>
+					<td>Bachelors of Science</td><td>Computer Science</td><td>University of Windsor</td><td align="center">2016</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<div id="desktop-table">
+		<table class="table education">
+			<tr>
+				<th>Degree</th><th>Major</th><th>Institution</th><th nowrap>Graduation Year</th>
+			</tr>
+			<tr>
+				<td>Bachelors of Science</td><td>Computer Science</td><td>University of Windsor</td><td align="center">2016</td>
+			</tr>
+		</table>
+	</div>
 
-	<h2><span class="glyphicon glyphicon-tower"></span> Academic Achievements</h2>
-	<ul>
-		<li>University of Windsor Entrance Scholarship ($4000).</li>
-		<li>University of Windsor Residence Entrance Scholarship ($6000)</li>
-	</ul>
 
-	<h2><span class="glyphicon glyphicon-briefcase"></span> Professional Experience</h2>
+	<h2><div class="icon-briefcase icon-square"></div> Professional Experience</h2>
 	<ul>
-		<li>Software Developer Intern at Snowplow Analytics Ltd
-			<span class="right">(May. 2014 – August. 2014)</span>
+		<li>Firefox Mobile Intern, Mozilla, San Francisco
+			<span class="right">(June. 2015 – Sept. 2015)</span>
 			<ul>
-				<li>Rewrote and modularized the Java event tracker along with new features and functionality; released <a href="http://snowplowanalytics.com/tags.html#java">multiple version updates</a> over time.</li>
-				<li>Released the <a href="http://snowplowanalytics.com/tags.html#ios">iOS</a> & <a href="http://snowplowanalytics.com/tags.html#android">Android</a> event tracker, inheriting from the Java core library.</li>
-				<li>Setup continuous integration build environments for running unit tests. Managed and prioritized related issues within the projects using GitHub Issues.</li>
-				<li>Technologies got to work on:
-					<span class="label label-default">Xcode</span>
-					<span class="label label-default">Android Developer Studio</span>
-					<span class="label label-default">Eclipse</span>
-					<span class="label label-default">Travis CI</span>
-					<span class="label label-default">SQLite</span>
-					<span class="label label-default">Git/GitHub</span>
+				<li>"<a href="http://www.ghacks.net/2015/09/30/firefox-for-android-gets-click-to-play-for-pictures/">Click-to-view images</a>" in Firefox for Android to reduce bandwidth usages.</li>
+				<li>Setup a remote device farm for accessing un-used devices for a team spread across multiple offices.</li>
+				<li>Converting <a href="https://medium.com/@antlam/quick-search-bdd374257e75">Quick Search</a> ListView for more performant RecyclerView.</li>
+				<li>Technologies got to work on: 
+					<span class="label label-default">Android</span>
+					<span class="label label-default">Javascript</span>
 				</li>
 			</ul>
 		</li>
-		<li>Software Developer Intern at BlackBerry Ltd
+		<li>Software Developer Intern, Snowplow Analytics Ltd.
+			<span class="right">(May. 2014 – Aug. 2014)</span>
+			<ul>
+				<li>Created and modularized the Java event tracker; released <a href="http://snowplowanalytics.com/tags.html#java">multiple version updates.</a></li>
+				<li>Released the <a href="http://snowplowanalytics.com/tags.html#ios">iOS</a> and <a href="http://snowplowanalytics.com/tags.html#android">Android</a> trackers, inheriting from the Java core library.</li>
+				<li>Managed and prioritized feature release schedules on GitHub; CI integration, etc.</li>
+			</ul>
+		</li>
+		<li>Software Developer Intern, BlackBerry Ltd.
 			<span class="right">(May. 2013 – Dec. 2013)</span>
 			<ul>
 				<li>Single handedly developed and maintained management of the <a href="http://jonalmeida.com/resume/notification_screenshots">Notification Settings in Cascades/Qt</a> (a task not usually reserved for internship developers).</li>
-				<li>Responded to QA and incorporated re-design to the same Notification settings UI frontend/backend to enhance new product requirements and API’s</li>
-				<li>Assisted and collaborated with other internal teams to provide specific requirements to the UI.</li>
+				<li>Worked with QA and product team to redesign and re-architecture the Settings UI to meet new product and technical requirements.</li>
+				<li>Implemented deep linking for third-party applications to link to their Settings UI.</li>
 				<li>Created an automation test build machine as a Jenkins node to the existing internal Jenkins farm while creating GTest test cases for it.</li>
-				<li>Technologies got to work on:
+				<li>Technologies got to work on: 
 					<span class="label label-default">Qt/QML</span>
-					<span class="label label-default">Cascades</span>
-					<span class="label label-default">Eclipse</span>
-					<span class="label label-default">G-test</span>
-					<span class="label label-default">Robot Framework</span>
-					<span class="label label-default">SQLite</span>
-					<span class="label label-default">Git/Gerrit</span>
+					<span class="label label-default">C++</span>
+					<span class="label label-default">Jenkins</span>
+					<span class="label label-default">Bash</span>
 				</li>
 			</ul>
 		</li>
-		<li>Slipstream Software Test Developer Intern at BlackBerry Ltd
+		<li>Software Test Developer Intern, BlackBerry Ltd.
 			<span class="right">(May. 2012 – Dec. 2012)</span>
 			<ul>
 				<li>Primary support for remote QA team with issues they would encounter during their testing.</li>
-				<li>Created test cases from situational matrices for Blackberry 10 Bridge project.</li>
-				<li>Investigation and verification into issues that were being seen on an infrastructure level of development.</li>
+				<li>Investigation and verification into issues seen on an infrastructure level of development.</li>
 				<li>Mentored junior coops on a daily basis with all the above mentioned tasks.</li>
-				<li>Selected to work in multiple war rooms with cross-departmental teams on time sensitive projects.</li>
-				<li>Received ‘&itShows’ Employee Recognition Award (four stars) for collaboration - an inter departmental award, that requires nomination by fellow staff and required both manager and director approval to receive.</li>
-				<li>Technologies got to work on:
-					<span class="label label-default">PRZilla</span>
-					<span class="label label-default">BlackBerry OS</span>
-					<span class="label label-default">BlackBerry 10</span>
-					<span class="label label-default">Git/Gerrit</span>
-				</li>
+				<li>Work in multiple war rooms with cross-departmental teams on time sensitive projects.</li>
+				<li>Received ‘&itShows’ Employee Recognition Award for collaboration - an inter departmental award, that requires nomination by fellow staff and required both manager and director approval to receive.</li>
 			</ul>
 		</li>
-		<li>I.T. Services Help Desk at University of Windsor, Windsor, Canada
+		<li>I.T. Services Help Desk, University of Windsor
 			<span class="right">(Aug. 2011 – Apr. 2012)</span>
 			<ul>
-				<li>Network troubleshooting, accessing university resources through personal computers.</li>
 				<li>Provided support for installation as well as solving technical issues over the phone or remotely.</li>
-				<li>Technologies got to work on:
-					<span class="label label-default">Lotus Notes 8</span>
+				<li>Technologies got to work on: 
+					<span class="label label-default">Lotus Notes</span>
 					<span class="label label-default">Novell NetWare</span>
 					<span class="label label-default">Trend Micro</span>
 				</li>
@@ -157,12 +145,43 @@
 		</li>
 	</ul>
 
+	<h2><div class="icon-gear icon-square"></div> Other Personal Projects</h2>
+	<ul>
+		<li>
+			Held workshops for introductions to Git/version control.
+			<ul>
+			
+			</ul>
+		</li>
+		<li>
+			Technical Reviewer for Global Hackathon Seoul (reviewed 1000+ global applicants).
+			<ul>
+			
+			</ul>
+		</li>
+		<li>
+			Mentored at various hackathons.
+			<ul>
+				<li>McHacks, WearHacks, UofTHacks, HackWesterm, etc.</li>
+			
+			</ul>
+		</li>
+	</ul>
 
 
 
 
 
 
+	
+
+	<br />
+	<div id="bottom-contact" text-size="80%">
+		<div class="icon-envelope icon-square"></div> me@jonalmeida.com<br />
+		<div class="icon-globe icon-square"></div><a href="keybase.io/jonalmeida"> keybase.io/jonalmeida</a>
+	</div>
+</div>
 
 
+	<script src="public/js/grunticon.js"></script>
 </div><!-- End Page -->
