@@ -15,7 +15,7 @@
                 {
                     "project_name": "jonalmeida/ws-p2p",
                     "description": [
-                        "Peer-to-peer network with causally ordered messages using WebSockets with Rust."
+                        "Peer-to-peer network with causally ordered messaging using WebSockets and written in Rust."
                     ]
                 },
                 {
@@ -127,7 +127,7 @@
                         "Primary support for remote QA team with issues they would encounter during their testing.",
                         "Investigation and verification into issues seen on an infrastructure level of development.",
                         "Mentored junior coops on a daily basis with all the above mentioned tasks.",
-                        "Work in multiple war rooms with cross-departmental teams on time sensitive projects.",
+                        "Worked in multiple war rooms with cross-departmental teams on time sensitive projects.",
                         "Received ‘&itShows’ Employee Recognition Award for collaboration - an inter departmental award, that requires nomination by fellow staff and required both manager and director approval to receive."
                     ]
                 },
