@@ -1,0 +1,54 @@
+Jonathan Almeida
+Telephone: +1 (226) 347-1360
+Email: me@jonalmeida.com
+Identity: keybase.io/jonalmeida
+Technical Skills
+    - Programming Languages: Python, Java, C/C++, Javascript, Objective-C, Bash, Qt/QML
+    - Databases: MySQL/SQLite, PostgreSQL
+    - Systems: GitHub, JIRA, PRZilla
+Github Projects
+    - vicinium/vicinium-android - A micro location-based chat application for Android; like IRC, but location-based.
+    - jonalmeida/hack-the-north-crazyflie - Crazyflie nano quadcopter controlled with a Leapmotion controller.
+    - snowplow/snowplow-java-tracker - Adds analytics to your Java desktop and server apps, servlets and games.
+    - snowplow/snowplow-ios-tracker - Snowplow event tracker for iOS 7+. Adds analytics to your iOS apps and games.
+    - snowplow/snowplow-android-tracker - Snowplow event tracker for Android. Add analytics to your Android apps and games.
+Professional Experience
+    Firefox Mobile Intern, Mozilla, San Francisco.
+    May 2016 - Aug. 2016
+       - Designed and created a tab grouping app (demo) for prototyping using machine learning.
+       - Developed custom layouts for the homescreen in Firefox for Android to show user activity (image). ◦ Helped organize and attended a Design Sprint for location-based prototyping.
+       - Technologies got to work on: Android, Python
+    Firefox Mobile Intern, Mozilla, San Francisco.
+    June 2015 - Sept. 2015
+       ◦ "Click-to-view images" in Firefox for Android to reduce bandwidth usages (onboarding image)
+       - Setup a remote device farm for accessing un-used devices for a team spread across multiple offices. ◦ Converting Quick Search ListView for more performant RecyclerView.
+       - Technologies got to work on: Android, Javascript
+    Software Developer Intern, Snowplow Analytics Ltd.
+    May 2014 - Aug. 2014
+        - Rewrote and modularized the Java event tracker along with new features and functionality; released multiple version updates over time.
+        - Released the iOS & Android event tracker, inheriting from the Java core library.
+        - Setup continuous integration build environments for running unit tests. Managed and prioritized related issues within the projects using GitHub Issues.
+    Software Developer Intern, BlackBerry Ltd.
+    May 2013 - Dec. 2013
+        - Single handedly developed and maintained management of the Notification Settings in Cascades/Qt (a task not usually reserved for internship developers).
+        - Responded to QA and incorporated re-design to the same Notification settings UI frontend/backend to enhance new product requirements and API’s
+        - Assisted and collaborated with other internal teams to provide specific requirements to the UI.
+        - Created an automation test build machine as a Jenkins node to the existing internal Jenkins farm while creating GTest test cases for it.
+    Slipstream Software Test Developer Intern, BlackBerry Ltd.
+    May 2012 - Dec. 2012
+        - Primary support for remote QA team with issues they would encounter during their testing.
+        - Investigation and verification into issues seen on an infrastructure level of development.
+        - Mentored junior coops on a daily basis with all the above mentioned tasks.
+        - Selected to work in multiple war rooms with cross-departmental teams on time sensitive projects.
+        - Received ‘&itShows’ Employee Recognition Award (four stars) for collaboration - an inter departmental award, that requires nomination by fellow staff and required both manager and director approval to receive.
+    I.T. Services Help Desk, University of Windsor, Windsor, Canada.
+    Aug. 2011 - Apr. 2012
+        - Network troubleshooting, accessing university resources through personal computers.
+        - Provided support for installation as well as solving technical issues over the phone or remotely.
+        - Technologies got to work on: Lotus Notes 8, Novell NetWare, Trend Micro Education
+Education
+    - 2015 Bachelors of Science, Computer Science, University of Windsor
+    - 2010 Edexcel GCE & IGCSE, St. Mary’s Catholic High School, Dubai
+Academic Achievements
+    - University of Windsor Entrance Scholarship ($4000)
+    - University of Windsor Residence Entrance Scholarship ($6000)
