@@ -10,11 +10,11 @@ gems:
   - jekyll-sitemap
 
 name: Jonathan Almeida
-url: http://jonalmeida.com
+url: https://jonalmeida.com
 description: Life's quirky musings
 twitter: jonalmeida_
 github: jonalmeida
-gravatar_url: http://www.gravatar.com/avatar/58dc5af4d6bc1e0f6fd4c25dea7b2b8e
+gravatar_url: https://www.gravatar.com/avatar/58dc5af4d6bc1e0f6fd4c25dea7b2b8e
 
 comments :
   provider : disqus
