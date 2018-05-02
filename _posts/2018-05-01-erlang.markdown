@@ -1,0 +1,129 @@
+---
+layout: post
+title: Learning Erlang as an Experienced Developer
+category: posts
+
+---
+
+> I wrote this a while back in November 2017 while learning Erlang even earlier in February, but I’ve finally got around to posting it. It may contain some outdated information.
+
+This is long overdue on my experiences learning Erlang. It was also my first introduction to functional programming. I’ve written this as an experienced developer learning new concepts so there are probably many implicit assumptions made.
+
+# Why learn Erlang?
+I had been meaning to learn a functional language after a long time of interest. In a way, I probably felt that I was letting myself down by not challenging myself enough; a fear of fear.
+Browsing Hacker News I came across a comment that mentioned a class to learn Erlang that was starting soon on [Future Learn][1]. Thankfully it wasn’t one of those 7 month long courses, taking three-fourth of your focus from daily life and expect you remember what you did the previous week when you can’t even remember where you left your socks the previous day. A meagre 3 weeks seemed like a perfect length for me to plow through.
+
+For some background, I’ve come from a fair experience dabbling in C++, Python & Rust in my university years, and now a career in Android development. This made me feel confident in my knowledge on imperative programming to learn something new.
+
+Erlang’s background also intrigued me. I’ve found sanity in learning languages that have stood the test of time and still remained relevant. Being the language of choice for what built WhatsApp was an additional plus - a small team able to scale to such a size of users sparked interest in a side of me that once cared deeply about distributed systems.
+
+It must be said that Simon Thompson, Professor of Logic and Computation in Computing at the University of Kent, did an exceptional job of breaking down the classes to the right amount for more intermediate students. What previously bored me about other MOOCs were their need to assume everyone was coming from a beginner level, losing interest in their more experienced users because of slow momentum. I was happy to see Simon skip over unnecessary explanations with fair assumptions on student’s prior knowledge.
+
+# What I liked in Erlang
+Immutable bindings and immutable data structures felt like a hinderance to my brain at first, similar to having a thought and not being able to change it. The first week was a bit painful for me to unlearn a lot of concepts I didn’t realise I had implicitly relied on and grew to love. Eventually this made sense.
+
+## Tail Recursion
+It was the first thing I remember clicking in my head that felt like I had unlocked a side of my brain I never knew existed, constantly walking past it, assuming it was just a wall. I can’t tell how how refreshing it felt that all parties in a function were always known then-and-there in the arity itself.
+
+To explain in a little detail, Erlang is a language where everything is immutable and for-loops do not exist. The only way to loop is through a combination of recursive calls and function argument pattern matching.
+
+```erlang
+
+fib(0) ->
+  0;
+fib(1) ->
+  1;
+fib(N) ->
+  fib(N) + fib(N-1).
+
+```
+This is your usual naive example of writing a Fibonacci sequence that **will** add to the call stack. We can do better by approaching the problem similar to how one would when writing a memoized version, from 0 to N, but in the Erlang case we can store the previous two Fibonacci values in the function argument itself, so that there is on state left behind. Not having a recursive call take up space on the call stack didn’t take long to understand when the rest sunk in. Instead,  it pushes that said state, into the argument of the next call, allowing the VM to reuse the same function but with new inputs (the second call). This is how I understood tail recursion.
+
+```erlang
+
+fib(0) ->
+    0;
+fib(1) ->
+    1;
+fib(N) when N > 1 ->
+    fib(N-1, fib(0), fib(1)).
+
+% The tail recursive implementation is below. The above is just a cleaner API.
+fib(0, _, B) ->
+    B;
+fib(N, A, B) ->
+    fib(N-1, B, A+B).
+
+```
+<br>
+What we’re doing here is counting upwards from `fib(1)` and `fib(0)`, putting the  values of the previous two calls in the last two arguments of `fib/3` and reducing  `N` until we reach 0. When we do, we know what the Fibonacci of that number is.
+
+## Pattern Matching & Unpacking
+It’s better to explain both of these two together given how well they compliment each other.
+
+I’ve worked on Rust for a bit prior with some smaller projects using pattern matching, but I didn’t find the language (or maybe the documentation material?) enough for me to have the same “ah-ha” moment that I did have with Erlang.
+
+In most other languages, pattern matching stops at a “case” or “switch” level. Consider an argument or return value and match it against all possible combinations that you would like to handle. With Erlang, pattern matching existed at the function level, where you could call a function by the arguments or argument structure it had. To better explain what I’m probably failing to say..
+
+```erlang
+
+f(0) ->
+  zero;
+f(N) ->
+  N.
+
+```
+<br>
+If `f(0)` is called, it returns the atom `zero` otherwise, anything else is returned back; a fairly trivial example.
+
+> **Note:** I failed to originally explain that an atom is another data type that exists in Erlang. It doesn’t hold data, but is mostly used as an identifier for your data.
+
+```erlang
+
+f({zero, A}) ->
+  zero;
+f({X, Y}) ->
+  Y.
+
+```
+<br>
+Here, we’re going one step further. We match the function `f` against a tuple of two values. More over, the first pattern match is looking for the first argument to be the atom `zero`.
+Take a minute to consider what we’ve just done. We checked to see we were given a non-empty tuple, a tuple with two values, a tuple with the first argument an atom, and held the second argument in a variable `A`.  Consider doing this in a different language where you would have to explicitly check each and every case before we were able to get to our actual logic (* *cough*Java 6 *cough* *).
+
+This becomes even more powerful with Erlang’s list accessors for the head, tail and equality testing.
+
+```erlang
+
+List = [1,2,3].
+hd(List).   % 1
+tl(List).   % [2,3]
+
+% If we wanted to match these into separate bindings in a more elegant way..
+[A|B] = List.
+A.   % 1
+B.   % [2,3]
+
+```
+<br>
+We just did something quite amazing that I’m certain I’ll fail to properly convey: a list can be defined as a head on the left of the vertical bar; the tail to the right. With the equality to the `List`, we’ve said that the bindings of `A` and `B` should satisfy that of `List`. What would happen is that if `A` and `B` were already bound, their values should be that of what is in `List`, if they were not bound, they will now have that binding. If that were to fail, it would throw an exception.
+
+If that made sense to you, feel free to sit back and feel those quarks materialise in a Higgs-Boson field. *Sorry, I won’t do this again..*
+
+> **Note:** “guards” should also be given some merit to where we can also make assertions.
+
+## Message Passing and Processes
+My instinctual thoughts when I learnt that Erlang’s RPC methods were about asynchronous handing and overhead but I didn’t have to worry about it. Erlang threads, from what I understand, are some what similar to green threads with various scheduling differences that are beyond me. Spawning process as I pleased was also foreign to me, being able to send messages to it and have them do what ever I wanted felt too easy - it felt wrong coming from an Android world. I still struggle to get myself to use processes to do things in the background, but I suspect it’ll eventually becoming second nature.
+
+## OTP
+Sadly, I have even less to say about OTP given my limited knowledge of it. I would really like to have another course that would focus more on it. That said, learning some of the basics of `gen_server` and playing with `gen_tcp` have shown me how brilliant it is to avoid writing a lot of boilerplate code Erlang code (even though it’s already a lot less than you would usually have to write in other languages).
+
+# What I didn’t like
+From what I understand, some of the later additions to the language were patched on without a more elegant solution compared to the rest of the language. Try/catch blocks seemed like a strange addition to have where we have better ways or error checking already. Records too were a necessity but also fell short - more like an afterthought.
+
+# What's Next
+My hopes are to learn more from OTP. After which, I’d like to see what Elixir has to offer, although I’ve grown quite fond of the world of Erlang.
+
+I spent some time after the courses to implement a rudimentary [WebSocket library][2] in an effort to see what I could put into practice and what sunk in long term.
+
+[1]: https://www.futurelearn.com/
+[2]: https://github.com/jonalmeida/ws/

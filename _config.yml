@@ -6,7 +6,7 @@ permalink: pretty
 rdiscount:
   extensions: [smart]
 
-gems:
+plugins:
   - jekyll-sitemap
 
 name: Jonathan Almeida
