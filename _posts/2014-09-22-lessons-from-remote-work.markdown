@@ -2,6 +2,7 @@
 layout: post
 title: Lessons from a remote internship for 4 months
 category: posts
+tags: [Archived]
 
 ---
 

@@ -2,6 +2,7 @@
 layout: post
 title: Linux command-linx completion is hard to live without
 category: posts
+tags: [Archived]
 
 ---
 

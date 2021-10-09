@@ -2,6 +2,7 @@
 layout: post
 title: Android HTTP GET requests stored in JSON
 category: posts
+tags: [Archived]
 
 ---
 
@@ -10,7 +11,8 @@ In my current project, I'm currently working on making an Android client send si
 > **Note:** I un-indented the code so it would fit better on the page even though it looks a bit ugly. You might be better off copying it to your text editor to read it better.
 
 
-``` java
+~~~ java
+
 HttpClient httpclient = new DefaultHttpClient();
 HttpPost httppost = new HttpPost("http://dogecoin.com/api");
 HttpResponse httpresponse = null;
@@ -73,7 +75,8 @@ final Thread t = new Thread() {
 };
 
 t.start();
-```
+
+~~~
 <br>
 
 To explain some parts that might not seem obvious, we use `new UrlEncodedFormEntity()` to URL encode the name-value pairs to be `http://dogecoin.com/api?key=value`. The encoder handles the character conversion so you can enter it in it's original ASCII form.

@@ -1,38 +1,23 @@
-redcarpet:
- extensions: ["no_intra_emphasis", "fenced_code_blocks", "autolink", "tables", "with_toc_data"]
 permalink: /posts/:title
-permalink: pretty
+markdown: kramdown
 
-rdiscount:
-  extensions: [smart]
-
-plugins:
+gems:
   - jekyll-sitemap
+  - jekyll-archives
 
-name: Jonathan Almeida
+name: Jonathan Almeida 
 url: https://jonalmeida.com
-description: Life's quirky musings
+description: Thoughts and opinions.
 twitter: jonalmeida_
 github: jonalmeida
 gravatar_url: https://www.gravatar.com/avatar/58dc5af4d6bc1e0f6fd4c25dea7b2b8e
 
-comments :
-  provider : disqus
-  disqus :
-    short_name : jonalmeida
-  livefyre :
-    site_id : 123
-  intensedebate :
-    account : 123abc
-  facebook :
-    appid : 123
-    num_posts: 5
-    width: 580
-    colorscheme: light
-
-analytics :
-  provider : google
-  google :
-      tracking_id : 'UA-39596356-1'
-  getclicky :
-    site_id :
+jekyll-archives:
+  enabled: all
+  layout: archive
+  permalinks:
+    year: '/:year/'
+    month: '/:year/:month/'
+    day: '/:year/:month/:day/'
+    tag: '/tag/:name/'
+    category: '/category/:name/'

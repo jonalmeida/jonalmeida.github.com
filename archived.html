@@ -1,16 +1,16 @@
 ---
 layout: layout
-title: "Posts"
+title: "Archived"
 ---
 
 <section class="content">
   <ul class="listing">
     {% for post in site.posts %}
-      {% unless post.draft or post.tags contains "Archived" %}
+      {% if post.tags contains "Archived" and post.draft != true %}
       <li>
         <span>{{ post.date | date: "%B %e, %Y" }}</span> <a href="{{ post.url }}">{{ post.title }}</a>
       </li>
-      {% endunless %}
+      {% endif %}
     {% endfor %}
   </ul>
 </section>

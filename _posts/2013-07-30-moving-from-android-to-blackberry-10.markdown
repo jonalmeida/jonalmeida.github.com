@@ -2,6 +2,7 @@
 layout: post
 title: Moving from Android to BlackBerry 10
 category: posts
+tags: [Archived]
 
 ---
 

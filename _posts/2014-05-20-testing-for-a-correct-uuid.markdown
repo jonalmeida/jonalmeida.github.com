@@ -11,7 +11,8 @@ I was playing around with creating UUIDs for adding uniqueness in a project, so 
 
 The one I was after was a type 4 UUID which is randomly generated consisting of hex values under [section 4.4][2]. Luckily, from everything explained, this was the smallest algorithm required to implement:
 
-```
+~~~
+
 4.4.  Algorithms for Creating a UUID from Truly Random or
       Pseudo-Random Numbers
 
@@ -29,11 +30,12 @@ The one I was after was a type 4 UUID which is randomly generated consisting of 
 
    o  Set all the other bits to randomly (or pseudo-randomly) chosen
       values.
-```
+
+~~~
 <br>
 So maybe that's easier to understand if you read it from the top, but what it essentially says is that you can generate a random set of hex values for 30 of the 32 values, but the 13th bit must be *4*, which is a way of identifying what type of UUID it is (i.e. type 4), and the 17th bit can be of *8*, *9*, *a* or *b*. Here's an example:
 
-```
+~~~
 
 a0424604-03c6-4468-963b-002e5fbe2812
               ^    ^
@@ -41,7 +43,8 @@ a0424604-03c6-4468-963b-002e5fbe2812
            always 4|
                    |
                either 8,9,a,b
-```
+
+~~~
 <br>
 The code for writing this was fairly simple and can be found [on GitHub][3], but I wanted a way to verify it was created correctly.
 
@@ -49,18 +52,23 @@ The code for writing this was fairly simple and can be found [on GitHub][3], but
 
 After asking around and a few StackOverflow questions later, it seemed easiest to use a regex expression to solve this. I came up with a regex expression that tests for all four possible formats it could be expressed in. They look like this:
 
-```
+~~~
+
 Lower case without hypens: 7185f40e722c4cfa8de5daedf048ea12
 Upper case without hypens: 21A338B30A57462780450D4B6AF7A3EE
 Lower case with hypens: 7e0b2da6-38c3-4873-83f7-aab0cacb7603
 Upper case with hypens: FDFC7265-BA5E-4A63-9A51-AC661107EB37
-```
+
+~~~
+
 <br>
 This is the regex expression I finally ended up using:
 
-```
+~~~
+
 [0-9a-fA-F]{8}-?[0-9a-fA-F]{4}-?4[0-9a-fA-F]{3}-?[89abAB][0-9a-fA-F]{3}-?[0-9a-fA-F]{12}
-```
+
+~~~
 <br>
 To break down what the regex says:
 
@@ -79,7 +87,8 @@ To break down what the regex says:
 ## Conclusion
 Spec sheets explain everything you need about said thing even though they look ugly and seem too monotinous to read. You can find a couple of tests I wrote [on GitHub][5] as well in an objective-c implementation. This is what one of the tests look like:
 
-``` objective-c
+~~~ objective-c
+
 - (void)testCorrectUUIDFormat
 {
     UUIDGenerator *u_generator = [[UUIDGenerator alloc] init];
@@ -103,7 +112,8 @@ Spec sheets explain everything you need about said thing even though they look u
     
     XCTAssertEqual([matches count], 1, @"UUID generated doesn't match the type 4 UUID RFC");
 }
-```
+
+~~~
 <br>
 Refs:
 

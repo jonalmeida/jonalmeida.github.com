@@ -2,6 +2,7 @@
 layout: post
 title: Setting up ownCloud on Mac OS Mountain Lion to use via SSH
 category: posts
+tags: [Archived]
 
 ---
 
@@ -12,10 +13,12 @@ In Mountain Lion, Apple remove the option to easily start a web server from Syst
 
 First check where the server's root directory starts in:
 
-``` bash
+~~~ bash
+
 jonathan$ grep "DocumentRoot \"" /etc/apache2/httpd.conf
 DocumentRoot "/Library/WebServer/Documents"
-```
+
+~~~
 <br>
 I preferred to change this to `/Library/WebServer/Sites` to make it more consistent, but I'll only refer to the default one in this post.
 
@@ -25,26 +28,32 @@ Uncomment the line `php5_module` in the `/etc/apache2/httpd.conf` to enable php5
 
 Create a configuration that allows your user to access the web server.
 
-``` bash
+~~~ bash
+
 sudo vim /etc/apache2/users/`whoami`.conf
-```
+
+~~~
 <br>
 Add this configuration into the file:
 
-``` html
+~~~ html
+
 <Directory "/Library/WebServer/Documents/">
      Options Indexes MultiViews
      AllowOverride All
      Order allow,deny
      Allow from all
 </Directory>
-```
+
+~~~
 <br>
 Then start the server with:
 
-``` bash
+~~~ bash
+
 sudo apachectl start
-```
+
+~~~
 <br>
 If you didn't modify your DocumentRoot, going to `localhost` in your web browser will show "It Works!", otherwise, create a simple `index.html` file in your DocumentRoot directory just to verify it works.
 
@@ -56,24 +65,30 @@ Go to the [ownCloud download page][download] and download the latest server as a
 
 Give the apache webserver the right ownership to the owncloud directory:
 
-``` bash
+~~~ bash
+
 sudo chown -R _www:_www /Library/WebServer/Documents/owncloud
-```
+
+~~~
 <br>
 You also need to create a `.htaccess` file at the DocumentRoot location with:
 
-``` bash
+~~~ bash
+
 Options FollowSymLinks
-```
+
+~~~
 <br>
 If all went well, you should now be able to setup an administrator account in ownCloud from your browser with `http://localhost/owncloud`. <br>
 *Note: During the setup, you should change the data folder to another location under Advanced for security. I chose mine to be* `/Library/WebServer/owncloud/data`.
 
 If you do change the data directory, remember to give that directory the same ownership so that it can be accessed as well:
 
-``` bash
+~~~ bash
+
 sudo chown -R _www:_www /Library/WebServer/owncloud/data
-```
+
+~~~
 ## Adding local server directories
 I wanted to be able to add local directories that were part of my user files on my Mac. I found out that you can do that by installing the ownCloud app **External storage support**.
 Then in the admin settings, setup a folder from there with the 'Configuration' field as the absolute path to the directory you want. When done, a green circle will show up, to confirm if the folder is accessible.
@@ -88,9 +103,11 @@ Also, consider changing the default SSH port to something other that port 22 to 
 
 Open an SSH tunnel to your remote ownCloud server like so:
 
-``` bash
+~~~ bash
+
 ssh -L 5900:localhost:80 user@your_host_ip
-```
+
+~~~
 <br>
 This tunnels all traffic from your remote port 80 to your local port 5900. Once you've authenticated that connection, you can go to your web browser on this computer and access your ownCloud with `http://localhost:5900/owncloud`
 

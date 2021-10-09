@@ -9,17 +9,20 @@ I had to write a couple of shell script which required me to execute a part of t
 
 Writing the part for capturing flags wasn't that hard, but there were many options available so it took a while to ponder on what I needed and while purpose suit me. I've seen implementations where people use simple if statements for dot files as so:
 
-``` bash
+~~~ bash
+
 #!/bin/bash
 if [ "$1" == "quack" ]; then
 	echo QUACK!
 fi
-```
+
+~~~
 <br>
 
 Sure, that works, but not exactly for my needs since I have multiple flags to handle. Which lead me to getopts. Using getopts was a bit fancy, but when you realize how easy it is to implement you'll learn to love it. I'm not going to repeat what Ricardo Salveti has done quite well in his blog here, but after reading it, this was my implementation:
 
-``` bash
+~~~ bash
+
 #!/bin/bash
 while getopts "bf:" OPTION
 do
@@ -40,14 +43,16 @@ do
 			;;
 	esac
 done
-```
+
+~~~
 <br>
 
 In a nutshell, it's a while statement with cases. The "bf:" says that only a flag '-b' needs to be entered by the user, '-f' has a semicolon after it to indicate that it's expecting a value with the flag, similar to writing `foo.sh -f my_value_here`.
 
 The beauty of getopts is that it can handle the same flag multiple times. If you would do that with the current code about it wouldn't spit out any errors, but it wouldn't work as expected. Lets say you wanted to use the '-f' flag twice. The value of MYOPTF would be _the value of last -f value used and no other_. This can be solved with a small modification:
 
-``` bash
+~~~ bash
+
 #!/bin/bash
 while getopts "f:" OPTION
 do
@@ -58,7 +63,8 @@ do
 			;;
 	esac
 done
-```
+
+~~~
 <br>
 
 That should work fine since you have a list of all the values, you can easily iterate through it with a for loop.
@@ -67,7 +73,8 @@ The disadvantage (as far as my use case is concerned) with getopts is that it on
 
 I finally decided to use a hybrid of all the information I put together since I ran into the case where I needed to accept either option '-h' or `--help`:
 
-``` bash
+~~~ bash
+
 #!/bin/bash
 while [ ! $# -eq 0 ]
 do
@@ -83,7 +90,8 @@ do
 	esac
 	shift
 done
-```
+
+~~~
 <br>
 
 You would have noticed I threw in a bunch of stuff that I didn't mention previously, and that's sort of the assumption I made. 

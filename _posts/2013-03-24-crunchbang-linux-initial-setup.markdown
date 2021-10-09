@@ -22,18 +22,22 @@ I came across a nifty application called [f.lux][f.lux] that essentially correct
 ### Sublime Text 2 (Text Editor)
 I'm a big fan of Sublime Text, so this is a must on any computer I use. The linux builds are available as a tar ball so it doesn't integrate well out-of-the-box. Below are the terminal commands to extract it to /opt/ and create a desktop link that can be found with any application launcher you use:
 
-``` bash
+~~~ bash
+
 tar xf Sublime\ Text\ 2.0.1\ x64.tar.bz2
 sudo mv Sublime\ Text\ 2 /opt/
 sudo ln -s /opt/Sublime\ Text\ 2/sublime_text /usr/bin/sublime
 sudo wget http://jonalmeida.com/assets/misc/sublime.desktop /usr/share/applications/sublime.desktop
-```
+
+~~~
 <br>
 This last part is optional if you want all your text files to open with Sublime Text.
 
-``` bash
+~~~ bash
+
 sudo sublime /usr/share/applications/defaults.list
-```
+
+~~~
 <br>
 Replace all occurrences of geany.desktop with sublime.desktop
 
@@ -57,23 +61,28 @@ You can change it by going to Settings > Openbox > Edit rc.xml, or open ~/.confi
 ### Java
 Unfortunately, Java isn't going away any time soon:
 
-``` bash
+~~~ bash
+
 sudo apt-get install openjdk-7-jre
-```
+
+~~~
 
 ### Muti-arch support
 On most debian distributions I've tried, enabling multi-arch support was as easy as installing the ia32-libs, however there's more to it here.
 
 I found the solution from biggenaugust on the #! forums. First run:
 
-``` bash
+~~~ bash
+
 dpkg --add-architecture i386
-```
+
+~~~
 <br>
 Then add `[arch=amd64,i386]` to each line of `/etc/apt/sources.list`<br>
 It should look something like this:
 
-``` bash
+~~~ bash
+
 ## CRUNCHBANG
 ## Compatible with Debian Wheezy, but use at your own risk.
 deb [arch=amd64,i386] http://packages.crunchbang.org/waldorf waldorf main
@@ -87,15 +96,17 @@ deb [arch=amd64,i386] http://http.debian.net/debian wheezy main contrib non-free
 deb [arch=amd64,i386] http://security.debian.org/ wheezy/updates main
 # deb-src [arch=amd64,i386] http://security.debian.org/ wheezy/updates main
 
-```
+~~~
 <br>
 
 After that, run:
 
-``` bash
+~~~ bash
+
 sudo apt-get update
 sudo apt-get dist-upgrade
-```
+
+~~~
 <br>
 This is going to install all the relevant i386 library packages. It varies in size, but it's usually around ~100-200MB and requires a reboot after this.
 

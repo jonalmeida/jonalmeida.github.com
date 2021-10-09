@@ -2,6 +2,7 @@
 layout: post
 title: Setting up my private server on DigitalOcean
 category: posts
+tags: [Archived]
 
 ---
 
@@ -49,32 +50,41 @@ The blurred out bit in the image below, is where you would enter your external I
 This was probably the easiest bit, just install git: `apt-get install git git-core`.
 Everything was going to do be done as a private repo for now so it would be behind SSH and I didn't care for having a web interface for it. You can find more details on [settings up a git server correctly][4], but essentially all you need to do is:
 
-``` bash
+~~~ bash
+
 mkdir my-repo.git
 cd my-repo.git
 git --bare init
-```
+
+~~~
 <br>
 Clients would add the remote as:
 
-``` bash
+~~~ bash
+
 git remote add origin ssh://jonathan@atlas.somedomain.com/location/of/my-repo.git
-```
+
+~~~
+
 ### Configuring clients
 Most Linux OSes come with a PPTP client installed so setting that up is quite trivial.
 I created a few SSH configurations so I can type less:
 
-``` bash
+~~~ bash
+
 Host atlas
     HostName atlas.somedomain.com
     User jonathan
-```
+
+~~~
 <br>
 As well as a few aliases in my `.bashrc` that looked something like this:
 
-``` bash
+~~~ bash
+
 alias atlas-connect='sshuttle --dns -vvr jonathan@atlas.somedomain.com 0/0'
-```
+
+~~~
 
 ### Swap File
 If you're using the 512MB RAM configuration, it's also wise to setup a swap file since you will inevitably run into low memory issues *very* soon. DO have yet another very [handy tutorial on how to do exactly that][6].

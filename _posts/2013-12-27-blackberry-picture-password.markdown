@@ -2,6 +2,7 @@
 layout: post
 title: BlackBerry Picture Password is more secure than you think
 category: posts
+tags: [Archived]
 
 ---
 <br>

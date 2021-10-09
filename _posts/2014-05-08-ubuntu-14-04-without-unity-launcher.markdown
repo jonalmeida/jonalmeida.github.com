@@ -2,6 +2,7 @@
 layout: post
 title: Ubuntu 14.04 without Unity launcher
 category: posts
+tags: [Archived]
 
 ---
 
@@ -13,9 +14,11 @@ There isn't any way to disable it entirely, but you can make it go away and neve
 
 You're going to need Unity Tweak Tool which should be in Trusty third party repos:
 
-``` bash
+~~~ bash
+
 sudo apt-get install unity-tweak-tool
-```
+
+~~~
 
 There are a couple of things you need to disable to stop the launcher from showing up when you mouse-over certain areas or certain key combinations:
 
@@ -43,9 +46,11 @@ Disable the launcher from appearing when you press and hold the super key:
 
 I didn't really see the point of keeping a bunch of Unity lenses. Even if I was going to re-enable the launcher, I was never going to use them. These are just a few of them that I had particularly no interest in them.
 
-``` bash
+~~~ bash
+
 sudo apt-get purge unity-lens-video unity-lens-music unity-scope-audacious unity-scope-clementine unity-scope-colourlovers unity-scope-gdrive unity-scope-gmusicbrowser unity-scope-gourmet unity-scope-guayadeque unity-scope-manpages unity-scope-musique unity-scope-openclipart unity-scope-tomboy unity-scope-yelp unity-scope-zotero unity-scope-musicstores
-```
+
+~~~
 
 [1]: /images/20140508/1.png
 [2]: /images/20140508/2.png

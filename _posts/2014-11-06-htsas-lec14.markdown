@@ -2,6 +2,7 @@
 layout: post
 title: How to Start a Startup - Lecture 14 Notes
 category: posts
+tags: [Archived]
 
 ---
 

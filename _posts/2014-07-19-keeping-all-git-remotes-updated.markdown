@@ -21,7 +21,7 @@ Also note, that you can change your remote from `origin` to something else with 
 You can find the code in the snippet below, but the most up-to-date version can always be found [on GitHub][github-link].
 <br>
 
-``` bash
+~~~ bash
 
 #!/bin/bash
 
@@ -110,14 +110,14 @@ for dir in */; do
         git stash pop
     fi
     if [[ second_attempt == 1 ]]; then
-        echo "Yo dawg, your repo ($dir.git) has problems.."
+        echo "Your repo ($dir.git) has problems.."
     fi
     echo "---"
     echo "cd .."
     cd ..
 done;
 
-```
+~~~
 
 <br>
 Refs: 
