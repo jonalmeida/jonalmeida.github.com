@@ -41,6 +41,6 @@ The filters above are sorted in the same order as the screenshot if you'd like t
 If you're feeling ambitious, you can [download the filters][2] in the appropriate XML format for Gmail so that you can import them for your account. This is probably not advisable because I'm someone on the internet that you probably do not know. :)
 
 [0]: https://blog.margaretleibovic.com/2012/09/21/how-i-manage-my-bugmail-with-gmail.html
-[1]: /images/20211015/gmail-sidebar.png
-[2]: /images/20211015/mailFilters.xml
+[1]: /images/20211014/gmail-sidebar.png
+[2]: /images/20211014/mailFilters.xml
 [3]: https://github.com/mozilla-mobile/
