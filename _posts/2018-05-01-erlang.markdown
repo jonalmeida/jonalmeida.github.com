@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Learning Erlang as an Experienced Developer
+title: Learning Erlang as a seasoned developer
 category: posts
 
 ---
