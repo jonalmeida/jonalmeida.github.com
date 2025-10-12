@@ -3,11 +3,12 @@
 base_url = "https://jonalmeida.com"
 
 # The site title and description; used in feeds by default.
-title = "Zola ʕ•ᴥ•ʔ Bear Blog"
-description = "Welcome to my little corner."
+title = "Jonathan Almeida"
+description = "Scribblings and nonsense"
 
 # When set to "true", a feed is automatically generated.
-generate_feeds = false
+generate_feeds = true
+author = "Jonathan Almeida"
 
 # The taxonomies to be rendered for the site and their configuration of the default languages
 # Example:
@@ -48,9 +49,14 @@ theme = "zola-bearblog"
 #     title = "Un titre"
 #
 [translations]
-site = "site"
-made_with = "Made with"
+# For zola-bearblog.
 no_posts = "Oops, no posts!"
+remove_filter = "Remove filter"
+filtering_for = "Filtering for"
+made_with = "Powered by"
+table_of_contents = "Table of contents"
+language = "language"
+site = "site"
 
 # Additional languages definition
 # You can define language specific config values and translations:
@@ -60,6 +66,7 @@ no_posts = "Oops, no posts!"
 
 # Configuration of the Markdown rendering
 [markdown]
+#insert_anchor_links = "heading"
 
 # Whether to do syntax highlighting
 # Theme can be customised by setting the `highlight_theme` variable to a theme supported by Zola
@@ -68,6 +75,10 @@ highlight_code = true
 # Put all your custom variables here
 [extra]
 date_format = "%Y-%m-%d"
+
+[extra.table_of_contents]
+show = true
+visible_on_load = false
 
 # For zola-bearblog.
 [[extra.main_menu]]
