@@ -4,6 +4,8 @@ title: Cleaning up a messy master branch
 categories: posts
 tags: [Archived]
 aliases: ['/posts/2013/07/28/cleaning-up-a-messy-master-branch']
+taxonomies:
+  tags: ['workflow']
 ---
 <br>
 Note: This is for the foolish and lazy side of you

@@ -3,6 +3,8 @@ layout: post
 title: How to keep all your git remotes up-to-date
 categories: posts
 aliases: ['/posts/2014/07/19/keeping-all-git-remotes-updated']
+taxonomies:
+  tags: ['workflow']
 ---
 
 You always want your copy of remote in your local repository up-to-date. Having a bunch of git repos doesn't help because now you have to check them all (20+ amiright?!). A small portion of my busy-work goes into fetching and rebasing before I start to work on any project.

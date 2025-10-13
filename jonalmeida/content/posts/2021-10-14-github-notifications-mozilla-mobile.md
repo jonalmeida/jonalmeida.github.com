@@ -3,6 +3,8 @@ layout: post
 title: How I manage my github notifications with Gmail
 categories: posts
 aliases: ['/posts/2021/10/14/github-notifications-mozilla-mobile']
+taxonomies:
+  tags: ['mozilla']
 ---
 
 A lot of [Mozilla mobile][3] product development is now hosted on Github, which is what many of our contributors prefer as a platform too. This leads to a lot of noise from Github's notification system and I've had some troubles managing it over the years.
