@@ -81,6 +81,7 @@ highlight_code = true
 # Put all your custom variables here
 [extra]
 date_format = "%Y-%m-%d"
+gravatar_url = "https://www.gravatar.com/avatar/58dc5af4d6bc1e0f6fd4c25dea7b2b8e"
 
 [extra.table_of_contents]
 show = true
