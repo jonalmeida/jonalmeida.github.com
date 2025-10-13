@@ -1,8 +1,9 @@
 ---
 layout: post
 title: BlackBerry Notification Settings
+time: 2014-09-13
 category: posts
-
+aliases: ['/resume/notification_screenshots/']
 ---
 
 
