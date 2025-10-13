@@ -2,9 +2,9 @@
 layout: post
 title: Embedding video in Jekyll
 category: post
+aliases: ['/posts/2013/03/25/embedding-video-in-jekyll']
 extra:
   hide_table_of_contents: true
-aliases: ['/posts/2013/03/25/embedding-video-in-jekyll']
 taxonomies:
   tags: ['blog']
 ---

@@ -16,7 +16,6 @@ As a follow-up to [how you can manage bugmail with gmail][0], I found a similar 
 You can apply the same filters with the rules below:
 
 ```
-
 Matches: from:(notifications@github.com)
 Do this: Skip Inbox, Apply label "GitHub", Categorize as Forums
 
@@ -34,9 +33,7 @@ Do this: Apply label "GitHub/Review Requested", Mark it as important
 
 Matches: to:(review_requested@noreply.github.com)
 Do this: Apply label "GitHub/Reviews"
-
 ```
-<br>
 
 The filters above are sorted in the same order as the screenshot if you'd like to only use a select few.
 

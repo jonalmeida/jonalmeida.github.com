@@ -4,7 +4,7 @@ title: Useful bookmark keywords for Firefox (mobile) development
 categories: posts
 aliases: ['/posts/2021/10/15/browser-keyboard-shortcuts-mozilla-mobile']
 taxonomies:
-  tags: ['mozilla']
+  tags: ['mozilla', "workflow"]
 ---
 
 Firefox has support for keyword search in the address bar, which is handy during development at Mozilla. There are often many sources of information to look through and being able to get to them efficiently will save you _a lot_ of time.
@@ -24,7 +24,6 @@ Search Fox is another internal tool at Mozilla for code indexes across all of mo
  - sff - search through the 68 release branch code. This is particularly useful for mobile because it's the last release of Fennec (old Firefox Mobile) if you want to compare implementations.
 
 ```
-
 Name: Searchfox - mozilla-central
 Keyword: sf
 URL: https://searchfox.org/mozilla-central/search?path=&q=%s
@@ -36,7 +35,6 @@ URL: https://searchfox.org/mozilla-mobile/search?path=&q=%s
 Name: Searchfox - Fennec - mozsearch
 Keyword: sff
 URL: http://searchfox.org/mozilla-esr68/search?q=%s&path=
-
 ```
 
 # Mercurial
@@ -44,11 +42,9 @@ URL: http://searchfox.org/mozilla-esr68/search?q=%s&path=
 Sometimes you want to look up a diff from a changeset in your browser.
 
 ```
-
 Name: Search mozilla-central with revision (changeset) ID
 Keyword: diff
 URL: https://hg.mozilla.org/mozilla-central/rev/%s
-
 ```
 
 # Github
@@ -56,7 +52,6 @@ URL: https://hg.mozilla.org/mozilla-central/rev/%s
 Many of our mobile projects are on Github so having quick access to an issue or pull request is great. We currently work on Android Components, Fenix and Focus a lot, so these keywords let me get to an issue or pull request directly. For example, `aci 10000` for navigating to the 10,000 issue in Android Components.
 
 ```
-
 Name: Github - Android Components - Issues/Pull Requests
 Keyword: aci
 URL: https://github.com/mozilla-mobile/android-components/issues/%s
@@ -68,7 +63,6 @@ URL: https://github.com/mozilla-mobile/fenix/issues/%s
 Name: Github - Focus - Issues/Pull Requests
 Keyword: fci
 URL: https://github.com/mozilla-mobile/focus-android/issues/%s
-
 ```
 
 # Taskcluster
@@ -76,7 +70,6 @@ URL: https://github.com/mozilla-mobile/focus-android/issues/%s
 Taskcluster is our internal CI build system. When a build fails or when you want to wait for a build, you can grab the ID from a pull request or release.
 
 ```
-
 Name: FirefoxCI - Navigate to a task item (Task ID)
 Keyword: ti
 URL: https://firefox-ci-tc.services.mozilla.com/tasks/%s
@@ -84,7 +77,6 @@ URL: https://firefox-ci-tc.services.mozilla.com/tasks/%s
 Name: FirefoxCI - Navigate to a task group (Group ID)
 Keyword: gi
 URL: https://firefox-ci-tc.services.mozilla.com/tasks/groups/%s
-
 ```
 
 # Android / Chromium
@@ -92,7 +84,6 @@ URL: https://firefox-ci-tc.services.mozilla.com/tasks/groups/%s
 It's common to want source references to Android sources or compare Chromium implementations as well.
 
 ```
-
 Name: Chromium Android - Code Search (Chromium Reference)
 Keyword: cr
 URL: https://cs.chromium.org/search/?q=%s&sq=package:chromium&type=cs
@@ -100,7 +91,6 @@ URL: https://cs.chromium.org/search/?q=%s&sq=package:chromium&type=cs
 Name: Android Source References
 Keyword: ar
 URL: https://cs.android.com/search?q=%s
-
 ```
 
 [0]: https://support.mozilla.org/en-US/kb/how-search-from-address-bar

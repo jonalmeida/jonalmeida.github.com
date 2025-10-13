@@ -14,27 +14,22 @@ When the re-write of the `std::io` module landed in Rust [1.0.0-alpha.2][alpha2]
 Reading to a file can be done in two ways (both really simple). I'll talk about one way here and the second a little later.
 
 ~~~ rust
-
 let file = match File::open("test_file.txt") {
 	Ok(file) => file,
 	Err(..)  => panic!("room"),
 }
-
 ~~~
-<br>
+
 `File::open` by default gives you `Read` permissons, so you can create a [`BufReader`][bufreader] from that.
 
 ~~~ rust
-
 let mut reader = BufReader::new(&file);
 
 // read_line takes reads a line and writes to a string, so we give it one.
 let buffer_string = &mut String::new();
 reader.read_line(buffer_string);
 println!("We read a new line: {}", buffer_string);
-
 ~~~
-<br>
 
 # Writing to a file
 
@@ -43,18 +38,14 @@ println!("We read a new line: {}", buffer_string);
 A simple example for writing to a file is to start by creating your [`Path`][path], and an [`OpenOptions`][openoptions]. An `OpenOptions` is how you provide the file permissons and that you would need to read or write to a file appropriately.
 
 ~~~ rust
-
 let mut options = OpenOptions::new();
 // We want to write to our file as well as append new data to it.
 options.write(true).append(true);
-
 ~~~
-<br>
 
 You can also add `.read(true)` for read permissions as an alternate way to read from the file. Although, the interesting part about `OpenOptions` is that you can re-use the options set for multiple files:
 
 ~~~ rust
-
 // We can create a Path
 let path = Path::new("test_file.txt");
 
@@ -68,16 +59,13 @@ options.write(true)
 // Both of these should be valid
 let file: Result<File, Error> = options.open(path);
 let file2: Result<File, Error> = options.open(path2);
-
 ~~~
-<br>
 
 ### The actual writing bit
 
 So now that we have the permissons setup correctly, we can create a [`BufWriter`][bufwriter] to actually write to the file. I've added a match statement to unwrap the unlike the previous snippet:
 
 ~~~ rust
-
 let file = match options.open(&path) {
     Ok(file) => file,
     Err(..) => panic!("at the Disco"),
@@ -87,9 +75,7 @@ let file = match options.open(&path) {
 let mut writer = BufWriter::new(&file);
 // Then we write to the file. write_all() calls flush() after the write as well.
 writer.write_all(b"test\n");
-
 ~~~
-<br>
 
 # Conclusion
 
