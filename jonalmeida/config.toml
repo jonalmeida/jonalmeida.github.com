@@ -29,6 +29,12 @@ taxonomies = [
 # There is also a built-in template "rss.xml" that renders an RSS 2.0 feed.
 feed_filenames = ["atom.xml"]
 
+# When set to "true", files in the `static` directory are hard-linked. Useful for large
+# static files. Note that for this to work, both `static` and the
+# output directory need to be on the same filesystem. Note that the theme's `static`
+# files are always copied, regardless of this setting.
+hard_link_static = false
+
 # The default language; used in feeds.
 default_language = "en"
 
