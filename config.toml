@@ -42,7 +42,7 @@ default_language = "en"
 compile_sass = true
 
 # Whether to build a search index to be used later on by a JavaScript library
-build_search_index = false
+build_search_index = true
 
 # The site theme to use.
 theme = "zola-bearblog"
@@ -82,6 +82,7 @@ highlight_code = true
 [extra]
 date_format = "%Y-%m-%d"
 gravatar_url = "https://www.gravatar.com/avatar/58dc5af4d6bc1e0f6fd4c25dea7b2b8e"
+hide_made_with_line = true
 
 [extra.table_of_contents]
 show = true
