@@ -13,3 +13,6 @@ Thumbs.db
 
 # Jekyll
 .jekyll-cache
+
+# Zola default generated directory
+public/
