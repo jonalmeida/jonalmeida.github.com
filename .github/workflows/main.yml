@@ -3,13 +3,13 @@ name: Build and deploy GH Pages
 on:
   push:
     branches:
-      - master
+      - main
   pull_request:
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/main'
     steps:
       - name: checkout
         uses: actions/checkout@v4
