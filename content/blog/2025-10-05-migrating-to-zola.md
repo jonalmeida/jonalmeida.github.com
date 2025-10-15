@@ -22,7 +22,7 @@ On every new machine I used, I found myself using a [Docker image](https://githu
 
 I started with trying to look out for a way to migrate my existing Jekyll posts while also preserving the hard-links to them. I came across [Eugene Baichenko's writings and script](https://eugene-babichenko.github.io/blog/jekyll-to-zola/) which I used and got myself up and running in no time.
 
-After some more research, I learnt that Zola supports [`aliases`](https://www.getzola.org/documentation/content/page/) which lets you preserve your hard-links without needing to build the directory structure required to keep those links. Those links just redirect to the new Zola ones, which was fine by me.
+After some more research, I learnt that Zola supports [`aliases`](https://www.getzola.org/documentation/content/page/) which lets you preserve your hard-links without needing to build the directory structure required to keep those links. Those links just redirect to the new Zola ones, which was good enough for my needs.
 
 ## Preserving page highlighting
 
@@ -36,9 +36,9 @@ Doing the actual migration required slowly changing things over in my spare time
 
 ## Final thoughts
 
-It seems like most of the audience for Zola are coming from other Static Site Generators platforms.
+It seems like most of the audience for Zola are coming from other Static Site Generators.
 
-I haven't found the Zola documentation to be spectacular so it took me a bit to understand what aliases were and how to use them - I came across [the original issue to support aliases](https://github.com/getzola/zola/issues/86) which linked to the Hugo docs that eventually told me what I needed to know. I'm also not complaining too much since this is a community-driven project; happy to use it's used by big players like [Fastmail](https://zola.discourse.group/t/allow-html-instead-of-md-for-pages-and-sections/149) too so maybe this is something where more corps can support too.
+I haven't found the Zola documentation to be spectacular so it took me a bit to understand what aliases were and how to use them - I came across [the original issue to support aliases](https://github.com/getzola/zola/issues/86) which linked to the Hugo docs that eventually told me what I needed to know.
 
 In another case, I moved to Zola because I wanted separate feeds for each tag and I couldn't figure out to get this to work even though I had already enabled it with this block:
 
@@ -51,8 +51,7 @@ taxonomies = [
 
 This must be my own shortsightedness though, because it seems [obvious to others](https://tilde.club/~passthejoe/zola/blog/zola-tag-category-feeds/index.html).
 
-
-All in all though, I'm quite happy with where I've gotten to and I find the Zola and Tera templating combination far less intimidating.
+I'm also not complaining too much since this is a community-driven project; happy to see it being used by sites like [Fastmail](https://zola.discourse.group/t/allow-html-instead-of-md-for-pages-and-sections/149) too. All in all though, I'm quite happy with where I've gotten to and I find the Zola and Tera templating combination far less intimidating.
 
 Let's see where this takes me.
 
