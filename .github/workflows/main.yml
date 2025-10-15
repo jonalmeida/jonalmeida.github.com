@@ -16,5 +16,4 @@ jobs:
       - name: build_and_deploy
         uses: shalzz/zola-deploy-action@v0.21.0
         env:
-          BUILD_DIR: jonalmeida
           TOKEN: ${{ secrets.GITHUB_TOKEN }}
