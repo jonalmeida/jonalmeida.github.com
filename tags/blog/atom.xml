@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>Jonathan Almeida - blog</title>
+    <subtitle>Scribblings and nonsense</subtitle>
+    <link rel="self" type="application/atom+xml" href="https://jonalmeida.com/tags/blog/atom.xml"/>
+    <link rel="alternate" type="text/html" href="https://jonalmeida.com"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2025-10-05T00:00:00+00:00</updated>
+    <id>https://jonalmeida.com/tags/blog/atom.xml</id>
+    <entry xml:lang="en">
+        <title>Restarting this blog &amp; migrating to Zola</title>
+        <published>2025-10-05T00:00:00+00:00</published>
+        <updated>2025-10-05T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Jonathan Almeida
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/blog/migrating-to-zola/"/>
+        <id>https://jonalmeida.com/blog/migrating-to-zola/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/blog/migrating-to-zola/">&lt;p&gt;I did it - finally restarted this blog! 🙌&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;why&quot;&gt;Why&lt;&#x2F;h2&gt;
+&lt;p&gt;I&#x27;ll keep this short - there are others who are more expressive and have &lt;a href=&quot;https:&#x2F;&#x2F;simeon.staneks.de&#x2F;en&#x2F;posts&#x2F;zola-the-holy-grail-of-ssg&#x2F;&quot;&gt;shared&lt;&#x2F;a&gt; &lt;a href=&quot;https:&#x2F;&#x2F;daudix.one&#x2F;blog&#x2F;zola-vs-jekyll&#x2F;&quot;&gt;their&lt;&#x2F;a&gt; &lt;a href=&quot;https:&#x2F;&#x2F;www.kytta.dev&#x2F;blog&#x2F;one-week-with-zola&#x2F;&quot;&gt;opinion&lt;&#x2F;a&gt; on everything Zola does for them - go read those instead. Here is the shortform for me.&lt;&#x2F;p&gt;
+&lt;p&gt;I found it tedious to maintain a Jekyll site and the various plugins that you needed for what I believe should be the built-in behaviour.&lt;&#x2F;p&gt;
+&lt;p&gt;On every new machine I used, I found myself using a &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;BretFisher&#x2F;jekyll-serve&quot;&gt;Docker image&lt;&#x2F;a&gt; for building the Jekyll site locally so I could get the magic combination correct to have it always working, until it eventually didn&#x27;t work anymore.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;preserving-hard-links&quot;&gt;Preserving hard-links&lt;&#x2F;h2&gt;
+&lt;p&gt;I started with trying to look out for a way to migrate my existing Jekyll posts while also preserving the hard-links to them. I came across &lt;a href=&quot;https:&#x2F;&#x2F;eugene-babichenko.github.io&#x2F;blog&#x2F;jekyll-to-zola&#x2F;&quot;&gt;Eugene Baichenko&#x27;s writings and script&lt;&#x2F;a&gt; which I used and got myself up and running in no time.&lt;&#x2F;p&gt;
+&lt;p&gt;After some more research, I learnt that Zola supports &lt;a href=&quot;https:&#x2F;&#x2F;www.getzola.org&#x2F;documentation&#x2F;content&#x2F;page&#x2F;&quot;&gt;&lt;code&gt;aliases&lt;&#x2F;code&gt;&lt;&#x2F;a&gt; which lets you preserve your hard-links without needing to build the directory structure required to keep those links. Those links just redirect to the new Zola ones, which was good enough for my needs.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;preserving-page-highlighting&quot;&gt;Preserving page highlighting&lt;&#x2F;h2&gt;
+&lt;p&gt;Zola happily seems to support YAML as a frontmatter, so for legacy posts, I didn&#x27;t need to update the format and instead just include the new properties where needed (e.g. disabling table of contents on certain posts). Along the way, I also learnt that &lt;a href=&quot;https:&#x2F;&#x2F;quickref.me&#x2F;yaml.html&quot;&gt;YAML supports references and inheritance&lt;&#x2F;a&gt; - wild stuff.&lt;&#x2F;p&gt;
+&lt;p&gt;Existing syntax highlighting is also preserved and at most, I needed to update the language shortcodes to match Zola&#x27;s (e.g. &lt;code&gt;objc&lt;&#x2F;code&gt; to &lt;code&gt;m&lt;&#x2F;code&gt;). In miscellaneous posts I seemed to have used Liquid templating, but that too wasn&#x27;t hard to search-and-replace.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;incremental-migration-from-jekyll&quot;&gt;Incremental migration from Jekyll&lt;&#x2F;h2&gt;
+&lt;p&gt;Doing the actual migration required slowly changing things over in my spare time. Starting off the blog in a sub-directory &lt;code&gt;&#x2F;jonalmeida&lt;&#x2F;code&gt; first to get everything working there. Finally, removing the existing blog from the root directory and moving the contents of &lt;code&gt;&#x2F;jonalmeida&lt;&#x2F;code&gt; into the root.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;final-thoughts&quot;&gt;Final thoughts&lt;&#x2F;h2&gt;
+&lt;p&gt;It seems like most of the audience for Zola are coming from other Static Site Generators.&lt;&#x2F;p&gt;
+&lt;p&gt;I haven&#x27;t found the Zola documentation to be spectacular so it took me a bit to understand what aliases were and how to use them - I came across &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;getzola&#x2F;zola&#x2F;issues&#x2F;86&quot;&gt;the original issue to support aliases&lt;&#x2F;a&gt; which linked to the Hugo docs that eventually told me what I needed to know.&lt;&#x2F;p&gt;
+&lt;p&gt;In another case, I moved to Zola because I wanted separate feeds for each tag and I couldn&#x27;t figure out to get this to work even though I had already enabled it with this block:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;toml&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-toml &quot;&gt;&lt;code class=&quot;language-toml&quot; data-lang=&quot;toml&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;taxonomies &lt;&#x2F;span&gt;&lt;span&gt;= [
+&lt;&#x2F;span&gt;&lt;span&gt;    {&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;name &lt;&#x2F;span&gt;&lt;span&gt;= &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;categories&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;feed &lt;&#x2F;span&gt;&lt;span&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;false&lt;&#x2F;span&gt;&lt;span&gt;},
+&lt;&#x2F;span&gt;&lt;span&gt;    {&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;name &lt;&#x2F;span&gt;&lt;span&gt;= &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;tags&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;feed &lt;&#x2F;span&gt;&lt;span&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;true&lt;&#x2F;span&gt;&lt;span&gt;},
+&lt;&#x2F;span&gt;&lt;span&gt;]
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;This must be my own shortsightedness though, because it seems &lt;a href=&quot;https:&#x2F;&#x2F;tilde.club&#x2F;~passthejoe&#x2F;zola&#x2F;blog&#x2F;zola-tag-category-feeds&#x2F;index.html&quot;&gt;obvious to others&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;I&#x27;m also not complaining too much since this is a community-driven project; happy to see it being used by sites like &lt;a href=&quot;https:&#x2F;&#x2F;zola.discourse.group&#x2F;t&#x2F;allow-html-instead-of-md-for-pages-and-sections&#x2F;149&quot;&gt;Fastmail&lt;&#x2F;a&gt; too. All in all though, I&#x27;m quite happy with where I&#x27;ve gotten to and I find the Zola and Tera templating combination far less intimidating.&lt;&#x2F;p&gt;
+&lt;p&gt;Let&#x27;s see where this takes me.&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Embedding video in Jekyll</title>
+        <published>2013-03-25T00:00:00+00:00</published>
+        <updated>2013-03-25T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Jonathan Almeida
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/blog/embedding-video-in-jekyll/"/>
+        <id>https://jonalmeida.com/blog/embedding-video-in-jekyll/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/blog/embedding-video-in-jekyll/">&lt;h3 id=&quot;the-code&quot;&gt;The code:&lt;&#x2F;h3&gt;
+&lt;p&gt;Youtube embedded code works just as fine in Markdown.&lt;br&gt;&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;html&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-html &quot;&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;&lt;span&gt;&amp;lt;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;iframe
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;width&lt;&#x2F;span&gt;&lt;span&gt;=&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;560&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;height&lt;&#x2F;span&gt;&lt;span&gt;=&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;315&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;src&lt;&#x2F;span&gt;&lt;span&gt;=&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;http:&#x2F;&#x2F;www.youtube.com&#x2F;embed&#x2F;prX3--rtqXk&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;frameborder&lt;&#x2F;span&gt;&lt;span&gt;=&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;allowfullscreen&lt;&#x2F;span&gt;&lt;span&gt;&amp;gt;
+&lt;&#x2F;span&gt;&lt;span&gt;&amp;lt;&#x2F;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;iframe&lt;&#x2F;span&gt;&lt;span&gt;&amp;gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;br&gt;
+&lt;iframe
+  width=&quot;560&quot;
+  height=&quot;315&quot;
+  src=&quot;http:&#x2F;&#x2F;www.youtube.com&#x2F;embed&#x2F;prX3--rtqXk&quot;
+  frameborder=&quot;0&quot;
+  allowfullscreen&gt;
+&lt;&#x2F;iframe&gt;&lt;br&gt;
+</content>
+        
+    </entry>
+</feed>
