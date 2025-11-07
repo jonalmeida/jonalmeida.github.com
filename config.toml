@@ -98,5 +98,9 @@ name = "Blog"
 url = "@/blog/_index.md"
 
 [[extra.main_menu]]
+name = "TIL"
+url = "@/til/_index.md"
+
+[[extra.main_menu]]
 name = "Archive"
 url = "@/archive/_index.md"
