@@ -1,6 +1,7 @@
 ---
 title: "Restarting this blog & migrating to Zola"
 time: 2025-10-05
+draft: false
 taxonomies:
   tags: ["blog"]
   categories: ["article"]
