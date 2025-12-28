@@ -1,8 +1,10 @@
 ---
 layout: post
 title: CrunchBang Linux Initial Setup
-categories: posts
 aliases: ['/posts/2013/03/24/crunchbang-linux-initial-setup']
+taxonomies:
+  categories:
+    - blog
 ---
 
 I recently bought a ThinkPad T420s since the battery of my Dell Studio started to slowly die on me. Hence, I decided to start afresh with the ThinkPad and move away from Ubuntu to [CrunchBang Linux][crunch] (abrev: #!) which was the first linux OS I ever used.  It's a minimalistic Debian Wheezy based distribution that doesn't waste any of your time setting up your computer and lets you get to what you want to do.

@@ -1,8 +1,10 @@
 ---
 layout: post
 title: How to verify if a UUID follows the IETF specification
-categories: posts
 aliases: ['/posts/2014/05/20/testing-for-a-correct-uuid']
+taxonomies:
+  categories:
+    - blog
 ---
 
 I was playing around with creating UUIDs for adding uniqueness in a project, so I started reading the spec for creating one in the [RFC 4122][1]. Also as a side note, the spec sheets there are really interesting and finely detailed for almost anyone to understand. I don't know why I spent so much time on this, I was just having fun and time seemed to pass by..

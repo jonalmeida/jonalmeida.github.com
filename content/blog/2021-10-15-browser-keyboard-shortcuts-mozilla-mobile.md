@@ -1,10 +1,11 @@
 ---
 layout: post
 title: Useful bookmark keywords for Firefox (mobile) development
-categories: posts
 aliases: ['/posts/2021/10/15/browser-keyboard-shortcuts-mozilla-mobile']
 taxonomies:
   tags: ['mozilla', "workflow"]
+  categories:
+    - blog
 ---
 
 Firefox has support for keyword search in the address bar, which is handy during development at Mozilla. There are often many sources of information to look through and being able to get to them efficiently will save you _a lot_ of time.

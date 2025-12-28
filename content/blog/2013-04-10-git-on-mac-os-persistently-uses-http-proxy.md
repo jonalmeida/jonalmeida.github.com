@@ -1,9 +1,11 @@
 ---
 layout: post
 title: Git on Mac OS persistently uses HTTP proxy
-categories: posts
 tags: [Archived]
 aliases: ['/posts/2013/04/10/git-on-mac-os-persistently-uses-http-proxy']
+taxonomies:
+  categories:
+    - blog
 ---
 
 So I've been running into the problem off late on Mac OS when using an HTTPS proxy and then using git over https. After removing the proxy from Preferences, the http proxy still persists giving an error as seen below:

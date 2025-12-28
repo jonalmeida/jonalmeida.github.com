@@ -1,8 +1,10 @@
 ---
 layout: post
 title: Enabling print statements in Cargo tests
-categories: posts
 aliases: ['posts/2015/01/23/print-cargo']
+taxonomies:
+  categories:
+    - blog
 ---
 
 When writing tests in Cargo, you sometimes need to debug failures and print statements are a great way to do that. When you run `cargo test` the output shows details about which tests pass or fail but filters out the stdout information.

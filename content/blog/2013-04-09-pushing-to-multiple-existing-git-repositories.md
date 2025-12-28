@@ -1,10 +1,11 @@
 ---
 layout: post
 title: Pushing to multiple existing git repositories
-categories: posts
 aliases: ['/posts/2013/04/09/pushing-to-multiple-existing-git-repositories']
 taxonomies:
   tags: ['workflow']
+  categories:
+    - blog
 ---
 
 I've come across this situation where I start a project and push it to a personal git server, but eventually change my mind and decide to push those changes to another git server like Github or the university servers.

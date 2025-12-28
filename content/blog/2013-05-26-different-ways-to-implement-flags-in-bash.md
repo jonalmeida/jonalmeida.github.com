@@ -1,8 +1,10 @@
 ---
 layout: post
 title: Different ways to implement flags in bash
-categories: posts
 aliases: ['/posts/2013/05/26/different-ways-to-implement-flags-in-bash']
+taxonomies:
+  categories:
+    - blog
 ---
 
 I had to write a couple of shell script which required me to execute a part of the script by passing a flag. Should be easy enough?

@@ -2,6 +2,8 @@
 title: "On marathon training"
 taxonomies:
   tags: ["running"]
+  categories:
+    - blog
 draft: false
 extra:
   hide_table_of_contents: false

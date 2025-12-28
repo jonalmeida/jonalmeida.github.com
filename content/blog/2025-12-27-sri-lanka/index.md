@@ -3,7 +3,7 @@ title: "A short visit to Sri Lanka"
 draft: false
 taxonomies:
   tags: ["travel"]
-  categories: ["article"]
+  categories: [blog]
 extra:
   hide_table_of_contents: true
 ---

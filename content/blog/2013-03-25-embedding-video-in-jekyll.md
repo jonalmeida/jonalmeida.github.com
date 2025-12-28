@@ -7,6 +7,8 @@ extra:
   hide_table_of_contents: true
 taxonomies:
   tags: ['blog']
+  categories:
+    - blog
 ---
 
 ### The code:

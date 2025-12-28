@@ -3,6 +3,8 @@ title: Jujutsu, there is no going back to git
 draft: true
 taxonomies:
   tags: ["mozilla", "workflow"]
+  categories:
+    - blog
 extra:
   hide_table_of_contents: false
 ---

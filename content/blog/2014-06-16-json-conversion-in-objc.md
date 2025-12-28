@@ -1,8 +1,10 @@
 ---
 layout: post
 title: JSON object conversion into different types with Objective-C
-categories: posts
 aliases: ['/posts/2014/06/16/json-conversion-in-objc']
+taxonomies:
+  categories:
+    - blog
 ---
 
 When dealing with network APIs that use JSON, I find myself constantly converting objects from one form to another for data manipulation or storage. In Objective-C we're lucky to have such rich libraries that make life easier. Although, it does tend to get tedious when you start converting an NSDictionary to an NSData, or NSString to NSData, and so on. I wanted to make it easier so I had a one liner option to do this.

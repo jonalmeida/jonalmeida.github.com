@@ -1,8 +1,10 @@
 ---
 layout: post
 title: Reading and writing using the new Rust IO library
-categories: posts
 aliases: ['/posts/2015/03/03/rust-new-io']
+taxonomies:
+  categories:
+    - blog
 ---
 
 When the re-write of the `std::io` module landed in Rust [1.0.0-alpha.2][alpha2], there were a lot of changes to the way you read/write to a file. I'll cover some simple examples and probably make edits in the future to add more fancy stuff.
