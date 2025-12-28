@@ -1,0 +1,22 @@
+<div>
+{% for asset in page.assets -%}
+  {%- if asset is matching("[.](jpg|png)$") -%}
+    {% set image = resize_image(path=asset, width=240, height=180) %}
+
+    {#
+      When pages that have a date prefix location, get_url does not
+      get the generated path to an asset, so we have to make our own.
+
+      The original documented way to get the asset path:
+      `<a href="{{ get_url(path=asset) }}" target="_blank">`
+
+      See: getzola/zola/issues/788
+    #}
+    {% set asset_name = asset | split(pat="/") | last %}
+
+    <a href="{{ asset_name }}" target="_blank">
+      <img src="{{ image.url }}" />
+    </a>
+  {%- endif %}
+{%- endfor %}
+</div>
