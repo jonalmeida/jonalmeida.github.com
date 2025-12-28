@@ -14,6 +14,6 @@ jobs:
       - name: checkout
         uses: actions/checkout@v4
       - name: build_and_deploy
-        uses: shalzz/zola-deploy-action@v0.21.0
+        uses: shalzz/zola-deploy-action@90cd842959b82e0c012601be18ae249d6cdb1669
         env:
           TOKEN: ${{ secrets.GITHUB_TOKEN }}
