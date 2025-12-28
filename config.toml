@@ -20,7 +20,7 @@ author = "Jonathan Almeida"
 #     ]
 #
 taxonomies = [
-  { name = "categories", feed = false },
+  { name = "categories", feed = true },
   { name = "tags", feed = true },
 ]
 
