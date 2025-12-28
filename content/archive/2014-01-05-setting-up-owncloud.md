@@ -2,8 +2,10 @@
 layout: post
 title: Setting up ownCloud on Mac OS Mountain Lion to use via SSH
 categories: posts
-tags: [Archived]
 aliases: ['/posts/2014/01/05/setting-up-owncloud']
+taxonomies:
+  categories:
+    - archive
 ---
 
 I've been looking for a way to remotely access my media securely using ownCloud but I could never get myself to sit down and do it. Turns out that it's a bit of a hurdle on Mac OS because it [isn't officially supported][support]. 

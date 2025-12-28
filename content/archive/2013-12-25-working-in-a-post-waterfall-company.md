@@ -2,8 +2,10 @@
 layout: post
 title: Working in a post-waterfall development company
 categories: posts
-tags: [Archived]
 aliases: ['/posts/2013/12/25/working-in-a-post-waterfall-company']
+taxonomies:
+  categories:
+    - archive
 ---
 
 I'm an avid [Hacker News][hackernews] reader, and in doing so I came across one of Aaron Swartz's old blog posts called [Office Spaces][officespace]. In essence, he talks about how we have a terrible routine where we are always surrounded by "grey noise" which blocks us for actually doing work.

@@ -2,8 +2,10 @@
 layout: post
 title: Setting up my private server on DigitalOcean
 categories: posts
-tags: [Archived]
 aliases: ['/posts/2014/03/21/setting-up-private-server-digital-ocean']
+taxonomies:
+  categories:
+    - archive
 ---
 
 Today I joined DigitalOcean and created my host server which they refer to as "Droplets". Within a few hours I had set-up my host server *exactly* how I wanted it faster than I would have ever imagined with the set-up process from DigitalOcean that made so simple.

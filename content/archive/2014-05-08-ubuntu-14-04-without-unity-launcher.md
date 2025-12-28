@@ -2,8 +2,10 @@
 layout: post
 title: Ubuntu 14.04 without Unity launcher
 categories: posts
-tags: [Archived]
 aliases: ['/posts/2014/05/08/ubuntu-14-04-without-unity-launcher']
+taxonomies:
+  categories:
+    - archive
 ---
 
 Ubuntu 14.04 LTS recently launched so I decided to give it a spin on a spare SSD I had (I'm not a fan of desktop VMs). So far I'm really happy with everything, especially the polish that comes with it. On my T420s I get optimal battery performance and a level of speed I'm able to live with. The only thing I didn't want was the Unity launcher - it's a neat idea and I'm not a crazy rager who is out to kill everything new, but I just don't find myself using it _at all_ since Ubuntu 11.04.

@@ -2,8 +2,10 @@
 layout: post
 title: Android HTTP GET requests stored in JSON
 categories: posts
-tags: [Archived]
 aliases: ['/posts/2014/03/17/http-android-post-get']
+taxonomies:
+  categories:
+    - archive
 ---
 
 In my current project, I'm currently working on making an Android client send simple HTTP GET requests for data to a web API. I finally managed to get it working using the [HTTP Apache library][1].

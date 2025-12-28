@@ -2,8 +2,10 @@
 layout: post
 title: Moving from Android to BlackBerry 10
 categories: posts
-tags: [Archived]
 aliases: ['/posts/2013/07/30/moving-from-android-to-blackberry-10']
+taxonomies:
+  categories:
+    - archive
 ---
 
 This is going to be a ongoing post that's updated over time since I'm sure I'll run into things I need to add later.

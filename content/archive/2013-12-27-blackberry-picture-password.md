@@ -2,8 +2,10 @@
 layout: post
 title: BlackBerry Picture Password is more secure than you think
 categories: posts
-tags: [Archived]
 aliases: ['/posts/2013/12/27/blackberry-picture-password']
+taxonomies:
+  categories:
+    - archive
 ---
 <br>
 *Warning: My opinion is quite biased since I own a BlackBerry and having interned there as well.*

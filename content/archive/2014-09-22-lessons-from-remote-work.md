@@ -2,8 +2,10 @@
 layout: post
 title: Lessons from a remote internship for 4 months
 categories: posts
-tags: [Archived]
 aliases: ['/posts/2014/09/22/lessons-from-remote-work']
+taxonomies:
+  categories:
+    - archive
 ---
 
 I finally got down to writing this post after settling down back at university wth a proper schedule. When people ask about my last internship at [Snowplow Analytics](http://snowplowanalytics.com), they're always surprised and asking the same question, "Really? A remote internship? How does that work?". I wanted to write this down to show others what I've learned from my first remote work experience.
