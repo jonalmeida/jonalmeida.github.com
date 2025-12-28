@@ -3,7 +3,7 @@ title: "Rebase all WIPs to the new main"
 date: 2025-10-07
 draft: false
 taxonomies:
-  tags: ["jujutsu"]
+  tags: ["workflow"]
   categories: ["TIL"]
 extra:
   hide_table_of_contents: true
