@@ -14,7 +14,7 @@ A small pet-peeve with fetching the latest main on jujutsu is that I like to mov
 
 The solution from a co-worker (kudos to skippyhammond!) is to query all immediate decendants of the _previous_ main after the fetch.
 
-```sh
+```bash
 jj git fetch
 # assuming 'z' is the rev-id of the previous main.
 jj rebase -s "mutable()&z+" -d main
