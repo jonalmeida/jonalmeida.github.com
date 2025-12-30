@@ -1,6 +1,7 @@
 ---
 title: "Editing YAML front matter in bulk"
 date: 2025-12-28
+updated: 2025-12-30T17:04:53-05:00
 draft: false
 taxonomies:
   categories: ["TIL"]
@@ -13,7 +14,7 @@ When you want to edit YAML front matter in bulk on markdown files or similar, th
 First, try out the queries without writing them to the files:
 
 ```bash
-find . -name  "*.md" -exec yq --front-matter="extract" '.taxonomies.categories[] += "archive"' {} \;
+find . -name  "*.md" -exec yq --front-matter="extract" '.taxonomies.categories[]' {} \;
 ```
 
 > [!NOTE] This pipes only the extracted YAML properties output to the terminal. Keep reading below for writing it to the file.
