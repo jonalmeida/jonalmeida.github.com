@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>Jonathan Almeida - mozilla</title>
+    <subtitle>Scribblings and nonsense</subtitle>
+    <link rel="self" type="application/atom+xml" href="https://jonalmeida.com/tags/mozilla/atom.xml"/>
+    <link rel="alternate" type="text/html" href="https://jonalmeida.com"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2025-12-30T16:38:16-05:00</updated>
+    <id>https://jonalmeida.com/tags/mozilla/atom.xml</id>
+    <entry xml:lang="en">
+        <title>Rebase all WIPs to the new main</title>
+        <published>2025-10-07T00:00:00+00:00</published>
+        <updated>2025-12-30T16:38:16-05:00</updated>
+        
+        <author>
+          <name>
+            
+              Jonathan Almeida
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/til/jj-rebase-all/"/>
+        <id>https://jonalmeida.com/til/jj-rebase-all/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/til/jj-rebase-all/">&lt;p&gt;A small pet-peeve with fetching the latest main on jujutsu is that I like to move all my WIP patches to the new one. That&#x27;s also nice because jj doesn&#x27;t make me fix the conflicts immediately!&lt;&#x2F;p&gt;
+&lt;p&gt;The solution from a co-worker (kudos to skippyhammond!) is to query all immediate decendants of the &lt;em&gt;previous&lt;&#x2F;em&gt; main after the fetch.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;jj&lt;&#x2F;span&gt;&lt;span&gt; git fetch
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;# assuming &amp;#39;z&amp;#39; is the rev-id of the previous main.
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;jj&lt;&#x2F;span&gt;&lt;span&gt; rebase&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; -s &lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;mutable()&amp;amp;z+&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; -d&lt;&#x2F;span&gt;&lt;span&gt; main
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;&lt;del&gt;I haven&#x27;t learnt how to make aliases accept params with it yet, so this will have to do for now.&lt;&#x2F;del&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;Update: After a bit of searching, it seems that today, this is only possible by wrapping it in a shell script. Based on the examples in &lt;a href=&quot;https:&#x2F;&#x2F;docs.jj-vcs.dev&#x2F;latest&#x2F;config&#x2F;#aliases&quot;&gt;the jj documentation&lt;&#x2F;a&gt; an alias would look like this:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;toml&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-toml &quot;&gt;&lt;code class=&quot;language-toml&quot; data-lang=&quot;toml&quot;&gt;&lt;span&gt;[aliases]
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;# Update all revs to the latest main; point to the previous one.
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;hoist &lt;&#x2F;span&gt;&lt;span&gt;= [&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;util&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;, &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;exec&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;, &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;--&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;, &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;bash&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;, &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;-c&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;, &amp;quot;&amp;quot;&amp;quot;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;set -euo pipefail
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;jj rebase -s &amp;quot;mutable()&amp;amp;$1+&amp;quot; -d &amp;quot;main&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&amp;quot;&amp;quot;, &amp;quot;&amp;quot;]
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Useful bookmark keywords for Firefox (mobile) development</title>
+        <published>2021-10-15T00:00:00+00:00</published>
+        <updated>2021-10-15T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Jonathan Almeida
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/blog/browser-keyboard-shortcuts-mozilla-mobile/"/>
+        <id>https://jonalmeida.com/blog/browser-keyboard-shortcuts-mozilla-mobile/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/blog/browser-keyboard-shortcuts-mozilla-mobile/">&lt;p&gt;Firefox has support for keyword search in the address bar, which is handy during development at Mozilla. There are often many sources of information to look through and being able to get to them efficiently will save you &lt;em&gt;a lot&lt;&#x2F;em&gt; of time.&lt;&#x2F;p&gt;
+&lt;p&gt;The &lt;a href=&quot;https:&#x2F;&#x2F;support.mozilla.org&#x2F;en-US&#x2F;kb&#x2F;how-search-from-address-bar&quot;&gt;support documentation&lt;&#x2F;a&gt; has excellent examples of how this works, but here is a simple annotated image of what it does:&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;&#x2F;images&#x2F;20211015&#x2F;keywords.png&quot; alt=&quot;&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;Below are a list of keyword shortcuts I use on a daily basis. Many of them are related to mobile development, but there are other userful ones too. You can manually copy over to your bookmark manager the ones that might seem useful.&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;search-fox&quot;&gt;Search Fox&lt;&#x2F;h1&gt;
+&lt;p&gt;Search Fox is another internal tool at Mozilla for code indexes across all of mozilla-central and particular it&#x27;s branches, mozilla-mobile, rust and many others. Search Fox is a go because of how fast it is and with symbolic references to JS&#x2F;Rust&#x2F;C++, you can navigate quite easily around the place. There are a few keywords that I&#x27;d recommend here.&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;sf - regular indexes of mozilla-central.&lt;&#x2F;li&gt;
+&lt;li&gt;sfm - search through mozilla-mobile repositories (this includes application-services too).&lt;&#x2F;li&gt;
+&lt;li&gt;sff - search through the 68 release branch code. This is particularly useful for mobile because it&#x27;s the last release of Fennec (old Firefox Mobile) if you want to compare implementations.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;pre style=&quot;background-color:#2b303b;color:#c0c5ce;&quot;&gt;&lt;code&gt;&lt;span&gt;Name: Searchfox - mozilla-central
+&lt;&#x2F;span&gt;&lt;span&gt;Keyword: sf
+&lt;&#x2F;span&gt;&lt;span&gt;URL: https:&#x2F;&#x2F;searchfox.org&#x2F;mozilla-central&#x2F;search?path=&amp;amp;q=%s
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;Name: Searchfox - mozilla-mobile (Mobile)
+&lt;&#x2F;span&gt;&lt;span&gt;Keyword: sfm
+&lt;&#x2F;span&gt;&lt;span&gt;URL: https:&#x2F;&#x2F;searchfox.org&#x2F;mozilla-mobile&#x2F;search?path=&amp;amp;q=%s
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;Name: Searchfox - Fennec - mozsearch
+&lt;&#x2F;span&gt;&lt;span&gt;Keyword: sff
+&lt;&#x2F;span&gt;&lt;span&gt;URL: http:&#x2F;&#x2F;searchfox.org&#x2F;mozilla-esr68&#x2F;search?q=%s&amp;amp;path=
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h1 id=&quot;mercurial&quot;&gt;Mercurial&lt;&#x2F;h1&gt;
+&lt;p&gt;Sometimes you want to look up a diff from a changeset in your browser.&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;color:#c0c5ce;&quot;&gt;&lt;code&gt;&lt;span&gt;Name: Search mozilla-central with revision (changeset) ID
+&lt;&#x2F;span&gt;&lt;span&gt;Keyword: diff
+&lt;&#x2F;span&gt;&lt;span&gt;URL: https:&#x2F;&#x2F;hg.mozilla.org&#x2F;mozilla-central&#x2F;rev&#x2F;%s
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h1 id=&quot;github&quot;&gt;Github&lt;&#x2F;h1&gt;
+&lt;p&gt;Many of our mobile projects are on Github so having quick access to an issue or pull request is great. We currently work on Android Components, Fenix and Focus a lot, so these keywords let me get to an issue or pull request directly. For example, &lt;code&gt;aci 10000&lt;&#x2F;code&gt; for navigating to the 10,000 issue in Android Components.&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;color:#c0c5ce;&quot;&gt;&lt;code&gt;&lt;span&gt;Name: Github - Android Components - Issues&#x2F;Pull Requests
+&lt;&#x2F;span&gt;&lt;span&gt;Keyword: aci
+&lt;&#x2F;span&gt;&lt;span&gt;URL: https:&#x2F;&#x2F;github.com&#x2F;mozilla-mobile&#x2F;android-components&#x2F;issues&#x2F;%s
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;Name: Github - Fenix - Issues&#x2F;Pull Requests
+&lt;&#x2F;span&gt;&lt;span&gt;Keyword: fbi
+&lt;&#x2F;span&gt;&lt;span&gt;URL: https:&#x2F;&#x2F;github.com&#x2F;mozilla-mobile&#x2F;fenix&#x2F;issues&#x2F;%s
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;Name: Github - Focus - Issues&#x2F;Pull Requests
+&lt;&#x2F;span&gt;&lt;span&gt;Keyword: fci
+&lt;&#x2F;span&gt;&lt;span&gt;URL: https:&#x2F;&#x2F;github.com&#x2F;mozilla-mobile&#x2F;focus-android&#x2F;issues&#x2F;%s
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h1 id=&quot;taskcluster&quot;&gt;Taskcluster&lt;&#x2F;h1&gt;
+&lt;p&gt;Taskcluster is our internal CI build system. When a build fails or when you want to wait for a build, you can grab the ID from a pull request or release.&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;color:#c0c5ce;&quot;&gt;&lt;code&gt;&lt;span&gt;Name: FirefoxCI - Navigate to a task item (Task ID)
+&lt;&#x2F;span&gt;&lt;span&gt;Keyword: ti
+&lt;&#x2F;span&gt;&lt;span&gt;URL: https:&#x2F;&#x2F;firefox-ci-tc.services.mozilla.com&#x2F;tasks&#x2F;%s
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;Name: FirefoxCI - Navigate to a task group (Group ID)
+&lt;&#x2F;span&gt;&lt;span&gt;Keyword: gi
+&lt;&#x2F;span&gt;&lt;span&gt;URL: https:&#x2F;&#x2F;firefox-ci-tc.services.mozilla.com&#x2F;tasks&#x2F;groups&#x2F;%s
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h1 id=&quot;android-chromium&quot;&gt;Android &#x2F; Chromium&lt;&#x2F;h1&gt;
+&lt;p&gt;It&#x27;s common to want source references to Android sources or compare Chromium implementations as well.&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;color:#c0c5ce;&quot;&gt;&lt;code&gt;&lt;span&gt;Name: Chromium Android - Code Search (Chromium Reference)
+&lt;&#x2F;span&gt;&lt;span&gt;Keyword: cr
+&lt;&#x2F;span&gt;&lt;span&gt;URL: https:&#x2F;&#x2F;cs.chromium.org&#x2F;search&#x2F;?q=%s&amp;amp;sq=package:chromium&amp;amp;type=cs
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;Name: Android Source References
+&lt;&#x2F;span&gt;&lt;span&gt;Keyword: ar
+&lt;&#x2F;span&gt;&lt;span&gt;URL: https:&#x2F;&#x2F;cs.android.com&#x2F;search?q=%s
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>How I manage my github notifications with Gmail</title>
+        <published>2021-10-14T00:00:00+00:00</published>
+        <updated>2021-10-14T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Jonathan Almeida
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/blog/github-notifications-mozilla-mobile/"/>
+        <id>https://jonalmeida.com/blog/github-notifications-mozilla-mobile/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/blog/github-notifications-mozilla-mobile/">&lt;p&gt;A lot of &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;mozilla-mobile&#x2F;&quot;&gt;Mozilla mobile&lt;&#x2F;a&gt; product development is now hosted on Github, which is what many of our contributors prefer as a platform too. This leads to a lot of noise from Github&#x27;s notification system and I&#x27;ve had some troubles managing it over the years.&lt;&#x2F;p&gt;
+&lt;p&gt;As a follow-up to &lt;a href=&quot;https:&#x2F;&#x2F;blog.margaretleibovic.com&#x2F;2012&#x2F;09&#x2F;21&#x2F;how-i-manage-my-bugmail-with-gmail.html&quot;&gt;how you can manage bugmail with gmail&lt;&#x2F;a&gt;, I found a similar way to manage my most important Github notifications via Gmail:&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;&#x2F;images&#x2F;20211014&#x2F;gmail-sidebar.png&quot; alt=&quot;&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;You can apply the same filters with the rules below:&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;color:#c0c5ce;&quot;&gt;&lt;code&gt;&lt;span&gt;Matches: from:(notifications@github.com)
+&lt;&#x2F;span&gt;&lt;span&gt;Do this: Skip Inbox, Apply label &amp;quot;GitHub&amp;quot;, Categorize as Forums
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;Matches: to:(author@noreply.github.com)
+&lt;&#x2F;span&gt;&lt;span&gt;Do this: Apply label &amp;quot;GitHub&#x2F;Author&amp;quot;, Mark it as important
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;Matches: cc:comment@noreply.github.com
+&lt;&#x2F;span&gt;&lt;span&gt;Do this: Skip Inbox, Apply label &amp;quot;GitHub&#x2F;Comments&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;Matches: to:(mention@noreply.github.com)
+&lt;&#x2F;span&gt;&lt;span&gt;Do this: Skip Inbox, Apply label &amp;quot;GitHub&#x2F;Mentions&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;Matches: to:(review_requested@noreply.github.com) &amp;quot;requested your review&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;Do this: Apply label &amp;quot;GitHub&#x2F;Review Requested&amp;quot;, Mark it as important
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;Matches: to:(review_requested@noreply.github.com)
+&lt;&#x2F;span&gt;&lt;span&gt;Do this: Apply label &amp;quot;GitHub&#x2F;Reviews&amp;quot;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;The filters above are sorted in the same order as the screenshot if you&#x27;d like to only use a select few.&lt;&#x2F;p&gt;
+&lt;p&gt;If you&#x27;re feeling ambitious, you can &lt;a href=&quot;&#x2F;images&#x2F;20211014&#x2F;mailFilters.xml&quot;&gt;download the filters&lt;&#x2F;a&gt; in the appropriate XML format for Gmail so that you can import them for your account. This is probably not advisable because I&#x27;m someone on the internet that you probably do not know. :)&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+</feed>
