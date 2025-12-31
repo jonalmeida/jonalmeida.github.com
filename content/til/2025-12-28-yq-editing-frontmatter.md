@@ -4,6 +4,7 @@ date: 2025-12-28
 updated: 2025-12-30T17:04:53-05:00
 draft: false
 taxonomies:
+  tags: ["blog"]
   categories: ["TIL"]
 extra:
   hide_table_of_contents: true
