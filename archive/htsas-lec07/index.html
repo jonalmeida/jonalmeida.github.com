@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Start a Startup - Lecture 7 Notes | Jonathan Almeida</title>
+  <meta name="title" content="How to Start a Startup - Lecture 7 Notes">
+<meta name="description" content="Scribblings and nonsense">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+  
+  <link rel="alternate" type="application/atom+xml" title="Jonathan Almeida" href="https://jonalmeida.com/atom.xml">
+  <style>
+    :root {
+    --width: 800px;
+    --font-main: Verdana, sans-serif;
+    --font-secondary: Verdana, sans-serif;
+    --font-scale: 1em;
+    --background-color: #fff;
+    --heading-color: #222;
+    --text-color: #444;
+    --link-color: #3273dc;
+    --visited-color: #8b6fcb;
+    --code-background-color: #f2f2f2;
+    --code-color: #222;
+    --blockquote-color: #222;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --background-color: #01242e;
+      --heading-color: #eee;
+      --text-color: #ddd;
+      --link-color: #8cc2dd;
+      --visited-color: #8b6fcb;
+      --code-background-color: #000;
+      --code-color: #ddd;
+      --blockquote-color: #ccc;
+    }
+  }
+
+  body {
+    font-family: var(--font-secondary);
+    font-size: var(--font-scale);
+    margin: auto;
+    padding: 20px;
+    max-width: var(--width);
+    text-align: left;
+    background-color: var(--background-color);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.5;
+    color: var(--text-color);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-main);
+    color: var(--heading-color);
+  }
+
+  a {
+    color: var(--link-color);
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  nav a {
+    margin-right: 8px;
+  }
+
+  nav span.active {
+    font-weight: bold;
+    margin-right: 10px;
+  }
+  strong,
+  b {
+    color: var(--heading-color);
+  }
+
+  button {
+    margin: 0;
+    cursor: pointer;
+  }
+
+  main {
+    line-height: 1.6;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  hr {
+    border: 0;
+    border-top: 1px dashed;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  pre code {
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    display: block;
+    padding: 20px;
+    white-space: pre-wrap;
+    font-size: 0.875rem;
+    overflow-x: auto;
+  }
+
+  code {
+    font-family: monospace;
+    padding: 2px;
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    border-radius: 3px;
+  }
+
+  blockquote {
+    border-left: 1px solid #999;
+    color: var(--code-color);
+    padding-left: 20px;
+    font-style: italic;
+  }
+
+  footer {
+    padding: 25px 0;
+    text-align: center;
+  }
+
+  .title:hover {
+    text-decoration: none;
+  }
+
+  .title h1 {
+    font-size: 1.5em;
+  }
+
+  .inline {
+    width: auto !important;
+  }
+
+  .highlight,
+  .code {
+    padding: 1px 15px;
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    border-radius: 3px;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    overflow-x: auto;
+  }
+
+  /* blog post list */
+  ul.blog-posts {
+    list-style-type: none;
+    padding: unset;
+  }
+
+  ul.blog-posts li {
+    display: flex;
+  }
+
+  ul.blog-posts li span {
+    flex: 0 0 130px;
+  }
+
+  ul.blog-posts li a:visited {
+    color: var(--visited-color);
+  }
+
+  .tags {
+    font-size: smaller;
+  }
+
+  .footnote-definition {
+    display: flex;
+    margin-top: 1em;
+  }
+  .footnote-definition-label {
+    margin-left: 1rem;
+    margin-right: 0.5rem;
+    vertical-align: baseline;
+  }
+  .footnote-definition-label::after {
+    content: "."
+  }
+  .footnote-definition > p {
+    margin: 0;
+  }
+
+  </style><style>
+
+section#comments {
+  p {
+    font-size: 0.8em;
+  }
+}
+
+
+pre mark {
+  color: var(--code-color);
+}
+</style>
+
+</head>
+<body>
+  <header>
+  <a href="https://jonalmeida.com/" class="title">
+    <h1>Jonathan Almeida</h1>
+  </a>
+  <nav aria-label="site">
+      <a href="https://jonalmeida.com/">Home</a>
+      <a href="https://jonalmeida.com/blog/">Blog</a>
+      <a href="https://jonalmeida.com/til/">TIL</a>
+      <a href="https://jonalmeida.com/archive/">Archive</a>
+  </nav>
+</header>
+
+  <h1>How to Start a Startup - Lecture 7 Notes</h1>
+      <p>
+        <i>
+          <time datetime="2014-10-19T00:00:00+00:00" pubdate>2014-10-19</time>
+        </i>
+      </p>
+    <details >
+      <summary>Table of contents</summary>
+    <ul>
+        <li>
+          <a href="https://jonalmeida.com/archive/htsas-lec07/#making-products-users-love">Making Products Users Love</a>
+        <ul>
+            <li>
+              <a href="https://jonalmeida.com/archive/htsas-lec07/#relationships-atrophy">Relationships Atrophy</a>
+            </li>
+        </ul>
+        </li>
+    </ul>
+    </details>
+  <main>
+    <blockquote>
+<p><strong>EDIT:</strong> Sorry these are late!</p>
+</blockquote>
+<p>I'm taking down notes for Sam Altman's class, How to Start a Startup and I figured I'd start sharing them. This is for the <a href="https://www.youtube.com/watch?v=sz_LgBAGYyo">seventh lecture</a> with the following notes:</p>
+<h1 id="making-products-users-love">Making Products Users Love</h1>
+<ul>
+<li>
+<p>How do we make things that have a passionate user base.</p>
+</li>
+<li>
+<p>Our users are unconditionally want it to be successful: the products, and the company behind it.</p>
+</li>
+<li>
+<p>Growth is the interaction between Conversion and Churn.</p>
+<ul>
+<li>Gap between indicate how fast you're going to grow.</li>
+</ul>
+</li>
+<li>
+<p><strong>Philosophy:</strong> To get a billion dollars, focus on what it takes to get that first user and the rest will fall into place.</p>
+</li>
+<li>
+<p>At Wufoo they compared how does real relationships work and how do we apply them to how we run our business.</p>
+<ul>
+<li>Then, build our product that way.</li>
+</ul>
+</li>
+<li>
+<p>Human beings always create a way to anthropomorphize things that we interact with over and over again.</p>
+</li>
+<li>
+<p>First time interactions means that the threshold is lower.</p>
+<ul>
+<li>Users though, discover many other moments which they call first impressions later on which they make memorable.</li>
+<li>Links, advertising, customer support emails, etc.</li>
+<li>i.e. "opportunities to seduce"</li>
+</ul>
+</li>
+<li>
+<p>Judging quality uses two different concepts that we get from the Japanese:</p>
+<ul>
+<li><em>atarimae hinshitsu</em>
+<ul>
+<li>Taking for granted quality (functionality).</li>
+</ul>
+</li>
+<li><em>miryokuteki hinshitsu</em>
+<ul>
+<li>Enchanting quality.</li>
+<li>Example: A pen - if the weight of the pen. the ink flowing from the pen and the writing from the pen are pleasurable to the user.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><em>(slides of applications that take opportunities to put a smile on a users face when you know who your user is. Example: Your trial has expired. Everything works exactly the same but everything is written using Comic Sans)</em></p>
+</li>
+<li>
+<p>Subscribe to Little Big Details.</p>
+</li>
+<li>
+<p>Marriage problems (even in strong relationships) always fight about the same things.</p>
+</li>
+<li>
+<p>These things are remarkably similar to company problems:</p>
+<table><thead><tr><th>Marriage</th><th>Company</th><th>Customer Support</th></tr></thead><tbody>
+<tr><td>Money</td><td>Cost/Billing</td><td>Website visitor</td></tr>
+<tr><td>Kids</td><td>Users' Clients</td><td>Signup to Trial</td></tr>
+<tr><td>Sex</td><td>Performance</td><td>Login to account</td></tr>
+<tr><td>Time</td><td>Roadmap</td><td>Active Users</td></tr>
+<tr><td>Others</td><td>Others</td><td>Paying Users</td></tr>
+<tr><td></td><td></td><td>Staying Users</td></tr>
+</tbody></table>
+</li>
+<li>
+<p>Think of each of these in terms of customer support.</p>
+</li>
+<li>
+<p>Customer support is the thing that happens in-between each step.</p>
+</li>
+<li>
+<p>There's a big problem how every company builds up their engineering teams.</p>
+<ul>
+<li>Software engineers and designers are often divorced from the consequences of their actions.</li>
+</ul>
+</li>
+<li>
+<p>Before launch, everything you do is "correct".</p>
+</li>
+<li>
+<p>After launch, new tasks start to crop up:</p>
+<ol>
+<li>Customer Support</li>
+<li>Fixing crap</li>
+<li>Business crap</li>
+<li>Hiring crap</li>
+<li>Crap</li>
+</ol>
+</li>
+<li>
+<p>What we need to do is change software development to inject new values:</p>
+<ol>
+<li>Responsibility</li>
+<li>Accountability</li>
+<li>Humility</li>
+<li>Modesty</li>
+</ol>
+</li>
+<li>
+<p>We needed a new model to follow: Support Driven Development (SDD)</p>
+<ul>
+<li>SDD is another Agile development form</li>
+<li>You don't need scrum, post-it notes, etc.</li>
+<li><strong>You just need everyone to do Customer Support.</strong>
+<ul>
+<li>This fixes the feedback loop!</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Paul English from Kayak thought of this as well:</p>
+<ul>
+<li>"Why would you pay engineers $120K a year to do something that you can pay other people a fraction of to handle?"</li>
+<li>"After the second or third time the phone rings and they get the same problem. They stop what they're doing, they fix the bug, and we stop getting calls about it."</li>
+</ul>
+</li>
+<li>
+<p>Again, like marriage there are four warning signs that show you're about to break up (The Four Horsemen).</p>
+<table><thead><tr><th>Marriage</th></tr></thead><tbody>
+<tr><td>Criticism</td></tr>
+<tr><td>Contempt</td></tr>
+<tr><td>Defensiveness</td></tr>
+<tr><td>Stonewalling</td></tr>
+</tbody></table>
+</li>
+<li>
+<p>At Wufoo:</p>
+<ul>
+<li>+500,000 users</li>
+<li>~5 million people using Wufoo forms and reports</li>
+<li>~400 issues</li>
+<li>+800 emails</li>
+<li>7-12 minutes for response time</li>
+</ul>
+</li>
+<li>
+<p>This format of SDD was carried all they way up to this scale.</p>
+</li>
+<li>
+<p>At Wufoo, they added a drop down to add your emotional state at the time.</p>
+<ul>
+<li>People filled this out a similar percentage of time that they filled out "Browser Type"</li>
+<li>What we can learn from this is: people feel that knowing their emotional state is just as important as all the technical details you need to know how to debug it.</li>
+<li><em>Note: People didn't try to game the system.</em></li>
+<li>This let them know how much people cared about the issue they were filling out.</li>
+<li>When communicating over written text, there are only three ways to express emotions: exclamation marks, curse words, all-caps.</li>
+<li>By metrics, all three of those ways had gone down as people talked to the customer support.</li>
+<li>"Once people had a simple outlet for their emotion, they behaved a lot more rational and made our jobs a lot more pleasant as a result."</li>
+</ul>
+</li>
+<li>
+<p>Another by-product of this is that you actually build better software by doing this.</p>
+</li>
+<li>
+<p>There's a direct correlation between the time spent with users, and how good our design gets.</p>
+</li>
+<li>
+<p>It has to come in a specific way otherwise your software will get worse over time:</p>
+<ul>
+<li>Direct Exposure: It can't be by someone who generates a report, or a graph. You have to be interacting with them somewhat real-time.</li>
+<li>Minimum of every six weeks.</li>
+<li>At least two hours.</li>
+</ul>
+</li>
+<li>
+<p>If you want your users to gain knowledge of your product:</p>
+<ul>
+<li>You make your app more intuitive.</li>
+<li>You increase your user's knowledge.</li>
+</ul>
+</li>
+<li>
+<p>As engineers, we always think: we need more features, this means increasing the knowledge gap. So we need a better way to support our customers to <em>increase their knowledge</em> of your app.</p>
+</li>
+<li>
+<p>Growth is a function of Conversion and Churn.</p>
+</li>
+<li>
+<p>Wufoo paid no money on advertising, marketing, etc. All of it was done through word of mouth.</p>
+</li>
+</ul>
+<h2 id="relationships-atrophy">Relationships Atrophy</h2>
+<ul>
+<li>When it comes to relationships, it tends to work like second law of thermodynamics: In a closed energy system, things tend to run down. So you have to constantly have to be putting energy back into it.</li>
+<li>The typical way to show we care: blog, newsletters.</li>
+<li>Wufoo created a new tool that showed all the new features that were implemented since their users' last login - "Since You've Been Gone."</li>
+<li>Every friday, the Wufoo team who get together and send out hand-written postcards to their users. This added an element of humility back into the cycle.</li>
+<li>The discipline of market leaders can only be achieved by three ways. You have to organize your company in a very specific way.
+<ul>
+<li>Best price</li>
+<li>Best product</li>
+<li>Best overall solution</li>
+</ul>
+</li>
+<li>The third one the only one that can be done at any stage in your company and requires almost no amount of money, just some humility and manners.</li>
+</ul>
+<p>Q. <em>What do you when you have a product that a lot of types of users, some users will love one thing, and others will love another?</em></p>
+<p><strong>Ans.</strong> Focus on those who are <em>most</em> passionate. Whatever niche it's going to be.</p>
+<p>Q. <em>How do we balance between working on product but all the other skills are also needed by marketing?</em></p>
+<p><strong>Ans.</strong> If you're working with product, you should always have this flip side where you're talking to users. Within Wufoo, we just made everyone talk to customers. Working on product <strong>must</strong> go with talking to your customers.</p>
+<p>Q. <em>How do you make a decision on product and how do you communicate that with engineering teamw when there are a lot of different dirrections to go?</em></p>
+<p><strong>Ans.</strong> When you're working with support, you can tell what people had the most amount of problems with or are asking you all the time.</p>
+<p>Q. <em>Tell the story how you came up with the "king for a day" at Wufoo.</em></p>
+<p><strong>Ans.</strong> I don't like hackathons that are done inside companies. Instead at Wufoo, they came up with "King for a day":</p>
+<ul>
+<li>Someone from within the company got randomly drawn, and the "king" could tell everyone else what to do on the product. Everything that was bothering them about the company, a feature, could be worked on. Wufoo would do this one or two times a year during a weekend. This ended up being a huge moral boost.</li>
+</ul>
+<p>Q. <em>WFH, how did that not end up being a nightware?</em></p>
+<p><strong>Ans.</strong> We would allow anyone to work from anywhere, but usually as we tried to recruit them usually ended up wanting to work there anyway. Remote working is tricky. An office gives you a lot of benefits and efficiencies that you now have to compensate for. But remote working has it's own benefits: I don't have to worry about my employees losing two hours to commuting. Thus, we had to respect people's time.
+At Wufoo, they had a 4.5 days for working. The 0.5 day was for meetings, and then you have the first day which was for customer support. So we have a firm belief that if you have a three day work week, you can finish whatever you need to work on, and you have to respect that persons three day work time to get their work done.
+You couldn't work for issues that took longer than 15 mins of that persons time. 95% of the time, people would just sleep on it and they ended up saying, "Oh! We've solved it!".
+Also, we were an extremely disciplined company and not many YC companies have been able to replicate what we've wanted to do.</p>
+<p>Q. <em>As the leader of the team, how did you manage to setup accountability as a manager?</em></p>
+<p><strong>Ans.</strong> At Wufoo, we had profit sharing. They split up bonuses on how much people managed to do that they set out to, and how well they did in customer support. The simplest way to setup accountability was to create To-Do lists for each person. Everyone can see all the things you want to be done, here are the things you wanted to complete during the previous week, what are your problems at hand? They set the tone for how they want to be assessed.</p>
+<p>Q. <em>How do you hire people that can work remotely and work in this sort of fashion?</em></p>
+<p><strong>Ans.</strong> Have them work on a side-project for you as a contractor remotely. You get a good sense of how people managed them selves. Second, we had to screen them for their ability to do customer support. Interview would ask you how to write break up letters to you.</p>
+<p>Q. <em>With all these tricks to help with the company, do you have any that didn't work out?</em></p>
+<p><strong>Ans.</strong> We tried to motivate people during crunch time. We want to build a company vacation to reward the employees. So if the vacation is build into the crunch mode schedule. The first crunch mode was just between the co-founders. We each drew up a 10 item to-do list. The first person who got through 7 of the items would win and choose the next vacation location, and the last person would become the trip-bitch (you carried the other peoples luggage and get them drinks, etc.). During that period, one of the guys poorly estimated the items on his list and decided just to give up. So crunch mode just became blah-mode.</p>
+<blockquote>
+<p>Written with <a href="https://stackedit.io/">StackEdit</a>.</p>
+</blockquote>
+
+  </main>
+  <p>
+        Categories:
+          <a href="https://jonalmeida.com/categories/archive/">#archive</a>
+  </p>
+
+  <!-- Add temporary footnote back-links support -->
+  <script src="/footnotes.js"></script>
+<footer>
+</footer>
+</body>
+</html>
