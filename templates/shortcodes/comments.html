@@ -204,11 +204,14 @@
 
               Promise.all([purifyPromise, cssPromise]).then(() => {
                 commentsWrapper.innerHTML += DOMPurify.sanitize(comment.outerHTML);
-                document.getElementById("load-comment").innerHTML = "Reload comments";
               });
 
             });
           }
+          // Makes the button update more user-perceivable.
+          setTimeout(() => {
+            document.getElementById("load-comment").innerHTML = "Reload comments";
+          }, 300);
         });
       }
       document.getElementById("load-comment").addEventListener("click", loadComments);
