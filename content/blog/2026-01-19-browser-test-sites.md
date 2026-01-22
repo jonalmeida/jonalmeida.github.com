@@ -1,5 +1,6 @@
 ---
 title: "Test sites for browser developers"
+updated: 2026-01-22T16:28:43-05:00
 draft: false
 taxonomies:
   tags: ["workflow", "mozilla"]
@@ -34,6 +35,8 @@ Below is a list of tests that I've used in the past with example behaviours (in 
   - When you have to verify that [`localStorage`](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage) is truly gone. This is especially helpful for Firefox Focus where private browsing is the primary feature.
 - [`<input>`: The HTML Input element - MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input)
   - There are Too Many™ different prompt and input element types. The MDN docs have the best collection of all of them.
+- [daleharvey.github.io/testapp](https://daleharvey.github.io/testapp/)
+  - Good for sanity testing simple forms, links that have same/different origins, or (location) permission prompts.
 
 
 
