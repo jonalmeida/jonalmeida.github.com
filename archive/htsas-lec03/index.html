@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Start a Startup - Lecture 3 Notes | Jonathan Almeida</title>
+  <meta name="title" content="How to Start a Startup - Lecture 3 Notes">
+<meta name="description" content="Scribblings and nonsense">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+  
+  <link rel="alternate" type="application/atom+xml" title="Jonathan Almeida" href="https://jonalmeida.com/atom.xml">
+  <style>
+    :root {
+    --width: 800px;
+    --font-main: Verdana, sans-serif;
+    --font-secondary: Verdana, sans-serif;
+    --font-scale: 1em;
+    --background-color: #fff;
+    --heading-color: #222;
+    --text-color: #444;
+    --link-color: #3273dc;
+    --visited-color: #8b6fcb;
+    --code-background-color: #f2f2f2;
+    --code-color: #222;
+    --blockquote-color: #222;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --background-color: #01242e;
+      --heading-color: #eee;
+      --text-color: #ddd;
+      --link-color: #8cc2dd;
+      --visited-color: #8b6fcb;
+      --code-background-color: #000;
+      --code-color: #ddd;
+      --blockquote-color: #ccc;
+    }
+  }
+
+  body {
+    font-family: var(--font-secondary);
+    font-size: var(--font-scale);
+    margin: auto;
+    padding: 20px;
+    max-width: var(--width);
+    text-align: left;
+    background-color: var(--background-color);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.5;
+    color: var(--text-color);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-main);
+    color: var(--heading-color);
+  }
+
+  a {
+    color: var(--link-color);
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  nav a {
+    margin-right: 8px;
+  }
+
+  nav span.active {
+    font-weight: bold;
+    margin-right: 10px;
+  }
+  strong,
+  b {
+    color: var(--heading-color);
+  }
+
+  button {
+    margin: 0;
+    cursor: pointer;
+  }
+
+  main {
+    line-height: 1.6;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  hr {
+    border: 0;
+    border-top: 1px dashed;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  pre code {
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    display: block;
+    padding: 20px;
+    white-space: pre-wrap;
+    font-size: 0.875rem;
+    overflow-x: auto;
+  }
+
+  code {
+    font-family: monospace;
+    padding: 2px;
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    border-radius: 3px;
+  }
+
+  blockquote {
+    border-left: 1px solid #999;
+    color: var(--code-color);
+    padding-left: 20px;
+    font-style: italic;
+  }
+
+  footer {
+    padding: 25px 0;
+    text-align: center;
+  }
+
+  .title:hover {
+    text-decoration: none;
+  }
+
+  .title h1 {
+    font-size: 1.5em;
+  }
+
+  .inline {
+    width: auto !important;
+  }
+
+  .highlight,
+  .code {
+    padding: 1px 15px;
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    border-radius: 3px;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    overflow-x: auto;
+  }
+
+  /* blog post list */
+  ul.blog-posts {
+    list-style-type: none;
+    padding: unset;
+  }
+
+  ul.blog-posts li {
+    display: flex;
+  }
+
+  ul.blog-posts li span {
+    flex: 0 0 130px;
+  }
+
+  ul.blog-posts li a:visited {
+    color: var(--visited-color);
+  }
+
+  .tags {
+    font-size: smaller;
+  }
+
+  .footnote-definition {
+    display: flex;
+    margin-top: 1em;
+  }
+  .footnote-definition-label {
+    margin-left: 1rem;
+    margin-right: 0.5rem;
+    vertical-align: baseline;
+  }
+  .footnote-definition-label::after {
+    content: "."
+  }
+  .footnote-definition > p {
+    margin: 0;
+  }
+
+  </style><style>
+
+section#comments {
+  p {
+    font-size: 0.8em;
+  }
+}
+
+
+pre mark {
+  color: var(--code-color);
+}
+</style>
+
+</head>
+<body>
+  <header>
+  <a href="https://jonalmeida.com/" class="title">
+    <h1>Jonathan Almeida</h1>
+  </a>
+  <nav aria-label="site">
+      <a href="https://jonalmeida.com/">Home</a>
+      <a href="https://jonalmeida.com/blog/">Blog</a>
+      <a href="https://jonalmeida.com/til/">TIL</a>
+      <a href="https://jonalmeida.com/archive/">Archive</a>
+  </nav>
+</header>
+
+  <h1>How to Start a Startup - Lecture 3 Notes</h1>
+      <p>
+        <i>
+          <time datetime="2014-09-30T00:00:00+00:00" pubdate>2014-09-30</time>
+        </i>
+      </p>
+    <details >
+      <summary>Table of contents</summary>
+    <ul>
+        <li>
+          <a href="https://jonalmeida.com/archive/htsas-lec03/#counter-intuition-in-startups">Counter-intuition in Startups</a>
+        <ul>
+            <li>
+              <a href="https://jonalmeida.com/archive/htsas-lec03/#1-don-t-trust-your-intuition">1. Don&#x27;t trust your intuition</a>
+            </li>
+            <li>
+              <a href="https://jonalmeida.com/archive/htsas-lec03/#2-expertise-in-startups">2. Expertise in startups</a>
+            </li>
+            <li>
+              <a href="https://jonalmeida.com/archive/htsas-lec03/#3-gaming-the-system">3. Gaming the system</a>
+            </li>
+            <li>
+              <a href="https://jonalmeida.com/archive/htsas-lec03/#4-startups-are-all-consuming">4. Startups are all consuming</a>
+            </li>
+            <li>
+              <a href="https://jonalmeida.com/archive/htsas-lec03/#5-you-can-t-tell-if-you-should-sas">5. You can&#x27;t tell if you should SAS</a>
+            </li>
+            <li>
+              <a href="https://jonalmeida.com/archive/htsas-lec03/#6-do-not-try-to-think-of-startup-ideas">6. Do not try to think of Startup ideas</a>
+            </li>
+        </ul>
+        </li>
+    </ul>
+    </details>
+  <main>
+    <p>I'm taking down notes for Sam Altman's class, How to Start a Startup and I figured I'd start sharing them. This is for the <a href="https://www.youtube.com/watch?v=ii1jcLg-eIQ">third lecture</a> with the following notes:</p>
+<h1 id="counter-intuition-in-startups">Counter-intuition in Startups</h1>
+<p><em>Ignored PG's advice to not take down notes</em></p>
+<h2 id="1-don-t-trust-your-intuition">1. Don't trust your intuition</h2>
+<ul>
+<li>Startups are counter intuition. It's one of the areas where you can't always trust your intuition.</li>
+<li>Founders generally ignored YC partners about mistakes they are about to make. Later coming back and saying, doh!
+<ul>
+<li>Why? Because they seem like they're wrong.</li>
+<li>Trust your instincts about people.</li>
+</ul>
+</li>
+<li>Pick people for business the way you would pick people as friends.
+<ul>
+<li>Look for people you genuinely like and respect.</li>
+</ul>
+</li>
+</ul>
+<h2 id="2-expertise-in-startups">2. Expertise in startups</h2>
+<ul>
+<li>What you need to succeed in a startup, is not expertise in startups.
+<ul>
+<li>You take a french class to learn french.</li>
+<li>You take a startup class to succeed is to understand your users.</li>
+</ul>
+</li>
+<li>One of the characteristic mistakes of young founders: going through the motions of starting a startup (SAS).
+<ul>
+<li>i.e. renting a office, hiring some friends, BUT NOT understanding their users and making something users want.</li>
+</ul>
+</li>
+<li>Motion of starting a startup was termed "playing house".</li>
+<li>College classes are as artificial as running laps.</li>
+<li>"Growth hacks" == "Bullshit"</li>
+</ul>
+<h2 id="3-gaming-the-system">3. Gaming the system</h2>
+<ul>
+<li>SAS is where gamging the system stops working</li>
+<li>Gaming the system might work in bigger companies.</li>
+<li>In startups, there's no boss to trick.</li>
+<li>Users only care about, "Does your software work?"</li>
+<li>(Dangerous) Faking may work to for investors for a few rounds of funding
+<ul>
+<li>Inevitably, you're going to be wasting your time.</li>
+</ul>
+</li>
+<li>Someone who knows what users want but knows zero about fund raising is better off than someone that knows how to raise money but has a flat usage graph.</li>
+</ul>
+<h2 id="4-startups-are-all-consuming">4. Startups are all consuming</h2>
+<ul>
+<li>Startups will take up your entire life</li>
+<li>Larry Page analogy:
+<ul>
+<li>You may envy him, but his life is all-encompassing around Google.</li>
+<li>He can't go on holiday because of a backlog of decisions only he can make.</li>
+<li>As the "daddy", he can't show fear or weakness</li>
+<li>Billionaire's can't complain about having a difficult life</li>
+</ul>
+</li>
+<li>In all successful YC companies, all founders say, "It never gets easier".</li>
+<li>SAS is like having kids?</li>
+<li>People seem to think that you should SAS in college.
+<ul>
+<li>You can't do this as a student because it takes up your entire life.</li>
+<li>Which one do you do then? (Be a student or SAS?)
+<ul>
+<li>Hint: Don't do it in college. Period.</li>
+<li>20 is not an optimal age.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="5-you-can-t-tell-if-you-should-sas">5. You can't tell if you should SAS</h2>
+<ul>
+<li>Should you do it at any age?
+<ul>
+<li>You don't know.</li>
+</ul>
+</li>
+<li>If you're terrified - don't do it.</li>
+<li>If you're unsure - the only way to know, is to try.</li>
+<li>If you want to do it now (20 year old). You need two things:
+<ol>
+<li>An idea</li>
+<li>Co-founders</li>
+</ol>
+</li>
+</ul>
+<h2 id="6-do-not-try-to-think-of-startup-ideas">6. Do not try to think of Startup ideas</h2>
+<ul>
+<li><em>(<a href="http://paulgraham.com/ds.html">Read PG's article</a>)</em></li>
+<li>If you make a coscious effort to think of one, you end up with bad ideas.</li>
+<li>The best way, is to step back.</li>
+<li>Turn your brain into the type that has startup ideas unconsciously.</li>
+<li>Google, Yahoo, Facebook all started as side projects.</li>
+<li>How to turn your brain into the type that has startup ideas unconsciously:
+<ol>
+<li>Learn a lot on things that matter</li>
+<li>Work on things that interest you..</li>
+<li>..with people you like and respect (this is how you get co-founders eventually)</li>
+<li>Get to the leading edge of technology where you "live in the future". Ideas that seem odd to others, see obvious to you.</li>
+</ol>
+</li>
+<li>Airbnb founders were not techie's, they were guys that were good at organizing and got things done.</li>
+<li>"You don't have to work on technology per se, so long as you work on things that stretch you."
+<ul>
+<li>What kind of things are those?</li>
+<li>History shows young people working on things people thought weren't important. In particular, their parents as well. (Parents are also right sometimes).</li>
+<li>Long story short: PG doesn't know the answer for you, you have to find out what works for you on your own.</li>
+</ul>
+</li>
+</ul>
+<p>Re-visiting: What can you do as a 20 year old?</p>
+<ul>
+<li>Not the new entrepreneurial part of college of SAS.</li>
+<li>Instead, the classical version of learning powerful things.
+<ul>
+<li>Getting domain expertise. (Larry Page was genuinely interested at Search).</li>
+</ul>
+</li>
+<li>i.e. Just.Learn.</li>
+</ul>
+<p>Q. <em>How can a non-technical founder most contribute to a startup?</em></p>
+<p><strong>Ans.</strong> If the startup is working in a specific domain, the non-technical one would be the doing the main tasks of getting the company to work. The technical one would just be writing the interfaces to use it (i.e. Android or iPhone app).
+If it was a technology startup, the non-technical founder does sales "and brings coffee and cheeseburgers to the programmer" (+1).</p>
+<p>Q. <em>Do you see value in business schools for those who want to pursue entrepreneurship?</em></p>
+<p><strong>Ans.</strong> Nope. Business Schools (BS) was designed for management. You only have management in an already successful startup. BS are trying to be that, but aren't doing it right.</p>
+<p>Q. <em>Management is only a problem if you're successful. What about those two or three people?</em></p>
+<p><strong>Ans.</strong> The first hires aren't people you need to "manage". You have to treat them are almost like founders. They should be motivated by the same thing as your startup.</p>
+<p>Q. <em>Do you think we're currently in a bubble?</em></p>
+<p><strong>Ans.</strong> <em>Non-valuable question</em></p>
+<p>Q. <em>People start labs that are supposed to start startups. Does this seem like a good idea?</em></p>
+<p><strong>Ans.</strong> They quite possibly could, but you don't have your own money to start these things.</p>
+<p>Q. <em>What advice do you have for female co-founders when you're pursing funding?</em></p>
+<p><strong>Ans.</strong> Female founders empirically have a harder time at raising funding.</p>
+<ul>
+<li>Make your startup do really well.</li>
+<li>Growth graphs have no gender, so let VCs fall in love with that.</li>
+</ul>
+<p>Q. <em>What would you (PG) learn in college right now?</em></p>
+<p><strong>Ans.</strong> Physics.</p>
+<p>Q. <em>What are your recurring systems in your work and personal life that make you efficient?</em></p>
+<p><strong>Ans.</strong></p>
+<ul>
+<li>Having kids: you have no time left, so it forces you to focus because you have no choice.</li>
+<li>Being forced to work with deadlines you can't avoid (which you have to sometimes create yourself).</li>
+</ul>
+<p>Q. <em>When is it a good time to turn a side project into a startup?</em></p>
+<p><strong>Ans.</strong> You will know. When it starts to take up your entire life that you don't have time for anything else.</p>
+<p>Q. <em>What to do when you have growth, but not very impressive one?</em></p>
+<p><strong>Ans.</strong> Read, "<a href="http://paulgraham.com/ds.html">Do things that don't scale</a>".</p>
+<p>Q. <em>What are your strategies to figure out "what matters"?</em></p>
+<p><strong>Ans.</strong> If something (like technology) is spreading, anything on the edge is an interesting idea (i.e. bleeding edge).</p>
+<p>Q. <em>If you hire people you like, you start to get a mono-culture. How do you avoid that?</em></p>
+<p><strong>Ans.</strong> The advantages that you know and like are far greater than the disadvantages of having a mono-culture.</p>
+
+  </main>
+  <p>
+        Categories:
+          <a href="https://jonalmeida.com/categories/archive/">#archive</a>
+  </p>
+
+  <!-- Add temporary footnote back-links support -->
+  <script src="/footnotes.js"></script>
+<footer>
+</footer>
+</body>
+</html>

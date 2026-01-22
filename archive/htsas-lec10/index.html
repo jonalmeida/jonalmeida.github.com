@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Start a Startup - Lecture 10 Notes | Jonathan Almeida</title>
+  <meta name="title" content="How to Start a Startup - Lecture 10 Notes">
+<meta name="description" content="Scribblings and nonsense">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+  
+  <link rel="alternate" type="application/atom+xml" title="Jonathan Almeida" href="https://jonalmeida.com/atom.xml">
+  <style>
+    :root {
+    --width: 800px;
+    --font-main: Verdana, sans-serif;
+    --font-secondary: Verdana, sans-serif;
+    --font-scale: 1em;
+    --background-color: #fff;
+    --heading-color: #222;
+    --text-color: #444;
+    --link-color: #3273dc;
+    --visited-color: #8b6fcb;
+    --code-background-color: #f2f2f2;
+    --code-color: #222;
+    --blockquote-color: #222;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --background-color: #01242e;
+      --heading-color: #eee;
+      --text-color: #ddd;
+      --link-color: #8cc2dd;
+      --visited-color: #8b6fcb;
+      --code-background-color: #000;
+      --code-color: #ddd;
+      --blockquote-color: #ccc;
+    }
+  }
+
+  body {
+    font-family: var(--font-secondary);
+    font-size: var(--font-scale);
+    margin: auto;
+    padding: 20px;
+    max-width: var(--width);
+    text-align: left;
+    background-color: var(--background-color);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.5;
+    color: var(--text-color);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-main);
+    color: var(--heading-color);
+  }
+
+  a {
+    color: var(--link-color);
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  nav a {
+    margin-right: 8px;
+  }
+
+  nav span.active {
+    font-weight: bold;
+    margin-right: 10px;
+  }
+  strong,
+  b {
+    color: var(--heading-color);
+  }
+
+  button {
+    margin: 0;
+    cursor: pointer;
+  }
+
+  main {
+    line-height: 1.6;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  hr {
+    border: 0;
+    border-top: 1px dashed;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  pre code {
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    display: block;
+    padding: 20px;
+    white-space: pre-wrap;
+    font-size: 0.875rem;
+    overflow-x: auto;
+  }
+
+  code {
+    font-family: monospace;
+    padding: 2px;
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    border-radius: 3px;
+  }
+
+  blockquote {
+    border-left: 1px solid #999;
+    color: var(--code-color);
+    padding-left: 20px;
+    font-style: italic;
+  }
+
+  footer {
+    padding: 25px 0;
+    text-align: center;
+  }
+
+  .title:hover {
+    text-decoration: none;
+  }
+
+  .title h1 {
+    font-size: 1.5em;
+  }
+
+  .inline {
+    width: auto !important;
+  }
+
+  .highlight,
+  .code {
+    padding: 1px 15px;
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    border-radius: 3px;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    overflow-x: auto;
+  }
+
+  /* blog post list */
+  ul.blog-posts {
+    list-style-type: none;
+    padding: unset;
+  }
+
+  ul.blog-posts li {
+    display: flex;
+  }
+
+  ul.blog-posts li span {
+    flex: 0 0 130px;
+  }
+
+  ul.blog-posts li a:visited {
+    color: var(--visited-color);
+  }
+
+  .tags {
+    font-size: smaller;
+  }
+
+  .footnote-definition {
+    display: flex;
+    margin-top: 1em;
+  }
+  .footnote-definition-label {
+    margin-left: 1rem;
+    margin-right: 0.5rem;
+    vertical-align: baseline;
+  }
+  .footnote-definition-label::after {
+    content: "."
+  }
+  .footnote-definition > p {
+    margin: 0;
+  }
+
+  </style><style>
+
+section#comments {
+  p {
+    font-size: 0.8em;
+  }
+}
+
+
+pre mark {
+  color: var(--code-color);
+}
+</style>
+
+</head>
+<body>
+  <header>
+  <a href="https://jonalmeida.com/" class="title">
+    <h1>Jonathan Almeida</h1>
+  </a>
+  <nav aria-label="site">
+      <a href="https://jonalmeida.com/">Home</a>
+      <a href="https://jonalmeida.com/blog/">Blog</a>
+      <a href="https://jonalmeida.com/til/">TIL</a>
+      <a href="https://jonalmeida.com/archive/">Archive</a>
+  </nav>
+</header>
+
+  <h1>How to Start a Startup - Lecture 10 Notes</h1>
+      <p>
+        <i>
+          <time datetime="2014-10-23T00:00:00+00:00" pubdate>2014-10-23</time>
+        </i>
+      </p>
+    <details >
+      <summary>Table of contents</summary>
+    <ul>
+        <li>
+          <a href="https://jonalmeida.com/archive/htsas-lec10/#building-culture">Building Culture</a>
+        <ul>
+            <li>
+              <a href="https://jonalmeida.com/archive/htsas-lec10/#what-is-company-culture">What is Company Culture?</a>
+            <ul>
+                <li>
+                  <a href="https://jonalmeida.com/archive/htsas-lec10/#why-is-matters">Why is matters?</a>
+                </li>
+                <li>
+                  <a href="https://jonalmeida.com/archive/htsas-lec10/#elements-of-high-performing-teams">Elements of high performing teams</a>
+                </li>
+                <li>
+                  <a href="https://jonalmeida.com/archive/htsas-lec10/#best-practices">Best practices</a>
+                </li>
+            </ul>
+            </li>
+            <li>
+              <a href="https://jonalmeida.com/archive/htsas-lec10/#q-a-with-brian-airbnb">Q&#x2F;A with Brian (Airbnb)</a>
+            <ul>
+                <li>
+                  <a href="https://jonalmeida.com/archive/htsas-lec10/#q-the-process-by-which-you-came-to-realize-that-culture-was-important">Q. The process by which you came to realize that culture was important?</a>
+                </li>
+                <li>
+                  <a href="https://jonalmeida.com/archive/htsas-lec10/#q-how-long-did-it-take-you-to-hire-your-first-employee">Q. How long did it take you to hire your first employee?</a>
+                </li>
+                <li>
+                  <a href="https://jonalmeida.com/archive/htsas-lec10/#q-what-are-airbnb-s-values">Q. What are Airbnb&#x27;s values?</a>
+                </li>
+                <li>
+                  <a href="https://jonalmeida.com/archive/htsas-lec10/#q-how-does-having-a-story-culture-helped-you-make-strong-decisions">Q. How does having a story culture helped you make strong decisions?</a>
+                </li>
+                <li>
+                  <a href="https://jonalmeida.com/archive/htsas-lec10/#q-culture-and-brand-were-two-sides-of-the-same-coin-talk-about-branding-for-a-bit">Q. Culture and brand were two sides of the same coin. Talk about branding for a bit.</a>
+                </li>
+                <li>
+                  <a href="https://jonalmeida.com/archive/htsas-lec10/#q-how-did-you-communicate-what-airbnb-does-in-the-early-days">Q. How did you communicate what Airbnb does in the early days?</a>
+                </li>
+                <li>
+                  <a href="https://jonalmeida.com/archive/htsas-lec10/#q-how-do-we-make-sure-the-hosts-are-re-enforcing-the-culture-of-airbnb">Q. How do we make sure the hosts are re-enforcing the culture of Airbnb?</a>
+                </li>
+                <li>
+                  <a href="https://jonalmeida.com/archive/htsas-lec10/#q-airbnb-has-made-contributions-to-the-open-source-community-thoughts-on-how-that-contributes-to-the-thoughts-around-the-development-team">Q. Airbnb has made contributions to the open source community. Thoughts on how that contributes to the thoughts around the development team?</a>
+                </li>
+                <li>
+                  <a href="https://jonalmeida.com/archive/htsas-lec10/#q-there-weren-t-that-many-visitors-to-the-site-when-trying-to-get-off-the-ground-how-did-you-get-users-to-the-site">Q. There weren&#x27;t that many visitors to the site when trying to get off the ground. How did you get users to the site?</a>
+                </li>
+                <li>
+                  <a href="https://jonalmeida.com/archive/htsas-lec10/#q-a-lot-of-people-think-airbnb-is-more-of-a-marketing-company-thoughts">Q. A lot of people think Airbnb is more of a marketing company? Thoughts?</a>
+                </li>
+            </ul>
+            </li>
+        </ul>
+        </li>
+    </ul>
+    </details>
+  <main>
+    <p>I'm taking down notes for Sam Altman's class, How to Start a Startup and I figured I'd start sharing them. This is for the <a href="https://www.youtube.com/watch?v=RfWgVWGEuGE">tenth lecture</a> with the following notes:</p>
+<h1 id="building-culture">Building Culture</h1>
+<h2 id="what-is-company-culture">What is Company Culture?</h2>
+<ul>
+<li>Everyday <em>(a)</em> and <em>(b)</em> for each member of the team in pursuit of our company <em>(c)</em>.
+<ul>
+<li>(a) = assumptions, beliefs, values, core values</li>
+<li>(b) = behaviours, actions</li>
+<li>(c) = goals, bhag (big hairy audacious goal), mission.</li>
+</ul>
+</li>
+</ul>
+<h3 id="why-is-matters">Why is matters?</h3>
+<ul>
+<li>
+<p><strong>First Principles</strong> that you go back to when you make decisions.</p>
+</li>
+<li>
+<p><strong>Alignment</strong> people to values that matter to the company.</p>
+</li>
+<li>
+<p><strong>Stability</strong> to fall back on.</p>
+</li>
+<li>
+<p><strong>Trust</strong> each other with.</p>
+</li>
+<li>
+<p><strong>Exclusion</strong></p>
+</li>
+<li>
+<p><strong>Retention</strong></p>
+</li>
+<li>
+<p>It takes time to come up with a set of culture values that the company believes in.</p>
+</li>
+<li>
+<p>Took a year to ask employees what core values they wanted and bring it down to 10.</p>
+</li>
+<li>
+<p>Everyone says we want honest, service, team work, etc.</p>
+</li>
+<li>
+<p>Instil the idea that it's company first, department, team and then yourself.</p>
+</li>
+</ul>
+<h3 id="elements-of-high-performing-teams">Elements of high performing teams</h3>
+<ul>
+<li><strong>Trust</strong> you can actually have debates if you have conflict and debate.</li>
+<li><strong>Conflict</strong> if you don't have conflict and debate, it's just the blind leading the blind</li>
+<li><strong>Commitment</strong> people are not willing to commit then.</li>
+<li><strong>Accountability</strong> people are not held accountable to things they committed to</li>
+<li><strong>Results</strong> you can't get results then.</li>
+</ul>
+<h3 id="best-practices">Best practices</h3>
+<ul>
+<li>Incorporate your mission to your values</li>
+<li>Perforamnce - think harder, deeper, longer</li>
+<li>Interview for culture fit (!)</li>
+<li>Evaluate performance on culture</li>
+<li>Make it a daily habit - if you don't you eventually stop doing it and the company slowly dies</li>
+</ul>
+<h2 id="q-a-with-brian-airbnb">Q/A with Brian (Airbnb)</h2>
+<h3 id="q-the-process-by-which-you-came-to-realize-that-culture-was-important">Q. The process by which you came to realize that culture was important?</h3>
+<p><strong>Ans.</strong></p>
+<ul>
+<li>Airbnb was supposed to be the idea to pay the rent to think of the big idea.</li>
+<li>We were lucky to have a team that were up to your level (see lecture 9 notes).</li>
+<li>Founders are like parents
+<ul>
+<li>The company is the children: it's up to the "parents" to set the right attitude.</li>
+<li>You would want your child to endure and out live you.</li>
+</ul>
+</li>
+<li><strong>Core values learned:</strong>
+<ul>
+<li>Behaviours that change over time</li>
+<li>Some principles that never change.</li>
+</ul>
+</li>
+</ul>
+<h3 id="q-how-long-did-it-take-you-to-hire-your-first-employee">Q. How long did it take you to hire your first employee?</h3>
+<p><strong>Ans.</strong></p>
+<ul>
+<li>First employee was the first engineer.</li>
+<li>Interviewed for 4 months.</li>
+<li>Your first engineer was bringing in DNA to your company
+<ul>
+<li>There would be a 1000 people like this person.</li>
+<li>Do I want to work with 1000 of this kind of people</li>
+<li>You want diversity of backgrounds, age, etc.
+<ul>
+<li><em>You don't want diversity of values</em></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="q-what-are-airbnb-s-values">Q. What are Airbnb's values?</h3>
+<p><strong>Ans.</strong></p>
+<ol>
+<li>Champion the mission - we want to hire people for the mission.</li>
+<li>Be creative &amp; frugal
+<em>(better to watch this bit with the stories)</em></li>
+</ol>
+<h3 id="q-how-does-having-a-story-culture-helped-you-make-strong-decisions">Q. How does having a story culture helped you make strong decisions?</h3>
+<p><strong>Ans.</strong>
+Three things no one tells you about culture:</p>
+<ol>
+<li>No one ever tells you about culture</li>
+<li>It's hard to measure</li>
+<li>It doesn't pay off in the short-term</li>
+</ol>
+<ul>
+<li>Interview for World Class &amp; they fit the culture.</li>
+</ul>
+<h3 id="q-culture-and-brand-were-two-sides-of-the-same-coin-talk-about-branding-for-a-bit">Q. Culture and brand were two sides of the same coin. Talk about branding for a bit.</h3>
+<p><strong>Ans.</strong></p>
+<ul>
+<li>There's no such thing as a good or bad culture. A culture that's good for someone doesn't necessarily have to be a good culture for you.</li>
+<li>Brand is the connection between you and customers. If you have a really strong culture, the brand will come through.</li>
+</ul>
+<h3 id="q-how-did-you-communicate-what-airbnb-does-in-the-early-days">Q. How did you communicate what Airbnb does in the early days?</h3>
+<p><strong>Ans.</strong></p>
+<ul>
+<li>Early days, we communicated like a utility - it's a cheap alternative to hotels.
+<ul>
+<li>This under-cut the ideas.</li>
+</ul>
+</li>
+<li>Did a lot of story telling.</li>
+<li>Articulate the vision over and over again.</li>
+</ul>
+<h3 id="q-how-do-we-make-sure-the-hosts-are-re-enforcing-the-culture-of-airbnb">Q. How do we make sure the hosts are re-enforcing the culture of Airbnb?</h3>
+<p><strong>Ans.</strong></p>
+<ul>
+<li>Late to realizing this, but are gradually re-inforcing this in every step of the way.</li>
+<li>Bad hosts were seriously affecting the business.</li>
+<li>Hosts are partners. Had to get hosts that believed in this same values.</li>
+<li>The super-host program gives them extra support and stuff.</li>
+</ul>
+<h3 id="q-airbnb-has-made-contributions-to-the-open-source-community-thoughts-on-how-that-contributes-to-the-thoughts-around-the-development-team">Q. Airbnb has made contributions to the open source community. Thoughts on how that contributes to the thoughts around the development team?</h3>
+<p><strong>Ans.</strong></p>
+<ul>
+<li>We try to be a generally open culture.</li>
+<li>Strong identification of the team.
+<ul>
+<li>Every company needed a mote that protects from your competition.</li>
+<li>Wanted to be better technology. Changed this to be giving the best experience in the world instead.</li>
+</ul>
+</li>
+<li>The engineers (with those same strong culture values) independently decided this was a thing they should do.</li>
+</ul>
+<h3 id="q-there-weren-t-that-many-visitors-to-the-site-when-trying-to-get-off-the-ground-how-did-you-get-users-to-the-site">Q. There weren't that many visitors to the site when trying to get off the ground. How did you get users to the site?</h3>
+<p><strong>Ans.</strong></p>
+<ul>
+<li>(Not about culture)</li>
+<li>"It's better to have 100 people who love you, than to have a million people that just kinda sorta like you." - PG</li>
+<li><strong>To get 100 people to love you, you need to do things that don't scale.</strong></li>
+<li>Living with your users and spending time with them.</li>
+<li>Giving them attention to the point that they were really passionate.</li>
+<li>A lot of things were done manually for the users.</li>
+<li>Until they knew exactly what the perfect service was, <em>only then did they create the tools and technology to do it.</em></li>
+</ul>
+<h3 id="q-a-lot-of-people-think-airbnb-is-more-of-a-marketing-company-thoughts">Q. A lot of people think Airbnb is more of a marketing company? Thoughts?</h3>
+<p><strong>Ans.</strong></p>
+<ul>
+<li>Have to work with a lot of things like people's <em>ACTUAL</em> security since there are people sleeping in their hosts' sheets.</li>
+<li>Countries that need to be convinced that this is a good thing for them.</li>
+<li>Matching the right people with the right hosts.</li>
+<li>These are just a few of the things that they have to do, so it would be wrong to call them a marketing company.</li>
+</ul>
+
+  </main>
+  <p>
+        Categories:
+          <a href="https://jonalmeida.com/categories/archive/">#archive</a>
+  </p>
+
+  <!-- Add temporary footnote back-links support -->
+  <script src="/footnotes.js"></script>
+<footer>
+</footer>
+</body>
+</html>

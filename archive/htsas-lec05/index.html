@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Start a Startup - Lecture 5 Notes | Jonathan Almeida</title>
+  <meta name="title" content="How to Start a Startup - Lecture 5 Notes">
+<meta name="description" content="Scribblings and nonsense">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+  
+  <link rel="alternate" type="application/atom+xml" title="Jonathan Almeida" href="https://jonalmeida.com/atom.xml">
+  <style>
+    :root {
+    --width: 800px;
+    --font-main: Verdana, sans-serif;
+    --font-secondary: Verdana, sans-serif;
+    --font-scale: 1em;
+    --background-color: #fff;
+    --heading-color: #222;
+    --text-color: #444;
+    --link-color: #3273dc;
+    --visited-color: #8b6fcb;
+    --code-background-color: #f2f2f2;
+    --code-color: #222;
+    --blockquote-color: #222;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --background-color: #01242e;
+      --heading-color: #eee;
+      --text-color: #ddd;
+      --link-color: #8cc2dd;
+      --visited-color: #8b6fcb;
+      --code-background-color: #000;
+      --code-color: #ddd;
+      --blockquote-color: #ccc;
+    }
+  }
+
+  body {
+    font-family: var(--font-secondary);
+    font-size: var(--font-scale);
+    margin: auto;
+    padding: 20px;
+    max-width: var(--width);
+    text-align: left;
+    background-color: var(--background-color);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.5;
+    color: var(--text-color);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-main);
+    color: var(--heading-color);
+  }
+
+  a {
+    color: var(--link-color);
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  nav a {
+    margin-right: 8px;
+  }
+
+  nav span.active {
+    font-weight: bold;
+    margin-right: 10px;
+  }
+  strong,
+  b {
+    color: var(--heading-color);
+  }
+
+  button {
+    margin: 0;
+    cursor: pointer;
+  }
+
+  main {
+    line-height: 1.6;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  hr {
+    border: 0;
+    border-top: 1px dashed;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  pre code {
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    display: block;
+    padding: 20px;
+    white-space: pre-wrap;
+    font-size: 0.875rem;
+    overflow-x: auto;
+  }
+
+  code {
+    font-family: monospace;
+    padding: 2px;
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    border-radius: 3px;
+  }
+
+  blockquote {
+    border-left: 1px solid #999;
+    color: var(--code-color);
+    padding-left: 20px;
+    font-style: italic;
+  }
+
+  footer {
+    padding: 25px 0;
+    text-align: center;
+  }
+
+  .title:hover {
+    text-decoration: none;
+  }
+
+  .title h1 {
+    font-size: 1.5em;
+  }
+
+  .inline {
+    width: auto !important;
+  }
+
+  .highlight,
+  .code {
+    padding: 1px 15px;
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    border-radius: 3px;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    overflow-x: auto;
+  }
+
+  /* blog post list */
+  ul.blog-posts {
+    list-style-type: none;
+    padding: unset;
+  }
+
+  ul.blog-posts li {
+    display: flex;
+  }
+
+  ul.blog-posts li span {
+    flex: 0 0 130px;
+  }
+
+  ul.blog-posts li a:visited {
+    color: var(--visited-color);
+  }
+
+  .tags {
+    font-size: smaller;
+  }
+
+  .footnote-definition {
+    display: flex;
+    margin-top: 1em;
+  }
+  .footnote-definition-label {
+    margin-left: 1rem;
+    margin-right: 0.5rem;
+    vertical-align: baseline;
+  }
+  .footnote-definition-label::after {
+    content: "."
+  }
+  .footnote-definition > p {
+    margin: 0;
+  }
+
+  </style><style>
+
+section#comments {
+  p {
+    font-size: 0.8em;
+  }
+}
+
+
+pre mark {
+  color: var(--code-color);
+}
+</style>
+
+</head>
+<body>
+  <header>
+  <a href="https://jonalmeida.com/" class="title">
+    <h1>Jonathan Almeida</h1>
+  </a>
+  <nav aria-label="site">
+      <a href="https://jonalmeida.com/">Home</a>
+      <a href="https://jonalmeida.com/blog/">Blog</a>
+      <a href="https://jonalmeida.com/til/">TIL</a>
+      <a href="https://jonalmeida.com/archive/">Archive</a>
+  </nav>
+</header>
+
+  <h1>How to Start a Startup - Lecture 5 Notes</h1>
+      <p>
+        <i>
+          <time datetime="2014-10-07T00:00:00+00:00" pubdate>2014-10-07</time>
+        </i>
+      </p>
+    <details >
+      <summary>Table of contents</summary>
+    <ul>
+        <li>
+          <a href="https://jonalmeida.com/archive/htsas-lec05/#strategy-competition">Strategy &amp; Competition</a>
+        <ul>
+            <li>
+              <a href="https://jonalmeida.com/archive/htsas-lec05/#capturing-value">Capturing value</a>
+            <ul>
+                <li>
+                  <a href="https://jonalmeida.com/archive/htsas-lec05/#what-makes-a-business-valuable">What makes a business valuable?</a>
+                </li>
+                <li>
+                  <a href="https://jonalmeida.com/archive/htsas-lec05/#perfect-competition">Perfect competition</a>
+                </li>
+                <li>
+                  <a href="https://jonalmeida.com/archive/htsas-lec05/#monopoly">Monopoly</a>
+                </li>
+            </ul>
+            </li>
+            <li>
+              <a href="https://jonalmeida.com/archive/htsas-lec05/#the-lies-that-people-tell">The lies that people tell</a>
+            </li>
+            <li>
+              <a href="https://jonalmeida.com/archive/htsas-lec05/#how-to-build-a-monopoly">How to build a monopoly</a>
+            <ul>
+                <li>
+                  <a href="https://jonalmeida.com/archive/htsas-lec05/#start-big-and-then-shrink">Start big and then shrink</a>
+                </li>
+            </ul>
+            </li>
+            <li>
+              <a href="https://jonalmeida.com/archive/htsas-lec05/#last-mover-advantage">Last mover advantage</a>
+            </li>
+            <li>
+              <a href="https://jonalmeida.com/archive/htsas-lec05/#history-of-innovation">History of innovation</a>
+            </li>
+            <li>
+              <a href="https://jonalmeida.com/archive/htsas-lec05/#psychology-of-competition">Psychology of competition</a>
+            </li>
+        </ul>
+        </li>
+    </ul>
+    </details>
+  <main>
+    <p>I'm taking down notes for Sam Altman's class, How to Start a Startup and I figured I'd start sharing them. This is for the <a href="https://www.youtube.com/watch?v=5_0dVHMpJlo">fifth lecture</a> with the following notes:</p>
+<h1 id="strategy-competition">Strategy &amp; Competition</h1>
+<h2 id="capturing-value">Capturing value</h2>
+<ul>
+<li>If you're starting a company, aim for monopoly and avoid competition.</li>
+</ul>
+<h3 id="what-makes-a-business-valuable">What makes a business valuable?</h3>
+<ul>
+<li>If you have a valuable company:
+<ol>
+<li>That it creates X dollars of value for the world</li>
+<li>That you make Y% of X</li>
+</ol>
+</li>
+<li>People forget: X and Y are independent variables</li>
+<li>Comparing airlines to Google:
+<ul>
+<li>We can see airliners make more money than Google</li>
+<li>However, Google's profit margin is much higher (21% to 0.2%)</li>
+</ul>
+</li>
+</ul>
+<h3 id="perfect-competition">Perfect competition</h3>
+<ul>
+<li>Pros:
+<ul>
+<li>Easy to model</li>
+<li>Efficient in a static world</li>
+<li>Politically salable</li>
+</ul>
+</li>
+<li>Cons:
+<ul>
+<li>Psychologically unhealthy</li>
+<li>Irrelevant in a dynamic world</li>
+<li>Preempts question of value</li>
+</ul>
+</li>
+</ul>
+<h3 id="monopoly">Monopoly</h3>
+<ul>
+<li>
+<p>Pros:</p>
+<ul>
+<li>Incentive to innovate</li>
+<li>Stable, long-term planning</li>
+<li>Deeper project financing</li>
+<li>symptomatic of creation</li>
+</ul>
+</li>
+<li>
+<p>Cons:</p>
+<ul>
+<li>Lower output, higher prices</li>
+<li>Price discrimination</li>
+<li>Stifle Innovation</li>
+<li>Tying</li>
+</ul>
+</li>
+<li>
+<p>These are the two kinds of companies (it really is black &amp; white).</p>
+<ul>
+<li>This is not understood well because people are constantly lying about the nature of the business they are in.</li>
+</ul>
+</li>
+</ul>
+<h2 id="the-lies-that-people-tell">The lies that people tell</h2>
+<p><em>(diagram of two firms to show perception)</em></p>
+<ul>
+<li>People who have monopolies pretend not to:
+<ul>
+<li>They don't want the government coming after them</li>
+<li>Pretend they have incredible competition</li>
+</ul>
+</li>
+<li>People who have a lot of competition:
+<ul>
+<li>"We are doing something unique!"</li>
+</ul>
+</li>
+<li>This causes a distortion because of the lies.</li>
+<li><em>(diagram showing this information in set theory)</em>
+<ul>
+<li>Union shows monopoly saying, "We're in a narrow market".</li>
+<li>Intersection shows non-monopoly saying, "We're actually unique in this fast market".</li>
+</ul>
+</li>
+</ul>
+<p><strong>Example:</strong></p>
+<ul>
+<li>You open a restaurants</li>
+<li>No one wants to invest because restaurants don't make money</li>
+<li>You then lie and say something like, "We're the only British food in Palo Alto"
+<ul>
+<li>Two intersections are made here: British food &amp; Palo Alto</li>
+</ul>
+</li>
+</ul>
+<p><strong>Example 2:</strong></p>
+<ul>
+<li>Blockbuster movie you want to make on football hackers who try to catch sharks (?)</li>
+<li>You say, "It's incredibly hard to make money in movies"
+<ul>
+<li>The union here: football, hackers, sharks</li>
+</ul>
+</li>
+</ul>
+<p><strong>Example 3 (Startup version):</strong></p>
+<ul>
+<li>Startups that use the same buzz words: sharing, mobile, social, apps, sharing mobile, social apps.</li>
+<li>Are these even real business?</li>
+<li>"The something of somewhere, is really just the nothing of no where."</li>
+</ul>
+<p><strong>Example 4 (Large enterprise):</strong></p>
+<ul>
+<li>Search engine market (Google): Describes itself as an advertising company.
+<ul>
+<li>Advertising is part of online advertising, which is part of all advertising, which is part of global advertising.</li>
+</ul>
+</li>
+<li>Or saying it's a technology company
+<ul>
+<li>Technology market consists with automobiles, smartphones, cloud, social network.</li>
+<li>"There's competition for us everywhere!"</li>
+</ul>
+</li>
+</ul>
+<h2 id="how-to-build-a-monopoly">How to build a monopoly</h2>
+<ul>
+<li>Go after small markets</li>
+<li>It's easier to dominate a small market than a large one</li>
+<li>If you think your initial market might be too big, it almost certainly is
+<ul>
+<li>You haven't properly defined the market you're going after</li>
+</ul>
+</li>
+</ul>
+<p><strong>Example:</strong>
+Amazon started as just a bookstore. It has all the books in the world. It's online, there are things on it that you couldn't do before.
+Gradually expand to different kinds of ecommerce.</p>
+<p><strong>Example:</strong>
+Ebay started selling pez dispensers -&gt; beanie babies -&gt; auctioning of different kinds of goods.</p>
+<ul>
+<li>Counter Intuitive: these companies started in markets so small, that people don't think that they're valuable when they get started.</li>
+</ul>
+<p><strong>Example:</strong>
+PayPal started with power sellers on ebay. It was a small market of people selling junk on the internet.</p>
+<h3 id="start-big-and-then-shrink">Start big and then shrink</h3>
+<ul>
+<li>Clean tech bubble companies started in big markets</li>
+<li>You have tons of competitors and you don't even now who your competitors are</li>
+<li>You DO NOT want to be the 4th online pet food company, or the 10th solar panel company, etc.</li>
+<li>Large existing markets are very hard to get into</li>
+</ul>
+<h2 id="last-mover-advantage">Last mover advantage</h2>
+<p>Characteristics of monopolies:</p>
+<ul>
+<li>
+<p>Proprietary Technology</p>
+</li>
+<li>
+<p>Network Effects</p>
+</li>
+<li>
+<p>Economics of scale</p>
+</li>
+<li>
+<p>Branding</p>
+</li>
+<li>
+<p>All happy companies are different because they are doing something very unique.</p>
+</li>
+<li>
+<p>All unhappy companies are alike because they fail to escape the sameness i.e. competition.</p>
+</li>
+<li>
+<p>Have a technology that is an order of magnitude better than the next best thing.</p>
+<ul>
+<li>A very powerful improvement in a key dimension</li>
+<li>Something completely new is an infinite improvement better</li>
+<li>TLDR; get a massive delta over the next best thing</li>
+</ul>
+</li>
+<li>
+<p>Branding:</p>
+<ul>
+<li>It can create great value, hard to invest in companies that work only in branding.</li>
+</ul>
+</li>
+<li>
+<p>You want to be the "last mover", the last company in that category</p>
+<ul>
+<li>e.g. Microsoft was the last software company (for a long time)</li>
+<li>e.g. Google was the last search engine</li>
+</ul>
+</li>
+<li>
+<p>Value in these companies exist far in the future.</p>
+</li>
+<li>
+<p><strong>Note:</strong> SV seems to overvalue growth rates and undervalues durability.</p>
+</li>
+<li>
+<p><em>(Chess analogy about being the last player)</em></p>
+</li>
+</ul>
+<h2 id="history-of-innovation">History of innovation</h2>
+<ul>
+<li>
+<p>Innovation can become extremely valuable and often the creators/inventors do not get rewarded for this.</p>
+<ul>
+<li>This happens because X and Y are independent</li>
+</ul>
+</li>
+<li>
+<p>History of science shows: Y = 0%</p>
+<ul>
+<li>Scientists are often deluded into thinking that they live in a just universe and will be rewarded for their work and inventions</li>
+</ul>
+</li>
+<li>
+<p>E.g. (Einstein) smartest physicist of the 20th century, you come up with general relativity, you don't get to be a billionaire/millionaire.</p>
+</li>
+<li>
+<p>Two broad categories of people who have come up with new ideas and made money off of it:</p>
+<ul>
+<li>Vertically integrated complex monopolies (e.g. Ford, Standard Oil).
+<ul>
+<li>Key to Elon Musk's Space X and Tesla is this structure</li>
+<li>There was no single massive breakthrough in technology, but integrating all the pieces together (better than competitors).</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="psychology-of-competition">Psychology of competition</h2>
+<ul>
+<li>
+<p>We think of the losers as people who can't compete.</p>
+</li>
+<li>
+<p>We need to rethink this thinking:</p>
+<ol>
+<li>We don't always understand this monopoly competition dicotomy intellectually</li>
+<li>People lie about it (see above)</li>
+<li>There's also a psychological blindspot
+<ol>
+<li>We find it reassuring if other people are doing things</li>
+<li>Mimetic preferences</li>
+</ol>
+</li>
+<li>We think of competition as a form a validation</li>
+</ol>
+</li>
+<li>
+<p>"Don't always go through the tiny little door that everyone is trying to rush through, maybe go around the corner and go through the vast gate that no one is taking."</p>
+</li>
+</ul>
+<p>Q. <em>Monopolies and perfect competition often look similar. How do you easily tell the difference?</em></p>
+<p><strong>Ans.</strong> Ask the question: what is the actual market?</p>
+<p>Q. <em>Which of the aspects of monopolies that you mentioned, do you think software companies like Google excel at?</em></p>
+<p><strong>Ans.</strong> They have network effects, they had the proprietary technology that gave them the initial page rank algorithm which was an order of magnitude better. They had the economies of scale with the need to store all these sites. So Google basically had all four.</p>
+<p>Q. <em>undistinguishable question</em></p>
+<p><strong>Ans.</strong> Palantir started with the intelligence market that used a very different approach.</p>
+<p>Q. <em>What do you think about lean startups, iterative thinking where you get feedback from people vs complexity that may not work?</em></p>
+<p><strong>Ans.</strong> Personally sceptical of all lean startup methodologies. The really great companies did something more of a quantum improvement that really differentiated them from everybody else. Typically, did not do massive surveys.</p>
+<p>If you take enough time to figure out what people want, you most often will have missed the boat by then.</p>
+<p>Q. <em>If you were someone who worked at a high paying company for 6 months, left to Stanford in comp sci. How would you recommend rethinking .. (undistinguishable bit)</em></p>
+<p><strong>Ans.</strong> There isn't any easy psychological formula to avoid it. Never under-estimate how big the problem really is.</p>
+
+  </main>
+  <p>
+        Categories:
+          <a href="https://jonalmeida.com/categories/archive/">#archive</a>
+  </p>
+
+  <!-- Add temporary footnote back-links support -->
+  <script src="/footnotes.js"></script>
+<footer>
+</footer>
+</body>
+</html>

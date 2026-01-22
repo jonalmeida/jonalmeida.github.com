@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to keep all your git remotes up-to-date | Jonathan Almeida</title>
+  <meta name="title" content="How to keep all your git remotes up-to-date">
+<meta name="description" content="Scribblings and nonsense">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+  
+  <link rel="alternate" type="application/atom+xml" title="Jonathan Almeida" href="https://jonalmeida.com/atom.xml">
+  <style>
+    :root {
+    --width: 800px;
+    --font-main: Verdana, sans-serif;
+    --font-secondary: Verdana, sans-serif;
+    --font-scale: 1em;
+    --background-color: #fff;
+    --heading-color: #222;
+    --text-color: #444;
+    --link-color: #3273dc;
+    --visited-color: #8b6fcb;
+    --code-background-color: #f2f2f2;
+    --code-color: #222;
+    --blockquote-color: #222;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --background-color: #01242e;
+      --heading-color: #eee;
+      --text-color: #ddd;
+      --link-color: #8cc2dd;
+      --visited-color: #8b6fcb;
+      --code-background-color: #000;
+      --code-color: #ddd;
+      --blockquote-color: #ccc;
+    }
+  }
+
+  body {
+    font-family: var(--font-secondary);
+    font-size: var(--font-scale);
+    margin: auto;
+    padding: 20px;
+    max-width: var(--width);
+    text-align: left;
+    background-color: var(--background-color);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.5;
+    color: var(--text-color);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-main);
+    color: var(--heading-color);
+  }
+
+  a {
+    color: var(--link-color);
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  nav a {
+    margin-right: 8px;
+  }
+
+  nav span.active {
+    font-weight: bold;
+    margin-right: 10px;
+  }
+  strong,
+  b {
+    color: var(--heading-color);
+  }
+
+  button {
+    margin: 0;
+    cursor: pointer;
+  }
+
+  main {
+    line-height: 1.6;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  hr {
+    border: 0;
+    border-top: 1px dashed;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  pre code {
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    display: block;
+    padding: 20px;
+    white-space: pre-wrap;
+    font-size: 0.875rem;
+    overflow-x: auto;
+  }
+
+  code {
+    font-family: monospace;
+    padding: 2px;
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    border-radius: 3px;
+  }
+
+  blockquote {
+    border-left: 1px solid #999;
+    color: var(--code-color);
+    padding-left: 20px;
+    font-style: italic;
+  }
+
+  footer {
+    padding: 25px 0;
+    text-align: center;
+  }
+
+  .title:hover {
+    text-decoration: none;
+  }
+
+  .title h1 {
+    font-size: 1.5em;
+  }
+
+  .inline {
+    width: auto !important;
+  }
+
+  .highlight,
+  .code {
+    padding: 1px 15px;
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    border-radius: 3px;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    overflow-x: auto;
+  }
+
+  /* blog post list */
+  ul.blog-posts {
+    list-style-type: none;
+    padding: unset;
+  }
+
+  ul.blog-posts li {
+    display: flex;
+  }
+
+  ul.blog-posts li span {
+    flex: 0 0 130px;
+  }
+
+  ul.blog-posts li a:visited {
+    color: var(--visited-color);
+  }
+
+  .tags {
+    font-size: smaller;
+  }
+
+  .footnote-definition {
+    display: flex;
+    margin-top: 1em;
+  }
+  .footnote-definition-label {
+    margin-left: 1rem;
+    margin-right: 0.5rem;
+    vertical-align: baseline;
+  }
+  .footnote-definition-label::after {
+    content: "."
+  }
+  .footnote-definition > p {
+    margin: 0;
+  }
+
+  </style><style>
+
+section#comments {
+  p {
+    font-size: 0.8em;
+  }
+}
+
+
+pre mark {
+  color: var(--code-color);
+}
+</style>
+
+</head>
+<body>
+  <header>
+  <a href="https://jonalmeida.com/" class="title">
+    <h1>Jonathan Almeida</h1>
+  </a>
+  <nav aria-label="site">
+      <a href="https://jonalmeida.com/">Home</a>
+      <a href="https://jonalmeida.com/blog/">Blog</a>
+      <a href="https://jonalmeida.com/til/">TIL</a>
+      <a href="https://jonalmeida.com/archive/">Archive</a>
+  </nav>
+</header>
+
+  <h1>How to keep all your git remotes up-to-date</h1>
+      <p>
+        <i>
+          <time datetime="2014-07-19T00:00:00+00:00" pubdate>2014-07-19</time>
+        </i>
+      </p>
+  <main>
+    <p>You always want your copy of remote in your local repository up-to-date. Having a bunch of git repos doesn't help because now you have to check them all (20+ amiright?!). A small portion of my busy-work goes into fetching and rebasing before I start to work on any project.</p>
+<p>So I wrote a small bash script which includes stuff that <a href="/posts/2013/05/26/different-ways-to-implement-flags-in-bash/">I learned about bash flags previous</a>, and merged it into one script that does something fairly neat:</p>
+<ul>
+<li>It goes through each git repository in <code>~/git</code> directory (you can change this to another directory with the <code>-d</code> flag)</li>
+<li><code>git fetch</code></li>
+<li>Attempts to do a <code>git rebase origin/{current_branch}</code></li>
+<li>If it fails, it'll try a <code>git stash</code> to remove any files that are still a work-in-progress</li>
+<li>Attempts a git rebase once again</li>
+<li>Executes <code>git stash pop</code> regardless if it was successful or not</li>
+</ul>
+<p>Also note, that you can change your remote from <code>origin</code> to something else with the <code>-r</code> flag. Although, you should note that this will the remote used in all git repos.</p>
+<p>You can find the code in the snippet below, but the most up-to-date version can always be found <a href="https://github.com/jonalmeida/snippets/blob/master/git/fetch-all.sh">on GitHub</a>.
+<br></p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#65737e;">#!/bin/bash
+</span><span>
+</span><span style="color:#65737e;"># Default git directory
+</span><span style="color:#bf616a;">git_dir</span><span>=</span><span style="color:#bf616a;">~</span><span style="color:#a3be8c;">/git
+</span><span style="color:#65737e;"># Default remote
+</span><span style="color:#bf616a;">git_remote</span><span>=&quot;</span><span style="color:#a3be8c;">origin</span><span>&quot;
+</span><span>
+</span><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">helpmenu </span><span>{
+</span><span>  </span><span style="color:#96b5b4;">echo </span><span>&quot;</span><span style="color:#a3be8c;">USAGE EXAMPLE:</span><span>&quot;
+</span><span>  </span><span style="color:#96b5b4;">echo </span><span>&quot;</span><span style="color:#a3be8c;">    fetch-all.sh ~/directory_of_git_repos origin</span><span>&quot;
+</span><span>}
+</span><span>
+</span><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">setDir </span><span>{
+</span><span>  </span><span style="color:#b48ead;">if </span><span style="color:#96b5b4;">[[ </span><span>$</span><span style="color:#bf616a;">checkDir </span><span>!= &quot;&quot; </span><span style="color:#96b5b4;">]]</span><span>; </span><span style="color:#b48ead;">then
+</span><span>    </span><span style="color:#65737e;"># Path is passed as first argument
+</span><span>    </span><span style="color:#bf616a;">ls </span><span>$</span><span style="color:#bf616a;">checkDir </span><span style="color:#d08770;">1</span><span>&gt;&amp;</span><span style="color:#d08770;">2
+</span><span>    </span><span style="color:#b48ead;">if </span><span style="color:#96b5b4;">[[ </span><span>$</span><span style="color:#bf616a;">? </span><span>!= 0 </span><span style="color:#96b5b4;">]]</span><span>; </span><span style="color:#b48ead;">then
+</span><span>      </span><span style="color:#65737e;"># Path isn&#39;t valid
+</span><span>      </span><span style="color:#96b5b4;">echo </span><span>&quot;</span><span style="color:#a3be8c;">Cannot access </span><span>$</span><span style="color:#bf616a;">1</span><span style="color:#a3be8c;">: No such directory</span><span>&quot;
+</span><span>        </span><span style="color:#96b5b4;">exit
+</span><span>    </span><span style="color:#b48ead;">fi
+</span><span>      </span><span style="color:#bf616a;">git_dir</span><span>=$</span><span style="color:#bf616a;">checkDir
+</span><span>  </span><span style="color:#b48ead;">fi
+</span><span>}
+</span><span>
+</span><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">setRemote </span><span>{
+</span><span>  </span><span style="color:#b48ead;">if </span><span style="color:#96b5b4;">[[ </span><span>$</span><span style="color:#bf616a;">checkRemote </span><span>!= &quot;&quot; </span><span style="color:#96b5b4;">]]</span><span>; </span><span style="color:#b48ead;">then
+</span><span>    </span><span style="color:#65737e;"># Second argument is not empty
+</span><span>    </span><span style="color:#65737e;"># (Should contain a branch)
+</span><span>    </span><span style="color:#bf616a;">git_remote</span><span>=$</span><span style="color:#bf616a;">checkRemote
+</span><span>  </span><span style="color:#b48ead;">fi
+</span><span>}
+</span><span>
+</span><span style="color:#b48ead;">while </span><span style="color:#96b5b4;">getopts </span><span>&quot;</span><span style="color:#a3be8c;">hd:r:</span><span>&quot; OPTION
+</span><span style="color:#b48ead;">do
+</span><span>  </span><span style="color:#b48ead;">case </span><span>$</span><span style="color:#bf616a;">OPTION </span><span style="color:#b48ead;">in
+</span><span>    h</span><span style="color:#b48ead;">)
+</span><span>      </span><span style="color:#bf616a;">helpmenu
+</span><span>      </span><span style="color:#96b5b4;">exit
+</span><span>      ;;
+</span><span>    d</span><span style="color:#b48ead;">)
+</span><span>      </span><span style="color:#bf616a;">checkDir</span><span>=$</span><span style="color:#bf616a;">OPTARG
+</span><span>      </span><span style="color:#bf616a;">setDir
+</span><span>      </span><span style="color:#65737e;"># break
+</span><span>      ;;
+</span><span>    r</span><span style="color:#b48ead;">)
+</span><span>      </span><span style="color:#bf616a;">checkRemote</span><span>=$</span><span style="color:#bf616a;">OPTARG
+</span><span>      </span><span style="color:#bf616a;">setRemote
+</span><span>      </span><span style="color:#65737e;"># break
+</span><span>      ;;
+</span><span>    </span><span style="color:#96b5b4;">\?</span><span style="color:#b48ead;">)
+</span><span>      </span><span style="color:#bf616a;">helpmenu
+</span><span>      </span><span style="color:#96b5b4;">exit
+</span><span>      ;;
+</span><span>  </span><span style="color:#b48ead;">esac
+</span><span style="color:#b48ead;">done
+</span><span>
+</span><span style="color:#96b5b4;">echo </span><span>&quot;</span><span style="color:#a3be8c;">Changing directory to </span><span>$</span><span style="color:#bf616a;">git_dir</span><span>&quot;
+</span><span style="color:#96b5b4;">cd </span><span>$</span><span style="color:#bf616a;">git_dir
+</span><span>
+</span><span style="color:#b48ead;">for</span><span> dir </span><span style="color:#b48ead;">in </span><span>*/; </span><span style="color:#b48ead;">do
+</span><span>  </span><span style="color:#96b5b4;">echo </span><span>&quot;</span><span style="color:#a3be8c;">==========================================</span><span>&quot;
+</span><span>  </span><span style="color:#96b5b4;">echo </span><span>$</span><span style="color:#bf616a;">dir
+</span><span>  </span><span style="color:#96b5b4;">cd </span><span>$</span><span style="color:#bf616a;">dir
+</span><span>  </span><span style="color:#96b5b4;">echo </span><span>&quot;</span><span style="color:#a3be8c;">---</span><span>&quot;
+</span><span>  </span><span style="color:#96b5b4;">echo </span><span>&quot;</span><span style="color:#a3be8c;">git fetch</span><span>&quot;
+</span><span>  </span><span style="color:#bf616a;">git</span><span> fetch
+</span><span>  </span><span style="color:#96b5b4;">echo </span><span>&quot;</span><span style="color:#a3be8c;">---</span><span>&quot;
+</span><span>  </span><span style="color:#96b5b4;">echo </span><span>&quot;</span><span style="color:#a3be8c;">git rev-parse --abbrev-ref HEAD</span><span>&quot;
+</span><span>  </span><span style="color:#bf616a;">current_branch</span><span>=`</span><span style="color:#bf616a;">git</span><span> rev-parse</span><span style="color:#bf616a;"> --abbrev-ref</span><span> HEAD`
+</span><span>  </span><span style="color:#96b5b4;">echo </span><span>&quot;</span><span style="color:#a3be8c;">current_branch = </span><span>$</span><span style="color:#bf616a;">current_branch</span><span>&quot;
+</span><span>  </span><span style="color:#96b5b4;">echo </span><span>&quot;</span><span style="color:#a3be8c;">---</span><span>&quot;
+</span><span>  </span><span style="color:#96b5b4;">echo </span><span>&quot;</span><span style="color:#a3be8c;">git rebase </span><span>$</span><span style="color:#bf616a;">git_remote</span><span style="color:#a3be8c;">/</span><span>$</span><span style="color:#bf616a;">current_branch</span><span>&quot;
+</span><span>  </span><span style="color:#bf616a;">git</span><span> rebase $</span><span style="color:#bf616a;">git_remote</span><span>/$</span><span style="color:#bf616a;">current_branch
+</span><span>  </span><span style="color:#b48ead;">if </span><span style="color:#96b5b4;">[[ </span><span>$</span><span style="color:#bf616a;">? </span><span>!= 0 </span><span style="color:#96b5b4;">]]</span><span>; </span><span style="color:#b48ead;">then
+</span><span>    </span><span style="color:#96b5b4;">echo </span><span>&quot;</span><span style="color:#a3be8c;">---</span><span>&quot;
+</span><span>    </span><span style="color:#96b5b4;">echo </span><span>&quot;</span><span style="color:#a3be8c;">git stash</span><span>&quot;
+</span><span>    </span><span style="color:#bf616a;">git</span><span> stash
+</span><span>    </span><span style="color:#96b5b4;">echo </span><span>&quot;</span><span style="color:#a3be8c;">---</span><span>&quot;
+</span><span>    </span><span style="color:#96b5b4;">echo </span><span>&quot;</span><span style="color:#a3be8c;">git rebase </span><span>$</span><span style="color:#bf616a;">git_remote</span><span style="color:#a3be8c;">/</span><span>$</span><span style="color:#bf616a;">current_branch</span><span>&quot;
+</span><span>    </span><span style="color:#bf616a;">git</span><span> rebase $</span><span style="color:#bf616a;">git_remote</span><span>/$</span><span style="color:#bf616a;">current_branch
+</span><span>    </span><span style="color:#bf616a;">second_attempt</span><span>=$</span><span style="color:#bf616a;">?
+</span><span>    </span><span style="color:#96b5b4;">echo </span><span>&quot;</span><span style="color:#a3be8c;">---</span><span>&quot;
+</span><span>    </span><span style="color:#96b5b4;">echo </span><span>&quot;</span><span style="color:#a3be8c;">git stash pop</span><span>&quot;
+</span><span>    </span><span style="color:#bf616a;">git</span><span> stash pop
+</span><span>  </span><span style="color:#b48ead;">fi
+</span><span>  </span><span style="color:#b48ead;">if </span><span style="color:#96b5b4;">[[</span><span> second_attempt == 1 </span><span style="color:#96b5b4;">]]</span><span>; </span><span style="color:#b48ead;">then
+</span><span>    </span><span style="color:#96b5b4;">echo </span><span>&quot;</span><span style="color:#a3be8c;">Your repo (</span><span>$</span><span style="color:#bf616a;">dir</span><span style="color:#a3be8c;">.git) has problems..</span><span>&quot;
+</span><span>  </span><span style="color:#b48ead;">fi
+</span><span>  </span><span style="color:#96b5b4;">echo </span><span>&quot;</span><span style="color:#a3be8c;">---</span><span>&quot;
+</span><span>  </span><span style="color:#96b5b4;">echo </span><span>&quot;</span><span style="color:#a3be8c;">cd ..</span><span>&quot;
+</span><span>  </span><span style="color:#96b5b4;">cd</span><span> ..
+</span><span style="color:#b48ead;">done</span><span>;
+</span></code></pre>
+<p>Refs:</p>
+<ul>
+<li><a href="http://www.bubblefoundry.com/blog/2011/02/git-status-from-outside-of-the-working-directory/">Git Status From Outside of the Working Directory</a></li>
+</ul>
+
+  </main>
+  <p>
+        Tags:
+          <a href="https://jonalmeida.com/tags/workflow/">#workflow</a>
+        Categories:
+          <a href="https://jonalmeida.com/categories/blog/">#blog</a>
+  </p>
+
+  <!-- Add temporary footnote back-links support -->
+  <script src="/footnotes.js"></script>
+<footer>
+</footer>
+</body>
+</html>

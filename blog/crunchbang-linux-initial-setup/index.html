@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CrunchBang Linux Initial Setup | Jonathan Almeida</title>
+  <meta name="title" content="CrunchBang Linux Initial Setup">
+<meta name="description" content="Scribblings and nonsense">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+  
+  <link rel="alternate" type="application/atom+xml" title="Jonathan Almeida" href="https://jonalmeida.com/atom.xml">
+  <style>
+    :root {
+    --width: 800px;
+    --font-main: Verdana, sans-serif;
+    --font-secondary: Verdana, sans-serif;
+    --font-scale: 1em;
+    --background-color: #fff;
+    --heading-color: #222;
+    --text-color: #444;
+    --link-color: #3273dc;
+    --visited-color: #8b6fcb;
+    --code-background-color: #f2f2f2;
+    --code-color: #222;
+    --blockquote-color: #222;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --background-color: #01242e;
+      --heading-color: #eee;
+      --text-color: #ddd;
+      --link-color: #8cc2dd;
+      --visited-color: #8b6fcb;
+      --code-background-color: #000;
+      --code-color: #ddd;
+      --blockquote-color: #ccc;
+    }
+  }
+
+  body {
+    font-family: var(--font-secondary);
+    font-size: var(--font-scale);
+    margin: auto;
+    padding: 20px;
+    max-width: var(--width);
+    text-align: left;
+    background-color: var(--background-color);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.5;
+    color: var(--text-color);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-main);
+    color: var(--heading-color);
+  }
+
+  a {
+    color: var(--link-color);
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  nav a {
+    margin-right: 8px;
+  }
+
+  nav span.active {
+    font-weight: bold;
+    margin-right: 10px;
+  }
+  strong,
+  b {
+    color: var(--heading-color);
+  }
+
+  button {
+    margin: 0;
+    cursor: pointer;
+  }
+
+  main {
+    line-height: 1.6;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  hr {
+    border: 0;
+    border-top: 1px dashed;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  pre code {
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    display: block;
+    padding: 20px;
+    white-space: pre-wrap;
+    font-size: 0.875rem;
+    overflow-x: auto;
+  }
+
+  code {
+    font-family: monospace;
+    padding: 2px;
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    border-radius: 3px;
+  }
+
+  blockquote {
+    border-left: 1px solid #999;
+    color: var(--code-color);
+    padding-left: 20px;
+    font-style: italic;
+  }
+
+  footer {
+    padding: 25px 0;
+    text-align: center;
+  }
+
+  .title:hover {
+    text-decoration: none;
+  }
+
+  .title h1 {
+    font-size: 1.5em;
+  }
+
+  .inline {
+    width: auto !important;
+  }
+
+  .highlight,
+  .code {
+    padding: 1px 15px;
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    border-radius: 3px;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    overflow-x: auto;
+  }
+
+  /* blog post list */
+  ul.blog-posts {
+    list-style-type: none;
+    padding: unset;
+  }
+
+  ul.blog-posts li {
+    display: flex;
+  }
+
+  ul.blog-posts li span {
+    flex: 0 0 130px;
+  }
+
+  ul.blog-posts li a:visited {
+    color: var(--visited-color);
+  }
+
+  .tags {
+    font-size: smaller;
+  }
+
+  .footnote-definition {
+    display: flex;
+    margin-top: 1em;
+  }
+  .footnote-definition-label {
+    margin-left: 1rem;
+    margin-right: 0.5rem;
+    vertical-align: baseline;
+  }
+  .footnote-definition-label::after {
+    content: "."
+  }
+  .footnote-definition > p {
+    margin: 0;
+  }
+
+  </style><style>
+
+section#comments {
+  p {
+    font-size: 0.8em;
+  }
+}
+
+
+pre mark {
+  color: var(--code-color);
+}
+</style>
+
+</head>
+<body>
+  <header>
+  <a href="https://jonalmeida.com/" class="title">
+    <h1>Jonathan Almeida</h1>
+  </a>
+  <nav aria-label="site">
+      <a href="https://jonalmeida.com/">Home</a>
+      <a href="https://jonalmeida.com/blog/">Blog</a>
+      <a href="https://jonalmeida.com/til/">TIL</a>
+      <a href="https://jonalmeida.com/archive/">Archive</a>
+  </nav>
+</header>
+
+  <h1>CrunchBang Linux Initial Setup</h1>
+      <p>
+        <i>
+          <time datetime="2013-03-24T00:00:00+00:00" pubdate>2013-03-24</time>
+        </i>
+      </p>
+    <details >
+      <summary>Table of contents</summary>
+    <ul>
+        <li>
+          <a href="https://jonalmeida.com/blog/crunchbang-linux-initial-setup/#conky">Conky</a>
+        </li>
+        <li>
+          <a href="https://jonalmeida.com/blog/crunchbang-linux-initial-setup/#adaptive-screen-colour-correction">Adaptive screen colour correction</a>
+        </li>
+        <li>
+          <a href="https://jonalmeida.com/blog/crunchbang-linux-initial-setup/#sublime-text-2-text-editor">Sublime Text 2 (Text Editor)</a>
+        </li>
+        <li>
+          <a href="https://jonalmeida.com/blog/crunchbang-linux-initial-setup/#application-launcher">Application launcher</a>
+        </li>
+        <li>
+          <a href="https://jonalmeida.com/blog/crunchbang-linux-initial-setup/#java">Java</a>
+        </li>
+        <li>
+          <a href="https://jonalmeida.com/blog/crunchbang-linux-initial-setup/#muti-arch-support">Muti-arch support</a>
+        </li>
+        <li>
+          <a href="https://jonalmeida.com/blog/crunchbang-linux-initial-setup/#overview">Overview</a>
+        </li>
+    </ul>
+    </details>
+  <main>
+    <p>I recently bought a ThinkPad T420s since the battery of my Dell Studio started to slowly die on me. Hence, I decided to start afresh with the ThinkPad and move away from Ubuntu to <a href="http://crunchbang.org">CrunchBang Linux</a> (abrev: #!) which was the first linux OS I ever used.  It's a minimalistic Debian Wheezy based distribution that doesn't waste any of your time setting up your computer and lets you get to what you want to do.
+It's hardly resource hungry as well. From a cold a boot it uses ~400MB of RAM.</p>
+<p>I spent the best part the day setting up everything to be the way I like it. So I thought I'd at least put it somewhere for reference later on.</p>
+<h3 id="conky">Conky</h3>
+<p>The first thing I saw when I booted my laptop was conky - time to get a neat looking conky script to show off those stats. I settled for a conky script that I found on the #! forums. There are plenty more on the <a href="http://crunchbang.org/forums/viewtopic.php?pid=556">forum</a>, but I found this one more to my liking. You can download the conkyrc file <a href="/assets/code/conkyrc">here</a> and the lua file <a href="/assets/code/conky_lua.lua">here</a>.</p>
+<p><img src="/images/20130324/conky.png" alt="alt text" /><br></p>
+<p>My T420s needed a special fan controller with a configuration which is handled by <a href="http://thinkfan.sourceforge.net">thinkfan</a>.</p>
+<h3 id="adaptive-screen-colour-correction">Adaptive screen colour correction</h3>
+<p>I came across a nifty application called <a href="http://stereopsis.com/flux">f.lux</a> that essentially corrects the colours of your screen to be 'warmer' as the day moves towards the end. The idea behind it is to not allow you get tired from staring at your screen all day. Which in turn, would cause irregular sleep patterns. While flux works perfectly on CrunchBang, I prefer to use it's alternative <a href="http://jonls.dk/redshift">Redshift</a> for linux OSes and f.lux for Windows/Mac. To be honest, the only reason I do this is because I think the f.lux icon looks out-of-place on most linux window managers - personal preference really. Not to mention that redshift already exists in the repositories, so a simple <code>sudo apt-get install redshift</code> solves all your problems. The help pages explain how to use it, but I set redshift to 5000 in ~/.config/openbox/autostart so that it's enabled on boot: <code>redshift -O 5000</code></p>
+<h3 id="sublime-text-2-text-editor">Sublime Text 2 (Text Editor)</h3>
+<p>I'm a big fan of Sublime Text, so this is a must on any computer I use. The linux builds are available as a tar ball so it doesn't integrate well out-of-the-box. Below are the terminal commands to extract it to /opt/ and create a desktop link that can be found with any application launcher you use:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">tar</span><span> xf Sublime</span><span style="color:#96b5b4;">\ </span><span>Text</span><span style="color:#96b5b4;">\ </span><span>2.0.1</span><span style="color:#96b5b4;">\ </span><span>x64.tar.bz2
+</span><span style="color:#bf616a;">sudo</span><span> mv Sublime</span><span style="color:#96b5b4;">\ </span><span>Text</span><span style="color:#96b5b4;">\ </span><span>2 /opt/
+</span><span style="color:#bf616a;">sudo</span><span> ln</span><span style="color:#bf616a;"> -s</span><span> /opt/Sublime</span><span style="color:#96b5b4;">\ </span><span>Text</span><span style="color:#96b5b4;">\ </span><span>2/sublime_text /usr/bin/sublime
+</span><span style="color:#bf616a;">sudo</span><span> wget http://jonalmeida.com/assets/misc/sublime.desktop /usr/share/applications/sublime.desktop
+</span></code></pre>
+<p>This last part is optional if you want all your text files to open with Sublime Text.</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">sudo</span><span> sublime /usr/share/applications/defaults.list
+</span></code></pre>
+<p>Replace all occurrences of geany.desktop with sublime.desktop</p>
+<h3 id="application-launcher">Application launcher</h3>
+<p>CrunchBang comes with a neat, minimalistic (like everything else) app launcher that lives on the bottom of your screen that you can access with Alt + F3. I like using app launchers, but the current keyboard short-cut just doesn't feel comfortable.</p>
+<p>You can change it by going to Settings &gt; Openbox &gt; Edit rc.xml, or open ~/.config/openbox/rc.xml with any text editor and add the configuration below to activate the app launcher with Ctrl + Space:</p>
+<pre data-lang="html" style="background-color:#2b303b;color:#c0c5ce;" class="language-html "><code class="language-html" data-lang="html"><span>    &lt;</span><span style="color:#bf616a;">keybind </span><span style="color:#d08770;">key</span><span>=&quot;</span><span style="color:#a3be8c;">C-space</span><span>&quot;&gt;
+</span><span>      &lt;</span><span style="color:#bf616a;">action </span><span style="color:#d08770;">name</span><span>=&quot;</span><span style="color:#a3be8c;">Execute</span><span>&quot;&gt;
+</span><span>        &lt;</span><span style="color:#bf616a;">startupnotify</span><span>&gt;
+</span><span>          &lt;</span><span style="color:#bf616a;">enabled</span><span>&gt;true&lt;/</span><span style="color:#bf616a;">enabled</span><span>&gt;
+</span><span>          &lt;</span><span style="color:#bf616a;">name</span><span>&gt;dmenu-bind&lt;/</span><span style="color:#bf616a;">name</span><span>&gt;
+</span><span>        &lt;/</span><span style="color:#bf616a;">startupnotify</span><span>&gt;
+</span><span>        &lt;</span><span style="color:#bf616a;">command</span><span>&gt;~/.config/dmenu/dmenu-bind.sh&lt;/</span><span style="color:#bf616a;">command</span><span>&gt;
+</span><span>      &lt;/</span><span style="color:#bf616a;">action</span><span>&gt;
+</span><span>    &lt;/</span><span style="color:#bf616a;">keybind</span><span>&gt;
+</span></code></pre>
+<h3 id="java">Java</h3>
+<p>Unfortunately, Java isn't going away any time soon:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">sudo</span><span> apt-get install openjdk-7-jre
+</span></code></pre>
+<h3 id="muti-arch-support">Muti-arch support</h3>
+<p>On most debian distributions I've tried, enabling multi-arch support was as easy as installing the ia32-libs, however there's more to it here.</p>
+<p>I found the solution from biggenaugust on the #! forums. First run:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">dpkg --add-architecture</span><span> i386
+</span></code></pre>
+<p>Then add <code>[arch=amd64,i386]</code> to each line of <code>/etc/apt/sources.list</code><br>
+It should look something like this:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#65737e;">## CRUNCHBANG
+</span><span style="color:#65737e;">## Compatible with Debian Wheezy, but use at your own risk.
+</span><span style="color:#bf616a;">deb </span><span style="color:#b48ead;">[</span><span>arch=amd64,i386</span><span style="color:#b48ead;">]</span><span> http://packages.crunchbang.org/waldorf waldorf main
+</span><span style="color:#65737e;"># deb-src [arch=amd64,i386] http://packages.crunchbang.org/waldorf waldorf main
+</span><span>
+</span><span style="color:#65737e;">## DEBIAN
+</span><span style="color:#bf616a;">deb </span><span style="color:#b48ead;">[</span><span>arch=amd64,i386</span><span style="color:#b48ead;">]</span><span> http://http.debian.net/debian wheezy main contrib non-free
+</span><span style="color:#65737e;"># deb-src [arch=amd64,i386] http://http.debian.net/debian wheezy main contrib non-free
+</span><span>
+</span><span style="color:#65737e;">## DEBIAN SECURITY
+</span><span style="color:#bf616a;">deb </span><span style="color:#b48ead;">[</span><span>arch=amd64,i386</span><span style="color:#b48ead;">]</span><span> http://security.debian.org/ wheezy/updates main
+</span><span style="color:#65737e;"># deb-src [arch=amd64,i386] http://security.debian.org/ wheezy/updates main
+</span></code></pre>
+<p>After that, run:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">sudo</span><span> apt-get update
+</span><span style="color:#bf616a;">sudo</span><span> apt-get dist-upgrade
+</span></code></pre>
+<p>This is going to install all the relevant i386 library packages. It varies in size, but it's usually around ~100-200MB and requires a reboot after this.</p>
+<h3 id="overview">Overview</h3>
+<p>I'm quite content with my current set-up and I haven't had the need to make any changes to anything so far. Send me a message if there's anything that needs updating or if you might need to clarify something.</p>
+
+  </main>
+  <p>
+        Categories:
+          <a href="https://jonalmeida.com/categories/blog/">#blog</a>
+  </p>
+
+  <!-- Add temporary footnote back-links support -->
+  <script src="/footnotes.js"></script>
+<footer>
+</footer>
+</body>
+</html>
