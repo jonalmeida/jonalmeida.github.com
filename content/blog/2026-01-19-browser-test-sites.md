@@ -1,6 +1,6 @@
 ---
 title: "Test sites for browser developers"
-updated: 2026-01-22T16:28:43-05:00
+updated: 2026-01-29T16:39:59-05:00
 draft: false
 taxonomies:
   tags: ["workflow", "mozilla"]
@@ -15,14 +15,10 @@ Working on the mobile Firefox team gives you the opportunity to touch on many di
 
 Sometimes a simple test site for your use case is helpful for initial validation or comparison against other browsers.
 
-Below is a list of tests that I've used in the past with example behaviours (in no particular order):
+Below is a list of tests that I've used in the past (in no particular order):
 
 - [badssl.com](https://badssl.com)
   - Great for testing out the various error pages that a browser can show.
-- [Registration, Login and Change Forms - MattN](https://bugs.mattn.ca/pwmgr/login_and_change_form.html)
-  - Web forms come in all shapes and sizes. Some simple forms to see if we can detect a login/registration form and fill a login entry into them.
-- [fill.dev](https://fill.dev/form/login-simple)
-  - More forms, but also includes credit card and address form filling.
 - [(Safe) Safe Browsing Testing Links ](https://testsafebrowsing.appspot.com/)
   - For making sure we are still using the [Safe Browsing](https://safebrowsing.google.com/) list correctly.
 - [WebAuthn / Passkeys & PRF Demo](https://webauthn-passkeys-prf-demo.explore.corbado.com/)
@@ -35,9 +31,17 @@ Below is a list of tests that I've used in the past with example behaviours (in 
   - When you have to verify that [`localStorage`](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage) is truly gone. This is especially helpful for Firefox Focus where private browsing is the primary feature.
 - [`<input>`: The HTML Input element - MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input)
   - There are Too Many™ different prompt and input element types. The MDN docs have the best collection of all of them.
+
+### Forms and Autocomplete
+There are various form types and various heuristics to trigger completion options, so they deserve their own section. The more (test sites) the merrier!
+- [Registration, Login and Change Forms - MattN](https://bugs.mattn.ca/pwmgr/login_and_change_form.html)
+  - Web forms come in all shapes and sizes. Some simple forms to see if we can detect a login/registration form and fill a login entry into them.
+- [fill.dev](https://fill.dev/form/login-simple)
+  - More forms, but also includes credit card and address form filling.
 - [daleharvey.github.io/testapp](https://daleharvey.github.io/testapp/)
   - Good for sanity testing simple forms, links that have same/different origins, or (location) permission prompts.
-
+- [Sign-Up & Login Forms - Dimi](https://dimidl.github.io/signup/test.html)
+  - Sign-up and login forms behave differently, so they are handy to test separately. For example, autofilling a generated password is useful on a registration form but not on a login one.
 
 
 ### Make your own
