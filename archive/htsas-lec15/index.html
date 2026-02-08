@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Start a Startup - Lecture 15 Notes | Jonathan Almeida</title>
+  <meta name="title" content="How to Start a Startup - Lecture 15 Notes">
+<meta name="description" content="Scribblings and nonsense">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+  
+  <link rel="alternate" type="application/atom+xml" title="Jonathan Almeida" href="https://jonalmeida.com/atom.xml">
+  <style>
+    :root {
+    --width: 800px;
+    --font-main: Verdana, sans-serif;
+    --font-secondary: Verdana, sans-serif;
+    --font-scale: 1em;
+    --background-color: #fff;
+    --heading-color: #222;
+    --text-color: #444;
+    --link-color: #3273dc;
+    --visited-color: #8b6fcb;
+    --code-background-color: #f2f2f2;
+    --code-color: #222;
+    --blockquote-color: #222;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --background-color: #01242e;
+      --heading-color: #eee;
+      --text-color: #ddd;
+      --link-color: #8cc2dd;
+      --visited-color: #8b6fcb;
+      --code-background-color: #000;
+      --code-color: #ddd;
+      --blockquote-color: #ccc;
+    }
+  }
+
+  body {
+    font-family: var(--font-secondary);
+    font-size: var(--font-scale);
+    margin: auto;
+    padding: 20px;
+    max-width: var(--width);
+    text-align: left;
+    background-color: var(--background-color);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.5;
+    color: var(--text-color);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-main);
+    color: var(--heading-color);
+  }
+
+  a {
+    color: var(--link-color);
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  nav a {
+    margin-right: 8px;
+  }
+
+  nav span.active {
+    font-weight: bold;
+    margin-right: 10px;
+  }
+  strong,
+  b {
+    color: var(--heading-color);
+  }
+
+  button {
+    margin: 0;
+    cursor: pointer;
+  }
+
+  main {
+    line-height: 1.6;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  hr {
+    border: 0;
+    border-top: 1px dashed;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  pre code {
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    display: block;
+    padding: 20px;
+    white-space: pre-wrap;
+    font-size: 0.875rem;
+    overflow-x: auto;
+  }
+
+  code {
+    font-family: monospace;
+    padding: 2px;
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    border-radius: 3px;
+  }
+
+  blockquote {
+    border-left: 1px solid #999;
+    color: var(--code-color);
+    padding-left: 20px;
+    font-style: italic;
+  }
+
+  footer {
+    padding: 25px 0;
+    text-align: center;
+  }
+
+  .title:hover {
+    text-decoration: none;
+  }
+
+  .title h1 {
+    font-size: 1.5em;
+  }
+
+  .inline {
+    width: auto !important;
+  }
+
+  .highlight,
+  .code {
+    padding: 1px 15px;
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    border-radius: 3px;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    overflow-x: auto;
+  }
+
+  /* blog post list */
+  ul.blog-posts {
+    list-style-type: none;
+    padding: unset;
+  }
+
+  ul.blog-posts li {
+    display: flex;
+  }
+
+  ul.blog-posts li span {
+    flex: 0 0 130px;
+  }
+
+  ul.blog-posts li a:visited {
+    color: var(--visited-color);
+  }
+
+  .tags {
+    font-size: smaller;
+  }
+
+  .footnote-definition {
+    display: flex;
+    margin-top: 1em;
+  }
+  .footnote-definition-label {
+    margin-left: 1rem;
+    margin-right: 0.5rem;
+    vertical-align: baseline;
+  }
+  .footnote-definition-label::after {
+    content: "."
+  }
+  .footnote-definition > p {
+    margin: 0;
+  }
+
+  </style><style>
+
+section#comments {
+  p {
+    font-size: 0.8em;
+  }
+}
+
+
+pre mark {
+  color: var(--code-color);
+}
+</style>
+
+</head>
+<body>
+  <header>
+  <a href="https://jonalmeida.com/" class="title">
+    <h1>Jonathan Almeida</h1>
+  </a>
+  <nav aria-label="site">
+      <a href="https://jonalmeida.com/">Home</a>
+      <a href="https://jonalmeida.com/blog/">Blog</a>
+      <a href="https://jonalmeida.com/til/">TIL</a>
+      <a href="https://jonalmeida.com/archive/">Archive</a>
+  </nav>
+</header>
+
+  <h1>How to Start a Startup - Lecture 15 Notes</h1>
+      <p>
+        <i>
+          <time datetime="2014-11-11T00:00:00+00:00" pubdate>2014-11-11</time>
+        </i>
+      </p>
+    <details >
+      <summary>Table of contents</summary>
+    <ul>
+        <li>
+          <a href="https://jonalmeida.com/archive/htsas-lec15/#how-to-manage">How to Manage</a>
+        <ul>
+            <li>
+              <a href="https://jonalmeida.com/archive/htsas-lec15/#one-management-concept">One Management Concept</a>
+            </li>
+            <li>
+              <a href="https://jonalmeida.com/archive/htsas-lec15/#demotions">Demotions</a>
+            <ul>
+                <li>
+                  <a href="https://jonalmeida.com/archive/htsas-lec15/#as-a-founder-ceo">As a founder&#x2F;CEO</a>
+                </li>
+                <li>
+                  <a href="https://jonalmeida.com/archive/htsas-lec15/#as-an-executive">As an executive</a>
+                </li>
+                <li>
+                  <a href="https://jonalmeida.com/archive/htsas-lec15/#for-everyone-else">For everyone else</a>
+                </li>
+            </ul>
+            </li>
+            <li>
+              <a href="https://jonalmeida.com/archive/htsas-lec15/#raises">Raises</a>
+            <ul>
+                <li>
+                  <a href="https://jonalmeida.com/archive/htsas-lec15/#as-a-founder-ceo-1">As a founder&#x2F;CEO</a>
+                </li>
+                <li>
+                  <a href="https://jonalmeida.com/archive/htsas-lec15/#other-employees">Other employees</a>
+                </li>
+                <li>
+                  <a href="https://jonalmeida.com/archive/htsas-lec15/#right-answer">Right Answer</a>
+                </li>
+            </ul>
+            </li>
+            <li>
+              <a href="https://jonalmeida.com/archive/htsas-lec15/#evaluating-a-sam-altman-blog-post">Evaluating a Sam Altman blog post</a>
+            <ul>
+                <li>
+                  <a href="https://jonalmeida.com/archive/htsas-lec15/#your-perspective">Your perspective</a>
+                </li>
+                <li>
+                  <a href="https://jonalmeida.com/archive/htsas-lec15/#perspective-of-the-employee-who-leaves">Perspective of the employee who leaves</a>
+                </li>
+                <li>
+                  <a href="https://jonalmeida.com/archive/htsas-lec15/#perspective-of-the-employees-who-stays">Perspective of the employees who stays</a>
+                </li>
+                <li>
+                  <a href="https://jonalmeida.com/archive/htsas-lec15/#situation-analysis">Situation Analysis</a>
+                </li>
+                <li>
+                  <a href="https://jonalmeida.com/archive/htsas-lec15/#two-alternative-cultural-statements">Two Alternative Cultural Statements</a>
+                </li>
+            </ul>
+            </li>
+            <li>
+              <a href="https://jonalmeida.com/archive/htsas-lec15/#history-s-greatest-practitioner">History&#x27;s greatest practitioner</a>
+            <ul>
+                <li>
+                  <a href="https://jonalmeida.com/archive/htsas-lec15/#conquering-the-enemy">Conquering the enemy</a>
+                </li>
+                <li>
+                  <a href="https://jonalmeida.com/archive/htsas-lec15/#soldier-s-perspective">Soldier&#x27;s Perspective</a>
+                </li>
+                <li>
+                  <a href="https://jonalmeida.com/archive/htsas-lec15/#culture">Culture</a>
+                </li>
+            </ul>
+            </li>
+            <li>
+              <a href="https://jonalmeida.com/archive/htsas-lec15/#what-do-you-do-with-the-slave-owners">What do you do with the slave owners?</a>
+            <ul>
+                <li>
+                  <a href="https://jonalmeida.com/archive/htsas-lec15/#slaves">Slaves</a>
+                </li>
+                <li>
+                  <a href="https://jonalmeida.com/archive/htsas-lec15/#toussaint">Toussaint</a>
+                </li>
+                <li>
+                  <a href="https://jonalmeida.com/archive/htsas-lec15/#slave-owners">Slave Owners</a>
+                </li>
+                <li>
+                  <a href="https://jonalmeida.com/archive/htsas-lec15/#solution">Solution</a>
+                </li>
+                <li>
+                  <a href="https://jonalmeida.com/archive/htsas-lec15/#results">Results:</a>
+                </li>
+            </ul>
+            </li>
+            <li>
+              <a href="https://jonalmeida.com/archive/htsas-lec15/#conclusion">Conclusion</a>
+            </li>
+            <li>
+              <a href="https://jonalmeida.com/archive/htsas-lec15/#questions">Questions</a>
+            </li>
+        </ul>
+        </li>
+    </ul>
+    </details>
+  <main>
+    <p>I'm taking down notes for Sam Altman's class, How to Start a Startup and I figured I'd start sharing them. This is for the <a href="https://www.youtube.com/watch?v=uVhTvQXfibU">fifteenth lecture</a> with the following notes:</p>
+<h1 id="how-to-manage">How to Manage</h1>
+<h2 id="one-management-concept">One Management Concept</h2>
+<ul>
+<li>When making a critical decision, you must understand how it will be interpreted from each person's point of view and its impact on the union of the individual views (i.e. culture).</li>
+</ul>
+<h2 id="demotions">Demotions</h2>
+<h3 id="as-a-founder-ceo">As a founder/CEO</h3>
+<ul>
+<li>It's tough to fire someone who has put in a big effort.</li>
+<li>A demotion is a "have your cake and eat it too" scenario.
+<ul>
+<li>Win-win</li>
+</ul>
+</li>
+<li>No cultural backlash.</li>
+</ul>
+<h3 id="as-an-executive">As an executive</h3>
+<ul>
+<li>May not want the demotion, but it gives them an option.
+<ul>
+<li>It's better than being fired.</li>
+<li>Easier to explain to a new employer.</li>
+</ul>
+</li>
+<li>Enables them to keep growing with the company even though they're demoted.</li>
+</ul>
+<h3 id="for-everyone-else">For everyone else</h3>
+<ul>
+<li>Does he keep his same equity package?</li>
+<li>Is he going to work as hard being the guy who reports to that guy?</li>
+<li>Do I have any respect for him now that he's been demoted?</li>
+</ul>
+<h2 id="raises">Raises</h2>
+<ul>
+<li>Excellent employee asks for a raise</li>
+</ul>
+<h3 id="as-a-founder-ceo-1">As a founder/CEO</h3>
+<ul>
+<li>You want to retain them.</li>
+<li>They have done great work, so it's "fair".</li>
+<li>They will like you if you give them the raise and you want to be liked.</li>
+</ul>
+<h3 id="other-employees">Other employees</h3>
+<ul>
+<li>
+<p>Unfair that I didn't get a raise.</p>
+</li>
+<li>
+<p>I did better work, so doubly unfair.</p>
+<ul>
+<li>Maybe that means, you're not evaluating people on their performance. You're giving the raise to the first person that asks.</li>
+</ul>
+</li>
+<li>
+<p>Maybe I should quit.</p>
+</li>
+<li>
+<p>Cultural Conclusion:</p>
+<ul>
+<li>Every employee has a fiduciary responsibility to heir family to ask for a raise all the time.</li>
+</ul>
+</li>
+</ul>
+<h3 id="right-answer">Right Answer</h3>
+<ul>
+<li>You have to be formal about the performance evaluation process.
+<ul>
+<li>You can't say, we want it to be organic and a natural experience.</li>
+</ul>
+</li>
+<li>All the right inputs.</li>
+<li>Run as frequently as needed.</li>
+<li>No raises outside of the process.
+<ul>
+<li>You can't give raises when asked.</li>
+</ul>
+</li>
+<li>Makes the employees feel they are getting a fair chance.
+<ul>
+<li>They don't have to play golf with you in order to get a raise.</li>
+</ul>
+</li>
+</ul>
+<h2 id="evaluating-a-sam-altman-blog-post">Evaluating a Sam Altman blog post</h2>
+<p><strong>"</strong> <em>Most employees only have 90 days after they leave a job to exercise their options. Unfortunately, this requires money to cover the strike price and the tax bill due for the year of exercise (which is calculated on the difference between the strike and the current FMV). This is often more cash than an employee has, and so the employee often has to choose between walking away from vested options he or she can't afford to exercise, or being locked into staying at the company. It's a particularly bad situation when an employee gets terminated.</em></p>
+<p><em>This doesn't seem fair. The best solution I have heard is from Adam D'Angelo at Quora. The idea is to grant options that are exercisable for 10 years from the grant date, which should cover nearly all cases (i.e. the company will probably either go public, get acquired, or die in that time frame, and so either the employee will have the liquidity to exercise or it won't matter.) There are some tricky issues around this-for example, the options will automatically convert from ISOs to NSOs 3 months after employment terminates (if applicable) but it's still far better than just losing the assets. I think this is a policy all startups should adopt.</em> <strong>"</strong> -<a href="http://blog.samaltman.com/employee-equity">sama</a></p>
+<ul>
+<li>Is Sam right?</li>
+<li>How stock option package works in startups:
+<ul>
+<li>You get stock that vests over a period of time.</li>
+<li>When you leave the company, you have 90 days to buy your stock options before it's gone.</li>
+<li>This has been a "rule" since the 80s.</li>
+</ul>
+</li>
+<li>History:</li>
+</ul>
+<h3 id="your-perspective">Your perspective</h3>
+<ul>
+<li>Want to be fair.</li>
+<li>Don't want employees to stay who don't want to be there, but feel handcuffed.</li>
+<li>Want to reward people who stay.</li>
+</ul>
+<h3 id="perspective-of-the-employee-who-leaves">Perspective of the employee who leaves</h3>
+<ul>
+<li>I worked for my shares; I shouldn't be prevented from getting them due to economics.</li>
+<li>Did you tell me the truth when you hired me? If you didn't, I'll make sure that everyone knows that.</li>
+<li>If I was fired, I just got screwed a second time.</li>
+</ul>
+<h3 id="perspective-of-the-employees-who-stays">Perspective of the employees who stays</h3>
+<ul>
+<li>Is it smarter for me to stay or leave?
+<ul>
+<li>Your employees know each other better, than they know you.</li>
+<li>Should I have left too?</li>
+<li>How does that compare to my deal?</li>
+</ul>
+</li>
+<li>Are my colleagues being treated fairly?</li>
+<li>Does my loyalty matter?</li>
+</ul>
+<h3 id="situation-analysis">Situation Analysis</h3>
+<ul>
+<li>Companies lose employees in Slicon Valley at around 10% per year.</li>
+<li>SV companies dilute at 6-8% per year when they are private for employee group.</li>
+<li>If an employee doesn't exercise their stock during the exercise period, it goes back into the pool where it can be reissued to new or existing employees.</li>
+<li>Losing all your stock is a big financial incentive to stay.</li>
+<li>A 10 year option on a highly volatile security is quite valuable.</li>
+<li>When the employee goes to the new company, she gets the new company stock plus the 10 year option.</li>
+<li>The employee who stays gets the option only.</li>
+</ul>
+<h3 id="two-alternative-cultural-statements">Two Alternative Cultural Statements</h3>
+<ul>
+<li>We treat new employees with the utmost straight-forwardness and fairness and we will therefore give you 10 years to exercise your stock if you quit or are fired.</li>
+<li>We'll tell you up front: you are guaranteed to get your salary. For your stock to be meaningful, you must either:
+<ul>
+<li>Vest</li>
+<li>Stay until we exit or have the cash to exercise</li>
+<li>Make the company worth something (10% of nothing is nothing)</li>
+</ul>
+</li>
+<li>We do this because we massively value those who see it through and will minimize the dilutive cost of those who leave.</li>
+<li><em>There should be more incentive to stay.</em></li>
+</ul>
+<h2 id="history-s-greatest-practitioner">History's greatest practitioner</h2>
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/Toussaint_Louverture">Touissaint L'Overture</a>
+<ul>
+<li>Born a slave</li>
+<li>Most brutal form of African slavery (now known as Haiti)</li>
+<li>Vision:
+<ul>
+<li>End slavery</li>
+<li>Take control of Haiti</li>
+<li>Make it a first class country</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="conquering-the-enemy">Conquering the enemy</h3>
+<ul>
+<li>Question: What do you do with the defeated leaders?</li>
+<li>He had to take into consideration everyone's POV:
+<ul>
+<li>His soldier's</li>
+<li>His enemy's</li>
+<li>The culture
+<ul>
+<li>What kind of country was he trying to build?</li>
+<li>He didn't allow his soldiers to rape or for them to cheat on their wives. He wanted to keep good culture among the army.</li>
+<li>Famous for not pillaging.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="soldier-s-perspective">Soldier's Perspective</h3>
+<ul>
+<li>Do we get to pillage? We like to pillage...</li>
+<li>They were trying to kill us, let's kill them.</li>
+</ul>
+<h3 id="culture">Culture</h3>
+<ul>
+<li>Toussaint wanted a first-class culture.</li>
+<li>He believed that Haitian culture was inferior to European culture and he believed that the slave culture was the most broken of them all.</li>
+<li>Solution:
+<ul>
+<li>Make the enemy generals part of his army.</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h2 id="what-do-you-do-with-the-slave-owners">What do you do with the slave owners?</h2>
+<h3 id="slaves">Slaves</h3>
+<ul>
+<li>Free us, we fought for this.</li>
+<li>Kill those bastards!</li>
+<li>Give us their land.</li>
+</ul>
+<h3 id="toussaint">Toussaint</h3>
+<ul>
+<li>Economy is key to being a first world country and sugar is our top export by far, so productive plantations are critically important.</li>
+<li>I was a slave and my army is mostly slaves.</li>
+<li>None of us have the expertise to run sugar plantations.</li>
+<li>We earned that land fair and square.</li>
+<li>None of us have the business connections to trade sugar.</li>
+</ul>
+<h3 id="slave-owners">Slave Owners</h3>
+<ul>
+<li>Our business cost structure is predicated on slave labour.</li>
+<li>We paid a lot of money for those slaves up front.</li>
+<li>We paid a lot of money for the land.</li>
+<li>We have all the know how and business relationships, so you have to deal with us.</li>
+</ul>
+<h3 id="solution">Solution</h3>
+<ul>
+<li>End slavery.</li>
+<li>Let slave owners keep their land.</li>
+<li>Require plantation owners to pay salaries to workers.</li>
+<li>Lower the taxes of the plantation owners, so that they could keep sugar business thriving.</li>
+</ul>
+<h3 id="results">Results:</h3>
+<ul>
+<li>Only successful slave revolt in human history.</li>
+<li>Let plantation owners keep their land.</li>
+<li>Total defeat of Napoleon.</li>
+<li>Booming economy + world-class culture.</li>
+<li>Under Toussaint, Haiti had more export income than the USA.</li>
+</ul>
+<h2 id="conclusion">Conclusion</h2>
+<ul>
+<li>It's not your prespective or the perspective of the person that you are talking to at the moment that matters.</li>
+<li>You must consider the people who are not in the room.</li>
+<li>They are the company.</li>
+<li>They are the culture.</li>
+</ul>
+<h2 id="questions">Questions</h2>
+<p>Q. <em>If you've got to fire/demote an exec, (i) how do you have the conversation, (ii) how do you explain it to everyone else?</em></p>
+<p><strong>Ans.</strong></p>
+<ul>
+<li>Try to be honest.
+<ul>
+<li>Don't project your anger (if you have any), onto them. It doesn't help anyone.</li>
+<li>Don't be too mushy and treat it like a relationship.</li>
+</ul>
+</li>
+<li>The number one reason it didn't work out is because you didn't match the person with the job that you were looking for. You didn't realize it then, but you did now.</li>
+<li>Talking to the employees is difficult.</li>
+<li>You can a person's job if you have to take their job, <strong>but you don't have to take their dignity</strong>.
+<ul>
+<li>What you say to the employees is what will eventually be their reputation that the employees see.</li>
+<li>Employees won't see it that you screwed up, but they will see it as they (the person leaving) screwed up. This is bad when they ask for references from the other employees.</li>
+<li><strong>Preserve their dignity.</strong></li>
+</ul>
+</li>
+</ul>
+<hr />
+<p>Q. <em>How did you deal with all the stress?</em></p>
+<p><strong>Ans.</strong></p>
+<ul>
+<li>"I used to be 6'4 and good looking. So clearly, not very well."</li>
+<li>Have a really good spouse.</li>
+<li>Keep focus on what you can do, and not what happened to you.</li>
+</ul>
+<hr />
+<p>Q. <em>How did Toussaint get the French general's to work for them?</em></p>
+<p><strong>Ans.</strong></p>
+<ul>
+<li>They were shocked that they were not going to be killed.</li>
+<li>Ended up being more loyal to Toussaint than to the French army.</li>
+<li>Borrowed that technique from Julius Caesar.</li>
+</ul>
+<hr />
+<p>Q. <em>How do incorporate the same ideology with people who were previously against you, on to your side?</em></p>
+<p><strong>Ans.</strong></p>
+<ul>
+<li>Show them there's a better way.</li>
+<li>You're way of doing things just has to be just better to convince them.</li>
+</ul>
+<hr />
+<p>Q. <em>How do you build a culture at Andreessen-Horowitz that is different from all other VCs?</em></p>
+<p><strong>Ans.</strong></p>
+<ul>
+<li>A profesisonal CEO would bring in tons of people from a network who bought tech in big corporations to people in the press.</li>
+<li>Build that network on your behalf at the firm.</li>
+</ul>
+<hr />
+<p>Q. <em>Putting yourself in other people's shoes is difficult in daily life. How can you do it management?</em></p>
+<p><strong>Ans.</strong></p>
+<ul>
+<li>It's difficult in daily life, even harder in management.</li>
+<li>When you're a leader, you want to feel like you have all the answers.</li>
+<li>If something is important, you have to remember to pause and think it through.</li>
+<li>Most CEOs learn this the hard way.</li>
+<li>Impulse decisions can blow up your face later on. Safer to think it through.</li>
+<li>The Kimchi Problem - "The deeper you bury it, the hotter it gets."</li>
+</ul>
+<hr />
+
+  </main>
+  <p>
+        Categories:
+          <a href="https://jonalmeida.com/categories/archive/">#archive</a>
+  </p>
+
+  <!-- Add temporary footnote back-links support -->
+  <script src="/footnotes.js"></script>
+<footer>
+</footer>
+</body>
+</html>

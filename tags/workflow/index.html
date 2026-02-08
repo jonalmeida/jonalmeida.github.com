@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jonathan Almeida</title>
+  <meta name="title" content="Jonathan Almeida">
+<meta name="description" content="Scribblings and nonsense">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+  
+  <link rel="alternate" type="application/atom+xml" title="Jonathan Almeida" href="https://jonalmeida.com/atom.xml">
+  <style>
+    :root {
+    --width: 800px;
+    --font-main: Verdana, sans-serif;
+    --font-secondary: Verdana, sans-serif;
+    --font-scale: 1em;
+    --background-color: #fff;
+    --heading-color: #222;
+    --text-color: #444;
+    --link-color: #3273dc;
+    --visited-color: #8b6fcb;
+    --code-background-color: #f2f2f2;
+    --code-color: #222;
+    --blockquote-color: #222;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --background-color: #01242e;
+      --heading-color: #eee;
+      --text-color: #ddd;
+      --link-color: #8cc2dd;
+      --visited-color: #8b6fcb;
+      --code-background-color: #000;
+      --code-color: #ddd;
+      --blockquote-color: #ccc;
+    }
+  }
+
+  body {
+    font-family: var(--font-secondary);
+    font-size: var(--font-scale);
+    margin: auto;
+    padding: 20px;
+    max-width: var(--width);
+    text-align: left;
+    background-color: var(--background-color);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.5;
+    color: var(--text-color);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-main);
+    color: var(--heading-color);
+  }
+
+  a {
+    color: var(--link-color);
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  nav a {
+    margin-right: 8px;
+  }
+
+  nav span.active {
+    font-weight: bold;
+    margin-right: 10px;
+  }
+  strong,
+  b {
+    color: var(--heading-color);
+  }
+
+  button {
+    margin: 0;
+    cursor: pointer;
+  }
+
+  main {
+    line-height: 1.6;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  hr {
+    border: 0;
+    border-top: 1px dashed;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  pre code {
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    display: block;
+    padding: 20px;
+    white-space: pre-wrap;
+    font-size: 0.875rem;
+    overflow-x: auto;
+  }
+
+  code {
+    font-family: monospace;
+    padding: 2px;
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    border-radius: 3px;
+  }
+
+  blockquote {
+    border-left: 1px solid #999;
+    color: var(--code-color);
+    padding-left: 20px;
+    font-style: italic;
+  }
+
+  footer {
+    padding: 25px 0;
+    text-align: center;
+  }
+
+  .title:hover {
+    text-decoration: none;
+  }
+
+  .title h1 {
+    font-size: 1.5em;
+  }
+
+  .inline {
+    width: auto !important;
+  }
+
+  .highlight,
+  .code {
+    padding: 1px 15px;
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    border-radius: 3px;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    overflow-x: auto;
+  }
+
+  /* blog post list */
+  ul.blog-posts {
+    list-style-type: none;
+    padding: unset;
+  }
+
+  ul.blog-posts li {
+    display: flex;
+  }
+
+  ul.blog-posts li span {
+    flex: 0 0 130px;
+  }
+
+  ul.blog-posts li a:visited {
+    color: var(--visited-color);
+  }
+
+  .tags {
+    font-size: smaller;
+  }
+
+  .footnote-definition {
+    display: flex;
+    margin-top: 1em;
+  }
+  .footnote-definition-label {
+    margin-left: 1rem;
+    margin-right: 0.5rem;
+    vertical-align: baseline;
+  }
+  .footnote-definition-label::after {
+    content: "."
+  }
+  .footnote-definition > p {
+    margin: 0;
+  }
+
+  </style><style>
+
+section#comments {
+  p {
+    font-size: 0.8em;
+  }
+}
+
+
+pre mark {
+  color: var(--code-color);
+}
+</style>
+
+</head>
+<body>
+  <header>
+  <a href="https://jonalmeida.com/" class="title">
+    <h1>Jonathan Almeida</h1>
+  </a>
+  <nav aria-label="site">
+      <a href="https://jonalmeida.com/">Home</a>
+      <a href="https://jonalmeida.com/blog/">Blog</a>
+      <a href="https://jonalmeida.com/til/">TIL</a>
+      <a href="https://jonalmeida.com/archive/">Archive</a>
+  </nav>
+</header>
+<main>
+      <h3 class="filter">Filtering for "workflow"</h3>
+      <small>
+        <a href="https://jonalmeida.com/blog/">Remove filter</a>
+      </small>
+    <ul class="blog-posts">
+        <li>
+          <span>
+            <i>
+              <time datetime="2026-02-06T00:00:00+00:00" pubdate>
+                2026-02-06
+              </time>
+            </i>
+          </span>
+          <a href="https:&#x2F;&#x2F;jonalmeida.com&#x2F;til&#x2F;install-fenix-variants&#x2F;">Test a Firefox Android variant alongside your daily driver</a>
+        </li>
+        <li>
+          <span>
+            <i>
+              <time datetime="2026-01-19T00:00:00+00:00" pubdate>
+                2026-01-19
+              </time>
+            </i>
+          </span>
+          <a href="https:&#x2F;&#x2F;jonalmeida.com&#x2F;blog&#x2F;browser-test-sites&#x2F;">Test sites for browser developers</a>
+        </li>
+        <li>
+          <span>
+            <i>
+              <time datetime="2026-01-05T00:00:00+00:00" pubdate>
+                2026-01-05
+              </time>
+            </i>
+          </span>
+          <a href="https:&#x2F;&#x2F;jonalmeida.com&#x2F;til&#x2F;jj-tug&#x2F;">Update jj bookmarks to the latest revision</a>
+        </li>
+        <li>
+          <span>
+            <i>
+              <time datetime="2025-10-07T00:00:00+00:00" pubdate>
+                2025-10-07
+              </time>
+            </i>
+          </span>
+          <a href="https:&#x2F;&#x2F;jonalmeida.com&#x2F;til&#x2F;jj-rebase-all&#x2F;">Rebase all WIPs to the new main</a>
+        </li>
+        <li>
+          <span>
+            <i>
+              <time datetime="2021-10-15T00:00:00+00:00" pubdate>
+                2021-10-15
+              </time>
+            </i>
+          </span>
+          <a href="https:&#x2F;&#x2F;jonalmeida.com&#x2F;blog&#x2F;browser-keyboard-shortcuts-mozilla-mobile&#x2F;">Useful bookmark keywords for Firefox (mobile) development</a>
+        </li>
+        <li>
+          <span>
+            <i>
+              <time datetime="2014-07-19T00:00:00+00:00" pubdate>
+                2014-07-19
+              </time>
+            </i>
+          </span>
+          <a href="https:&#x2F;&#x2F;jonalmeida.com&#x2F;blog&#x2F;keeping-all-git-remotes-updated&#x2F;">How to keep all your git remotes up-to-date</a>
+        </li>
+        <li>
+          <span>
+            <i>
+              <time datetime="2013-07-28T00:00:00+00:00" pubdate>
+                2013-07-28
+              </time>
+            </i>
+          </span>
+          <a href="https:&#x2F;&#x2F;jonalmeida.com&#x2F;blog&#x2F;cleaning-up-a-messy-master-branch&#x2F;">Cleaning up a messy master branch</a>
+        </li>
+        <li>
+          <span>
+            <i>
+              <time datetime="2013-04-09T00:00:00+00:00" pubdate>
+                2013-04-09
+              </time>
+            </i>
+          </span>
+          <a href="https:&#x2F;&#x2F;jonalmeida.com&#x2F;blog&#x2F;pushing-to-multiple-existing-git-repositories&#x2F;">Pushing to multiple existing git repositories</a>
+        </li>
+    </ul>
+  </main><footer>
+</footer>
+</body>
+</html>

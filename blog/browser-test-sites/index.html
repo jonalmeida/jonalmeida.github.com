@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test sites for browser developers | Jonathan Almeida</title>
+  <meta name="title" content="Test sites for browser developers">
+<meta name="description" content="Scribblings and nonsense">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+  
+  <link rel="alternate" type="application/atom+xml" title="Jonathan Almeida" href="https://jonalmeida.com/atom.xml">
+  <style>
+    :root {
+    --width: 800px;
+    --font-main: Verdana, sans-serif;
+    --font-secondary: Verdana, sans-serif;
+    --font-scale: 1em;
+    --background-color: #fff;
+    --heading-color: #222;
+    --text-color: #444;
+    --link-color: #3273dc;
+    --visited-color: #8b6fcb;
+    --code-background-color: #f2f2f2;
+    --code-color: #222;
+    --blockquote-color: #222;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --background-color: #01242e;
+      --heading-color: #eee;
+      --text-color: #ddd;
+      --link-color: #8cc2dd;
+      --visited-color: #8b6fcb;
+      --code-background-color: #000;
+      --code-color: #ddd;
+      --blockquote-color: #ccc;
+    }
+  }
+
+  body {
+    font-family: var(--font-secondary);
+    font-size: var(--font-scale);
+    margin: auto;
+    padding: 20px;
+    max-width: var(--width);
+    text-align: left;
+    background-color: var(--background-color);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.5;
+    color: var(--text-color);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-main);
+    color: var(--heading-color);
+  }
+
+  a {
+    color: var(--link-color);
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  nav a {
+    margin-right: 8px;
+  }
+
+  nav span.active {
+    font-weight: bold;
+    margin-right: 10px;
+  }
+  strong,
+  b {
+    color: var(--heading-color);
+  }
+
+  button {
+    margin: 0;
+    cursor: pointer;
+  }
+
+  main {
+    line-height: 1.6;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  hr {
+    border: 0;
+    border-top: 1px dashed;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  pre code {
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    display: block;
+    padding: 20px;
+    white-space: pre-wrap;
+    font-size: 0.875rem;
+    overflow-x: auto;
+  }
+
+  code {
+    font-family: monospace;
+    padding: 2px;
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    border-radius: 3px;
+  }
+
+  blockquote {
+    border-left: 1px solid #999;
+    color: var(--code-color);
+    padding-left: 20px;
+    font-style: italic;
+  }
+
+  footer {
+    padding: 25px 0;
+    text-align: center;
+  }
+
+  .title:hover {
+    text-decoration: none;
+  }
+
+  .title h1 {
+    font-size: 1.5em;
+  }
+
+  .inline {
+    width: auto !important;
+  }
+
+  .highlight,
+  .code {
+    padding: 1px 15px;
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    border-radius: 3px;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    overflow-x: auto;
+  }
+
+  /* blog post list */
+  ul.blog-posts {
+    list-style-type: none;
+    padding: unset;
+  }
+
+  ul.blog-posts li {
+    display: flex;
+  }
+
+  ul.blog-posts li span {
+    flex: 0 0 130px;
+  }
+
+  ul.blog-posts li a:visited {
+    color: var(--visited-color);
+  }
+
+  .tags {
+    font-size: smaller;
+  }
+
+  .footnote-definition {
+    display: flex;
+    margin-top: 1em;
+  }
+  .footnote-definition-label {
+    margin-left: 1rem;
+    margin-right: 0.5rem;
+    vertical-align: baseline;
+  }
+  .footnote-definition-label::after {
+    content: "."
+  }
+  .footnote-definition > p {
+    margin: 0;
+  }
+
+  </style><style>
+
+section#comments {
+  p {
+    font-size: 0.8em;
+  }
+}
+
+
+pre mark {
+  color: var(--code-color);
+}
+</style>
+
+</head>
+<body>
+  <header>
+  <a href="https://jonalmeida.com/" class="title">
+    <h1>Jonathan Almeida</h1>
+  </a>
+  <nav aria-label="site">
+      <a href="https://jonalmeida.com/">Home</a>
+      <a href="https://jonalmeida.com/blog/">Blog</a>
+      <a href="https://jonalmeida.com/til/">TIL</a>
+      <a href="https://jonalmeida.com/archive/">Archive</a>
+  </nav>
+</header>
+
+  <h1>Test sites for browser developers</h1>
+      <p>
+        <i>
+          <time datetime="2026-01-19T00:00:00+00:00" pubdate>2026-01-19</time>
+        </i>
+      </p>
+  <main>
+    <p>Working on the mobile Firefox team gives you the opportunity to touch on many different parts of the browser space. You often need to test the interaction between web content and the application integration's to another component, say for example, a site registering for a WebPush subscription and Firefox using Firebase Cloud Messaging to deliver the encrypted message to the end-user. Hunting around for an example to validate everything fine and dandy takes time.</p>
+<p>Sometimes a simple test site for your use case is helpful for initial validation or comparison against other browsers.</p>
+<p>Below is a list of tests that I've used in the past (in no particular order):</p>
+<ul>
+<li><a href="https://badssl.com">badssl.com</a>
+<ul>
+<li>Great for testing out the various error pages that a browser can show.</li>
+</ul>
+</li>
+<li><a href="https://testsafebrowsing.appspot.com/">(Safe) Safe Browsing Testing Links </a>
+<ul>
+<li>For making sure we are still using the <a href="https://safebrowsing.google.com/">Safe Browsing</a> list correctly.</li>
+</ul>
+</li>
+<li><a href="https://webauthn-passkeys-prf-demo.explore.corbado.com/">WebAuthn / Passkeys &amp; PRF Demo</a>
+<ul>
+<li>For <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Authentication_API">WebAuthn</a> login/registration, but also includes PRF extension support.</li>
+</ul>
+</li>
+<li><a href="https://mozilla-services.github.io/WebPushDataTestPage/">Web Push: Data Encryption Test Page</a>
+<ul>
+<li>Push notifications requires a server to send a notification to the client (not the same as a WebNotification), so you can use this WebPush test site for validating just that.</li>
+</ul>
+</li>
+<li><a href="https://simple-push-demo.vercel.app/">Simple Push Demo</a>
+<ul>
+<li>Similar to the above, but prettier.</li>
+</ul>
+</li>
+<li><a href="http://www.sharonminsuk.com/code/storage-test.html">Test of HTML5 localStorage and sessionStorage persistence - sharonminsuk.com</a>
+<ul>
+<li>When you have to verify that <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage"><code>localStorage</code></a> is truly gone. This is especially helpful for Firefox Focus where private browsing is the primary feature.</li>
+</ul>
+</li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input"><code>&lt;input&gt;</code>: The HTML Input element - MDN</a>
+<ul>
+<li>There are Too Many™ different prompt and input element types. The MDN docs have the best collection of all of them.</li>
+</ul>
+</li>
+</ul>
+<h3 id="forms-and-autocomplete">Forms and Autocomplete</h3>
+<p>There are various form types and various heuristics to trigger completion options, so they deserve their own section. The more (test sites) the merrier!</p>
+<ul>
+<li><a href="https://bugs.mattn.ca/pwmgr/login_and_change_form.html">Registration, Login and Change Forms - MattN</a>
+<ul>
+<li>Web forms come in all shapes and sizes. Some simple forms to see if we can detect a login/registration form and fill a login entry into them.</li>
+</ul>
+</li>
+<li><a href="https://fill.dev/form/login-simple">fill.dev</a>
+<ul>
+<li>More forms, but also includes credit card and address form filling.</li>
+</ul>
+</li>
+<li><a href="https://daleharvey.github.io/testapp/">daleharvey.github.io/testapp</a>
+<ul>
+<li>Good for sanity testing simple forms, links that have same/different origins, or (location) permission prompts.</li>
+</ul>
+</li>
+<li><a href="https://dimidl.github.io/signup/test.html">Sign-Up &amp; Login Forms - Dimi</a>
+<ul>
+<li>Sign-up and login forms behave differently, so they are handy to test separately. For example, autofilling a generated password is useful on a registration form but not on a login one.</li>
+</ul>
+</li>
+</ul>
+<h3 id="make-your-own">Make your own</h3>
+<p>If you need to make your own, try to write out the code yourself so you can understand the reduced test case. If it's not straight-forward, try using the <a href="https://addons.mozilla.org/en-CA/firefox/addon/testcase-reducer/">Testcase Reducer by Thomas Wisniewski</a>.</p>
+
+<section id="comments" class="article-content">
+  <h3>Comments</h3>
+  <p>With an account on the Fediverse or Mastodon, you can respond to this <a href="https://mindly.social/@jonalmeida/115937256635328128">post</a>. Since Mastodon is decentralized, you can use your existing account hosted by another Mastodon server or compatible platform if you don't have an account on this one. Known non-private replies are displayed below.</p>
+  <p>Learn how this was implemented from the original source <a class="link" href="/2020/12/29/adding-comments-to-your-static-blog-with-mastodon/">here.</a></p>
+
+  <p id="mastodon-comments-list">
+  <button id="load-comment">Load comments</button></p>
+  <div id="comments-wrapper">
+    <noscript><p>Loading comments relies on JavaScript. Try enabling JavaScript and reloading, or visit <a href="https://mindly.social/@jonalmeida/115937256635328128">the original post</a> on Mastodon.</p></noscript>
+  </div>
+
+  <noscript>You need JavaScript to view the comments.</noscript>
+  <script type="text/javascript">
+    function escapeHtml(unsafe) {
+      return unsafe
+           .replace(/&/g, "&amp;")
+           .replace(/</g, "&lt;")
+           .replace(/>/g, "&gt;")
+           .replace(/"/g, "&quot;")
+           .replace(/'/g, "&#039;");
+    }
+    function emojify(input, emojis) {
+      let output = input;
+
+      emojis.forEach(emoji => {
+        let picture = document.createElement("picture");
+
+        let source = document.createElement("source");
+        source.setAttribute("srcset", escapeHtml(emoji.url));
+        source.setAttribute("media", "(prefers-reduced-motion: no-preference)");
+
+        let img = document.createElement("img");
+        img.className = "emoji";
+        img.setAttribute("src", escapeHtml(emoji.static_url));
+        img.setAttribute("alt", `:${ emoji.shortcode }:`);
+        img.setAttribute("title", `:${ emoji.shortcode }:`);
+        img.setAttribute("width", "20");
+        img.setAttribute("height", "20");
+
+        picture.appendChild(source);
+        picture.appendChild(img);
+
+        output = output.replace(`:${ emoji.shortcode }:`, picture.outerHTML);
+      });
+
+      return output;
+    }
+
+    function loadCssFile(path) {
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = path; // relative path to your CSS file
+      document.head.appendChild(link);
+    }
+
+    function loadComments() {
+      let purifyPromise = import("/assets/js/purify.min.js");
+      let cssPromise = loadCssFile("/comments.css");
+
+      let commentsWrapper = document.getElementById("comments-wrapper");
+      document.getElementById("load-comment").innerHTML = "Loading";
+      fetch("https://mindly.social/api/v1/statuses/115937256635328128/context")
+        .then(function(response) {
+          return response.json();
+        })
+        .then(function(data) {
+          let descendants = data['descendants'];
+          if(
+            descendants &&
+            Array.isArray(descendants) &&
+            descendants.length > 0
+          ) {
+            commentsWrapper.innerHTML = "";
+
+            descendants.forEach(function(status) {
+              /* For debugging */
+              /* console.log(descendants) */
+              if( status.account.display_name.length > 0 ) {
+                status.account.display_name = escapeHtml(status.account.display_name);
+                status.account.display_name = emojify(status.account.display_name, status.account.emojis);
+              } else {
+                status.account.display_name = status.account.username;
+              };
+
+              let instance = "";
+              if( status.account.acct.includes("@") ) {
+                instance = status.account.acct.split("@")[1];
+              } else {
+                instance = "mindly.social";
+              }
+
+              const isReply = status.in_reply_to_id !== "115937256635328128";
+
+              let op = false;
+              if( status.account.acct == "jonalmeida" ) {
+                op = true;
+              }
+
+              status.content = emojify(status.content, status.emojis);
+
+              let avatarSource = document.createElement("source");
+              avatarSource.setAttribute("srcset", escapeHtml(status.account.avatar));
+              avatarSource.setAttribute("media", "(prefers-reduced-motion: no-preference)");
+
+              let avatarImg = document.createElement("img");
+              avatarImg.className = "avatar";
+              avatarImg.setAttribute("src", escapeHtml(status.account.avatar_static));
+              avatarImg.setAttribute("alt", `@${ status.account.username }@${ instance } avatar`);
+
+              let avatarPicture = document.createElement("picture");
+              avatarPicture.appendChild(avatarSource);
+              avatarPicture.appendChild(avatarImg);
+
+              let avatar = document.createElement("a");
+              avatar.className = "avatar-link";
+              avatar.setAttribute("href", status.account.url);
+              avatar.setAttribute("rel", "external nofollow");
+              avatar.setAttribute("title", `View profile at @${ status.account.username }@${ instance }`);
+              avatar.appendChild(avatarPicture);
+
+              let instanceBadge = document.createElement("a");
+              instanceBadge.className = "instance";
+              instanceBadge.setAttribute("href", status.account.url);
+              instanceBadge.setAttribute("title", `@${ status.account.username }@${ instance }`);
+              instanceBadge.setAttribute("rel", "external nofollow");
+              instanceBadge.textContent = instance;
+
+              let display = document.createElement("span");
+              display.className = "display";
+              display.setAttribute("itemprop", "author");
+              display.setAttribute("itemtype", "http://schema.org/Person");
+              display.innerHTML = status.account.display_name;
+
+              let header = document.createElement("header");
+              header.className = "author";
+              header.appendChild(display);
+              header.appendChild(instanceBadge);
+
+              let permalink = document.createElement("a");
+              permalink.setAttribute("href", status.url);
+              permalink.setAttribute("itemprop", "url");
+              permalink.setAttribute("title", `View comment at ${ instance }`);
+              permalink.setAttribute("rel", "external nofollow");
+              permalink.textContent = new Date( status.created_at ).toLocaleString('en-US', {
+                dateStyle: "long",
+                timeStyle: "short",
+              });
+
+              let timestamp = document.createElement("time");
+              timestamp.setAttribute("datetime", status.created_at);
+              timestamp.appendChild(permalink);
+
+              let main = document.createElement("main");
+              main.setAttribute("itemprop", "text");
+              main.innerHTML = status.content;
+
+              let interactions = document.createElement("footer");
+              if(status.favourites_count > 0) {
+                let faves = document.createElement("a");
+                faves.className = "faves";
+                faves.setAttribute("href", `${ status.url }/favourites`);
+                faves.setAttribute("title", `Favorites from ${ instance }`);
+                faves.textContent = status.favourites_count;
+
+                interactions.appendChild(faves);
+              }
+
+              let comment = document.createElement("article");
+              comment.id = `comment-${ status.id }`;
+              comment.className = isReply ? "comment comment-reply" : "comment";
+              comment.setAttribute("itemprop", "comment");
+              comment.setAttribute("itemtype", "http://schema.org/Comment");
+              comment.appendChild(avatar);
+              comment.appendChild(header);
+              comment.appendChild(timestamp);
+              comment.appendChild(main);
+              comment.appendChild(interactions);
+
+              if(op === true) {
+                comment.classList.add("op");
+
+                avatar.classList.add("op");
+                avatar.setAttribute(
+                  "title",
+                  "Blog post author; " + avatar.getAttribute("title")
+                );
+
+                instanceBadge.classList.add("op");
+                instanceBadge.setAttribute(
+                  "title",
+                  "Blog post author: " + instanceBadge.getAttribute("title")
+                );
+              }
+
+              Promise.all([purifyPromise, cssPromise]).then(() => {
+                commentsWrapper.innerHTML += DOMPurify.sanitize(comment.outerHTML);
+              });
+
+            });
+          }
+          // Makes the button update more user-perceivable.
+          setTimeout(() => {
+            document.getElementById("load-comment").innerHTML = "Reload comments";
+          }, 300);
+        });
+      }
+      document.getElementById("load-comment").addEventListener("click", loadComments);
+  </script>
+</section>
+
+  </main>
+  <p>
+        Categories:
+          <a href="https://jonalmeida.com/categories/blog/">#blog</a>
+        Tags:
+          <a href="https://jonalmeida.com/tags/workflow/">#workflow</a>
+          <a href="https://jonalmeida.com/tags/mozilla/">#mozilla</a>
+  </p>
+
+  <!-- Add temporary footnote back-links support -->
+  <script src="/footnotes.js"></script>
+<footer>
+</footer>
+</body>
+</html>

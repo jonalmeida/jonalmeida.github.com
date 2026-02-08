@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Setting up my private server on DigitalOcean | Jonathan Almeida</title>
+  <meta name="title" content="Setting up my private server on DigitalOcean">
+<meta name="description" content="Scribblings and nonsense">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+  
+  <link rel="alternate" type="application/atom+xml" title="Jonathan Almeida" href="https://jonalmeida.com/atom.xml">
+  <style>
+    :root {
+    --width: 800px;
+    --font-main: Verdana, sans-serif;
+    --font-secondary: Verdana, sans-serif;
+    --font-scale: 1em;
+    --background-color: #fff;
+    --heading-color: #222;
+    --text-color: #444;
+    --link-color: #3273dc;
+    --visited-color: #8b6fcb;
+    --code-background-color: #f2f2f2;
+    --code-color: #222;
+    --blockquote-color: #222;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --background-color: #01242e;
+      --heading-color: #eee;
+      --text-color: #ddd;
+      --link-color: #8cc2dd;
+      --visited-color: #8b6fcb;
+      --code-background-color: #000;
+      --code-color: #ddd;
+      --blockquote-color: #ccc;
+    }
+  }
+
+  body {
+    font-family: var(--font-secondary);
+    font-size: var(--font-scale);
+    margin: auto;
+    padding: 20px;
+    max-width: var(--width);
+    text-align: left;
+    background-color: var(--background-color);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.5;
+    color: var(--text-color);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-main);
+    color: var(--heading-color);
+  }
+
+  a {
+    color: var(--link-color);
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  nav a {
+    margin-right: 8px;
+  }
+
+  nav span.active {
+    font-weight: bold;
+    margin-right: 10px;
+  }
+  strong,
+  b {
+    color: var(--heading-color);
+  }
+
+  button {
+    margin: 0;
+    cursor: pointer;
+  }
+
+  main {
+    line-height: 1.6;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  hr {
+    border: 0;
+    border-top: 1px dashed;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  pre code {
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    display: block;
+    padding: 20px;
+    white-space: pre-wrap;
+    font-size: 0.875rem;
+    overflow-x: auto;
+  }
+
+  code {
+    font-family: monospace;
+    padding: 2px;
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    border-radius: 3px;
+  }
+
+  blockquote {
+    border-left: 1px solid #999;
+    color: var(--code-color);
+    padding-left: 20px;
+    font-style: italic;
+  }
+
+  footer {
+    padding: 25px 0;
+    text-align: center;
+  }
+
+  .title:hover {
+    text-decoration: none;
+  }
+
+  .title h1 {
+    font-size: 1.5em;
+  }
+
+  .inline {
+    width: auto !important;
+  }
+
+  .highlight,
+  .code {
+    padding: 1px 15px;
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    border-radius: 3px;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    overflow-x: auto;
+  }
+
+  /* blog post list */
+  ul.blog-posts {
+    list-style-type: none;
+    padding: unset;
+  }
+
+  ul.blog-posts li {
+    display: flex;
+  }
+
+  ul.blog-posts li span {
+    flex: 0 0 130px;
+  }
+
+  ul.blog-posts li a:visited {
+    color: var(--visited-color);
+  }
+
+  .tags {
+    font-size: smaller;
+  }
+
+  .footnote-definition {
+    display: flex;
+    margin-top: 1em;
+  }
+  .footnote-definition-label {
+    margin-left: 1rem;
+    margin-right: 0.5rem;
+    vertical-align: baseline;
+  }
+  .footnote-definition-label::after {
+    content: "."
+  }
+  .footnote-definition > p {
+    margin: 0;
+  }
+
+  </style><style>
+
+section#comments {
+  p {
+    font-size: 0.8em;
+  }
+}
+
+
+pre mark {
+  color: var(--code-color);
+}
+</style>
+
+</head>
+<body>
+  <header>
+  <a href="https://jonalmeida.com/" class="title">
+    <h1>Jonathan Almeida</h1>
+  </a>
+  <nav aria-label="site">
+      <a href="https://jonalmeida.com/">Home</a>
+      <a href="https://jonalmeida.com/blog/">Blog</a>
+      <a href="https://jonalmeida.com/til/">TIL</a>
+      <a href="https://jonalmeida.com/archive/">Archive</a>
+  </nav>
+</header>
+
+  <h1>Setting up my private server on DigitalOcean</h1>
+      <p>
+        <i>
+          <time datetime="2014-03-21T00:00:00+00:00" pubdate>2014-03-21</time>
+        </i>
+      </p>
+    <details >
+      <summary>Table of contents</summary>
+    <ul>
+        <li>
+          <a href="https://jonalmeida.com/archive/setting-up-private-server-digital-ocean/#update-first">Update First</a>
+        </li>
+        <li>
+          <a href="https://jonalmeida.com/archive/setting-up-private-server-digital-ocean/#docker">Docker</a>
+        </li>
+        <li>
+          <a href="https://jonalmeida.com/archive/setting-up-private-server-digital-ocean/#private-vpn">Private VPN</a>
+        </li>
+        <li>
+          <a href="https://jonalmeida.com/archive/setting-up-private-server-digital-ocean/#sub-domain">Sub-domain</a>
+        </li>
+        <li>
+          <a href="https://jonalmeida.com/archive/setting-up-private-server-digital-ocean/#git">Git</a>
+        </li>
+        <li>
+          <a href="https://jonalmeida.com/archive/setting-up-private-server-digital-ocean/#configuring-clients">Configuring clients</a>
+        </li>
+        <li>
+          <a href="https://jonalmeida.com/archive/setting-up-private-server-digital-ocean/#swap-file">Swap File</a>
+        </li>
+        <li>
+          <a href="https://jonalmeida.com/archive/setting-up-private-server-digital-ocean/#conclusion">Conclusion</a>
+        </li>
+    </ul>
+    </details>
+  <main>
+    <p>Today I joined DigitalOcean and created my host server which they refer to as "Droplets". Within a few hours I had set-up my host server <em>exactly</em> how I wanted it faster than I would have ever imagined with the set-up process from DigitalOcean that made so simple.</p>
+<p>There's nothing to really say or explain about their set-up process. It's just easy and simple - choose a host name, host size, server location, base OS image and optional SSH keys if you don't want to use a password.</p>
+<hr />
+<blockquote>
+<p><strong>EDIT:</strong>
+I decided to install Gitlab after all, so I manually installed gitlab to my server but it seemed to severly slow it down. Instead, I created a new Droplet with the <a href="https://www.digitalocean.com/community/articles/how-to-use-the-gitlab-one-click-install-image-to-manage-git-repositories">One-Click Install Image for Gitlab</a> (for some reason this version is less memory intensive), and then moved all my configuration/setup to the new Droplet.</p>
+</blockquote>
+<blockquote>
+<p>Also I moved the gitlab instance from running at '/' to '/gitlab' instead.
+With v6.6 it was pretty easy with the documentation within the configuration. You basically have to make four changes:</p>
+</blockquote>
+<blockquote>
+<ol>
+<li>In your application.rb file: <code>config.relative_url_root = "/gitlab"</code></li>
+<li>In your gitlab.yml file: <code>relative_url_root: /gitlab</code></li>
+<li>In your unicorn.rb: <code>ENV['RAILS_RELATIVE_URL_ROOT'] = "/gitlab"</code></li>
+<li>In ../gitlab-shell/config.yml: <code>gitlab_url: "http://127.0.0.1/gitlab"</code></li>
+<li>In lib/support/nginx/gitlab : do not use asset gzipping, remove block starting with "location ~ ^/(assets)/"</li>
+</ol>
+</blockquote>
+<hr />
+<h3 id="update-first">Update First</h3>
+<p>I chose my base image as Ubuntu 12.04 x64 being an LTS, I find it much nicer to use. First things first, I SSH'd in and <code>apt-get update &amp;&amp; apt-get upgrade</code> to make sure everything was up-to-date.</p>
+<h3 id="docker">Docker</h3>
+<p>I'm learning more about deployment using docker so I had that installed as well. It's worth mentioning that DO has a BETA feature when creating your Droplet with pre-installing applications like Docker, Ghost or GitLab. However, I prefer doing this myself so I know exactly what is installed. I followed the <a href="http://docs.docker.io/en/latest/installation/ubuntulinux/">Docker installation guide for Ubuntu 12.04</a>, but I skipped updating the kernel since the base image was already using kernel 3.8.x.</p>
+<h3 id="private-vpn">Private VPN</h3>
+<p>I always wanted to have access to all my boxes at all times, and DO has a nice simple guide to setting up a PPTP VPN on your server to allow connected clients to communicate with each other. You can find the article <a href="https://www.digitalocean.com/community/articles/how-to-setup-your-own-vpn-with-pptp">here</a>.</p>
+<blockquote>
+<p>If you want to run your traffic through any one of your other clients (and they also have an SSH server running on them), I've found using sshuttle really easy for that.</p>
+</blockquote>
+<blockquote>
+<p>When connected via VPN you can use <code>sshuttle --dns -r [PPTP_IP_ADDRESS] 0/0</code> to have your traffic including your DNS go through the client of your choice. It's helpful if you have clients in different countries and need local web access for whatever reason.</p>
+</blockquote>
+<h3 id="sub-domain">Sub-domain</h3>
+<p>When you create your droplet, you're given an external IP that you can use to remote in, but no one wants to remember that. Since I have my domains managed with <a href="http://namecheap.com">namecheap.com</a> I chose to manage this server as a domain through that instead of DO's own nameservers.</p>
+<p>The blurred out bit in the image below, is where you would enter your external IP address and the sub domain is up to you.</p>
+<p><img src="/images/20140321/1.png" alt="" /></p>
+<h3 id="git">Git</h3>
+<p>This was probably the easiest bit, just install git: <code>apt-get install git git-core</code>.
+Everything was going to do be done as a private repo for now so it would be behind SSH and I didn't care for having a web interface for it. You can find more details on <a href="http://www.git-scm.com/book/en/Git-on-the-Server-Setting-Up-the-Server">settings up a git server correctly</a>, but essentially all you need to do is:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span>
+</span><span style="color:#bf616a;">mkdir</span><span> my-repo.git
+</span><span style="color:#96b5b4;">cd</span><span> my-repo.git
+</span><span style="color:#bf616a;">git --bare</span><span> init
+</span><span>
+</span></code></pre>
+<br>
+Clients would add the remote as:
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span>
+</span><span style="color:#bf616a;">git</span><span> remote add origin ssh://jonathan@atlas.somedomain.com/location/of/my-repo.git
+</span><span>
+</span></code></pre>
+<h3 id="configuring-clients">Configuring clients</h3>
+<p>Most Linux OSes come with a PPTP client installed so setting that up is quite trivial.
+I created a few SSH configurations so I can type less:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span>
+</span><span style="color:#bf616a;">Host</span><span> atlas
+</span><span>    </span><span style="color:#bf616a;">HostName</span><span> atlas.somedomain.com
+</span><span>    </span><span style="color:#bf616a;">User</span><span> jonathan
+</span><span>
+</span></code></pre>
+<br>
+As well as a few aliases in my `.bashrc` that looked something like this:
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span>
+</span><span style="color:#96b5b4;">alias </span><span style="color:#8fa1b3;">atlas-connect</span><span>=&#39;</span><span style="color:#a3be8c;">sshuttle --dns -vvr jonathan@atlas.somedomain.com 0/0</span><span>&#39;
+</span><span>
+</span></code></pre>
+<h3 id="swap-file">Swap File</h3>
+<p>If you're using the 512MB RAM configuration, it's also wise to setup a swap file since you will inevitably run into low memory issues <em>very</em> soon. DO have yet another very <a href="https://www.digitalocean.com/community/articles/how-to-add-swap-on-ubuntu-12-04">handy tutorial on how to do exactly that</a>.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>If you found any of this useful and you're going to join DigitalOcean as well, why not use <a href="https://www.digitalocean.com/?refcode=8492838d309e">my referral link</a> instead. :)</p>
+
+  </main>
+  <p>
+        Categories:
+          <a href="https://jonalmeida.com/categories/archive/">#archive</a>
+  </p>
+
+  <!-- Add temporary footnote back-links support -->
+  <script src="/footnotes.js"></script>
+<footer>
+</footer>
+</body>
+</html>

@@ -1,0 +1,1493 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>Jonathan Almeida - blog</title>
+    <subtitle>Scribblings and nonsense</subtitle>
+    <link rel="self" type="application/atom+xml" href="https://jonalmeida.com/categories/blog/atom.xml"/>
+    <link rel="alternate" type="text/html" href="https://jonalmeida.com"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2026-01-29T16:39:59-05:00</updated>
+    <id>https://jonalmeida.com/categories/blog/atom.xml</id>
+    <entry xml:lang="en">
+        <title>Test sites for browser developers</title>
+        <published>2026-01-19T00:00:00+00:00</published>
+        <updated>2026-01-29T16:39:59-05:00</updated>
+        
+        <author>
+          <name>
+            
+              Jonathan Almeida
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/blog/browser-test-sites/"/>
+        <id>https://jonalmeida.com/blog/browser-test-sites/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/blog/browser-test-sites/">&lt;p&gt;Working on the mobile Firefox team gives you the opportunity to touch on many different parts of the browser space. You often need to test the interaction between web content and the application integration&#x27;s to another component, say for example, a site registering for a WebPush subscription and Firefox using Firebase Cloud Messaging to deliver the encrypted message to the end-user. Hunting around for an example to validate everything fine and dandy takes time.&lt;&#x2F;p&gt;
+&lt;p&gt;Sometimes a simple test site for your use case is helpful for initial validation or comparison against other browsers.&lt;&#x2F;p&gt;
+&lt;p&gt;Below is a list of tests that I&#x27;ve used in the past (in no particular order):&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;badssl.com&quot;&gt;badssl.com&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;Great for testing out the various error pages that a browser can show.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;testsafebrowsing.appspot.com&#x2F;&quot;&gt;(Safe) Safe Browsing Testing Links &lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;For making sure we are still using the &lt;a href=&quot;https:&#x2F;&#x2F;safebrowsing.google.com&#x2F;&quot;&gt;Safe Browsing&lt;&#x2F;a&gt; list correctly.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;webauthn-passkeys-prf-demo.explore.corbado.com&#x2F;&quot;&gt;WebAuthn &#x2F; Passkeys &amp;amp; PRF Demo&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;For &lt;a href=&quot;https:&#x2F;&#x2F;developer.mozilla.org&#x2F;en-US&#x2F;docs&#x2F;Web&#x2F;API&#x2F;Web_Authentication_API&quot;&gt;WebAuthn&lt;&#x2F;a&gt; login&#x2F;registration, but also includes PRF extension support.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;mozilla-services.github.io&#x2F;WebPushDataTestPage&#x2F;&quot;&gt;Web Push: Data Encryption Test Page&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;Push notifications requires a server to send a notification to the client (not the same as a WebNotification), so you can use this WebPush test site for validating just that.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;simple-push-demo.vercel.app&#x2F;&quot;&gt;Simple Push Demo&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;Similar to the above, but prettier.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;http:&#x2F;&#x2F;www.sharonminsuk.com&#x2F;code&#x2F;storage-test.html&quot;&gt;Test of HTML5 localStorage and sessionStorage persistence - sharonminsuk.com&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;When you have to verify that &lt;a href=&quot;https:&#x2F;&#x2F;developer.mozilla.org&#x2F;en-US&#x2F;docs&#x2F;Web&#x2F;API&#x2F;Window&#x2F;localStorage&quot;&gt;&lt;code&gt;localStorage&lt;&#x2F;code&gt;&lt;&#x2F;a&gt; is truly gone. This is especially helpful for Firefox Focus where private browsing is the primary feature.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;developer.mozilla.org&#x2F;en-US&#x2F;docs&#x2F;Web&#x2F;HTML&#x2F;Reference&#x2F;Elements&#x2F;input&quot;&gt;&lt;code&gt;&amp;lt;input&amp;gt;&lt;&#x2F;code&gt;: The HTML Input element - MDN&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;There are Too Many™ different prompt and input element types. The MDN docs have the best collection of all of them.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h3 id=&quot;forms-and-autocomplete&quot;&gt;Forms and Autocomplete&lt;&#x2F;h3&gt;
+&lt;p&gt;There are various form types and various heuristics to trigger completion options, so they deserve their own section. The more (test sites) the merrier!&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;bugs.mattn.ca&#x2F;pwmgr&#x2F;login_and_change_form.html&quot;&gt;Registration, Login and Change Forms - MattN&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;Web forms come in all shapes and sizes. Some simple forms to see if we can detect a login&#x2F;registration form and fill a login entry into them.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;fill.dev&#x2F;form&#x2F;login-simple&quot;&gt;fill.dev&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;More forms, but also includes credit card and address form filling.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;daleharvey.github.io&#x2F;testapp&#x2F;&quot;&gt;daleharvey.github.io&#x2F;testapp&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;Good for sanity testing simple forms, links that have same&#x2F;different origins, or (location) permission prompts.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;dimidl.github.io&#x2F;signup&#x2F;test.html&quot;&gt;Sign-Up &amp;amp; Login Forms - Dimi&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;Sign-up and login forms behave differently, so they are handy to test separately. For example, autofilling a generated password is useful on a registration form but not on a login one.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h3 id=&quot;make-your-own&quot;&gt;Make your own&lt;&#x2F;h3&gt;
+&lt;p&gt;If you need to make your own, try to write out the code yourself so you can understand the reduced test case. If it&#x27;s not straight-forward, try using the &lt;a href=&quot;https:&#x2F;&#x2F;addons.mozilla.org&#x2F;en-CA&#x2F;firefox&#x2F;addon&#x2F;testcase-reducer&#x2F;&quot;&gt;Testcase Reducer by Thomas Wisniewski&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+
+&lt;section id=&quot;comments&quot; class=&quot;article-content&quot;&gt;
+  &lt;h3&gt;Comments&lt;&#x2F;h3&gt;
+  &lt;p&gt;With an account on the Fediverse or Mastodon, you can respond to this &lt;a href=&quot;https:&#x2F;&#x2F;mindly.social&#x2F;@jonalmeida&#x2F;115937256635328128&quot;&gt;post&lt;&#x2F;a&gt;. Since Mastodon is decentralized, you can use your existing account hosted by another Mastodon server or compatible platform if you don&#x27;t have an account on this one. Known non-private replies are displayed below.&lt;&#x2F;p&gt;
+  &lt;p&gt;Learn how this was implemented from the original source &lt;a class=&quot;link&quot; href=&quot;&#x2F;2020&#x2F;12&#x2F;29&#x2F;adding-comments-to-your-static-blog-with-mastodon&#x2F;&quot;&gt;here.&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+
+  &lt;p id=&quot;mastodon-comments-list&quot;&gt;
+  &lt;button id=&quot;load-comment&quot;&gt;Load comments&lt;&#x2F;button&gt;&lt;&#x2F;p&gt;
+  &lt;div id=&quot;comments-wrapper&quot;&gt;
+    &lt;noscript&gt;&lt;p&gt;Loading comments relies on JavaScript. Try enabling JavaScript and reloading, or visit &lt;a href=&quot;https:&#x2F;&#x2F;mindly.social&#x2F;@jonalmeida&#x2F;115937256635328128&quot;&gt;the original post&lt;&#x2F;a&gt; on Mastodon.&lt;&#x2F;p&gt;&lt;&#x2F;noscript&gt;
+  &lt;&#x2F;div&gt;
+
+  &lt;noscript&gt;You need JavaScript to view the comments.&lt;&#x2F;noscript&gt;
+  &lt;script type=&quot;text&#x2F;javascript&quot;&gt;
+    function escapeHtml(unsafe) {
+      return unsafe
+           .replace(&#x2F;&amp;&#x2F;g, &quot;&amp;amp;&quot;)
+           .replace(&#x2F;&lt;&#x2F;g, &quot;&amp;lt;&quot;)
+           .replace(&#x2F;&gt;&#x2F;g, &quot;&amp;gt;&quot;)
+           .replace(&#x2F;&quot;&#x2F;g, &quot;&amp;quot;&quot;)
+           .replace(&#x2F;&#x27;&#x2F;g, &quot;&amp;#039;&quot;);
+    }
+    function emojify(input, emojis) {
+      let output = input;
+
+      emojis.forEach(emoji =&gt; {
+        let picture = document.createElement(&quot;picture&quot;);
+
+        let source = document.createElement(&quot;source&quot;);
+        source.setAttribute(&quot;srcset&quot;, escapeHtml(emoji.url));
+        source.setAttribute(&quot;media&quot;, &quot;(prefers-reduced-motion: no-preference)&quot;);
+
+        let img = document.createElement(&quot;img&quot;);
+        img.className = &quot;emoji&quot;;
+        img.setAttribute(&quot;src&quot;, escapeHtml(emoji.static_url));
+        img.setAttribute(&quot;alt&quot;, `:${ emoji.shortcode }:`);
+        img.setAttribute(&quot;title&quot;, `:${ emoji.shortcode }:`);
+        img.setAttribute(&quot;width&quot;, &quot;20&quot;);
+        img.setAttribute(&quot;height&quot;, &quot;20&quot;);
+
+        picture.appendChild(source);
+        picture.appendChild(img);
+
+        output = output.replace(`:${ emoji.shortcode }:`, picture.outerHTML);
+      });
+
+      return output;
+    }
+
+    function loadCssFile(path) {
+      const link = document.createElement(&#x27;link&#x27;);
+      link.rel = &#x27;stylesheet&#x27;;
+      link.type = &#x27;text&#x2F;css&#x27;;
+      link.href = path; &#x2F;&#x2F; relative path to your CSS file
+      document.head.appendChild(link);
+    }
+
+    function loadComments() {
+      let purifyPromise = import(&quot;&#x2F;assets&#x2F;js&#x2F;purify.min.js&quot;);
+      let cssPromise = loadCssFile(&quot;&#x2F;comments.css&quot;);
+
+      let commentsWrapper = document.getElementById(&quot;comments-wrapper&quot;);
+      document.getElementById(&quot;load-comment&quot;).innerHTML = &quot;Loading&quot;;
+      fetch(&quot;https:&#x2F;&#x2F;mindly.social&#x2F;api&#x2F;v1&#x2F;statuses&#x2F;115937256635328128&#x2F;context&quot;)
+        .then(function(response) {
+          return response.json();
+        })
+        .then(function(data) {
+          let descendants = data[&#x27;descendants&#x27;];
+          if(
+            descendants &amp;&amp;
+            Array.isArray(descendants) &amp;&amp;
+            descendants.length &gt; 0
+          ) {
+            commentsWrapper.innerHTML = &quot;&quot;;
+
+            descendants.forEach(function(status) {
+              &#x2F;* For debugging *&#x2F;
+              &#x2F;* console.log(descendants) *&#x2F;
+              if( status.account.display_name.length &gt; 0 ) {
+                status.account.display_name = escapeHtml(status.account.display_name);
+                status.account.display_name = emojify(status.account.display_name, status.account.emojis);
+              } else {
+                status.account.display_name = status.account.username;
+              };
+
+              let instance = &quot;&quot;;
+              if( status.account.acct.includes(&quot;@&quot;) ) {
+                instance = status.account.acct.split(&quot;@&quot;)[1];
+              } else {
+                instance = &quot;mindly.social&quot;;
+              }
+
+              const isReply = status.in_reply_to_id !== &quot;115937256635328128&quot;;
+
+              let op = false;
+              if( status.account.acct == &quot;jonalmeida&quot; ) {
+                op = true;
+              }
+
+              status.content = emojify(status.content, status.emojis);
+
+              let avatarSource = document.createElement(&quot;source&quot;);
+              avatarSource.setAttribute(&quot;srcset&quot;, escapeHtml(status.account.avatar));
+              avatarSource.setAttribute(&quot;media&quot;, &quot;(prefers-reduced-motion: no-preference)&quot;);
+
+              let avatarImg = document.createElement(&quot;img&quot;);
+              avatarImg.className = &quot;avatar&quot;;
+              avatarImg.setAttribute(&quot;src&quot;, escapeHtml(status.account.avatar_static));
+              avatarImg.setAttribute(&quot;alt&quot;, `@${ status.account.username }@${ instance } avatar`);
+
+              let avatarPicture = document.createElement(&quot;picture&quot;);
+              avatarPicture.appendChild(avatarSource);
+              avatarPicture.appendChild(avatarImg);
+
+              let avatar = document.createElement(&quot;a&quot;);
+              avatar.className = &quot;avatar-link&quot;;
+              avatar.setAttribute(&quot;href&quot;, status.account.url);
+              avatar.setAttribute(&quot;rel&quot;, &quot;external nofollow&quot;);
+              avatar.setAttribute(&quot;title&quot;, `View profile at @${ status.account.username }@${ instance }`);
+              avatar.appendChild(avatarPicture);
+
+              let instanceBadge = document.createElement(&quot;a&quot;);
+              instanceBadge.className = &quot;instance&quot;;
+              instanceBadge.setAttribute(&quot;href&quot;, status.account.url);
+              instanceBadge.setAttribute(&quot;title&quot;, `@${ status.account.username }@${ instance }`);
+              instanceBadge.setAttribute(&quot;rel&quot;, &quot;external nofollow&quot;);
+              instanceBadge.textContent = instance;
+
+              let display = document.createElement(&quot;span&quot;);
+              display.className = &quot;display&quot;;
+              display.setAttribute(&quot;itemprop&quot;, &quot;author&quot;);
+              display.setAttribute(&quot;itemtype&quot;, &quot;http:&#x2F;&#x2F;schema.org&#x2F;Person&quot;);
+              display.innerHTML = status.account.display_name;
+
+              let header = document.createElement(&quot;header&quot;);
+              header.className = &quot;author&quot;;
+              header.appendChild(display);
+              header.appendChild(instanceBadge);
+
+              let permalink = document.createElement(&quot;a&quot;);
+              permalink.setAttribute(&quot;href&quot;, status.url);
+              permalink.setAttribute(&quot;itemprop&quot;, &quot;url&quot;);
+              permalink.setAttribute(&quot;title&quot;, `View comment at ${ instance }`);
+              permalink.setAttribute(&quot;rel&quot;, &quot;external nofollow&quot;);
+              permalink.textContent = new Date( status.created_at ).toLocaleString(&#x27;en-US&#x27;, {
+                dateStyle: &quot;long&quot;,
+                timeStyle: &quot;short&quot;,
+              });
+
+              let timestamp = document.createElement(&quot;time&quot;);
+              timestamp.setAttribute(&quot;datetime&quot;, status.created_at);
+              timestamp.appendChild(permalink);
+
+              let main = document.createElement(&quot;main&quot;);
+              main.setAttribute(&quot;itemprop&quot;, &quot;text&quot;);
+              main.innerHTML = status.content;
+
+              let interactions = document.createElement(&quot;footer&quot;);
+              if(status.favourites_count &gt; 0) {
+                let faves = document.createElement(&quot;a&quot;);
+                faves.className = &quot;faves&quot;;
+                faves.setAttribute(&quot;href&quot;, `${ status.url }&#x2F;favourites`);
+                faves.setAttribute(&quot;title&quot;, `Favorites from ${ instance }`);
+                faves.textContent = status.favourites_count;
+
+                interactions.appendChild(faves);
+              }
+
+              let comment = document.createElement(&quot;article&quot;);
+              comment.id = `comment-${ status.id }`;
+              comment.className = isReply ? &quot;comment comment-reply&quot; : &quot;comment&quot;;
+              comment.setAttribute(&quot;itemprop&quot;, &quot;comment&quot;);
+              comment.setAttribute(&quot;itemtype&quot;, &quot;http:&#x2F;&#x2F;schema.org&#x2F;Comment&quot;);
+              comment.appendChild(avatar);
+              comment.appendChild(header);
+              comment.appendChild(timestamp);
+              comment.appendChild(main);
+              comment.appendChild(interactions);
+
+              if(op === true) {
+                comment.classList.add(&quot;op&quot;);
+
+                avatar.classList.add(&quot;op&quot;);
+                avatar.setAttribute(
+                  &quot;title&quot;,
+                  &quot;Blog post author; &quot; + avatar.getAttribute(&quot;title&quot;)
+                );
+
+                instanceBadge.classList.add(&quot;op&quot;);
+                instanceBadge.setAttribute(
+                  &quot;title&quot;,
+                  &quot;Blog post author: &quot; + instanceBadge.getAttribute(&quot;title&quot;)
+                );
+              }
+
+              Promise.all([purifyPromise, cssPromise]).then(() =&gt; {
+                commentsWrapper.innerHTML += DOMPurify.sanitize(comment.outerHTML);
+              });
+
+            });
+          }
+          &#x2F;&#x2F; Makes the button update more user-perceivable.
+          setTimeout(() =&gt; {
+            document.getElementById(&quot;load-comment&quot;).innerHTML = &quot;Reload comments&quot;;
+          }, 300);
+        });
+      }
+      document.getElementById(&quot;load-comment&quot;).addEventListener(&quot;click&quot;, loadComments);
+  &lt;&#x2F;script&gt;
+&lt;&#x2F;section&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>A short visit to Sri Lanka</title>
+        <published>2025-12-27T00:00:00+00:00</published>
+        <updated>2025-12-27T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Jonathan Almeida
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/blog/sri-lanka/"/>
+        <id>https://jonalmeida.com/blog/sri-lanka/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/blog/sri-lanka/">&lt;p&gt;We travelled to Colombo, Sri Lanka for the first time this year and it felt like a lost opportunity that we didn&#x27;t do that more often when we lived closer in that region. It was a quick trip to explore but also catch up with friends who moved there years ago.&lt;&#x2F;p&gt;
+&lt;div&gt;
+
+
+    
+    
+
+    &lt;a href=&quot;image-0.jpg&quot; target=&quot;_blank&quot;&gt;
+      &lt;img src=&quot;https:&amp;#x2F;&amp;#x2F;jonalmeida.com&amp;#x2F;processed_images&amp;#x2F;image-0.cf2f50508881b5ac.jpg&quot; &#x2F;&gt;
+    &lt;&#x2F;a&gt;
+
+    
+    
+
+    &lt;a href=&quot;image-1.jpg&quot; target=&quot;_blank&quot;&gt;
+      &lt;img src=&quot;https:&amp;#x2F;&amp;#x2F;jonalmeida.com&amp;#x2F;processed_images&amp;#x2F;image-1.3efd26bff0d3a564.jpg&quot; &#x2F;&gt;
+    &lt;&#x2F;a&gt;
+
+    
+    
+
+    &lt;a href=&quot;image-2.jpg&quot; target=&quot;_blank&quot;&gt;
+      &lt;img src=&quot;https:&amp;#x2F;&amp;#x2F;jonalmeida.com&amp;#x2F;processed_images&amp;#x2F;image-2.e6c80041fe9b6d25.jpg&quot; &#x2F;&gt;
+    &lt;&#x2F;a&gt;
+
+    
+    
+
+    &lt;a href=&quot;image-3.jpg&quot; target=&quot;_blank&quot;&gt;
+      &lt;img src=&quot;https:&amp;#x2F;&amp;#x2F;jonalmeida.com&amp;#x2F;processed_images&amp;#x2F;image-3.89b613f2b0d9e3df.jpg&quot; &#x2F;&gt;
+    &lt;&#x2F;a&gt;
+
+    
+    
+
+    &lt;a href=&quot;image-4.jpg&quot; target=&quot;_blank&quot;&gt;
+      &lt;img src=&quot;https:&amp;#x2F;&amp;#x2F;jonalmeida.com&amp;#x2F;processed_images&amp;#x2F;image-4.da50fe91c95996e1.jpg&quot; &#x2F;&gt;
+    &lt;&#x2F;a&gt;
+
+    
+    
+
+    &lt;a href=&quot;image-5.jpg&quot; target=&quot;_blank&quot;&gt;
+      &lt;img src=&quot;https:&amp;#x2F;&amp;#x2F;jonalmeida.com&amp;#x2F;processed_images&amp;#x2F;image-5.49699944974691ca.jpg&quot; &#x2F;&gt;
+    &lt;&#x2F;a&gt;
+&lt;&#x2F;div&gt;
+&lt;p&gt;Some notable observations:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;So much greenery! My inner pessimist expected a city of this size to have removed it all for urban growth, but I was happy it wasn&#x27;t so.&lt;&#x2F;li&gt;
+&lt;li&gt;We noticed there was an organized service of people wearing green t-shirts that kept the city clean of fallen leaves and litter. Local shops also seemed conscious about keeping the areas around their stalls or shops proper.&lt;&#x2F;li&gt;
+&lt;li&gt;&quot;Hidden technology&quot; is the term I use for modern software or hardware that is helpful for everyday people but not in your face constantly - the inverse example of that would be touchscreens on self-serve machines that make accessibility difficult (e.g. vending machines). Colombo appeared to have some of this going for it with apps for rickshaws or easy payment options everywhere.&lt;&#x2F;li&gt;
+&lt;li&gt;Sri Lankans come off as kind people. We were frequently mistaken for locals (until we started speaking) so we probably didn&#x27;t get the tourist treatment all the time. I thought found it pleasant that there was some sense of religious equality there - you could find a Hindu temple, Muslim mosque, and a Catholic church all practically on the same street and everyone seemed to live happily together.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;It was a short visit and of course not everything is peachy, but I prefer focusing on the positives and potentials. Sri Lanka felt like a dilapidated version of Japan in an affectionate way that has a more people-first approach to development.&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>On marathon training</title>
+        <published>2025-10-18T00:00:00+00:00</published>
+        <updated>2025-10-18T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Jonathan Almeida
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/blog/marathons/"/>
+        <id>https://jonalmeida.com/blog/marathons/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/blog/marathons/">&lt;p&gt;Folks have asked me why I&#x27;ve been running marathons, and since tomorrow I will be running the Toronto Waterfront Marathon course for the first time, I thought I&#x27;d write it out here to remind myself.&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;I&#x27;m not a natural runner. I grew up playing football&lt;sup class=&quot;footnote-reference&quot;&gt;&lt;a href=&quot;#1&quot;&gt;1&lt;&#x2F;a&gt;&lt;&#x2F;sup&gt; and shorter sprints were alright (with heaving between them), but I was never good at running anything more than 200 meters. I  simply don&#x27;t have the natural talent or endurance compared to other folks that I&#x27;ve run with who seem to have good form without trying, so it&#x27;s something that I have to work hard at to succeed. I guess that strikes a cord with me somehow.&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;It helps me think: as part of your typical training, you have to do a &quot;long run&quot; which has a longer distance than the other runs during the week. This run gets incrementally longer every week until you reach a 30-34K point. They aren&#x27;t the type where you are sprinting, instead it&#x27;s one where you run at a pace that lets you carry out a casual conversation with someone next to you. During my long runs, I try to focus on my breathing and running form so that I can zone out on everything else. At the end of it I feel physically drained, but my mind seems clearer and quieter in some ways.&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;During the race, you are running at your &quot;race pace&quot; - faster than what you would do during your long runs where you are pushing yourself to work on the limit of what you can sustain for the distance. Around the 30-32K is when the inner demons&#x2F;voices come out and tell you to stop. You are tired and the mind starts to play tricks on you. It lies to you, telling you the distance is too far, or to just take a break and you can start again&lt;sup class=&quot;footnote-reference&quot;&gt;&lt;a href=&quot;#2&quot;&gt;2&lt;&#x2F;a&gt;&lt;&#x2F;sup&gt; , or worse it starts telling you that you can&#x27;t do hard things. So the mental game of fighting them is a therapeutic one for me where it&#x27;s more a battle of the mind than body.&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;Training takes months and if you&#x27;re determined, it forces you to follow a routine which I don&#x27;t typically have. Making time for your weekly runs amongst your social or work life means evaluating where you can find that time. I hate waking up early in the morning, but that&#x27;s the best time to get a run in to finish it off before I need to really start my day, and this helps me avoid being lazy and doom-scrolling on my phone in bed.&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;I am healthier and mentally more refreshed after having gone out for even a short run. Getting myself out the door for a procrastinator like myself is a lot, but once I&#x27;m done I realize that I wasn&#x27;t that hard.&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;Typically, once a week you would do a hard session where you repeat intervals at fast paces, the kind you can keep up for a few hundred meters. These are obviously draining, but I feel stronger at the end of an interval session even though it&#x27;s brutal during it.&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;I didn&#x27;t know I could enjoy it. I always had various aches and pains after football games or random runs when growing up. Now, I no longer recall how I got into this state, but around  years ago standing on my feet for too long would cause me knee pains on my left leg. A 3K run would leave me bedridden for the next day.&lt;&#x2F;p&gt;
+&lt;p&gt;I was referred to a physio who told me that I was walking with a limp without realizing it, so before I could run I had to learn to walk (ha!). I followed their advice for many weeks and after growing muscles that I wasn&#x27;t properly using before, I started to go on incrementally longer runs in my neighbourhood and realized that my body didn&#x27;t hurt at the end of them.&lt;&#x2F;p&gt;
+&lt;p&gt;I was still bad at nutrition mind you, forgetting to eat and hydrate before, but I felt good after it, which was new to me.&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;When I train, motivation during the intervals or the long runs are hard to come by for me. After every run, I keep notes about how the run went, what I learnt along the way and what I did to prepare in advance for it. I keep these notes public within my small social circle to try to social engineer myself to believing people are reading it (like this blog!) and expect to see it.
+Additionally, I like to write down what does or doesn&#x27;t work because maybe someone else might want to read and learn from it. Everyone&#x27;s running journey is different, but little hints along the way could help.
+I also want to show that there aren&#x27;t only good (run) days - I get frustrated and upset at myself because I didn&#x27;t eat well the night before, stretch before the run, or even forget to take enough water for the distance. It should be normal to see failure along the way, and not just share only the victories in public. It&#x27;s the bad days that make the good ones matter.&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;Finally, it gives me a sense of accomplishment with an achievable goal that comes with a deadline. It takes months to train for the race where you have a 3-4 month period where you need to run about 4-5 times a week and try to get in 60+km in there. The race ends up feeling like a victory lap of all that effort.&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;br&gt;
+&lt;div class=&quot;footnote-definition&quot; id=&quot;1&quot;&gt;&lt;sup class=&quot;footnote-definition-label&quot;&gt;1&lt;&#x2F;sup&gt;
+&lt;p&gt;Soccer.&lt;&#x2F;p&gt;
+&lt;&#x2F;div&gt;
+&lt;div class=&quot;footnote-definition&quot; id=&quot;2&quot;&gt;&lt;sup class=&quot;footnote-definition-label&quot;&gt;2&lt;&#x2F;sup&gt;
+&lt;p&gt;Don&#x27;t! Once you stop, the voices start to win and you end up stopping again and again. Unless of course you really are in pain from your physical body. Over time you, maybe during your first couple of races or even your long runs you learn to know the signs of what are really physical pain and which ones are the mental ones.&lt;&#x2F;p&gt;
+&lt;&#x2F;div&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Restarting this blog &amp; migrating to Zola</title>
+        <published>2025-10-05T00:00:00+00:00</published>
+        <updated>2025-10-05T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Jonathan Almeida
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/blog/migrating-to-zola/"/>
+        <id>https://jonalmeida.com/blog/migrating-to-zola/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/blog/migrating-to-zola/">&lt;p&gt;I did it - finally restarted this blog! 🙌&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;why&quot;&gt;Why&lt;&#x2F;h2&gt;
+&lt;p&gt;I&#x27;ll keep this short - there are others who are more expressive and have &lt;a href=&quot;https:&#x2F;&#x2F;simeon.staneks.de&#x2F;en&#x2F;posts&#x2F;zola-the-holy-grail-of-ssg&#x2F;&quot;&gt;shared&lt;&#x2F;a&gt; &lt;a href=&quot;https:&#x2F;&#x2F;daudix.one&#x2F;blog&#x2F;zola-vs-jekyll&#x2F;&quot;&gt;their&lt;&#x2F;a&gt; &lt;a href=&quot;https:&#x2F;&#x2F;www.kytta.dev&#x2F;blog&#x2F;one-week-with-zola&#x2F;&quot;&gt;opinion&lt;&#x2F;a&gt; on everything Zola does for them - go read those instead. Here is the shortform for me.&lt;&#x2F;p&gt;
+&lt;p&gt;I found it tedious to maintain a Jekyll site and the various plugins that you needed for what I believe should be the built-in behaviour.&lt;&#x2F;p&gt;
+&lt;p&gt;On every new machine I used, I found myself using a &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;BretFisher&#x2F;jekyll-serve&quot;&gt;Docker image&lt;&#x2F;a&gt; for building the Jekyll site locally so I could get the magic combination correct to have it always working, until it eventually didn&#x27;t work anymore.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;preserving-hard-links&quot;&gt;Preserving hard-links&lt;&#x2F;h2&gt;
+&lt;p&gt;I started with trying to look out for a way to migrate my existing Jekyll posts while also preserving the hard-links to them. I came across &lt;a href=&quot;https:&#x2F;&#x2F;eugene-babichenko.github.io&#x2F;blog&#x2F;jekyll-to-zola&#x2F;&quot;&gt;Eugene Baichenko&#x27;s writings and script&lt;&#x2F;a&gt; which I used and got myself up and running in no time.&lt;&#x2F;p&gt;
+&lt;p&gt;After some more research, I learnt that Zola supports &lt;a href=&quot;https:&#x2F;&#x2F;www.getzola.org&#x2F;documentation&#x2F;content&#x2F;page&#x2F;&quot;&gt;&lt;code&gt;aliases&lt;&#x2F;code&gt;&lt;&#x2F;a&gt; which lets you preserve your hard-links without needing to build the directory structure required to keep those links. Those links just redirect to the new Zola ones, which was good enough for my needs.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;preserving-page-highlighting&quot;&gt;Preserving page highlighting&lt;&#x2F;h2&gt;
+&lt;p&gt;Zola happily seems to support YAML as a frontmatter, so for legacy posts, I didn&#x27;t need to update the format and instead just include the new properties where needed (e.g. disabling table of contents on certain posts). Along the way, I also learnt that &lt;a href=&quot;https:&#x2F;&#x2F;quickref.me&#x2F;yaml.html&quot;&gt;YAML supports references and inheritance&lt;&#x2F;a&gt; - wild stuff.&lt;&#x2F;p&gt;
+&lt;p&gt;Existing syntax highlighting is also preserved and at most, I needed to update the language shortcodes to match Zola&#x27;s (e.g. &lt;code&gt;objc&lt;&#x2F;code&gt; to &lt;code&gt;m&lt;&#x2F;code&gt;). In miscellaneous posts I seemed to have used Liquid templating, but that too wasn&#x27;t hard to search-and-replace.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;incremental-migration-from-jekyll&quot;&gt;Incremental migration from Jekyll&lt;&#x2F;h2&gt;
+&lt;p&gt;Doing the actual migration required slowly changing things over in my spare time. Starting off the blog in a sub-directory &lt;code&gt;&#x2F;jonalmeida&lt;&#x2F;code&gt; first to get everything working there. Finally, removing the existing blog from the root directory and moving the contents of &lt;code&gt;&#x2F;jonalmeida&lt;&#x2F;code&gt; into the root.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;final-thoughts&quot;&gt;Final thoughts&lt;&#x2F;h2&gt;
+&lt;p&gt;It seems like most of the audience for Zola are coming from other Static Site Generators.&lt;&#x2F;p&gt;
+&lt;p&gt;I haven&#x27;t found the Zola documentation to be spectacular so it took me a bit to understand what aliases were and how to use them - I came across &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;getzola&#x2F;zola&#x2F;issues&#x2F;86&quot;&gt;the original issue to support aliases&lt;&#x2F;a&gt; which linked to the Hugo docs that eventually told me what I needed to know.&lt;&#x2F;p&gt;
+&lt;p&gt;In another case, I moved to Zola because I wanted separate feeds for each tag and I couldn&#x27;t figure out to get this to work even though I had already enabled it with this block:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;toml&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-toml &quot;&gt;&lt;code class=&quot;language-toml&quot; data-lang=&quot;toml&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;taxonomies &lt;&#x2F;span&gt;&lt;span&gt;= [
+&lt;&#x2F;span&gt;&lt;span&gt;    {&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;name &lt;&#x2F;span&gt;&lt;span&gt;= &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;categories&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;feed &lt;&#x2F;span&gt;&lt;span&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;false&lt;&#x2F;span&gt;&lt;span&gt;},
+&lt;&#x2F;span&gt;&lt;span&gt;    {&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;name &lt;&#x2F;span&gt;&lt;span&gt;= &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;tags&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;feed &lt;&#x2F;span&gt;&lt;span&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;true&lt;&#x2F;span&gt;&lt;span&gt;},
+&lt;&#x2F;span&gt;&lt;span&gt;]
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;This must be my own shortsightedness though, because it seems &lt;a href=&quot;https:&#x2F;&#x2F;tilde.club&#x2F;~passthejoe&#x2F;zola&#x2F;blog&#x2F;zola-tag-category-feeds&#x2F;index.html&quot;&gt;obvious to others&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;I&#x27;m also not complaining too much since this is a community-driven project; happy to see it being used by sites like &lt;a href=&quot;https:&#x2F;&#x2F;zola.discourse.group&#x2F;t&#x2F;allow-html-instead-of-md-for-pages-and-sections&#x2F;149&quot;&gt;Fastmail&lt;&#x2F;a&gt; too. All in all though, I&#x27;m quite happy with where I&#x27;ve gotten to and I find the Zola and Tera templating combination far less intimidating.&lt;&#x2F;p&gt;
+&lt;p&gt;Let&#x27;s see where this takes me.&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Useful bookmark keywords for Firefox (mobile) development</title>
+        <published>2021-10-15T00:00:00+00:00</published>
+        <updated>2021-10-15T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Jonathan Almeida
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/blog/browser-keyboard-shortcuts-mozilla-mobile/"/>
+        <id>https://jonalmeida.com/blog/browser-keyboard-shortcuts-mozilla-mobile/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/blog/browser-keyboard-shortcuts-mozilla-mobile/">&lt;p&gt;Firefox has support for keyword search in the address bar, which is handy during development at Mozilla. There are often many sources of information to look through and being able to get to them efficiently will save you &lt;em&gt;a lot&lt;&#x2F;em&gt; of time.&lt;&#x2F;p&gt;
+&lt;p&gt;The &lt;a href=&quot;https:&#x2F;&#x2F;support.mozilla.org&#x2F;en-US&#x2F;kb&#x2F;how-search-from-address-bar&quot;&gt;support documentation&lt;&#x2F;a&gt; has excellent examples of how this works, but here is a simple annotated image of what it does:&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;&#x2F;images&#x2F;20211015&#x2F;keywords.png&quot; alt=&quot;&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;Below are a list of keyword shortcuts I use on a daily basis. Many of them are related to mobile development, but there are other userful ones too. You can manually copy over to your bookmark manager the ones that might seem useful.&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;search-fox&quot;&gt;Search Fox&lt;&#x2F;h1&gt;
+&lt;p&gt;Search Fox is another internal tool at Mozilla for code indexes across all of mozilla-central and particular it&#x27;s branches, mozilla-mobile, rust and many others. Search Fox is a go because of how fast it is and with symbolic references to JS&#x2F;Rust&#x2F;C++, you can navigate quite easily around the place. There are a few keywords that I&#x27;d recommend here.&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;sf - regular indexes of mozilla-central.&lt;&#x2F;li&gt;
+&lt;li&gt;sfm - search through mozilla-mobile repositories (this includes application-services too).&lt;&#x2F;li&gt;
+&lt;li&gt;sff - search through the 68 release branch code. This is particularly useful for mobile because it&#x27;s the last release of Fennec (old Firefox Mobile) if you want to compare implementations.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;pre style=&quot;background-color:#2b303b;color:#c0c5ce;&quot;&gt;&lt;code&gt;&lt;span&gt;Name: Searchfox - mozilla-central
+&lt;&#x2F;span&gt;&lt;span&gt;Keyword: sf
+&lt;&#x2F;span&gt;&lt;span&gt;URL: https:&#x2F;&#x2F;searchfox.org&#x2F;mozilla-central&#x2F;search?path=&amp;amp;q=%s
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;Name: Searchfox - mozilla-mobile (Mobile)
+&lt;&#x2F;span&gt;&lt;span&gt;Keyword: sfm
+&lt;&#x2F;span&gt;&lt;span&gt;URL: https:&#x2F;&#x2F;searchfox.org&#x2F;mozilla-mobile&#x2F;search?path=&amp;amp;q=%s
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;Name: Searchfox - Fennec - mozsearch
+&lt;&#x2F;span&gt;&lt;span&gt;Keyword: sff
+&lt;&#x2F;span&gt;&lt;span&gt;URL: http:&#x2F;&#x2F;searchfox.org&#x2F;mozilla-esr68&#x2F;search?q=%s&amp;amp;path=
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h1 id=&quot;mercurial&quot;&gt;Mercurial&lt;&#x2F;h1&gt;
+&lt;p&gt;Sometimes you want to look up a diff from a changeset in your browser.&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;color:#c0c5ce;&quot;&gt;&lt;code&gt;&lt;span&gt;Name: Search mozilla-central with revision (changeset) ID
+&lt;&#x2F;span&gt;&lt;span&gt;Keyword: diff
+&lt;&#x2F;span&gt;&lt;span&gt;URL: https:&#x2F;&#x2F;hg.mozilla.org&#x2F;mozilla-central&#x2F;rev&#x2F;%s
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h1 id=&quot;github&quot;&gt;Github&lt;&#x2F;h1&gt;
+&lt;p&gt;Many of our mobile projects are on Github so having quick access to an issue or pull request is great. We currently work on Android Components, Fenix and Focus a lot, so these keywords let me get to an issue or pull request directly. For example, &lt;code&gt;aci 10000&lt;&#x2F;code&gt; for navigating to the 10,000 issue in Android Components.&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;color:#c0c5ce;&quot;&gt;&lt;code&gt;&lt;span&gt;Name: Github - Android Components - Issues&#x2F;Pull Requests
+&lt;&#x2F;span&gt;&lt;span&gt;Keyword: aci
+&lt;&#x2F;span&gt;&lt;span&gt;URL: https:&#x2F;&#x2F;github.com&#x2F;mozilla-mobile&#x2F;android-components&#x2F;issues&#x2F;%s
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;Name: Github - Fenix - Issues&#x2F;Pull Requests
+&lt;&#x2F;span&gt;&lt;span&gt;Keyword: fbi
+&lt;&#x2F;span&gt;&lt;span&gt;URL: https:&#x2F;&#x2F;github.com&#x2F;mozilla-mobile&#x2F;fenix&#x2F;issues&#x2F;%s
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;Name: Github - Focus - Issues&#x2F;Pull Requests
+&lt;&#x2F;span&gt;&lt;span&gt;Keyword: fci
+&lt;&#x2F;span&gt;&lt;span&gt;URL: https:&#x2F;&#x2F;github.com&#x2F;mozilla-mobile&#x2F;focus-android&#x2F;issues&#x2F;%s
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h1 id=&quot;taskcluster&quot;&gt;Taskcluster&lt;&#x2F;h1&gt;
+&lt;p&gt;Taskcluster is our internal CI build system. When a build fails or when you want to wait for a build, you can grab the ID from a pull request or release.&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;color:#c0c5ce;&quot;&gt;&lt;code&gt;&lt;span&gt;Name: FirefoxCI - Navigate to a task item (Task ID)
+&lt;&#x2F;span&gt;&lt;span&gt;Keyword: ti
+&lt;&#x2F;span&gt;&lt;span&gt;URL: https:&#x2F;&#x2F;firefox-ci-tc.services.mozilla.com&#x2F;tasks&#x2F;%s
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;Name: FirefoxCI - Navigate to a task group (Group ID)
+&lt;&#x2F;span&gt;&lt;span&gt;Keyword: gi
+&lt;&#x2F;span&gt;&lt;span&gt;URL: https:&#x2F;&#x2F;firefox-ci-tc.services.mozilla.com&#x2F;tasks&#x2F;groups&#x2F;%s
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h1 id=&quot;android-chromium&quot;&gt;Android &#x2F; Chromium&lt;&#x2F;h1&gt;
+&lt;p&gt;It&#x27;s common to want source references to Android sources or compare Chromium implementations as well.&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;color:#c0c5ce;&quot;&gt;&lt;code&gt;&lt;span&gt;Name: Chromium Android - Code Search (Chromium Reference)
+&lt;&#x2F;span&gt;&lt;span&gt;Keyword: cr
+&lt;&#x2F;span&gt;&lt;span&gt;URL: https:&#x2F;&#x2F;cs.chromium.org&#x2F;search&#x2F;?q=%s&amp;amp;sq=package:chromium&amp;amp;type=cs
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;Name: Android Source References
+&lt;&#x2F;span&gt;&lt;span&gt;Keyword: ar
+&lt;&#x2F;span&gt;&lt;span&gt;URL: https:&#x2F;&#x2F;cs.android.com&#x2F;search?q=%s
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>How I manage my github notifications with Gmail</title>
+        <published>2021-10-14T00:00:00+00:00</published>
+        <updated>2021-10-14T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Jonathan Almeida
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/blog/github-notifications-mozilla-mobile/"/>
+        <id>https://jonalmeida.com/blog/github-notifications-mozilla-mobile/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/blog/github-notifications-mozilla-mobile/">&lt;p&gt;A lot of &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;mozilla-mobile&#x2F;&quot;&gt;Mozilla mobile&lt;&#x2F;a&gt; product development is now hosted on Github, which is what many of our contributors prefer as a platform too. This leads to a lot of noise from Github&#x27;s notification system and I&#x27;ve had some troubles managing it over the years.&lt;&#x2F;p&gt;
+&lt;p&gt;As a follow-up to &lt;a href=&quot;https:&#x2F;&#x2F;blog.margaretleibovic.com&#x2F;2012&#x2F;09&#x2F;21&#x2F;how-i-manage-my-bugmail-with-gmail.html&quot;&gt;how you can manage bugmail with gmail&lt;&#x2F;a&gt;, I found a similar way to manage my most important Github notifications via Gmail:&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;&#x2F;images&#x2F;20211014&#x2F;gmail-sidebar.png&quot; alt=&quot;&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;You can apply the same filters with the rules below:&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;color:#c0c5ce;&quot;&gt;&lt;code&gt;&lt;span&gt;Matches: from:(notifications@github.com)
+&lt;&#x2F;span&gt;&lt;span&gt;Do this: Skip Inbox, Apply label &amp;quot;GitHub&amp;quot;, Categorize as Forums
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;Matches: to:(author@noreply.github.com)
+&lt;&#x2F;span&gt;&lt;span&gt;Do this: Apply label &amp;quot;GitHub&#x2F;Author&amp;quot;, Mark it as important
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;Matches: cc:comment@noreply.github.com
+&lt;&#x2F;span&gt;&lt;span&gt;Do this: Skip Inbox, Apply label &amp;quot;GitHub&#x2F;Comments&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;Matches: to:(mention@noreply.github.com)
+&lt;&#x2F;span&gt;&lt;span&gt;Do this: Skip Inbox, Apply label &amp;quot;GitHub&#x2F;Mentions&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;Matches: to:(review_requested@noreply.github.com) &amp;quot;requested your review&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;Do this: Apply label &amp;quot;GitHub&#x2F;Review Requested&amp;quot;, Mark it as important
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;Matches: to:(review_requested@noreply.github.com)
+&lt;&#x2F;span&gt;&lt;span&gt;Do this: Apply label &amp;quot;GitHub&#x2F;Reviews&amp;quot;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;The filters above are sorted in the same order as the screenshot if you&#x27;d like to only use a select few.&lt;&#x2F;p&gt;
+&lt;p&gt;If you&#x27;re feeling ambitious, you can &lt;a href=&quot;&#x2F;images&#x2F;20211014&#x2F;mailFilters.xml&quot;&gt;download the filters&lt;&#x2F;a&gt; in the appropriate XML format for Gmail so that you can import them for your account. This is probably not advisable because I&#x27;m someone on the internet that you probably do not know. :)&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Learning Erlang as a seasoned developer</title>
+        <published>2018-05-01T00:00:00+00:00</published>
+        <updated>2018-05-01T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Jonathan Almeida
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/blog/erlang/"/>
+        <id>https://jonalmeida.com/blog/erlang/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/blog/erlang/">&lt;blockquote&gt;
+&lt;p&gt;I wrote this a while back in November 2017 while learning Erlang even earlier in February, but I’ve finally got around to posting it. It may contain some outdated information.&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;p&gt;This is long overdue on my experiences learning Erlang. It was also my first introduction to functional programming. I’ve written this as an experienced developer learning new concepts so there are probably many implicit assumptions made.&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;why-learn-erlang&quot;&gt;Why learn Erlang?&lt;&#x2F;h1&gt;
+&lt;p&gt;I had been meaning to learn a functional language after a long time of interest. In a way, I probably felt that I was letting myself down by not challenging myself enough; a fear of fear.
+Browsing Hacker News I came across a comment that mentioned a class to learn Erlang that was starting soon on &lt;a href=&quot;https:&#x2F;&#x2F;www.futurelearn.com&#x2F;&quot;&gt;Future Learn&lt;&#x2F;a&gt;. Thankfully it wasn’t one of those 7 month long courses, taking three-fourth of your focus from daily life and expect you remember what you did the previous week when you can’t even remember where you left your socks the previous day. A meagre 3 weeks seemed like a perfect length for me to plow through.&lt;&#x2F;p&gt;
+&lt;p&gt;For some background, I’ve come from a fair experience dabbling in C++, Python &amp;amp; Rust in my university years, and now a career in Android development. This made me feel confident in my knowledge on imperative programming to learn something new.&lt;&#x2F;p&gt;
+&lt;p&gt;Erlang’s background also intrigued me. I’ve found sanity in learning languages that have stood the test of time and still remained relevant. Being the language of choice for what built WhatsApp was an additional plus - a small team able to scale to such a size of users sparked interest in a side of me that once cared deeply about distributed systems.&lt;&#x2F;p&gt;
+&lt;p&gt;It must be said that Simon Thompson, Professor of Logic and Computation in Computing at the University of Kent, did an exceptional job of breaking down the classes to the right amount for more intermediate students. What previously bored me about other MOOCs were their need to assume everyone was coming from a beginner level, losing interest in their more experienced users because of slow momentum. I was happy to see Simon skip over unnecessary explanations with fair assumptions on student’s prior knowledge.&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;what-i-liked-in-erlang&quot;&gt;What I liked in Erlang&lt;&#x2F;h1&gt;
+&lt;p&gt;Immutable bindings and immutable data structures felt like a hinderance to my brain at first, similar to having a thought and not being able to change it. The first week was a bit painful for me to unlearn a lot of concepts I didn’t realise I had implicitly relied on and grew to love. Eventually this made sense.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;tail-recursion&quot;&gt;Tail Recursion&lt;&#x2F;h2&gt;
+&lt;p&gt;It was the first thing I remember clicking in my head that felt like I had unlocked a side of my brain I never knew existed, constantly walking past it, assuming it was just a wall. I can’t tell how how refreshing it felt that all parties in a function were always known then-and-there in the arity itself.&lt;&#x2F;p&gt;
+&lt;p&gt;To explain in a little detail, Erlang is a language where everything is immutable and for-loops do not exist. The only way to loop is through a combination of recursive calls and function argument pattern matching.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;erlang&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-erlang &quot;&gt;&lt;code class=&quot;language-erlang&quot; data-lang=&quot;erlang&quot;&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;fib&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span&gt;) -&amp;gt;
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span&gt;;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;fib&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span&gt;) -&amp;gt;
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span&gt;;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;fib&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;N&lt;&#x2F;span&gt;&lt;span&gt;) -&amp;gt;
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;fib&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;N&lt;&#x2F;span&gt;&lt;span&gt;) + &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;fib&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;N&lt;&#x2F;span&gt;&lt;span&gt;-&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span&gt;).
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;This is your usual naive example of writing a Fibonacci sequence that &lt;strong&gt;will&lt;&#x2F;strong&gt; add to the call stack. We can do better by approaching the problem similar to how one would when writing a memoized version, from 0 to N, but in the Erlang case we can store the previous two Fibonacci values in the function argument itself, so that there is on state left behind. Not having a recursive call take up space on the call stack didn’t take long to understand when the rest sunk in. Instead,  it pushes that said state, into the argument of the next call, allowing the VM to reuse the same function but with new inputs (the second call). This is how I understood tail recursion.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;erlang&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-erlang &quot;&gt;&lt;code class=&quot;language-erlang&quot; data-lang=&quot;erlang&quot;&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;fib&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span&gt;) -&amp;gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span&gt;;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;fib&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span&gt;) -&amp;gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span&gt;;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;fib&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;N&lt;&#x2F;span&gt;&lt;span&gt;) &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;when &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;N &lt;&#x2F;span&gt;&lt;span&gt;&amp;gt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1 &lt;&#x2F;span&gt;&lt;span&gt;-&amp;gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;fib&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;N&lt;&#x2F;span&gt;&lt;span&gt;-&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span&gt;, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;fib&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span&gt;), &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;fib&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span&gt;)).
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;% The tail recursive implementation is below. The above is just a cleaner API.
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;fib&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span&gt;, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;_&lt;&#x2F;span&gt;&lt;span&gt;, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;B&lt;&#x2F;span&gt;&lt;span&gt;) -&amp;gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;B&lt;&#x2F;span&gt;&lt;span&gt;;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;fib&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;N&lt;&#x2F;span&gt;&lt;span&gt;, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;A&lt;&#x2F;span&gt;&lt;span&gt;, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;B&lt;&#x2F;span&gt;&lt;span&gt;) -&amp;gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;fib&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;N&lt;&#x2F;span&gt;&lt;span&gt;-&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span&gt;, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;B&lt;&#x2F;span&gt;&lt;span&gt;, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;A&lt;&#x2F;span&gt;&lt;span&gt;+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;B&lt;&#x2F;span&gt;&lt;span&gt;).
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;What we’re doing here is counting upwards from &lt;code&gt;fib(1)&lt;&#x2F;code&gt; and &lt;code&gt;fib(0)&lt;&#x2F;code&gt;, putting the  values of the previous two calls in the last two arguments of &lt;code&gt;fib&#x2F;3&lt;&#x2F;code&gt; and reducing  &lt;code&gt;N&lt;&#x2F;code&gt; until we reach 0. When we do, we know what the Fibonacci of that number is.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;pattern-matching-unpacking&quot;&gt;Pattern Matching &amp;amp; Unpacking&lt;&#x2F;h2&gt;
+&lt;p&gt;It’s better to explain both of these two together given how well they compliment each other.&lt;&#x2F;p&gt;
+&lt;p&gt;I’ve worked on Rust for a bit prior with some smaller projects using pattern matching, but I didn’t find the language (or maybe the documentation material?) enough for me to have the same “ah-ha” moment that I did have with Erlang.&lt;&#x2F;p&gt;
+&lt;p&gt;In most other languages, pattern matching stops at a “case” or “switch” level. Consider an argument or return value and match it against all possible combinations that you would like to handle. With Erlang, pattern matching existed at the function level, where you could call a function by the arguments or argument structure it had. To better explain what I’m probably failing to say..&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;erlang&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-erlang &quot;&gt;&lt;code class=&quot;language-erlang&quot; data-lang=&quot;erlang&quot;&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;f&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span&gt;) -&amp;gt;
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;zero&lt;&#x2F;span&gt;&lt;span&gt;;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;f&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;N&lt;&#x2F;span&gt;&lt;span&gt;) -&amp;gt;
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;N&lt;&#x2F;span&gt;&lt;span&gt;.
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;If &lt;code&gt;f(0)&lt;&#x2F;code&gt; is called, it returns the atom &lt;code&gt;zero&lt;&#x2F;code&gt; otherwise, anything else is returned back; a fairly trivial example.&lt;&#x2F;p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Note:&lt;&#x2F;strong&gt; I failed to originally explain that an atom is another data type that exists in Erlang. It doesn’t hold data, but is mostly used as an identifier for your data.&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;pre data-lang=&quot;erlang&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-erlang &quot;&gt;&lt;code class=&quot;language-erlang&quot; data-lang=&quot;erlang&quot;&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;f&lt;&#x2F;span&gt;&lt;span&gt;({&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;zero&lt;&#x2F;span&gt;&lt;span&gt;, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;A&lt;&#x2F;span&gt;&lt;span&gt;}) -&amp;gt;
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;zero&lt;&#x2F;span&gt;&lt;span&gt;;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;f&lt;&#x2F;span&gt;&lt;span&gt;({&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;X&lt;&#x2F;span&gt;&lt;span&gt;, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Y&lt;&#x2F;span&gt;&lt;span&gt;}) -&amp;gt;
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Y&lt;&#x2F;span&gt;&lt;span&gt;.
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Here, we’re going one step further. We match the function &lt;code&gt;f&lt;&#x2F;code&gt; against a tuple of two values. More over, the first pattern match is looking for the first argument to be the atom &lt;code&gt;zero&lt;&#x2F;code&gt;.
+Take a minute to consider what we’ve just done. We checked to see we were given a non-empty tuple, a tuple with two values, a tuple with the first argument an atom, and held the second argument in a variable &lt;code&gt;A&lt;&#x2F;code&gt;.  Consider doing this in a different language where you would have to explicitly check each and every case before we were able to get to our actual logic (* &lt;em&gt;cough&lt;&#x2F;em&gt;Java 6 &lt;em&gt;cough&lt;&#x2F;em&gt; *).&lt;&#x2F;p&gt;
+&lt;p&gt;This becomes even more powerful with Erlang’s list accessors for the head, tail and equality testing.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;erlang&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-erlang &quot;&gt;&lt;code class=&quot;language-erlang&quot; data-lang=&quot;erlang&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;List &lt;&#x2F;span&gt;&lt;span&gt;= [&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span&gt;,&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;2&lt;&#x2F;span&gt;&lt;span&gt;,&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;3&lt;&#x2F;span&gt;&lt;span&gt;].
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;hd&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;List&lt;&#x2F;span&gt;&lt;span&gt;).   &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;% 1
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;tl&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;List&lt;&#x2F;span&gt;&lt;span&gt;).   &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;% [2,3]
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;% If we wanted to match these into separate bindings in a more elegant way..
+&lt;&#x2F;span&gt;&lt;span&gt;[&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;A&lt;&#x2F;span&gt;&lt;span&gt;|&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;B&lt;&#x2F;span&gt;&lt;span&gt;] = &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;List&lt;&#x2F;span&gt;&lt;span&gt;.
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;A&lt;&#x2F;span&gt;&lt;span&gt;.   &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;% 1
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;B&lt;&#x2F;span&gt;&lt;span&gt;.   &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;% [2,3]
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;We just did something quite amazing that I’m certain I’ll fail to properly convey: a list can be defined as a head on the left of the vertical bar; the tail to the right. With the equality to the &lt;code&gt;List&lt;&#x2F;code&gt;, we’ve said that the bindings of &lt;code&gt;A&lt;&#x2F;code&gt; and &lt;code&gt;B&lt;&#x2F;code&gt; should satisfy that of &lt;code&gt;List&lt;&#x2F;code&gt;. What would happen is that if &lt;code&gt;A&lt;&#x2F;code&gt; and &lt;code&gt;B&lt;&#x2F;code&gt; were already bound, their values should be that of what is in &lt;code&gt;List&lt;&#x2F;code&gt;, if they were not bound, they will now have that binding. If that were to fail, it would throw an exception.&lt;&#x2F;p&gt;
+&lt;p&gt;If that made sense to you, feel free to sit back and feel those quarks materialise in a Higgs-Boson field. &lt;em&gt;Sorry, I won’t do this again..&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Note:&lt;&#x2F;strong&gt; “guards” should also be given some merit to where we can also make assertions.&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;h2 id=&quot;message-passing-and-processes&quot;&gt;Message Passing and Processes&lt;&#x2F;h2&gt;
+&lt;p&gt;My instinctual thoughts when I learnt that Erlang’s RPC methods were about asynchronous handing and overhead but I didn’t have to worry about it. Erlang threads, from what I understand, are some what similar to green threads with various scheduling differences that are beyond me. Spawning process as I pleased was also foreign to me, being able to send messages to it and have them do what ever I wanted felt too easy - it felt wrong coming from an Android world. I still struggle to get myself to use processes to do things in the background, but I suspect it’ll eventually becoming second nature.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;otp&quot;&gt;OTP&lt;&#x2F;h2&gt;
+&lt;p&gt;Sadly, I have even less to say about OTP given my limited knowledge of it. I would really like to have another course that would focus more on it. That said, learning some of the basics of &lt;code&gt;gen_server&lt;&#x2F;code&gt; and playing with &lt;code&gt;gen_tcp&lt;&#x2F;code&gt; have shown me how brilliant it is to avoid writing a lot of boilerplate code Erlang code (even though it’s already a lot less than you would usually have to write in other languages).&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;what-i-didn-t-like&quot;&gt;What I didn’t like&lt;&#x2F;h1&gt;
+&lt;p&gt;From what I understand, some of the later additions to the language were patched on without a more elegant solution compared to the rest of the language. Try&#x2F;catch blocks seemed like a strange addition to have where we have better ways or error checking already. Records too were a necessity but also fell short - more like an afterthought.&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;what-s-next&quot;&gt;What&#x27;s Next&lt;&#x2F;h1&gt;
+&lt;p&gt;My hopes are to learn more from OTP. After which, I’d like to see what Elixir has to offer, although I’ve grown quite fond of the world of Erlang.&lt;&#x2F;p&gt;
+&lt;p&gt;I spent some time after the courses to implement a rudimentary &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;jonalmeida&#x2F;ws&#x2F;&quot;&gt;WebSocket library&lt;&#x2F;a&gt; in an effort to see what I could put into practice and what sunk in long term.&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Reading and writing using the new Rust IO library</title>
+        <published>2015-03-03T00:00:00+00:00</published>
+        <updated>2015-03-03T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Jonathan Almeida
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/blog/rust-new-io/"/>
+        <id>https://jonalmeida.com/blog/rust-new-io/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/blog/rust-new-io/">&lt;p&gt;When the re-write of the &lt;code&gt;std::io&lt;&#x2F;code&gt; module landed in Rust &lt;a href=&quot;http:&#x2F;&#x2F;blog.rust-lang.org&#x2F;2015&#x2F;02&#x2F;20&#x2F;Rust-1.0-alpha2.html&quot;&gt;1.0.0-alpha.2&lt;&#x2F;a&gt;, there were a lot of changes to the way you read&#x2F;write to a file. I&#x27;ll cover some simple examples and probably make edits in the future to add more fancy stuff.&lt;&#x2F;p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Disclaimer:&lt;&#x2F;strong&gt; At the time of writing this, &lt;code&gt;std::io&lt;&#x2F;code&gt; is still a work in progress! I&#x27;m also currently learning this new library as I go along, so there may be errors on my behalf as well!&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;h1 id=&quot;reading-from-a-file&quot;&gt;Reading from a file&lt;&#x2F;h1&gt;
+&lt;p&gt;Reading to a file can be done in two ways (both really simple). I&#x27;ll talk about one way here and the second a little later.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;rust&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-rust &quot;&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;let&lt;&#x2F;span&gt;&lt;span&gt; file = &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;match &lt;&#x2F;span&gt;&lt;span&gt;File::open(&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;test_file.txt&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;) {
+&lt;&#x2F;span&gt;&lt;span&gt;	Ok(file) =&amp;gt; file,
+&lt;&#x2F;span&gt;&lt;span&gt;	Err(..)  =&amp;gt; panic!(&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;room&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;),
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;&lt;code&gt;File::open&lt;&#x2F;code&gt; by default gives you &lt;code&gt;Read&lt;&#x2F;code&gt; permissons, so you can create a &lt;a href=&quot;http:&#x2F;&#x2F;doc.rust-lang.org&#x2F;std&#x2F;io&#x2F;struct.BufReader.html&quot;&gt;&lt;code&gt;BufReader&lt;&#x2F;code&gt;&lt;&#x2F;a&gt; from that.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;rust&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-rust &quot;&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;let mut&lt;&#x2F;span&gt;&lt;span&gt; reader = BufReader::new(&amp;amp;file);
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;&#x2F; read_line takes reads a line and writes to a string, so we give it one.
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;let&lt;&#x2F;span&gt;&lt;span&gt; buffer_string = &amp;amp;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;mut &lt;&#x2F;span&gt;&lt;span&gt;String::new();
+&lt;&#x2F;span&gt;&lt;span&gt;reader.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;read_line&lt;&#x2F;span&gt;&lt;span&gt;(buffer_string);
+&lt;&#x2F;span&gt;&lt;span&gt;println!(&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;We read a new line: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;{}&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;, buffer_string);
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h1 id=&quot;writing-to-a-file&quot;&gt;Writing to a file&lt;&#x2F;h1&gt;
+&lt;h3 id=&quot;permissons&quot;&gt;Permissons&lt;&#x2F;h3&gt;
+&lt;p&gt;A simple example for writing to a file is to start by creating your &lt;a href=&quot;http:&#x2F;&#x2F;doc.rust-lang.org&#x2F;std&#x2F;path&#x2F;index.html&quot;&gt;&lt;code&gt;Path&lt;&#x2F;code&gt;&lt;&#x2F;a&gt;, and an &lt;a href=&quot;http:&#x2F;&#x2F;doc.rust-lang.org&#x2F;std&#x2F;fs&#x2F;struct.OpenOptions.html&quot;&gt;&lt;code&gt;OpenOptions&lt;&#x2F;code&gt;&lt;&#x2F;a&gt;. An &lt;code&gt;OpenOptions&lt;&#x2F;code&gt; is how you provide the file permissons and that you would need to read or write to a file appropriately.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;rust&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-rust &quot;&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;let mut&lt;&#x2F;span&gt;&lt;span&gt; options = OpenOptions::new();
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;&#x2F; We want to write to our file as well as append new data to it.
+&lt;&#x2F;span&gt;&lt;span&gt;options.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;write&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;true&lt;&#x2F;span&gt;&lt;span&gt;).&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;append&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;true&lt;&#x2F;span&gt;&lt;span&gt;);
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;You can also add &lt;code&gt;.read(true)&lt;&#x2F;code&gt; for read permissions as an alternate way to read from the file. Although, the interesting part about &lt;code&gt;OpenOptions&lt;&#x2F;code&gt; is that you can re-use the options set for multiple files:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;rust&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-rust &quot;&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;&#x2F; We can create a Path
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;let&lt;&#x2F;span&gt;&lt;span&gt; path = Path::new(&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;test_file.txt&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;);
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;&#x2F; or we can also just use a string slice:
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;let&lt;&#x2F;span&gt;&lt;span&gt; path2 = &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;test_file2.txt&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;&#x2F; We create file options to write
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;let mut&lt;&#x2F;span&gt;&lt;span&gt; options = OpenOptions::new();
+&lt;&#x2F;span&gt;&lt;span&gt;options.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;write&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;true&lt;&#x2F;span&gt;&lt;span&gt;)
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;&#x2F; Both of these should be valid
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;let&lt;&#x2F;span&gt;&lt;span&gt; file: Result&amp;lt;File, Error&amp;gt; = options.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;open&lt;&#x2F;span&gt;&lt;span&gt;(path);
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;let&lt;&#x2F;span&gt;&lt;span&gt; file2: Result&amp;lt;File, Error&amp;gt; = options.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;open&lt;&#x2F;span&gt;&lt;span&gt;(path2);
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h3 id=&quot;the-actual-writing-bit&quot;&gt;The actual writing bit&lt;&#x2F;h3&gt;
+&lt;p&gt;So now that we have the permissons setup correctly, we can create a &lt;a href=&quot;http:&#x2F;&#x2F;doc.rust-lang.org&#x2F;std&#x2F;io&#x2F;struct.BufWriter.html&quot;&gt;&lt;code&gt;BufWriter&lt;&#x2F;code&gt;&lt;&#x2F;a&gt; to actually write to the file. I&#x27;ve added a match statement to unwrap the unlike the previous snippet:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;rust&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-rust &quot;&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;let&lt;&#x2F;span&gt;&lt;span&gt; file = &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;match&lt;&#x2F;span&gt;&lt;span&gt; options.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;open&lt;&#x2F;span&gt;&lt;span&gt;(&amp;amp;path) {
+&lt;&#x2F;span&gt;&lt;span&gt;    Ok(file) =&amp;gt; file,
+&lt;&#x2F;span&gt;&lt;span&gt;    Err(..) =&amp;gt; panic!(&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;at the Disco&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;),
+&lt;&#x2F;span&gt;&lt;span&gt;};
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;&#x2F; We create a buffered writer from the file we get
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;let mut&lt;&#x2F;span&gt;&lt;span&gt; writer = BufWriter::new(&amp;amp;file);
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;&#x2F; Then we write to the file. write_all() calls flush() after the write as well.
+&lt;&#x2F;span&gt;&lt;span&gt;writer.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;write_all&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;b&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;test&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;\n&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;);
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;&#x2F;h1&gt;
+&lt;p&gt;In my examples, I&#x27;ve used separate buffers but you can use a &lt;a href=&quot;http:&#x2F;&#x2F;doc.rust-lang.org&#x2F;std&#x2F;io&#x2F;struct.BufStream.html&quot;&gt;&lt;code&gt;BufStream&lt;&#x2F;code&gt;&lt;&#x2F;a&gt; as well to get all the same features combined.&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Enabling print statements in Cargo tests</title>
+        <published>2015-01-23T00:00:00+00:00</published>
+        <updated>2015-01-23T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Jonathan Almeida
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/blog/print-cargo/"/>
+        <id>https://jonalmeida.com/blog/print-cargo/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/blog/print-cargo/">&lt;p&gt;When writing tests in Cargo, you sometimes need to debug failures and print statements are a great way to do that. When you run &lt;code&gt;cargo test&lt;&#x2F;code&gt; the output shows details about which tests pass or fail but filters out the stdout information.&lt;&#x2F;p&gt;
+&lt;p&gt;The you can enable this by running tests with &lt;code&gt;-- --nocapture&lt;&#x2F;code&gt; like this:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;$&lt;&#x2F;span&gt;&lt;span&gt; cargo test -- --nocapture
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Here is an example of what a test would look like:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;rust&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-rust &quot;&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;span&gt;#[&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;test&lt;&#x2F;span&gt;&lt;span&gt;]
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;fn &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;new_linked_list&lt;&#x2F;span&gt;&lt;span&gt;() {
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;let mut&lt;&#x2F;span&gt;&lt;span&gt; list: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;super&lt;&#x2F;span&gt;&lt;span&gt;::LinkedList&amp;lt;String&amp;gt; = &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;super&lt;&#x2F;span&gt;&lt;span&gt;::LinkedList::new();
+&lt;&#x2F;span&gt;&lt;span&gt;    list.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;add&lt;&#x2F;span&gt;&lt;span&gt;(&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;first&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;to_string&lt;&#x2F;span&gt;&lt;span&gt;());
+&lt;&#x2F;span&gt;&lt;span&gt;    println!(&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;Value added: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;{}&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;, list.head.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;unwrap&lt;&#x2F;span&gt;&lt;span&gt;().payload);
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;When we run this with the &lt;code&gt;no capture&lt;&#x2F;code&gt; flag:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span&gt;     &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Running&lt;&#x2F;span&gt;&lt;span&gt; target&#x2F;algorithms-43e2eed4b681635b
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;running&lt;&#x2F;span&gt;&lt;span&gt; 3 tests
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;test&lt;&#x2F;span&gt;&lt;span&gt; datastructures::linkedlist::node_new ... ok
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Value&lt;&#x2F;span&gt;&lt;span&gt; added: first
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;test&lt;&#x2F;span&gt;&lt;span&gt; datastructures::linkedlist::node_payload ... ok
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;test&lt;&#x2F;span&gt;&lt;span&gt; datastructures::linkedlist::tests::new_linked_list ... ok
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;test&lt;&#x2F;span&gt;&lt;span&gt; result: ok. 3 passed; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span&gt; failed; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span&gt; ignored; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span&gt; measured
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Notice that the print statement is before the test passes (a false positive since I haven&#x27;t added an assertion), but it gets intertwined with our other tests which are running in parrallel. This can be annoying to see if you have a longer list of tests. We can remove that as well by only running the specific test that we want:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;$&lt;&#x2F;span&gt;&lt;span&gt; cargo test -- --nocapture datastructures::linkedlist::tests::new_linked_list
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;We then see:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span&gt;     &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Running&lt;&#x2F;span&gt;&lt;span&gt; target&#x2F;algorithms-43e2eed4b681635b
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;running&lt;&#x2F;span&gt;&lt;span&gt; 1 test
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Value&lt;&#x2F;span&gt;&lt;span&gt; added: first
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;test&lt;&#x2F;span&gt;&lt;span&gt; datastructures::linkedlist::tests::new_linked_list ... ok
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;test&lt;&#x2F;span&gt;&lt;span&gt; result: ok. 1 passed; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span&gt; failed; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span&gt; ignored; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span&gt; measured
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>How to keep all your git remotes up-to-date</title>
+        <published>2014-07-19T00:00:00+00:00</published>
+        <updated>2014-07-19T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Jonathan Almeida
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/blog/keeping-all-git-remotes-updated/"/>
+        <id>https://jonalmeida.com/blog/keeping-all-git-remotes-updated/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/blog/keeping-all-git-remotes-updated/">&lt;p&gt;You always want your copy of remote in your local repository up-to-date. Having a bunch of git repos doesn&#x27;t help because now you have to check them all (20+ amiright?!). A small portion of my busy-work goes into fetching and rebasing before I start to work on any project.&lt;&#x2F;p&gt;
+&lt;p&gt;So I wrote a small bash script which includes stuff that &lt;a href=&quot;&#x2F;posts&#x2F;2013&#x2F;05&#x2F;26&#x2F;different-ways-to-implement-flags-in-bash&#x2F;&quot;&gt;I learned about bash flags previous&lt;&#x2F;a&gt;, and merged it into one script that does something fairly neat:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;It goes through each git repository in &lt;code&gt;~&#x2F;git&lt;&#x2F;code&gt; directory (you can change this to another directory with the &lt;code&gt;-d&lt;&#x2F;code&gt; flag)&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;code&gt;git fetch&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;Attempts to do a &lt;code&gt;git rebase origin&#x2F;{current_branch}&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;If it fails, it&#x27;ll try a &lt;code&gt;git stash&lt;&#x2F;code&gt; to remove any files that are still a work-in-progress&lt;&#x2F;li&gt;
+&lt;li&gt;Attempts a git rebase once again&lt;&#x2F;li&gt;
+&lt;li&gt;Executes &lt;code&gt;git stash pop&lt;&#x2F;code&gt; regardless if it was successful or not&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;Also note, that you can change your remote from &lt;code&gt;origin&lt;&#x2F;code&gt; to something else with the &lt;code&gt;-r&lt;&#x2F;code&gt; flag. Although, you should note that this will the remote used in all git repos.&lt;&#x2F;p&gt;
+&lt;p&gt;You can find the code in the snippet below, but the most up-to-date version can always be found &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;jonalmeida&#x2F;snippets&#x2F;blob&#x2F;master&#x2F;git&#x2F;fetch-all.sh&quot;&gt;on GitHub&lt;&#x2F;a&gt;.
+&lt;br&gt;&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;#!&#x2F;bin&#x2F;bash
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;# Default git directory
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;git_dir&lt;&#x2F;span&gt;&lt;span&gt;=&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;~&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;&#x2F;git
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;# Default remote
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;git_remote&lt;&#x2F;span&gt;&lt;span&gt;=&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;origin&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;function &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;helpmenu &lt;&#x2F;span&gt;&lt;span&gt;{
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;echo &lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;USAGE EXAMPLE:&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;echo &lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;    fetch-all.sh ~&#x2F;directory_of_git_repos origin&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;function &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;setDir &lt;&#x2F;span&gt;&lt;span&gt;{
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;if &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;[[ &lt;&#x2F;span&gt;&lt;span&gt;$&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;checkDir &lt;&#x2F;span&gt;&lt;span&gt;!= &amp;quot;&amp;quot; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;]]&lt;&#x2F;span&gt;&lt;span&gt;; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;then
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;# Path is passed as first argument
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;ls &lt;&#x2F;span&gt;&lt;span&gt;$&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;checkDir &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span&gt;&amp;gt;&amp;amp;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;2
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;if &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;[[ &lt;&#x2F;span&gt;&lt;span&gt;$&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;? &lt;&#x2F;span&gt;&lt;span&gt;!= 0 &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;]]&lt;&#x2F;span&gt;&lt;span&gt;; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;then
+&lt;&#x2F;span&gt;&lt;span&gt;      &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;# Path isn&amp;#39;t valid
+&lt;&#x2F;span&gt;&lt;span&gt;      &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;echo &lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;Cannot access &lt;&#x2F;span&gt;&lt;span&gt;$&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;: No such directory&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;exit
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;fi
+&lt;&#x2F;span&gt;&lt;span&gt;      &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;git_dir&lt;&#x2F;span&gt;&lt;span&gt;=$&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;checkDir
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;fi
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;function &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;setRemote &lt;&#x2F;span&gt;&lt;span&gt;{
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;if &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;[[ &lt;&#x2F;span&gt;&lt;span&gt;$&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;checkRemote &lt;&#x2F;span&gt;&lt;span&gt;!= &amp;quot;&amp;quot; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;]]&lt;&#x2F;span&gt;&lt;span&gt;; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;then
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;# Second argument is not empty
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;# (Should contain a branch)
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;git_remote&lt;&#x2F;span&gt;&lt;span&gt;=$&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;checkRemote
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;fi
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;while &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;getopts &lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;hd:r:&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot; OPTION
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;do
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;case &lt;&#x2F;span&gt;&lt;span&gt;$&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;OPTION &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;in
+&lt;&#x2F;span&gt;&lt;span&gt;    h&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;)
+&lt;&#x2F;span&gt;&lt;span&gt;      &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;helpmenu
+&lt;&#x2F;span&gt;&lt;span&gt;      &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;exit
+&lt;&#x2F;span&gt;&lt;span&gt;      ;;
+&lt;&#x2F;span&gt;&lt;span&gt;    d&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;)
+&lt;&#x2F;span&gt;&lt;span&gt;      &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;checkDir&lt;&#x2F;span&gt;&lt;span&gt;=$&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;OPTARG
+&lt;&#x2F;span&gt;&lt;span&gt;      &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;setDir
+&lt;&#x2F;span&gt;&lt;span&gt;      &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;# break
+&lt;&#x2F;span&gt;&lt;span&gt;      ;;
+&lt;&#x2F;span&gt;&lt;span&gt;    r&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;)
+&lt;&#x2F;span&gt;&lt;span&gt;      &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;checkRemote&lt;&#x2F;span&gt;&lt;span&gt;=$&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;OPTARG
+&lt;&#x2F;span&gt;&lt;span&gt;      &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;setRemote
+&lt;&#x2F;span&gt;&lt;span&gt;      &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;# break
+&lt;&#x2F;span&gt;&lt;span&gt;      ;;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;\?&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;)
+&lt;&#x2F;span&gt;&lt;span&gt;      &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;helpmenu
+&lt;&#x2F;span&gt;&lt;span&gt;      &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;exit
+&lt;&#x2F;span&gt;&lt;span&gt;      ;;
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;esac
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;done
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;echo &lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;Changing directory to &lt;&#x2F;span&gt;&lt;span&gt;$&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;git_dir&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;cd &lt;&#x2F;span&gt;&lt;span&gt;$&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;git_dir
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;for&lt;&#x2F;span&gt;&lt;span&gt; dir &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;in &lt;&#x2F;span&gt;&lt;span&gt;*&#x2F;; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;do
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;echo &lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;==========================================&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;echo &lt;&#x2F;span&gt;&lt;span&gt;$&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;dir
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;cd &lt;&#x2F;span&gt;&lt;span&gt;$&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;dir
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;echo &lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;---&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;echo &lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;git fetch&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;git&lt;&#x2F;span&gt;&lt;span&gt; fetch
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;echo &lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;---&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;echo &lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;git rev-parse --abbrev-ref HEAD&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;current_branch&lt;&#x2F;span&gt;&lt;span&gt;=`&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;git&lt;&#x2F;span&gt;&lt;span&gt; rev-parse&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; --abbrev-ref&lt;&#x2F;span&gt;&lt;span&gt; HEAD`
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;echo &lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;current_branch = &lt;&#x2F;span&gt;&lt;span&gt;$&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;current_branch&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;echo &lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;---&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;echo &lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;git rebase &lt;&#x2F;span&gt;&lt;span&gt;$&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;git_remote&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;&#x2F;&lt;&#x2F;span&gt;&lt;span&gt;$&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;current_branch&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;git&lt;&#x2F;span&gt;&lt;span&gt; rebase $&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;git_remote&lt;&#x2F;span&gt;&lt;span&gt;&#x2F;$&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;current_branch
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;if &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;[[ &lt;&#x2F;span&gt;&lt;span&gt;$&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;? &lt;&#x2F;span&gt;&lt;span&gt;!= 0 &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;]]&lt;&#x2F;span&gt;&lt;span&gt;; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;then
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;echo &lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;---&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;echo &lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;git stash&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;git&lt;&#x2F;span&gt;&lt;span&gt; stash
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;echo &lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;---&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;echo &lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;git rebase &lt;&#x2F;span&gt;&lt;span&gt;$&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;git_remote&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;&#x2F;&lt;&#x2F;span&gt;&lt;span&gt;$&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;current_branch&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;git&lt;&#x2F;span&gt;&lt;span&gt; rebase $&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;git_remote&lt;&#x2F;span&gt;&lt;span&gt;&#x2F;$&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;current_branch
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;second_attempt&lt;&#x2F;span&gt;&lt;span&gt;=$&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;?
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;echo &lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;---&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;echo &lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;git stash pop&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;git&lt;&#x2F;span&gt;&lt;span&gt; stash pop
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;fi
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;if &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;[[&lt;&#x2F;span&gt;&lt;span&gt; second_attempt == 1 &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;]]&lt;&#x2F;span&gt;&lt;span&gt;; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;then
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;echo &lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;Your repo (&lt;&#x2F;span&gt;&lt;span&gt;$&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;dir&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;.git) has problems..&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;fi
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;echo &lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;---&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;echo &lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;cd ..&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;cd&lt;&#x2F;span&gt;&lt;span&gt; ..
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;done&lt;&#x2F;span&gt;&lt;span&gt;;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Refs:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http:&#x2F;&#x2F;www.bubblefoundry.com&#x2F;blog&#x2F;2011&#x2F;02&#x2F;git-status-from-outside-of-the-working-directory&#x2F;&quot;&gt;Git Status From Outside of the Working Directory&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>JSON object conversion into different types with Objective-C</title>
+        <published>2014-06-16T00:00:00+00:00</published>
+        <updated>2014-06-16T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Jonathan Almeida
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/blog/json-conversion-in-objc/"/>
+        <id>https://jonalmeida.com/blog/json-conversion-in-objc/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/blog/json-conversion-in-objc/">&lt;p&gt;When dealing with network APIs that use JSON, I find myself constantly converting objects from one form to another for data manipulation or storage. In Objective-C we&#x27;re lucky to have such rich libraries that make life easier. Although, it does tend to get tedious when you start converting an NSDictionary to an NSData, or NSString to NSData, and so on. I wanted to make it easier so I had a one liner option to do this.&lt;&#x2F;p&gt;
+&lt;p&gt;An Objective-C Category is something I just learned about recently. It lets you extend a classes functionality without subclassing or having the source to it (!). It seemed easy enough to solve my problems using this.&lt;&#x2F;p&gt;
+&lt;p&gt;I wrote a small class that extends &lt;code&gt;NSData&lt;&#x2F;code&gt;, &lt;code&gt;NSString&lt;&#x2F;code&gt; and &lt;code&gt;NSDictionary&lt;&#x2F;code&gt; giving them class methods to return a JSON object from one type to another.&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;color:#c0c5ce;&quot;&gt;&lt;code&gt;&lt;span&gt;---------------------------------------------------
+&lt;&#x2F;span&gt;&lt;span&gt;|     Type     | NSData | NSString | NSDictionary |
+&lt;&#x2F;span&gt;&lt;span&gt;|--------------|--------|----------|--------------|
+&lt;&#x2F;span&gt;&lt;span&gt;|    NSData    |  n&#x2F;a   |          |              |
+&lt;&#x2F;span&gt;&lt;span&gt;|   NSString   |        |   n&#x2F;a    |              |
+&lt;&#x2F;span&gt;&lt;span&gt;| NSDictionary |        |          |     n&#x2F;a      |
+&lt;&#x2F;span&gt;&lt;span&gt;---------------------------------------------------
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h2 id=&quot;usage&quot;&gt;Usage&lt;&#x2F;h2&gt;
+&lt;p&gt;Using the category class is trivial. Simply drop the &lt;code&gt;JsonEncoder.h&lt;&#x2F;code&gt; and &lt;code&gt;JsonEncoder.m&lt;&#x2F;code&gt; into your project. And use it similar to the examples below.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;converting-nsstring&quot;&gt;Converting NSString&lt;&#x2F;h3&gt;
+&lt;p&gt;A string that is correctly escaped and in the right syntax:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;m&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-m &quot;&gt;&lt;code class=&quot;language-m&quot; data-lang=&quot;m&quot;&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;&#x2F; A string that we want to convert to a dictionary
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ebcb8b;&quot;&gt;NSString &lt;&#x2F;span&gt;&lt;span&gt;* json_str = @&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;{&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;\&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;Key&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;\&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;:&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;\&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;Value&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;\&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;}&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;&#x2F; Using the extended class..
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ebcb8b;&quot;&gt;NSDictionary &lt;&#x2F;span&gt;&lt;span&gt;* dict = [&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ebcb8b;&quot;&gt;NSDictionary &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;dictionaryFromString:&lt;&#x2F;span&gt;&lt;span&gt;json_str];
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;&#x2F; OR
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ebcb8b;&quot;&gt;NSData &lt;&#x2F;span&gt;&lt;span&gt;* data = [&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ebcb8b;&quot;&gt;NSData &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;dataWithString:&lt;&#x2F;span&gt;&lt;span&gt;json_str];
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h3 id=&quot;converting-nsdictionary&quot;&gt;Converting NSDictionary&lt;&#x2F;h3&gt;
+&lt;p&gt;We can take a dictionary and convert that easily:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;m&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-m &quot;&gt;&lt;code class=&quot;language-m&quot; data-lang=&quot;m&quot;&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;&#x2F; A simple initialized dictionary
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ebcb8b;&quot;&gt;NSDictionary &lt;&#x2F;span&gt;&lt;span&gt;* dict = [&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ebcb8b;&quot;&gt;NSDictionary &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;dictionaryWithObjectsAndKeys:
+&lt;&#x2F;span&gt;&lt;span&gt;							@&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;Value&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;,@&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;Key&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;nil&lt;&#x2F;span&gt;&lt;span&gt;];
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;&#x2F; Using the extended class..
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ebcb8b;&quot;&gt;NSString &lt;&#x2F;span&gt;&lt;span&gt;* json_str = [&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ebcb8b;&quot;&gt;NSString &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;stringFromDictionary:&lt;&#x2F;span&gt;&lt;span&gt;dict];
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;&#x2F; OR
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ebcb8b;&quot;&gt;NSData &lt;&#x2F;span&gt;&lt;span&gt;* data = [&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ebcb8b;&quot;&gt;NSData &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;dataFromDictionary:&lt;&#x2F;span&gt;&lt;span&gt;dict];
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h3 id=&quot;converting-nsdata&quot;&gt;Converting NSData&lt;&#x2F;h3&gt;
+&lt;p&gt;NSData also works:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;m&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-m &quot;&gt;&lt;code class=&quot;language-m&quot; data-lang=&quot;m&quot;&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;&#x2F; Let&amp;#39;s assume we already have an NSData object!
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;&#x2F; We can convert it using the extended class..
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ebcb8b;&quot;&gt;NSDictionary &lt;&#x2F;span&gt;&lt;span&gt;* dict = [&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ebcb8b;&quot;&gt;NSDictionary &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;dictionaryFromData:&lt;&#x2F;span&gt;&lt;span&gt;data];
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;&#x2F; OR
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ebcb8b;&quot;&gt;NSString &lt;&#x2F;span&gt;&lt;span&gt;* json_str = [&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ebcb8b;&quot;&gt;NSString &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;stringFromData:&lt;&#x2F;span&gt;&lt;span&gt;data];
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;You can find the source &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;jonalmeida&#x2F;JsonConverter&quot;&gt;here&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>How to verify if a UUID follows the IETF specification</title>
+        <published>2014-05-20T00:00:00+00:00</published>
+        <updated>2014-05-20T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Jonathan Almeida
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/blog/testing-for-a-correct-uuid/"/>
+        <id>https://jonalmeida.com/blog/testing-for-a-correct-uuid/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/blog/testing-for-a-correct-uuid/">&lt;p&gt;I was playing around with creating UUIDs for adding uniqueness in a project, so I started reading the spec for creating one in the &lt;a href=&quot;https:&#x2F;&#x2F;tools.ietf.org&#x2F;html&#x2F;rfc4122&quot;&gt;RFC 4122&lt;&#x2F;a&gt;. Also as a side note, the spec sheets there are really interesting and finely detailed for almost anyone to understand. I don&#x27;t know why I spent so much time on this, I was just having fun and time seemed to pass by..&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;understanding-the-spec&quot;&gt;Understanding the spec&lt;&#x2F;h2&gt;
+&lt;p&gt;The one I was after was a type 4 UUID which is randomly generated consisting of hex values under &lt;a href=&quot;https:&#x2F;&#x2F;tools.ietf.org&#x2F;html&#x2F;rfc4122#section-4.4&quot;&gt;section 4.4&lt;&#x2F;a&gt;. Luckily, from everything explained, this was the smallest algorithm required to implement:&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;color:#c0c5ce;&quot;&gt;&lt;code&gt;&lt;span&gt;4.4.  Algorithms for Creating a UUID from Truly Random or
+&lt;&#x2F;span&gt;&lt;span&gt;      Pseudo-Random Numbers
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;   The version 4 UUID is meant for generating UUIDs from truly-random or
+&lt;&#x2F;span&gt;&lt;span&gt;   pseudo-random numbers.
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;   The algorithm is as follows:
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;   o  Set the two most significant bits (bits 6 and 7) of the
+&lt;&#x2F;span&gt;&lt;span&gt;      clock_seq_hi_and_reserved to zero and one, respectively.
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;   o  Set the four most significant bits (bits 12 through 15) of the
+&lt;&#x2F;span&gt;&lt;span&gt;      time_hi_and_version field to the 4-bit version number from
+&lt;&#x2F;span&gt;&lt;span&gt;      Section 4.1.3.
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;   o  Set all the other bits to randomly (or pseudo-randomly) chosen
+&lt;&#x2F;span&gt;&lt;span&gt;      values.
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;So maybe that&#x27;s easier to understand if you read it from the top, but what it essentially says is that you can generate a random set of hex values for 30 of the 32 values, but the 13th bit must be &lt;em&gt;4&lt;&#x2F;em&gt;, which is a way of identifying what type of UUID it is (i.e. type 4), and the 17th bit can be of &lt;em&gt;8&lt;&#x2F;em&gt;, &lt;em&gt;9&lt;&#x2F;em&gt;, &lt;em&gt;a&lt;&#x2F;em&gt; or &lt;em&gt;b&lt;&#x2F;em&gt;. Here&#x27;s an example:&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;color:#c0c5ce;&quot;&gt;&lt;code&gt;&lt;span&gt;a0424604-03c6-4468-963b-002e5fbe2812
+&lt;&#x2F;span&gt;&lt;span&gt;              ^    ^
+&lt;&#x2F;span&gt;&lt;span&gt;              |    |
+&lt;&#x2F;span&gt;&lt;span&gt;           always 4|
+&lt;&#x2F;span&gt;&lt;span&gt;                   |
+&lt;&#x2F;span&gt;&lt;span&gt;               either 8,9,a,b
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;The code for writing this was fairly simple and can be found &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;jonalmeida&#x2F;UUIDGenerator&quot;&gt;on GitHub&lt;&#x2F;a&gt;, but I wanted a way to verify it was created correctly.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;verifying-the-correct-form&quot;&gt;Verifying the correct form&lt;&#x2F;h2&gt;
+&lt;p&gt;After asking around and a few StackOverflow questions later, it seemed easiest to use a regex expression to solve this. I came up with a regex expression that tests for all four possible formats it could be expressed in. They look like this:&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;color:#c0c5ce;&quot;&gt;&lt;code&gt;&lt;span&gt;Lower case without hypens: 7185f40e722c4cfa8de5daedf048ea12
+&lt;&#x2F;span&gt;&lt;span&gt;Upper case without hypens: 21A338B30A57462780450D4B6AF7A3EE
+&lt;&#x2F;span&gt;&lt;span&gt;Lower case with hypens: 7e0b2da6-38c3-4873-83f7-aab0cacb7603
+&lt;&#x2F;span&gt;&lt;span&gt;Upper case with hypens: FDFC7265-BA5E-4A63-9A51-AC661107EB37
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;This is the regex expression I finally ended up using:&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;color:#c0c5ce;&quot;&gt;&lt;code&gt;&lt;span&gt;[0-9a-fA-F]{8}-?[0-9a-fA-F]{4}-?4[0-9a-fA-F]{3}-?[89abAB][0-9a-fA-F]{3}-?[0-9a-fA-F]{12}
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;To break down what the regex says:&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;First 8 characters can be anything from 0-9, a-f, A-F: &lt;code&gt;[0-9a-fA-F]{8}&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;A single hypen may follow: &lt;code&gt;-?&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;Next 4 characters can be anything from 0-9, a-f, A-F: &lt;code&gt;[0-9a-fA-F]{4}&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;A single hypen may follow: &lt;code&gt;-?&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;A single &#x27;4&#x27; must follow&lt;&#x2F;li&gt;
+&lt;li&gt;Next 3 characters can be anything from 0-9, a-f, A-F: &lt;code&gt;[0-9a-fA-F]{3}&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;A single hypen may follow: &lt;code&gt;-?&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;The next character must be either 8, 9, a, b: &lt;code&gt;[89abAB]&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;Next 3 characters can be anything from 0-9, a-f, A-F: &lt;code&gt;[0-9a-fA-F]{3}&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;A single hypen may follow: &lt;code&gt;-?&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;Next 12 characters can be anything from 0-9, a-f, A-F: &lt;code&gt;[0-9a-fA-F]{12}&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;&#x2F;h2&gt;
+&lt;p&gt;Spec sheets explain everything you need about said thing even though they look ugly and seem too monotinous to read. You can find a couple of tests I wrote &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;jonalmeida&#x2F;UUIDGenerator&#x2F;blob&#x2F;master&#x2F;UUIDGeneratorTests&#x2F;UUIDGeneratorTests.m&quot;&gt;on GitHub&lt;&#x2F;a&gt; as well in an objective-c implementation. This is what one of the tests look like:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;objective-c&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-objective-c &quot;&gt;&lt;code class=&quot;language-objective-c&quot; data-lang=&quot;objective-c&quot;&gt;&lt;span&gt;- (&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;void&lt;&#x2F;span&gt;&lt;span&gt;)testCorrectUUIDFormat
+&lt;&#x2F;span&gt;&lt;span&gt;{
+&lt;&#x2F;span&gt;&lt;span&gt;  UUIDGenerator *u_generator = [[UUIDGenerator &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;alloc&lt;&#x2F;span&gt;&lt;span&gt;] init];
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ebcb8b;&quot;&gt;NSString &lt;&#x2F;span&gt;&lt;span&gt;*sample_uuid = [u_generator &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;uuid4WithCaps:&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;false &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;hypenated:&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;true&lt;&#x2F;span&gt;&lt;span&gt;];
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ebcb8b;&quot;&gt;NSString &lt;&#x2F;span&gt;&lt;span&gt;*pattern = @&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;;
+&lt;&#x2F;span&gt;&lt;span&gt;  NSRange searchRange = &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;NSMakeRange&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span&gt;, [sample_uuid &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;length&lt;&#x2F;span&gt;&lt;span&gt;]);
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ebcb8b;&quot;&gt;NSError &lt;&#x2F;span&gt;&lt;span&gt;*error = &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;NULL&lt;&#x2F;span&gt;&lt;span&gt;;
+&lt;&#x2F;span&gt;&lt;span&gt;  NSRegularExpression *regex = [NSRegularExpression &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;regularExpressionWithPattern:&lt;&#x2F;span&gt;&lt;span&gt;pattern &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;options:&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;0 &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;error:&lt;&#x2F;span&gt;&lt;span&gt;&amp;amp;error];
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ebcb8b;&quot;&gt;NSArray &lt;&#x2F;span&gt;&lt;span&gt;*matches = [regex &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;matchesInString:&lt;&#x2F;span&gt;&lt;span&gt;sample_uuid &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;options:&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;0 &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;range:&lt;&#x2F;span&gt;&lt;span&gt;searchRange];
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;  [matches &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;count&lt;&#x2F;span&gt;&lt;span&gt;];
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;for &lt;&#x2F;span&gt;&lt;span&gt;(NSTextCheckingResult* match in matches) {
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ebcb8b;&quot;&gt;NSString&lt;&#x2F;span&gt;&lt;span&gt;* matchText = [sample_uuid &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;substringWithRange:&lt;&#x2F;span&gt;&lt;span&gt;[match &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;range&lt;&#x2F;span&gt;&lt;span&gt;]];
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;NSLog&lt;&#x2F;span&gt;&lt;span&gt;(@&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;match: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;%@&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;, matchText);
+&lt;&#x2F;span&gt;&lt;span&gt;    NSRange group1 = [match &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;rangeAtIndex:&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span&gt;];
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;NSLog&lt;&#x2F;span&gt;&lt;span&gt;(@&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;group1: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;%@&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;, [sample_uuid &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;substringWithRange:&lt;&#x2F;span&gt;&lt;span&gt;group1]);
+&lt;&#x2F;span&gt;&lt;span&gt;  }
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;NSLog&lt;&#x2F;span&gt;&lt;span&gt;(@&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;Our UUID, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;%@&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;, sample_uuid);
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;NSLog&lt;&#x2F;span&gt;&lt;span&gt;(@&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;Our UUID length, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;%lu&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;, (&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;unsigned long&lt;&#x2F;span&gt;&lt;span&gt;)[sample_uuid &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;length&lt;&#x2F;span&gt;&lt;span&gt;]);
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;XCTAssertEqual&lt;&#x2F;span&gt;&lt;span&gt;([matches &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;count&lt;&#x2F;span&gt;&lt;span&gt;], &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span&gt;, @&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;UUID generated doesn&amp;#39;t match the type 4 UUID RFC&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;);
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Refs:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http:&#x2F;&#x2F;stackoverflow.com&#x2F;questions&#x2F;11384589&#x2F;what-is-the-correct-regex-for-matching-values-generated-by-uuid-uuid4-hex&quot;&gt;What is the correct regex for matching values generated by uuid.uuid4().hex?&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Cleaning up a messy master branch</title>
+        <published>2013-07-28T00:00:00+00:00</published>
+        <updated>2013-07-28T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Jonathan Almeida
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/blog/cleaning-up-a-messy-master-branch/"/>
+        <id>https://jonalmeida.com/blog/cleaning-up-a-messy-master-branch/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/blog/cleaning-up-a-messy-master-branch/">&lt;p&gt;Note: This is for the foolish and lazy side of you&lt;&#x2F;p&gt;
+&lt;p&gt;Twice I&#x27;ve come across a situation where I&#x27;ve messed up local master branch before I merge my topic branch. I&#x27;ve pushed commits to my local master that are now lost in the abyss so when I pull down the latest changes to the master branch I have to do a merge commit. Let&#x27;s fix that with a bit of frustration..&lt;&#x2F;p&gt;
+&lt;p&gt;Create a orphan branch with any branch name (we&#x27;ll rename it later):&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;git&lt;&#x2F;span&gt;&lt;span&gt; checkout&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; --orphan&lt;&#x2F;span&gt;&lt;span&gt; any_branch_name
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Pull the lastest changes:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;git&lt;&#x2F;span&gt;&lt;span&gt; pull origin master
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Rename the branch back to master if you fancy it:&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;color:#c0c5ce;&quot;&gt;&lt;code&gt;&lt;span&gt;git branch -m any_branch_name master
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;If you&#x27;re working on a topic branch, that you&#x27;ve previously created over your old master, you should be able to rebase it with your new branch, before you push it your remote:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;git&lt;&#x2F;span&gt;&lt;span&gt; checkout topic_branch
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;git&lt;&#x2F;span&gt;&lt;span&gt; rebase master
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;git&lt;&#x2F;span&gt;&lt;span&gt; checkout master
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;git&lt;&#x2F;span&gt;&lt;span&gt; merge topic_branch
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;git&lt;&#x2F;span&gt;&lt;span&gt; push origin master
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;A shorter way (but still somewhat untidy) to do this would be to cherry-pick your change(s) from your topic branch to your newly created local master and then push them. While this works just a well. There are changes you turn into a walking-talking-moron and screw up again if those changes aren&#x27;t merged with your remote:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;git&lt;&#x2F;span&gt;&lt;span&gt; checkout master
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;git&lt;&#x2F;span&gt;&lt;span&gt; cherry-pick SHA_VALUE
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;git&lt;&#x2F;span&gt;&lt;span&gt; push origin master
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;&lt;em&gt;For the not-so-foolish...&lt;&#x2F;em&gt;&lt;br&gt;
+How about a third option? I prefer this one to most though since it&#x27;s the only way you &lt;em&gt;should&lt;&#x2F;em&gt; be doing it.
+Let&#x27;s say you were working on a commit on your topic branch for a while, and your remote master has been updated a fair bit since then.
+First, fetch the latest changes from upstream, rebase your topic branch to your remote&#x27;s master and then push it:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;git&lt;&#x2F;span&gt;&lt;span&gt; fetch
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;git&lt;&#x2F;span&gt;&lt;span&gt; rebase origin&#x2F;master
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;git&lt;&#x2F;span&gt;&lt;span&gt; push origin master
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;This way, you get your changes pushed to the top of the tree based of the remote&#x27;s master (which should be the most up-to-date version you want). You don&#x27;t need to maintain your local master, because hey, why the hell should you? AND.. you should be able to push to the remote repo without any errors.&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Different ways to implement flags in bash</title>
+        <published>2013-05-26T00:00:00+00:00</published>
+        <updated>2013-05-26T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Jonathan Almeida
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/blog/different-ways-to-implement-flags-in-bash/"/>
+        <id>https://jonalmeida.com/blog/different-ways-to-implement-flags-in-bash/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/blog/different-ways-to-implement-flags-in-bash/">&lt;p&gt;I had to write a couple of shell script which required me to execute a part of the script by passing a flag. Should be easy enough?&lt;&#x2F;p&gt;
+&lt;p&gt;Writing the part for capturing flags wasn&#x27;t that hard, but there were many options available so it took a while to ponder on what I needed and while purpose suit me. I&#x27;ve seen implementations where people use simple if statements for dot files as so:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;#!&#x2F;bin&#x2F;bash
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;if &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;[ &lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;$&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot; == &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;quack&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;]&lt;&#x2F;span&gt;&lt;span&gt;; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;then
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;echo&lt;&#x2F;span&gt;&lt;span&gt; QUACK!
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;fi
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Sure, that works, but not exactly for my needs since I have multiple flags to handle. Which lead me to getopts. Using getopts was a bit fancy, but when you realize how easy it is to implement you&#x27;ll learn to love it. I&#x27;m not going to repeat what Ricardo Salveti has done quite well in his blog here, but after reading it, this was my implementation:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;#!&#x2F;bin&#x2F;bash
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;while &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;getopts &lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;bf:&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot; OPTION
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;do
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;case &lt;&#x2F;span&gt;&lt;span&gt;$&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;OPTION &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;in
+&lt;&#x2F;span&gt;&lt;span&gt;    b&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;)
+&lt;&#x2F;span&gt;&lt;span&gt;      &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;echo &lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;You set flag -b&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;      &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;exit
+&lt;&#x2F;span&gt;&lt;span&gt;      ;;
+&lt;&#x2F;span&gt;&lt;span&gt;    f&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;)
+&lt;&#x2F;span&gt;&lt;span&gt;      &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;echo &lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;The value of -f is &lt;&#x2F;span&gt;&lt;span&gt;$&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;OPTARG&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;      &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;MYOPTF&lt;&#x2F;span&gt;&lt;span&gt;=$&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;OPTARG
+&lt;&#x2F;span&gt;&lt;span&gt;      &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;echo &lt;&#x2F;span&gt;&lt;span&gt;$&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;MYOPTF
+&lt;&#x2F;span&gt;&lt;span&gt;      &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;exit
+&lt;&#x2F;span&gt;&lt;span&gt;      ;;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;\?&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;)
+&lt;&#x2F;span&gt;&lt;span&gt;      &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;echo &lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;Used for the help menu&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;      &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;exit
+&lt;&#x2F;span&gt;&lt;span&gt;      ;;
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;esac
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;done
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;In a nutshell, it&#x27;s a while statement with cases. The &quot;bf:&quot; says that only a flag &#x27;-b&#x27; needs to be entered by the user, &#x27;-f&#x27; has a semicolon after it to indicate that it&#x27;s expecting a value with the flag, similar to writing &lt;code&gt;foo.sh -f my_value_here&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;The beauty of getopts is that it can handle the same flag multiple times. If you would do that with the current code about it wouldn&#x27;t spit out any errors, but it wouldn&#x27;t work as expected. Lets say you wanted to use the &#x27;-f&#x27; flag twice. The value of MYOPTF would be &lt;em&gt;the value of last -f value used and no other&lt;&#x2F;em&gt;. This can be solved with a small modification:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;#!&#x2F;bin&#x2F;bash
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;while &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;getopts &lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;f:&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot; OPTION
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;do
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;case &lt;&#x2F;span&gt;&lt;span&gt;$&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;OPTION &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;in
+&lt;&#x2F;span&gt;&lt;span&gt;    f&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;)
+&lt;&#x2F;span&gt;&lt;span&gt;      &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;MYOPTF&lt;&#x2F;span&gt;&lt;span&gt;=&amp;quot;$&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;MYOPTF &lt;&#x2F;span&gt;&lt;span&gt;$&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;OPTARG&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;      &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;echo&lt;&#x2F;span&gt;&lt;span&gt; MYOPTF
+&lt;&#x2F;span&gt;&lt;span&gt;      ;;
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;esac
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;done
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;That should work fine since you have a list of all the values, you can easily iterate through it with a for loop.&lt;&#x2F;p&gt;
+&lt;p&gt;The disadvantage (as far as my use case is concerned) with getopts is that it only accepts single character flags so you couldn&#x27;t use flags like &lt;code&gt;--help&lt;&#x2F;code&gt; which the gnu styled arguments and is a bit unfortunate.&lt;&#x2F;p&gt;
+&lt;p&gt;I finally decided to use a hybrid of all the information I put together since I ran into the case where I needed to accept either option &#x27;-h&#x27; or &lt;code&gt;--help&lt;&#x2F;code&gt;:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;#!&#x2F;bin&#x2F;bash
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;while &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;[ &lt;&#x2F;span&gt;&lt;span&gt;! $&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;# -eq&lt;&#x2F;span&gt;&lt;span&gt; 0 &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;]
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;do
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;case &lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;$&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;in
+&lt;&#x2F;span&gt;&lt;span&gt;    --help | -h&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;)
+&lt;&#x2F;span&gt;&lt;span&gt;      &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;helpmenu
+&lt;&#x2F;span&gt;&lt;span&gt;      &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;exit
+&lt;&#x2F;span&gt;&lt;span&gt;      ;;
+&lt;&#x2F;span&gt;&lt;span&gt;    --take-over-world | -t&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;)
+&lt;&#x2F;span&gt;&lt;span&gt;      &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;secretopt
+&lt;&#x2F;span&gt;&lt;span&gt;      &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;exit
+&lt;&#x2F;span&gt;&lt;span&gt;      ;;
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;esac
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;shift
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;done
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;You would have noticed I threw in a bunch of stuff that I didn&#x27;t mention previously, and that&#x27;s sort of the assumption I made.
+What I&#x27;ve essentially done in &lt;code&gt;while [ ! $# -eq 0 ]&lt;&#x2F;code&gt; is I&#x27;ve said, while the number of arguments are not zero, do so and so.
+The $1 is the first argument that&#x27;s passed the script at execution, to avoid having to write cases for $2, $3, etc. I &quot;shift&quot; the argument off my list once I&#x27;m done processing it through my case statements, and then repeat while arguments exist.&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Git on Mac OS persistently uses HTTP proxy</title>
+        <published>2013-04-10T00:00:00+00:00</published>
+        <updated>2013-04-10T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Jonathan Almeida
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/blog/git-on-mac-os-persistently-uses-http-proxy/"/>
+        <id>https://jonalmeida.com/blog/git-on-mac-os-persistently-uses-http-proxy/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/blog/git-on-mac-os-persistently-uses-http-proxy/">&lt;p&gt;So I&#x27;ve been running into the problem off late on Mac OS when using an HTTPS proxy and then using git over https. After removing the proxy from Preferences, the http proxy still persists giving an error as seen below:&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;color:#c0c5ce;&quot;&gt;&lt;code&gt;&lt;span&gt;Cloning into &amp;#39;Foo&amp;#39;...
+&lt;&#x2F;span&gt;&lt;span&gt;error: Failed connect to github.com:5222; Connection refused while accessing https:&#x2F;&#x2F;github.com&#x2F;jonalmeida&#x2F;Foo.git&#x2F;info&#x2F;refs
+&lt;&#x2F;span&gt;&lt;span&gt;fatal: HTTP request failed
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;It took me a while to figure this out since I figured this was a Mac OS problem where the proxy settings weren&#x27;t being removed. The quick fix is to remove the HTTP proxy globally through git:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;git&lt;&#x2F;span&gt;&lt;span&gt; config&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; --global --unset&lt;&#x2F;span&gt;&lt;span&gt; http.proxy
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Alas! That&#x27;s all it took!&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Pushing to multiple existing git repositories</title>
+        <published>2013-04-09T00:00:00+00:00</published>
+        <updated>2013-04-09T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Jonathan Almeida
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/blog/pushing-to-multiple-existing-git-repositories/"/>
+        <id>https://jonalmeida.com/blog/pushing-to-multiple-existing-git-repositories/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/blog/pushing-to-multiple-existing-git-repositories/">&lt;p&gt;I&#x27;ve come across this situation where I start a project and push it to a personal git server, but eventually change my mind and decide to push those changes to another git server like Github or the university servers.&lt;&#x2F;p&gt;
+&lt;p&gt;To push those existing changes, first make sure that you&#x27;re local copy of your repository is up-to-date with a simple &lt;code&gt;git pull&lt;&#x2F;code&gt;. You want to edit the existing &lt;code&gt;.git&#x2F;config&lt;&#x2F;code&gt; file that originally looks like this:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;ini&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-ini &quot;&gt;&lt;code class=&quot;language-ini&quot; data-lang=&quot;ini&quot;&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;[core]
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;repositoryformatversion &lt;&#x2F;span&gt;&lt;span&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;0
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;filemode &lt;&#x2F;span&gt;&lt;span&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;true
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;bare &lt;&#x2F;span&gt;&lt;span&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;false
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;logallrefupdates &lt;&#x2F;span&gt;&lt;span&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;true
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;[remote &amp;quot;origin&amp;quot;]
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;url &lt;&#x2F;span&gt;&lt;span&gt;= git&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;@github&lt;&#x2F;span&gt;&lt;span&gt;.com:User&#x2F;MyProject.git
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;fetch &lt;&#x2F;span&gt;&lt;span&gt;= +refs&#x2F;heads&#x2F;*:refs&#x2F;remotes&#x2F;origin&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;*
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;br&gt;
+&lt;p&gt;By adding another remote, like so: &lt;code&gt;git remote add foobar git_address_here&lt;&#x2F;code&gt;. You should notice your git config file will now like this:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;ini&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-ini &quot;&gt;&lt;code class=&quot;language-ini&quot; data-lang=&quot;ini&quot;&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;[core]
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;repositoryformatversion &lt;&#x2F;span&gt;&lt;span&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;0
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;filemode &lt;&#x2F;span&gt;&lt;span&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;true
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;bare &lt;&#x2F;span&gt;&lt;span&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;false
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;logallrefupdates &lt;&#x2F;span&gt;&lt;span&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;true
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;[remote &amp;quot;origin&amp;quot;]
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;url &lt;&#x2F;span&gt;&lt;span&gt;= git&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;@github&lt;&#x2F;span&gt;&lt;span&gt;.com:User&#x2F;MyProject.git
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;fetch &lt;&#x2F;span&gt;&lt;span&gt;= +refs&#x2F;heads&#x2F;*:refs&#x2F;remotes&#x2F;origin&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;*
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;[remote &amp;quot;foobar&amp;quot;]
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;  url = ssh:&#x2F;&#x2F;my_server&#x2F;~&#x2F;Repo&#x2F;UberWriter.git
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;  fetch = +refs&#x2F;heads&#x2F;*:refs&#x2F;remotes&#x2F;foobar&#x2F;*
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Now you have two remote repositories setup in your configuration. Simply run a git push with the new remote and that should push all the changes from your local repo, to your new remote: &lt;code&gt;git push foobar master&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;If you want to take it a further step and push to both remotes at the same time (nothing wrong with a backup of a backup), manually edit your &lt;code&gt;.git&#x2F;config&lt;&#x2F;code&gt; file to add both your repositories as a separate remote, but DO NOT add a &#x27;fetch&#x27; variable in there, like so:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;ini&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-ini &quot;&gt;&lt;code class=&quot;language-ini&quot; data-lang=&quot;ini&quot;&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;[remote &amp;quot;all&amp;quot;]
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;url &lt;&#x2F;span&gt;&lt;span&gt;= git&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;@github&lt;&#x2F;span&gt;&lt;span&gt;.com:User&#x2F;MyProject.git
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;url &lt;&#x2F;span&gt;&lt;span&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;ssh:&#x2F;&#x2F;my_server&#x2F;~&#x2F;Repo&#x2F;UberWriter.git
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Now before you push to both the repositories at the same time, make sure both of them are at the same HEAD otherwise it&#x27;ll not work:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;ini&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-ini &quot;&gt;&lt;code class=&quot;language-ini&quot; data-lang=&quot;ini&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;git &lt;&#x2F;span&gt;&lt;span&gt;push all
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;This should be enough to push to the default branch for both of the two repositories.&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>C++11 in XCode 4.5</title>
+        <published>2013-03-26T00:00:00+00:00</published>
+        <updated>2013-03-26T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Jonathan Almeida
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/blog/c-11-in-xcode-4-5/"/>
+        <id>https://jonalmeida.com/blog/c-11-in-xcode-4-5/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/blog/c-11-in-xcode-4-5/">&lt;p&gt;I was messing around with XCode today, and found out clang++ that&#x27;s available with XCode 4.5.2, already has the C++11 standard available even though g++ still doesn&#x27;t.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;jupiter:tmp&lt;&#x2F;span&gt;&lt;span&gt; jonathan$ clang++&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; --version
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Apple&lt;&#x2F;span&gt;&lt;span&gt; clang version 4.1 (tags&#x2F;Apple&#x2F;clang-421.11.66) (&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;based&lt;&#x2F;span&gt;&lt;span&gt; on LLVM 3.1svn)
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Target:&lt;&#x2F;span&gt;&lt;span&gt; x86_64-apple-darwin12.3.0
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Thread&lt;&#x2F;span&gt;&lt;span&gt; model: posix
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;You can compile with it using &lt;code&gt;clang++ --std=c++11 -stdlib=libc++ foo.cxx&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;That said, it&#x27;s probably best to get the latest version of XCode.&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Embedding video in Jekyll</title>
+        <published>2013-03-25T00:00:00+00:00</published>
+        <updated>2013-03-25T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Jonathan Almeida
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/blog/embedding-video-in-jekyll/"/>
+        <id>https://jonalmeida.com/blog/embedding-video-in-jekyll/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/blog/embedding-video-in-jekyll/">&lt;h3 id=&quot;the-code&quot;&gt;The code:&lt;&#x2F;h3&gt;
+&lt;p&gt;Youtube embedded code works just as fine in Markdown.&lt;br&gt;&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;html&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-html &quot;&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;&lt;span&gt;&amp;lt;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;iframe
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;width&lt;&#x2F;span&gt;&lt;span&gt;=&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;560&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;height&lt;&#x2F;span&gt;&lt;span&gt;=&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;315&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;src&lt;&#x2F;span&gt;&lt;span&gt;=&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;http:&#x2F;&#x2F;www.youtube.com&#x2F;embed&#x2F;prX3--rtqXk&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;frameborder&lt;&#x2F;span&gt;&lt;span&gt;=&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;allowfullscreen&lt;&#x2F;span&gt;&lt;span&gt;&amp;gt;
+&lt;&#x2F;span&gt;&lt;span&gt;&amp;lt;&#x2F;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;iframe&lt;&#x2F;span&gt;&lt;span&gt;&amp;gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;br&gt;
+&lt;iframe
+  width=&quot;560&quot;
+  height=&quot;315&quot;
+  src=&quot;http:&#x2F;&#x2F;www.youtube.com&#x2F;embed&#x2F;prX3--rtqXk&quot;
+  frameborder=&quot;0&quot;
+  allowfullscreen&gt;
+&lt;&#x2F;iframe&gt;&lt;br&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>CrunchBang Linux Initial Setup</title>
+        <published>2013-03-24T00:00:00+00:00</published>
+        <updated>2013-03-24T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Jonathan Almeida
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/blog/crunchbang-linux-initial-setup/"/>
+        <id>https://jonalmeida.com/blog/crunchbang-linux-initial-setup/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/blog/crunchbang-linux-initial-setup/">&lt;p&gt;I recently bought a ThinkPad T420s since the battery of my Dell Studio started to slowly die on me. Hence, I decided to start afresh with the ThinkPad and move away from Ubuntu to &lt;a href=&quot;http:&#x2F;&#x2F;crunchbang.org&quot;&gt;CrunchBang Linux&lt;&#x2F;a&gt; (abrev: #!) which was the first linux OS I ever used.  It&#x27;s a minimalistic Debian Wheezy based distribution that doesn&#x27;t waste any of your time setting up your computer and lets you get to what you want to do.
+It&#x27;s hardly resource hungry as well. From a cold a boot it uses ~400MB of RAM.&lt;&#x2F;p&gt;
+&lt;p&gt;I spent the best part the day setting up everything to be the way I like it. So I thought I&#x27;d at least put it somewhere for reference later on.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;conky&quot;&gt;Conky&lt;&#x2F;h3&gt;
+&lt;p&gt;The first thing I saw when I booted my laptop was conky - time to get a neat looking conky script to show off those stats. I settled for a conky script that I found on the #! forums. There are plenty more on the &lt;a href=&quot;http:&#x2F;&#x2F;crunchbang.org&#x2F;forums&#x2F;viewtopic.php?pid=556&quot;&gt;forum&lt;&#x2F;a&gt;, but I found this one more to my liking. You can download the conkyrc file &lt;a href=&quot;&#x2F;assets&#x2F;code&#x2F;conkyrc&quot;&gt;here&lt;&#x2F;a&gt; and the lua file &lt;a href=&quot;&#x2F;assets&#x2F;code&#x2F;conky_lua.lua&quot;&gt;here&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;&#x2F;images&#x2F;20130324&#x2F;conky.png&quot; alt=&quot;alt text&quot; &#x2F;&gt;&lt;br&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;My T420s needed a special fan controller with a configuration which is handled by &lt;a href=&quot;http:&#x2F;&#x2F;thinkfan.sourceforge.net&quot;&gt;thinkfan&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;adaptive-screen-colour-correction&quot;&gt;Adaptive screen colour correction&lt;&#x2F;h3&gt;
+&lt;p&gt;I came across a nifty application called &lt;a href=&quot;http:&#x2F;&#x2F;stereopsis.com&#x2F;flux&quot;&gt;f.lux&lt;&#x2F;a&gt; that essentially corrects the colours of your screen to be &#x27;warmer&#x27; as the day moves towards the end. The idea behind it is to not allow you get tired from staring at your screen all day. Which in turn, would cause irregular sleep patterns. While flux works perfectly on CrunchBang, I prefer to use it&#x27;s alternative &lt;a href=&quot;http:&#x2F;&#x2F;jonls.dk&#x2F;redshift&quot;&gt;Redshift&lt;&#x2F;a&gt; for linux OSes and f.lux for Windows&#x2F;Mac. To be honest, the only reason I do this is because I think the f.lux icon looks out-of-place on most linux window managers - personal preference really. Not to mention that redshift already exists in the repositories, so a simple &lt;code&gt;sudo apt-get install redshift&lt;&#x2F;code&gt; solves all your problems. The help pages explain how to use it, but I set redshift to 5000 in ~&#x2F;.config&#x2F;openbox&#x2F;autostart so that it&#x27;s enabled on boot: &lt;code&gt;redshift -O 5000&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;sublime-text-2-text-editor&quot;&gt;Sublime Text 2 (Text Editor)&lt;&#x2F;h3&gt;
+&lt;p&gt;I&#x27;m a big fan of Sublime Text, so this is a must on any computer I use. The linux builds are available as a tar ball so it doesn&#x27;t integrate well out-of-the-box. Below are the terminal commands to extract it to &#x2F;opt&#x2F; and create a desktop link that can be found with any application launcher you use:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;tar&lt;&#x2F;span&gt;&lt;span&gt; xf Sublime&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;\ &lt;&#x2F;span&gt;&lt;span&gt;Text&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;\ &lt;&#x2F;span&gt;&lt;span&gt;2.0.1&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;\ &lt;&#x2F;span&gt;&lt;span&gt;x64.tar.bz2
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;span&gt; mv Sublime&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;\ &lt;&#x2F;span&gt;&lt;span&gt;Text&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;\ &lt;&#x2F;span&gt;&lt;span&gt;2 &#x2F;opt&#x2F;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;span&gt; ln&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; -s&lt;&#x2F;span&gt;&lt;span&gt; &#x2F;opt&#x2F;Sublime&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;\ &lt;&#x2F;span&gt;&lt;span&gt;Text&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;\ &lt;&#x2F;span&gt;&lt;span&gt;2&#x2F;sublime_text &#x2F;usr&#x2F;bin&#x2F;sublime
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;span&gt; wget http:&#x2F;&#x2F;jonalmeida.com&#x2F;assets&#x2F;misc&#x2F;sublime.desktop &#x2F;usr&#x2F;share&#x2F;applications&#x2F;sublime.desktop
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;This last part is optional if you want all your text files to open with Sublime Text.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;span&gt; sublime &#x2F;usr&#x2F;share&#x2F;applications&#x2F;defaults.list
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Replace all occurrences of geany.desktop with sublime.desktop&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;application-launcher&quot;&gt;Application launcher&lt;&#x2F;h3&gt;
+&lt;p&gt;CrunchBang comes with a neat, minimalistic (like everything else) app launcher that lives on the bottom of your screen that you can access with Alt + F3. I like using app launchers, but the current keyboard short-cut just doesn&#x27;t feel comfortable.&lt;&#x2F;p&gt;
+&lt;p&gt;You can change it by going to Settings &amp;gt; Openbox &amp;gt; Edit rc.xml, or open ~&#x2F;.config&#x2F;openbox&#x2F;rc.xml with any text editor and add the configuration below to activate the app launcher with Ctrl + Space:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;html&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-html &quot;&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;&lt;span&gt;    &amp;lt;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;keybind &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;key&lt;&#x2F;span&gt;&lt;span&gt;=&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;C-space&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&amp;gt;
+&lt;&#x2F;span&gt;&lt;span&gt;      &amp;lt;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;action &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;name&lt;&#x2F;span&gt;&lt;span&gt;=&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;Execute&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&amp;gt;
+&lt;&#x2F;span&gt;&lt;span&gt;        &amp;lt;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;startupnotify&lt;&#x2F;span&gt;&lt;span&gt;&amp;gt;
+&lt;&#x2F;span&gt;&lt;span&gt;          &amp;lt;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;enabled&lt;&#x2F;span&gt;&lt;span&gt;&amp;gt;true&amp;lt;&#x2F;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;enabled&lt;&#x2F;span&gt;&lt;span&gt;&amp;gt;
+&lt;&#x2F;span&gt;&lt;span&gt;          &amp;lt;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;name&lt;&#x2F;span&gt;&lt;span&gt;&amp;gt;dmenu-bind&amp;lt;&#x2F;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;name&lt;&#x2F;span&gt;&lt;span&gt;&amp;gt;
+&lt;&#x2F;span&gt;&lt;span&gt;        &amp;lt;&#x2F;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;startupnotify&lt;&#x2F;span&gt;&lt;span&gt;&amp;gt;
+&lt;&#x2F;span&gt;&lt;span&gt;        &amp;lt;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;command&lt;&#x2F;span&gt;&lt;span&gt;&amp;gt;~&#x2F;.config&#x2F;dmenu&#x2F;dmenu-bind.sh&amp;lt;&#x2F;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;command&lt;&#x2F;span&gt;&lt;span&gt;&amp;gt;
+&lt;&#x2F;span&gt;&lt;span&gt;      &amp;lt;&#x2F;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;action&lt;&#x2F;span&gt;&lt;span&gt;&amp;gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &amp;lt;&#x2F;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;keybind&lt;&#x2F;span&gt;&lt;span&gt;&amp;gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h3 id=&quot;java&quot;&gt;Java&lt;&#x2F;h3&gt;
+&lt;p&gt;Unfortunately, Java isn&#x27;t going away any time soon:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;span&gt; apt-get install openjdk-7-jre
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h3 id=&quot;muti-arch-support&quot;&gt;Muti-arch support&lt;&#x2F;h3&gt;
+&lt;p&gt;On most debian distributions I&#x27;ve tried, enabling multi-arch support was as easy as installing the ia32-libs, however there&#x27;s more to it here.&lt;&#x2F;p&gt;
+&lt;p&gt;I found the solution from biggenaugust on the #! forums. First run:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;dpkg --add-architecture&lt;&#x2F;span&gt;&lt;span&gt; i386
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Then add &lt;code&gt;[arch=amd64,i386]&lt;&#x2F;code&gt; to each line of &lt;code&gt;&#x2F;etc&#x2F;apt&#x2F;sources.list&lt;&#x2F;code&gt;&lt;br&gt;
+It should look something like this:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;## CRUNCHBANG
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;## Compatible with Debian Wheezy, but use at your own risk.
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;deb &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;[&lt;&#x2F;span&gt;&lt;span&gt;arch=amd64,i386&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;]&lt;&#x2F;span&gt;&lt;span&gt; http:&#x2F;&#x2F;packages.crunchbang.org&#x2F;waldorf waldorf main
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;# deb-src [arch=amd64,i386] http:&#x2F;&#x2F;packages.crunchbang.org&#x2F;waldorf waldorf main
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;## DEBIAN
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;deb &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;[&lt;&#x2F;span&gt;&lt;span&gt;arch=amd64,i386&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;]&lt;&#x2F;span&gt;&lt;span&gt; http:&#x2F;&#x2F;http.debian.net&#x2F;debian wheezy main contrib non-free
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;# deb-src [arch=amd64,i386] http:&#x2F;&#x2F;http.debian.net&#x2F;debian wheezy main contrib non-free
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;## DEBIAN SECURITY
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;deb &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;[&lt;&#x2F;span&gt;&lt;span&gt;arch=amd64,i386&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;]&lt;&#x2F;span&gt;&lt;span&gt; http:&#x2F;&#x2F;security.debian.org&#x2F; wheezy&#x2F;updates main
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;# deb-src [arch=amd64,i386] http:&#x2F;&#x2F;security.debian.org&#x2F; wheezy&#x2F;updates main
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;After that, run:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;span&gt; apt-get update
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;span&gt; apt-get dist-upgrade
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;This is going to install all the relevant i386 library packages. It varies in size, but it&#x27;s usually around ~100-200MB and requires a reboot after this.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;overview&quot;&gt;Overview&lt;&#x2F;h3&gt;
+&lt;p&gt;I&#x27;m quite content with my current set-up and I haven&#x27;t had the need to make any changes to anything so far. Send me a message if there&#x27;s anything that needs updating or if you might need to clarify something.&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+</feed>

@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Start a Startup - Lecture 9 Notes | Jonathan Almeida</title>
+  <meta name="title" content="How to Start a Startup - Lecture 9 Notes">
+<meta name="description" content="Scribblings and nonsense">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+  
+  <link rel="alternate" type="application/atom+xml" title="Jonathan Almeida" href="https://jonalmeida.com/atom.xml">
+  <style>
+    :root {
+    --width: 800px;
+    --font-main: Verdana, sans-serif;
+    --font-secondary: Verdana, sans-serif;
+    --font-scale: 1em;
+    --background-color: #fff;
+    --heading-color: #222;
+    --text-color: #444;
+    --link-color: #3273dc;
+    --visited-color: #8b6fcb;
+    --code-background-color: #f2f2f2;
+    --code-color: #222;
+    --blockquote-color: #222;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --background-color: #01242e;
+      --heading-color: #eee;
+      --text-color: #ddd;
+      --link-color: #8cc2dd;
+      --visited-color: #8b6fcb;
+      --code-background-color: #000;
+      --code-color: #ddd;
+      --blockquote-color: #ccc;
+    }
+  }
+
+  body {
+    font-family: var(--font-secondary);
+    font-size: var(--font-scale);
+    margin: auto;
+    padding: 20px;
+    max-width: var(--width);
+    text-align: left;
+    background-color: var(--background-color);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.5;
+    color: var(--text-color);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-main);
+    color: var(--heading-color);
+  }
+
+  a {
+    color: var(--link-color);
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  nav a {
+    margin-right: 8px;
+  }
+
+  nav span.active {
+    font-weight: bold;
+    margin-right: 10px;
+  }
+  strong,
+  b {
+    color: var(--heading-color);
+  }
+
+  button {
+    margin: 0;
+    cursor: pointer;
+  }
+
+  main {
+    line-height: 1.6;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  hr {
+    border: 0;
+    border-top: 1px dashed;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  pre code {
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    display: block;
+    padding: 20px;
+    white-space: pre-wrap;
+    font-size: 0.875rem;
+    overflow-x: auto;
+  }
+
+  code {
+    font-family: monospace;
+    padding: 2px;
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    border-radius: 3px;
+  }
+
+  blockquote {
+    border-left: 1px solid #999;
+    color: var(--code-color);
+    padding-left: 20px;
+    font-style: italic;
+  }
+
+  footer {
+    padding: 25px 0;
+    text-align: center;
+  }
+
+  .title:hover {
+    text-decoration: none;
+  }
+
+  .title h1 {
+    font-size: 1.5em;
+  }
+
+  .inline {
+    width: auto !important;
+  }
+
+  .highlight,
+  .code {
+    padding: 1px 15px;
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    border-radius: 3px;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    overflow-x: auto;
+  }
+
+  /* blog post list */
+  ul.blog-posts {
+    list-style-type: none;
+    padding: unset;
+  }
+
+  ul.blog-posts li {
+    display: flex;
+  }
+
+  ul.blog-posts li span {
+    flex: 0 0 130px;
+  }
+
+  ul.blog-posts li a:visited {
+    color: var(--visited-color);
+  }
+
+  .tags {
+    font-size: smaller;
+  }
+
+  .footnote-definition {
+    display: flex;
+    margin-top: 1em;
+  }
+  .footnote-definition-label {
+    margin-left: 1rem;
+    margin-right: 0.5rem;
+    vertical-align: baseline;
+  }
+  .footnote-definition-label::after {
+    content: "."
+  }
+  .footnote-definition > p {
+    margin: 0;
+  }
+
+  </style><style>
+
+section#comments {
+  p {
+    font-size: 0.8em;
+  }
+}
+
+
+pre mark {
+  color: var(--code-color);
+}
+</style>
+
+</head>
+<body>
+  <header>
+  <a href="https://jonalmeida.com/" class="title">
+    <h1>Jonathan Almeida</h1>
+  </a>
+  <nav aria-label="site">
+      <a href="https://jonalmeida.com/">Home</a>
+      <a href="https://jonalmeida.com/blog/">Blog</a>
+      <a href="https://jonalmeida.com/til/">TIL</a>
+      <a href="https://jonalmeida.com/archive/">Archive</a>
+  </nav>
+</header>
+
+  <h1>How to Start a Startup - Lecture 9 Notes</h1>
+      <p>
+        <i>
+          <time datetime="2014-10-21T00:00:00+00:00" pubdate>2014-10-21</time>
+        </i>
+      </p>
+    <details >
+      <summary>Table of contents</summary>
+    <ul>
+        <li>
+          <a href="https://jonalmeida.com/archive/htsas-lec09/#how-to-raise-money">How to Raise Money</a>
+        <ul>
+            <li>
+              <a href="https://jonalmeida.com/archive/htsas-lec09/#initial-questions">Initial Questions</a>
+            <ul>
+                <li>
+                  <a href="https://jonalmeida.com/archive/htsas-lec09/#q-what-makes-you-want-to-invest-in-a-founder-company">Q. What makes you want to invest in a founder&#x2F;company?</a>
+                </li>
+                <li>
+                  <a href="https://jonalmeida.com/archive/htsas-lec09/#q-what-do-you-wish-founders-did-differently">Q. What do you wish founders did differently?</a>
+                </li>
+                <li>
+                  <a href="https://jonalmeida.com/archive/htsas-lec09/#q-tactics-how-does-the-process-go-can-people-email-you-directly-do-they-need-to-give-an-introduction-how-many-meetings-does-it-take-for-you-to-make-a-decision-how-do-you-figure-out-what-the-right-terms-are-when-can-a-founder-ask-you-for-a-cheque">Q. Tactics - how does the process go? Can people email you directly? Do they need to give an introduction? How many meetings does it take for you to make a decision? How do you figure out what the right terms are? When can a founder ask you for a cheque?</a>
+                </li>
+                <li>
+                  <a href="https://jonalmeida.com/archive/htsas-lec09/#q-what-terms-should-founders-care-most-about">Q. What terms should founders care most about?</a>
+                </li>
+                <li>
+                  <a href="https://jonalmeida.com/archive/htsas-lec09/#q-how-should-founders-negotiate-how-do-figure-out-what-are-the-terms">Q. How should founders negotiate? How do figure out what are the terms?</a>
+                </li>
+                <li>
+                  <a href="https://jonalmeida.com/archive/htsas-lec09/#q-is-there-a-maximum-amount-of-the-company-you-think-founders-should-sell-in-their-seed-round-series-a">Q. Is there a maximum amount of the company you think founders should sell in their seed round&#x2F;series A?</a>
+                </li>
+                <li>
+                  <a href="https://jonalmeida.com/archive/htsas-lec09/#q-could-you-tell-the-story-of-the-most-successful-investment-you-ve-ever-made-and-how-that-came-to-happen">Q. Could you tell the story of the most successful investment you&#x27;ve ever made and how that came to happen?</a>
+                </li>
+            </ul>
+            </li>
+            <li>
+              <a href="https://jonalmeida.com/archive/htsas-lec09/#audience-questions">Audience questions</a>
+            <ul>
+                <li>
+                  <a href="https://jonalmeida.com/archive/htsas-lec09/#q-does-raising-money-help-you-with-an-exit-or-an-empire">Q. Does raising money help you with an exit or an empire?</a>
+                </li>
+                <li>
+                  <a href="https://jonalmeida.com/archive/htsas-lec09/#q-what-should-founders-do-for-capital-intensive-companies-to-still-cannot-identify">Q. What should founders do for capital intensive companies to still ... (cannot identify)</a>
+                </li>
+                <li>
+                  <a href="https://jonalmeida.com/archive/htsas-lec09/#q-what-is-a-sign-that-you-should-avoid-from-a-particular-investor">Q. What is a sign that you should avoid from a particular investor?</a>
+                </li>
+                <li>
+                  <a href="https://jonalmeida.com/archive/htsas-lec09/#q-what-are-the-constraint-on-how-many-companies-you-invest-in">Q. What are the constraint on how many companies you invest in?</a>
+                </li>
+                <li>
+                  <a href="https://jonalmeida.com/archive/htsas-lec09/#q-what-convinces-you-to-invest-in-a-company-with-no-product-or-no-traction">Q. What convinces you to invest in a company with no product or no traction?</a>
+                </li>
+                <li>
+                  <a href="https://jonalmeida.com/archive/htsas-lec09/#q-can-you-talk-about-the-idea-of-board-structure">Q. Can you talk about the idea of board structure?</a>
+                </li>
+            </ul>
+            </li>
+        </ul>
+        </li>
+    </ul>
+    </details>
+  <main>
+    <p>I'm taking down notes for Sam Altman's class, How to Start a Startup and I figured I'd start sharing them. This is for the <a href="https://www.youtube.com/watch?v=uFX95HahaUs">ninth lecture</a> with the following notes:</p>
+<h1 id="how-to-raise-money">How to Raise Money</h1>
+<h2 id="initial-questions">Initial Questions</h2>
+<h3 id="q-what-makes-you-want-to-invest-in-a-founder-company">Q. What makes you want to invest in a founder/company?</h3>
+<p><strong>Ron:</strong></p>
+<ul>
+<li>Is this person a leader? Are they focused?</li>
+<li>What made you decide to invent this?</li>
+<li>What are you communication skills to lead a team?</li>
+<li>You have to be able to say in one sentence what your product does. <em>Practice saying this over and over again.</em></li>
+<li>Keep making decisions - procrastination is the devil.</li>
+<li>Bootstrap as long as you possibly can.</li>
+</ul>
+<p><strong>Marc:</strong></p>
+<ul>
+<li>VC is a game about outliers
+<ul>
+<li>It's about investing in the extreme/edge cases.</li>
+</ul>
+</li>
+<li>You look for the basic check offs: initial customers, launching, etc.
+<ul>
+<li>You also look for the special something that pushes them on the top.</li>
+</ul>
+</li>
+<li>"Be so good that they can't ignore you."</li>
+<li>Raising VC is easier than recruiting, viral growth, etc.</li>
+</ul>
+<p><strong>Parker:</strong></p>
+<ul>
+<li>"Be the Twitter guys."</li>
+<li>If you get in a situation where raising VC is hard, you're going to have much more after this.</li>
+</ul>
+<h3 id="q-what-do-you-wish-founders-did-differently">Q. What do you wish founders did differently?</h3>
+<p><strong>Marc:</strong></p>
+<ul>
+<li>Risk &amp; raising cash</li>
+<li>Risk &amp; spending cash</li>
+<li>State your milestones and your risks</li>
+<li>Calibrate the money you raised and spent to the amount of risks you're removing from the business.</li>
+</ul>
+<p><strong>Ron:</strong></p>
+<ul>
+<li>Don't ask people to sign an NDA
+<ul>
+<li>You're saying you don't have trust at the beginning</li>
+</ul>
+</li>
+<li>Do it as fast and efficiently as your can</li>
+<li><strong>Don't</strong> get your ego in the way
+<ul>
+<li>Get it over and done with fast so you can get back to building your product.</li>
+</ul>
+</li>
+<li>When someone makes a commitment to you:
+<ul>
+<li>Write and email to them to confirm what they just said to you.</li>
+<li>i.e. GET IT IN WRITING.</li>
+</ul>
+</li>
+</ul>
+<h3 id="q-tactics-how-does-the-process-go-can-people-email-you-directly-do-they-need-to-give-an-introduction-how-many-meetings-does-it-take-for-you-to-make-a-decision-how-do-you-figure-out-what-the-right-terms-are-when-can-a-founder-ask-you-for-a-cheque">Q. Tactics - how does the process go? Can people email you directly? Do they need to give an introduction? How many meetings does it take for you to make a decision? How do you figure out what the right terms are? When can a founder ask you for a cheque?</h3>
+<p><strong>Ron:</strong></p>
+<ul>
+<li>SV Angel: invests in seed stage investments.
+<ul>
+<li>One company for every 30 they look at.</li>
+<li>~1 company a week.</li>
+<li>Now we take leads from within their network.</li>
+<li>The SV Angel teams even vote to make a first phone call to you.
+<ul>
+<li>If there's a phone call, they're well on their way to invest.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>Marc:</strong></p>
+<ul>
+<li>Andreessen Horowitz: series A stage investing
+<ul>
+<li>Top (serious) investors invest in companies if they've already raised at the seed stage.
+<ul>
+<li>Do this first before you get to series A.</li>
+</ul>
+</li>
+<li>Rarely do they go straight to series A without a seed stage (usually only with someone who has been successful before and/or they have worked with in the past).</li>
+<li>~2000 referrals a year through their own network.</li>
+<li>The best way to get through, is therefore through the referral network.</li>
+</ul>
+</li>
+</ul>
+<h3 id="q-what-terms-should-founders-care-most-about">Q. What terms should founders care most about?</h3>
+<p><strong>Parker:</strong></p>
+<ul>
+<li>Picking the right seed investors.</li>
+<li>Get a good introduction from someone that VC trusts and respects - higher chance of success.</li>
+<li>YC is a good place where they tell you who those people are.</li>
+</ul>
+<h3 id="q-how-should-founders-negotiate-how-do-figure-out-what-are-the-terms">Q. How should founders negotiate? How do figure out what are the terms?</h3>
+<p><strong>Parker:</strong></p>
+<ul>
+<li>Started initial evaluation too high (11 million). People started to say it was too high.</li>
+<li>Slowly lowering it down (9 million) hit a threshold that investors were fine with (this varies).</li>
+<li>Above the level is crazy, and you should just focus on getting the money that you need, not more than you need.</li>
+</ul>
+<h3 id="q-is-there-a-maximum-amount-of-the-company-you-think-founders-should-sell-in-their-seed-round-series-a">Q. Is there a maximum amount of the company you think founders should sell in their seed round/series A?</h3>
+<p><strong>Parker:</strong></p>
+<ul>
+<li>Roughly 20-30% or 10-15% also seems to work as well.</li>
+<li>VCs are more ownership focused rather than price focused.</li>
+<li>Above 30% makes it hard for everyone at the table to get around.</li>
+</ul>
+<p><strong>Ron:</strong></p>
+<ul>
+<li>Ask yourself, at what point is my ownership starting to demotivate me?</li>
+<li>If 40% is gone, you may have just doomed yourself.</li>
+</ul>
+<h3 id="q-could-you-tell-the-story-of-the-most-successful-investment-you-ve-ever-made-and-how-that-came-to-happen">Q. Could you tell the story of the most successful investment you've ever made and how that came to happen?</h3>
+<p><strong>Ron:</strong></p>
+<ul>
+<li>Investment in Google.</li>
+<li>Came across via a party from David Sheraton who knew of the project happening in Stanford.</li>
+</ul>
+<p><strong>Marc:</strong></p>
+<ul>
+<li>Investment in Airbnb.</li>
+<li>Wasn't an early investment by Andreessen Horowitz.</li>
+<li>Heard that the customer behaviour showed them that it wasn't a terrible idea.</li>
+<li>They were impressed with the behaviour of the founders and how they were growing.</li>
+<li>"All three founders were as good as the other founder."</li>
+</ul>
+<p><strong>Ron:</strong></p>
+<ul>
+<li>"In the case of Google, two founders.. one was a little better than the other one." <em>&lt;- Ouch!</em></li>
+<li>"When you start a company, you have to go find somebody as good or better than you to be the co-founder."</li>
+<li>The anomaly is Facebook/Mark Zuckerberg.
+<ul>
+<li>You have to find phenomenal co-founders.</li>
+</ul>
+</li>
+</ul>
+<h2 id="audience-questions">Audience questions</h2>
+<h3 id="q-does-raising-money-help-you-with-an-exit-or-an-empire">Q. Does raising money help you with an exit or an empire?</h3>
+<p><strong>Ron:</strong></p>
+<ul>
+<li>If you pick good investors with domain expertise, they will have more value than money. Look for those people.</li>
+</ul>
+<p><strong>Marc:</strong></p>
+<ul>
+<li>Yes, but it doesn't matter.</li>
+<li>You can't plan these things by the downside.</li>
+<li>It shouldn't enter the decision if you should raise money. It should depending on which investor you want to raise from.</li>
+</ul>
+<h3 id="q-what-should-founders-do-for-capital-intensive-companies-to-still-cannot-identify">Q. What should founders do for capital intensive companies to still ... (cannot identify)</h3>
+<p><strong>Marc:</strong></p>
+<ul>
+<li>The more capital you have, the more intense you have to be on what is going to be required to make the business work.</li>
+<li>You have to raise as precise of the amount that you need.</li>
+<li>If you have viral growth, that's easy.</li>
+<li>If you have a great idea, but it needs more to get to that point, they will still fund you, but the operational excellence from the team matters a lot more. It's very easy to lose the company.</li>
+</ul>
+<h3 id="q-what-is-a-sign-that-you-should-avoid-from-a-particular-investor">Q. What is a sign that you should avoid from a particular investor?</h3>
+<p><strong>Ron:</strong></p>
+<ul>
+<li>If an investor has no domain expertise in your company.</li>
+<li>Doesn't have a rolodex to help you with introductions for business development and series A funding.</li>
+<li>Especially if they're in it just to make money.</li>
+</ul>
+<p><strong>Marc:</strong></p>
+<ul>
+<li>These are people who you will (potentially) be spending the next 10-15 years working with.</li>
+<li>These are people you need to trust during periods of great stress and anxiety.</li>
+<li>Everyone needs to have the same shared goal, ethics, staying power during the storms that come up.</li>
+<li>It's like getting married because the relationship is almost as long.</li>
+</ul>
+<p><strong>Ron:</strong></p>
+<ul>
+<li>SV Angel invests for life.</li>
+</ul>
+<p><strong>Parker:</strong></p>
+<ul>
+<li>Do you feel like you respect these people? Do you feel like you have a lot to learn from them?</li>
+</ul>
+<h3 id="q-what-are-the-constraint-on-how-many-companies-you-invest-in">Q. What are the constraint on how many companies you invest in?</h3>
+<p><strong>Ron:</strong></p>
+<ul>
+<li>It's really the number of companies. SV Angel just likes 1 a week.</li>
+<li>Conflict policy between two investments: only applies when one company morphed into another ones space. They will disclose it to both companies.</li>
+</ul>
+<p><strong>Marc:</strong></p>
+<ul>
+<li>Biggest constraint is opportunity cost.
+<ul>
+<li>The cost that they're worried about is ruling out conflicting companies. (e.g. Investing in MySpace removes us from Facebook).</li>
+</ul>
+</li>
+<li>Time and bandwidth of the general partners.
+<ul>
+<li>There's a limited number of space that each partner has to offer. Once each partner is maxed out, you can't make any more investments (you just don't have the people resources for it).</li>
+<li>Every investment they make in a company, takes them one spot out of investing in another. Reduces the ability of the company to make new deals.</li>
+<li>Pass out based on the relative set.</li>
+</ul>
+</li>
+</ul>
+<h3 id="q-what-convinces-you-to-invest-in-a-company-with-no-product-or-no-traction">Q. What convinces you to invest in a company with no product or no traction?</h3>
+<p><strong>Ron:</strong></p>
+<ul>
+<li>What usually convinces them: the founder and the team. The product tends to morph a lot.</li>
+</ul>
+<p><strong>Marc:</strong></p>
+<ul>
+<li>Almost always someone they know with a good track record.</li>
+</ul>
+<h3 id="q-can-you-talk-about-the-idea-of-board-structure">Q. Can you talk about the idea of board structure?</h3>
+<p><strong>Parker:</strong></p>
+<ul>
+<li>Having a co-founder and partner from your investor to help remove the fear someone will fire you.</li>
+<li>If you trust the people you are working with, it hardly ever comes to a board vote unless something is already deeply broken already.</li>
+<li>Less of a big deal people make it out to be.</li>
+<li>You almost always have unlimited power on the decision.</li>
+</ul>
+<p><strong>Marc:</strong></p>
+<ul>
+<li>In all his 20 years, he's never been in a board vote that mattered. The decision has almost always been unanimous.</li>
+</ul>
+
+  </main>
+  <p>
+        Categories:
+          <a href="https://jonalmeida.com/categories/archive/">#archive</a>
+  </p>
+
+  <!-- Add temporary footnote back-links support -->
+  <script src="/footnotes.js"></script>
+<footer>
+</footer>
+</body>
+</html>

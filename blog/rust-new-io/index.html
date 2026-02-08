@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reading and writing using the new Rust IO library | Jonathan Almeida</title>
+  <meta name="title" content="Reading and writing using the new Rust IO library">
+<meta name="description" content="Scribblings and nonsense">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+  
+  <link rel="alternate" type="application/atom+xml" title="Jonathan Almeida" href="https://jonalmeida.com/atom.xml">
+  <style>
+    :root {
+    --width: 800px;
+    --font-main: Verdana, sans-serif;
+    --font-secondary: Verdana, sans-serif;
+    --font-scale: 1em;
+    --background-color: #fff;
+    --heading-color: #222;
+    --text-color: #444;
+    --link-color: #3273dc;
+    --visited-color: #8b6fcb;
+    --code-background-color: #f2f2f2;
+    --code-color: #222;
+    --blockquote-color: #222;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --background-color: #01242e;
+      --heading-color: #eee;
+      --text-color: #ddd;
+      --link-color: #8cc2dd;
+      --visited-color: #8b6fcb;
+      --code-background-color: #000;
+      --code-color: #ddd;
+      --blockquote-color: #ccc;
+    }
+  }
+
+  body {
+    font-family: var(--font-secondary);
+    font-size: var(--font-scale);
+    margin: auto;
+    padding: 20px;
+    max-width: var(--width);
+    text-align: left;
+    background-color: var(--background-color);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.5;
+    color: var(--text-color);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-main);
+    color: var(--heading-color);
+  }
+
+  a {
+    color: var(--link-color);
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  nav a {
+    margin-right: 8px;
+  }
+
+  nav span.active {
+    font-weight: bold;
+    margin-right: 10px;
+  }
+  strong,
+  b {
+    color: var(--heading-color);
+  }
+
+  button {
+    margin: 0;
+    cursor: pointer;
+  }
+
+  main {
+    line-height: 1.6;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  hr {
+    border: 0;
+    border-top: 1px dashed;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  pre code {
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    display: block;
+    padding: 20px;
+    white-space: pre-wrap;
+    font-size: 0.875rem;
+    overflow-x: auto;
+  }
+
+  code {
+    font-family: monospace;
+    padding: 2px;
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    border-radius: 3px;
+  }
+
+  blockquote {
+    border-left: 1px solid #999;
+    color: var(--code-color);
+    padding-left: 20px;
+    font-style: italic;
+  }
+
+  footer {
+    padding: 25px 0;
+    text-align: center;
+  }
+
+  .title:hover {
+    text-decoration: none;
+  }
+
+  .title h1 {
+    font-size: 1.5em;
+  }
+
+  .inline {
+    width: auto !important;
+  }
+
+  .highlight,
+  .code {
+    padding: 1px 15px;
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    border-radius: 3px;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    overflow-x: auto;
+  }
+
+  /* blog post list */
+  ul.blog-posts {
+    list-style-type: none;
+    padding: unset;
+  }
+
+  ul.blog-posts li {
+    display: flex;
+  }
+
+  ul.blog-posts li span {
+    flex: 0 0 130px;
+  }
+
+  ul.blog-posts li a:visited {
+    color: var(--visited-color);
+  }
+
+  .tags {
+    font-size: smaller;
+  }
+
+  .footnote-definition {
+    display: flex;
+    margin-top: 1em;
+  }
+  .footnote-definition-label {
+    margin-left: 1rem;
+    margin-right: 0.5rem;
+    vertical-align: baseline;
+  }
+  .footnote-definition-label::after {
+    content: "."
+  }
+  .footnote-definition > p {
+    margin: 0;
+  }
+
+  </style><style>
+
+section#comments {
+  p {
+    font-size: 0.8em;
+  }
+}
+
+
+pre mark {
+  color: var(--code-color);
+}
+</style>
+
+</head>
+<body>
+  <header>
+  <a href="https://jonalmeida.com/" class="title">
+    <h1>Jonathan Almeida</h1>
+  </a>
+  <nav aria-label="site">
+      <a href="https://jonalmeida.com/">Home</a>
+      <a href="https://jonalmeida.com/blog/">Blog</a>
+      <a href="https://jonalmeida.com/til/">TIL</a>
+      <a href="https://jonalmeida.com/archive/">Archive</a>
+  </nav>
+</header>
+
+  <h1>Reading and writing using the new Rust IO library</h1>
+      <p>
+        <i>
+          <time datetime="2015-03-03T00:00:00+00:00" pubdate>2015-03-03</time>
+        </i>
+      </p>
+    <details >
+      <summary>Table of contents</summary>
+    <ul>
+        <li>
+          <a href="https://jonalmeida.com/blog/rust-new-io/#reading-from-a-file">Reading from a file</a>
+        </li>
+        <li>
+          <a href="https://jonalmeida.com/blog/rust-new-io/#writing-to-a-file">Writing to a file</a>
+        <ul>
+            <li>
+              <a href="https://jonalmeida.com/blog/rust-new-io/#permissons">Permissons</a>
+            </li>
+            <li>
+              <a href="https://jonalmeida.com/blog/rust-new-io/#the-actual-writing-bit">The actual writing bit</a>
+            </li>
+        </ul>
+        </li>
+        <li>
+          <a href="https://jonalmeida.com/blog/rust-new-io/#conclusion">Conclusion</a>
+        </li>
+    </ul>
+    </details>
+  <main>
+    <p>When the re-write of the <code>std::io</code> module landed in Rust <a href="http://blog.rust-lang.org/2015/02/20/Rust-1.0-alpha2.html">1.0.0-alpha.2</a>, there were a lot of changes to the way you read/write to a file. I'll cover some simple examples and probably make edits in the future to add more fancy stuff.</p>
+<blockquote>
+<p><strong>Disclaimer:</strong> At the time of writing this, <code>std::io</code> is still a work in progress! I'm also currently learning this new library as I go along, so there may be errors on my behalf as well!</p>
+</blockquote>
+<h1 id="reading-from-a-file">Reading from a file</h1>
+<p>Reading to a file can be done in two ways (both really simple). I'll talk about one way here and the second a little later.</p>
+<pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#b48ead;">let</span><span> file = </span><span style="color:#b48ead;">match </span><span>File::open(&quot;</span><span style="color:#a3be8c;">test_file.txt</span><span>&quot;) {
+</span><span>	Ok(file) =&gt; file,
+</span><span>	Err(..)  =&gt; panic!(&quot;</span><span style="color:#a3be8c;">room</span><span>&quot;),
+</span><span>}
+</span></code></pre>
+<p><code>File::open</code> by default gives you <code>Read</code> permissons, so you can create a <a href="http://doc.rust-lang.org/std/io/struct.BufReader.html"><code>BufReader</code></a> from that.</p>
+<pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#b48ead;">let mut</span><span> reader = BufReader::new(&amp;file);
+</span><span>
+</span><span style="color:#65737e;">// read_line takes reads a line and writes to a string, so we give it one.
+</span><span style="color:#b48ead;">let</span><span> buffer_string = &amp;</span><span style="color:#b48ead;">mut </span><span>String::new();
+</span><span>reader.</span><span style="color:#96b5b4;">read_line</span><span>(buffer_string);
+</span><span>println!(&quot;</span><span style="color:#a3be8c;">We read a new line: </span><span style="color:#d08770;">{}</span><span>&quot;, buffer_string);
+</span></code></pre>
+<h1 id="writing-to-a-file">Writing to a file</h1>
+<h3 id="permissons">Permissons</h3>
+<p>A simple example for writing to a file is to start by creating your <a href="http://doc.rust-lang.org/std/path/index.html"><code>Path</code></a>, and an <a href="http://doc.rust-lang.org/std/fs/struct.OpenOptions.html"><code>OpenOptions</code></a>. An <code>OpenOptions</code> is how you provide the file permissons and that you would need to read or write to a file appropriately.</p>
+<pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#b48ead;">let mut</span><span> options = OpenOptions::new();
+</span><span style="color:#65737e;">// We want to write to our file as well as append new data to it.
+</span><span>options.</span><span style="color:#96b5b4;">write</span><span>(</span><span style="color:#d08770;">true</span><span>).</span><span style="color:#96b5b4;">append</span><span>(</span><span style="color:#d08770;">true</span><span>);
+</span></code></pre>
+<p>You can also add <code>.read(true)</code> for read permissions as an alternate way to read from the file. Although, the interesting part about <code>OpenOptions</code> is that you can re-use the options set for multiple files:</p>
+<pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#65737e;">// We can create a Path
+</span><span style="color:#b48ead;">let</span><span> path = Path::new(&quot;</span><span style="color:#a3be8c;">test_file.txt</span><span>&quot;);
+</span><span>
+</span><span style="color:#65737e;">// or we can also just use a string slice:
+</span><span style="color:#b48ead;">let</span><span> path2 = &quot;</span><span style="color:#a3be8c;">test_file2.txt</span><span>&quot;;
+</span><span>
+</span><span style="color:#65737e;">// We create file options to write
+</span><span style="color:#b48ead;">let mut</span><span> options = OpenOptions::new();
+</span><span>options.</span><span style="color:#96b5b4;">write</span><span>(</span><span style="color:#d08770;">true</span><span>)
+</span><span>
+</span><span style="color:#65737e;">// Both of these should be valid
+</span><span style="color:#b48ead;">let</span><span> file: Result&lt;File, Error&gt; = options.</span><span style="color:#96b5b4;">open</span><span>(path);
+</span><span style="color:#b48ead;">let</span><span> file2: Result&lt;File, Error&gt; = options.</span><span style="color:#96b5b4;">open</span><span>(path2);
+</span></code></pre>
+<h3 id="the-actual-writing-bit">The actual writing bit</h3>
+<p>So now that we have the permissons setup correctly, we can create a <a href="http://doc.rust-lang.org/std/io/struct.BufWriter.html"><code>BufWriter</code></a> to actually write to the file. I've added a match statement to unwrap the unlike the previous snippet:</p>
+<pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#b48ead;">let</span><span> file = </span><span style="color:#b48ead;">match</span><span> options.</span><span style="color:#96b5b4;">open</span><span>(&amp;path) {
+</span><span>    Ok(file) =&gt; file,
+</span><span>    Err(..) =&gt; panic!(&quot;</span><span style="color:#a3be8c;">at the Disco</span><span>&quot;),
+</span><span>};
+</span><span>
+</span><span style="color:#65737e;">// We create a buffered writer from the file we get
+</span><span style="color:#b48ead;">let mut</span><span> writer = BufWriter::new(&amp;file);
+</span><span style="color:#65737e;">// Then we write to the file. write_all() calls flush() after the write as well.
+</span><span>writer.</span><span style="color:#96b5b4;">write_all</span><span>(</span><span style="color:#b48ead;">b</span><span>&quot;</span><span style="color:#a3be8c;">test</span><span style="color:#96b5b4;">\n</span><span>&quot;);
+</span></code></pre>
+<h1 id="conclusion">Conclusion</h1>
+<p>In my examples, I've used separate buffers but you can use a <a href="http://doc.rust-lang.org/std/io/struct.BufStream.html"><code>BufStream</code></a> as well to get all the same features combined.</p>
+
+  </main>
+  <p>
+        Categories:
+          <a href="https://jonalmeida.com/categories/blog/">#blog</a>
+  </p>
+
+  <!-- Add temporary footnote back-links support -->
+  <script src="/footnotes.js"></script>
+<footer>
+</footer>
+</body>
+</html>

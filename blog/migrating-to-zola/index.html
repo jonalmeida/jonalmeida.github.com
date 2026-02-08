@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Restarting this blog &amp; migrating to Zola | Jonathan Almeida</title>
+  <meta name="title" content="Restarting this blog &amp; migrating to Zola">
+<meta name="description" content="Scribblings and nonsense">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+  
+  <link rel="alternate" type="application/atom+xml" title="Jonathan Almeida" href="https://jonalmeida.com/atom.xml">
+  <style>
+    :root {
+    --width: 800px;
+    --font-main: Verdana, sans-serif;
+    --font-secondary: Verdana, sans-serif;
+    --font-scale: 1em;
+    --background-color: #fff;
+    --heading-color: #222;
+    --text-color: #444;
+    --link-color: #3273dc;
+    --visited-color: #8b6fcb;
+    --code-background-color: #f2f2f2;
+    --code-color: #222;
+    --blockquote-color: #222;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --background-color: #01242e;
+      --heading-color: #eee;
+      --text-color: #ddd;
+      --link-color: #8cc2dd;
+      --visited-color: #8b6fcb;
+      --code-background-color: #000;
+      --code-color: #ddd;
+      --blockquote-color: #ccc;
+    }
+  }
+
+  body {
+    font-family: var(--font-secondary);
+    font-size: var(--font-scale);
+    margin: auto;
+    padding: 20px;
+    max-width: var(--width);
+    text-align: left;
+    background-color: var(--background-color);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.5;
+    color: var(--text-color);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-main);
+    color: var(--heading-color);
+  }
+
+  a {
+    color: var(--link-color);
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  nav a {
+    margin-right: 8px;
+  }
+
+  nav span.active {
+    font-weight: bold;
+    margin-right: 10px;
+  }
+  strong,
+  b {
+    color: var(--heading-color);
+  }
+
+  button {
+    margin: 0;
+    cursor: pointer;
+  }
+
+  main {
+    line-height: 1.6;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  hr {
+    border: 0;
+    border-top: 1px dashed;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  pre code {
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    display: block;
+    padding: 20px;
+    white-space: pre-wrap;
+    font-size: 0.875rem;
+    overflow-x: auto;
+  }
+
+  code {
+    font-family: monospace;
+    padding: 2px;
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    border-radius: 3px;
+  }
+
+  blockquote {
+    border-left: 1px solid #999;
+    color: var(--code-color);
+    padding-left: 20px;
+    font-style: italic;
+  }
+
+  footer {
+    padding: 25px 0;
+    text-align: center;
+  }
+
+  .title:hover {
+    text-decoration: none;
+  }
+
+  .title h1 {
+    font-size: 1.5em;
+  }
+
+  .inline {
+    width: auto !important;
+  }
+
+  .highlight,
+  .code {
+    padding: 1px 15px;
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    border-radius: 3px;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    overflow-x: auto;
+  }
+
+  /* blog post list */
+  ul.blog-posts {
+    list-style-type: none;
+    padding: unset;
+  }
+
+  ul.blog-posts li {
+    display: flex;
+  }
+
+  ul.blog-posts li span {
+    flex: 0 0 130px;
+  }
+
+  ul.blog-posts li a:visited {
+    color: var(--visited-color);
+  }
+
+  .tags {
+    font-size: smaller;
+  }
+
+  .footnote-definition {
+    display: flex;
+    margin-top: 1em;
+  }
+  .footnote-definition-label {
+    margin-left: 1rem;
+    margin-right: 0.5rem;
+    vertical-align: baseline;
+  }
+  .footnote-definition-label::after {
+    content: "."
+  }
+  .footnote-definition > p {
+    margin: 0;
+  }
+
+  </style><style>
+
+section#comments {
+  p {
+    font-size: 0.8em;
+  }
+}
+
+
+pre mark {
+  color: var(--code-color);
+}
+</style>
+
+</head>
+<body>
+  <header>
+  <a href="https://jonalmeida.com/" class="title">
+    <h1>Jonathan Almeida</h1>
+  </a>
+  <nav aria-label="site">
+      <a href="https://jonalmeida.com/">Home</a>
+      <a href="https://jonalmeida.com/blog/">Blog</a>
+      <a href="https://jonalmeida.com/til/">TIL</a>
+      <a href="https://jonalmeida.com/archive/">Archive</a>
+  </nav>
+</header>
+
+  <h1>Restarting this blog &amp; migrating to Zola</h1>
+      <p>
+        <i>
+          <time datetime="2025-10-05T00:00:00+00:00" pubdate>2025-10-05</time>
+        </i>
+      </p>
+    <details >
+      <summary>Table of contents</summary>
+    <ul>
+        <li>
+          <a href="https://jonalmeida.com/blog/migrating-to-zola/#why">Why</a>
+        </li>
+        <li>
+          <a href="https://jonalmeida.com/blog/migrating-to-zola/#preserving-hard-links">Preserving hard-links</a>
+        </li>
+        <li>
+          <a href="https://jonalmeida.com/blog/migrating-to-zola/#preserving-page-highlighting">Preserving page highlighting</a>
+        </li>
+        <li>
+          <a href="https://jonalmeida.com/blog/migrating-to-zola/#incremental-migration-from-jekyll">Incremental migration from Jekyll</a>
+        </li>
+        <li>
+          <a href="https://jonalmeida.com/blog/migrating-to-zola/#final-thoughts">Final thoughts</a>
+        </li>
+    </ul>
+    </details>
+  <main>
+    <p>I did it - finally restarted this blog! 🙌</p>
+<h2 id="why">Why</h2>
+<p>I'll keep this short - there are others who are more expressive and have <a href="https://simeon.staneks.de/en/posts/zola-the-holy-grail-of-ssg/">shared</a> <a href="https://daudix.one/blog/zola-vs-jekyll/">their</a> <a href="https://www.kytta.dev/blog/one-week-with-zola/">opinion</a> on everything Zola does for them - go read those instead. Here is the shortform for me.</p>
+<p>I found it tedious to maintain a Jekyll site and the various plugins that you needed for what I believe should be the built-in behaviour.</p>
+<p>On every new machine I used, I found myself using a <a href="https://github.com/BretFisher/jekyll-serve">Docker image</a> for building the Jekyll site locally so I could get the magic combination correct to have it always working, until it eventually didn't work anymore.</p>
+<h2 id="preserving-hard-links">Preserving hard-links</h2>
+<p>I started with trying to look out for a way to migrate my existing Jekyll posts while also preserving the hard-links to them. I came across <a href="https://eugene-babichenko.github.io/blog/jekyll-to-zola/">Eugene Baichenko's writings and script</a> which I used and got myself up and running in no time.</p>
+<p>After some more research, I learnt that Zola supports <a href="https://www.getzola.org/documentation/content/page/"><code>aliases</code></a> which lets you preserve your hard-links without needing to build the directory structure required to keep those links. Those links just redirect to the new Zola ones, which was good enough for my needs.</p>
+<h2 id="preserving-page-highlighting">Preserving page highlighting</h2>
+<p>Zola happily seems to support YAML as a frontmatter, so for legacy posts, I didn't need to update the format and instead just include the new properties where needed (e.g. disabling table of contents on certain posts). Along the way, I also learnt that <a href="https://quickref.me/yaml.html">YAML supports references and inheritance</a> - wild stuff.</p>
+<p>Existing syntax highlighting is also preserved and at most, I needed to update the language shortcodes to match Zola's (e.g. <code>objc</code> to <code>m</code>). In miscellaneous posts I seemed to have used Liquid templating, but that too wasn't hard to search-and-replace.</p>
+<h2 id="incremental-migration-from-jekyll">Incremental migration from Jekyll</h2>
+<p>Doing the actual migration required slowly changing things over in my spare time. Starting off the blog in a sub-directory <code>/jonalmeida</code> first to get everything working there. Finally, removing the existing blog from the root directory and moving the contents of <code>/jonalmeida</code> into the root.</p>
+<h2 id="final-thoughts">Final thoughts</h2>
+<p>It seems like most of the audience for Zola are coming from other Static Site Generators.</p>
+<p>I haven't found the Zola documentation to be spectacular so it took me a bit to understand what aliases were and how to use them - I came across <a href="https://github.com/getzola/zola/issues/86">the original issue to support aliases</a> which linked to the Hugo docs that eventually told me what I needed to know.</p>
+<p>In another case, I moved to Zola because I wanted separate feeds for each tag and I couldn't figure out to get this to work even though I had already enabled it with this block:</p>
+<pre data-lang="toml" style="background-color:#2b303b;color:#c0c5ce;" class="language-toml "><code class="language-toml" data-lang="toml"><span style="color:#bf616a;">taxonomies </span><span>= [
+</span><span>    {</span><span style="color:#bf616a;">name </span><span>= &quot;</span><span style="color:#a3be8c;">categories</span><span>&quot;, </span><span style="color:#bf616a;">feed </span><span>= </span><span style="color:#d08770;">false</span><span>},
+</span><span>    {</span><span style="color:#bf616a;">name </span><span>= &quot;</span><span style="color:#a3be8c;">tags</span><span>&quot;, </span><span style="color:#bf616a;">feed </span><span>= </span><span style="color:#d08770;">true</span><span>},
+</span><span>]
+</span></code></pre>
+<p>This must be my own shortsightedness though, because it seems <a href="https://tilde.club/~passthejoe/zola/blog/zola-tag-category-feeds/index.html">obvious to others</a>.</p>
+<p>I'm also not complaining too much since this is a community-driven project; happy to see it being used by sites like <a href="https://zola.discourse.group/t/allow-html-instead-of-md-for-pages-and-sections/149">Fastmail</a> too. All in all though, I'm quite happy with where I've gotten to and I find the Zola and Tera templating combination far less intimidating.</p>
+<p>Let's see where this takes me.</p>
+
+  </main>
+  <p>
+        Tags:
+          <a href="https://jonalmeida.com/tags/blog/">#blog</a>
+        Categories:
+          <a href="https://jonalmeida.com/categories/blog/">#blog</a>
+  </p>
+
+  <!-- Add temporary footnote back-links support -->
+  <script src="/footnotes.js"></script>
+<footer>
+</footer>
+</body>
+</html>

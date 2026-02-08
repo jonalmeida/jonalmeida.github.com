@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test a Firefox Android variant alongside your daily driver | Jonathan Almeida</title>
+  <meta name="title" content="Test a Firefox Android variant alongside your daily driver">
+<meta name="description" content="Scribblings and nonsense">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+  
+  <link rel="alternate" type="application/atom+xml" title="Jonathan Almeida" href="https://jonalmeida.com/atom.xml">
+  <style>
+    :root {
+    --width: 800px;
+    --font-main: Verdana, sans-serif;
+    --font-secondary: Verdana, sans-serif;
+    --font-scale: 1em;
+    --background-color: #fff;
+    --heading-color: #222;
+    --text-color: #444;
+    --link-color: #3273dc;
+    --visited-color: #8b6fcb;
+    --code-background-color: #f2f2f2;
+    --code-color: #222;
+    --blockquote-color: #222;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --background-color: #01242e;
+      --heading-color: #eee;
+      --text-color: #ddd;
+      --link-color: #8cc2dd;
+      --visited-color: #8b6fcb;
+      --code-background-color: #000;
+      --code-color: #ddd;
+      --blockquote-color: #ccc;
+    }
+  }
+
+  body {
+    font-family: var(--font-secondary);
+    font-size: var(--font-scale);
+    margin: auto;
+    padding: 20px;
+    max-width: var(--width);
+    text-align: left;
+    background-color: var(--background-color);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.5;
+    color: var(--text-color);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-main);
+    color: var(--heading-color);
+  }
+
+  a {
+    color: var(--link-color);
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  nav a {
+    margin-right: 8px;
+  }
+
+  nav span.active {
+    font-weight: bold;
+    margin-right: 10px;
+  }
+  strong,
+  b {
+    color: var(--heading-color);
+  }
+
+  button {
+    margin: 0;
+    cursor: pointer;
+  }
+
+  main {
+    line-height: 1.6;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  hr {
+    border: 0;
+    border-top: 1px dashed;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  pre code {
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    display: block;
+    padding: 20px;
+    white-space: pre-wrap;
+    font-size: 0.875rem;
+    overflow-x: auto;
+  }
+
+  code {
+    font-family: monospace;
+    padding: 2px;
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    border-radius: 3px;
+  }
+
+  blockquote {
+    border-left: 1px solid #999;
+    color: var(--code-color);
+    padding-left: 20px;
+    font-style: italic;
+  }
+
+  footer {
+    padding: 25px 0;
+    text-align: center;
+  }
+
+  .title:hover {
+    text-decoration: none;
+  }
+
+  .title h1 {
+    font-size: 1.5em;
+  }
+
+  .inline {
+    width: auto !important;
+  }
+
+  .highlight,
+  .code {
+    padding: 1px 15px;
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    border-radius: 3px;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    overflow-x: auto;
+  }
+
+  /* blog post list */
+  ul.blog-posts {
+    list-style-type: none;
+    padding: unset;
+  }
+
+  ul.blog-posts li {
+    display: flex;
+  }
+
+  ul.blog-posts li span {
+    flex: 0 0 130px;
+  }
+
+  ul.blog-posts li a:visited {
+    color: var(--visited-color);
+  }
+
+  .tags {
+    font-size: smaller;
+  }
+
+  .footnote-definition {
+    display: flex;
+    margin-top: 1em;
+  }
+  .footnote-definition-label {
+    margin-left: 1rem;
+    margin-right: 0.5rem;
+    vertical-align: baseline;
+  }
+  .footnote-definition-label::after {
+    content: "."
+  }
+  .footnote-definition > p {
+    margin: 0;
+  }
+
+  </style><style>
+
+section#comments {
+  p {
+    font-size: 0.8em;
+  }
+}
+
+
+pre mark {
+  color: var(--code-color);
+}
+</style>
+
+</head>
+<body>
+  <header>
+  <a href="https://jonalmeida.com/" class="title">
+    <h1>Jonathan Almeida</h1>
+  </a>
+  <nav aria-label="site">
+      <a href="https://jonalmeida.com/">Home</a>
+      <a href="https://jonalmeida.com/blog/">Blog</a>
+      <a href="https://jonalmeida.com/til/">TIL</a>
+      <a href="https://jonalmeida.com/archive/">Archive</a>
+  </nav>
+</header>
+
+  <h1>Test a Firefox Android variant alongside your daily driver</h1>
+      <p>
+        <i>
+          <time datetime="2026-02-06T00:00:00+00:00" pubdate>2026-02-06</time>
+        </i>
+      </p>
+  <main>
+    <p>In the Mozilla Android team, we want engineers to talk with Product and UX more and hash out ideas sooner. Prototype an idea, then discuss the feature's merits. For this, we built <a href="https://github.com/mozilla-mobile/TryFox/">TryFox</a> to make it easier for everyone to get the latest version of Firefox Nightly or install a "try" build with a link to the build on our CI servers.</p>
+<p>The downside with using a Try build is that you sometimes have to uninstall your existing version of Nightly before you can install another and that means losing app data. Typically, if you were doing this on your daily driver, you don't want to do that. A quick work around is to add a temporary patch above your stack of commits which changes the App ID suffix (and optionally the application name) so that there is no conflict.</p>
+<p>Here is an example diff from a patch that changed an animation, so having it install alongside what we shipped let you compare them easily:</p>
+<pre data-lang="diff" style="background-color:#2b303b;color:#c0c5ce;" class="language-diff "><code class="language-diff" data-lang="diff"><span>diff --git a/mobile/android/fenix/app/build.gradle b/mobile/android/fenix/app/build.gradle
+</span><span>index 019fdb7ab4..772cc6cc3d 100644
+</span><span>--- a/mobile/android/fenix/app/build.gradle
+</span><span>+++ b/mobile/android/fenix/app/build.gradle
+</span><span>@@ -127,7 +127,7 @@
+</span><span>         debug {
+</span><span>             shrinkResources = false
+</span><span>             minifyEnabled = false
+</span><span style="color:#bf616a;">-            applicationIdSuffix &quot;.fenix.debug&quot;
+</span><span style="color:#a3be8c;">+            applicationIdSuffix &quot;.fenix.debug_animator&quot;
+</span><span>             resValue &quot;bool&quot;, &quot;IS_DEBUG&quot;, &quot;true&quot;
+</span><span>             pseudoLocalesEnabled = true
+</span><span>         }
+</span><span>diff --git a/mobile/android/fenix/app/src/main/res/values/static_strings.xml b/mobile/android/fenix/app/src/main/res/values/static_strings.xml
+</span><span>index 4f6703eb35..1a57988477 100644
+</span><span>--- a/mobile/android/fenix/app/src/main/res/values/static_strings.xml
+</span><span>+++ b/mobile/android/fenix/app/src/main/res/values/static_strings.xml
+</span><span>@@ -4,7 +4,7 @@
+</span><span>    - file, You can obtain one at http://mozilla.org/MPL/2.0/. --&gt;
+</span><span> &lt;resources xmlns:moz=&quot;http://schemas.android.com/apk/res-auto&quot; xmlns:tools=&quot;http://schemas.android.com/tools&quot;&gt;
+</span><span>     &lt;!-- Name of the application --&gt;
+</span><span style="color:#bf616a;">-    &lt;string name=&quot;app_name&quot; translatable=&quot;false&quot;&gt;Firefox Fenix&lt;/string&gt;
+</span><span style="color:#a3be8c;">+    &lt;string name=&quot;app_name&quot; translatable=&quot;false&quot;&gt;Firefox Fenix (animator)&lt;/string&gt;
+</span><span>     &lt;string name=&quot;firefox&quot; translatable=&quot;false&quot;&gt;Firefox&lt;/string&gt;
+</span><span>
+</span><span>     &lt;!-- Preference for developers --&gt;
+</span></code></pre>
+<p>In the future, we can add <code>mach try</code> support to do this automatically for any push.</p>
+
+  </main>
+  <p>
+        Categories:
+          <a href="https://jonalmeida.com/categories/til/">#TIL</a>
+        Tags:
+          <a href="https://jonalmeida.com/tags/workflow/">#workflow</a>
+          <a href="https://jonalmeida.com/tags/mozilla/">#mozilla</a>
+  </p>
+
+  <!-- Add temporary footnote back-links support -->
+  <script src="/footnotes.js"></script>
+<footer>
+</footer>
+</body>
+</html>

@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>Jonathan Almeida - TIL</title>
+    <subtitle>Scribblings and nonsense</subtitle>
+    <link rel="self" type="application/atom+xml" href="https://jonalmeida.com/categories/til/atom.xml"/>
+    <link rel="alternate" type="text/html" href="https://jonalmeida.com"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2026-02-08T00:14:35-05:00</updated>
+    <id>https://jonalmeida.com/categories/til/atom.xml</id>
+    <entry xml:lang="en">
+        <title>Test a Firefox Android variant alongside your daily driver</title>
+        <published>2026-02-06T00:00:00+00:00</published>
+        <updated>2026-02-06T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Jonathan Almeida
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/til/install-fenix-variants/"/>
+        <id>https://jonalmeida.com/til/install-fenix-variants/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/til/install-fenix-variants/">&lt;p&gt;In the Mozilla Android team, we want engineers to talk with Product and UX more and hash out ideas sooner. Prototype an idea, then discuss the feature&#x27;s merits. For this, we built &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;mozilla-mobile&#x2F;TryFox&#x2F;&quot;&gt;TryFox&lt;&#x2F;a&gt; to make it easier for everyone to get the latest version of Firefox Nightly or install a &quot;try&quot; build with a link to the build on our CI servers.&lt;&#x2F;p&gt;
+&lt;p&gt;The downside with using a Try build is that you sometimes have to uninstall your existing version of Nightly before you can install another and that means losing app data. Typically, if you were doing this on your daily driver, you don&#x27;t want to do that. A quick work around is to add a temporary patch above your stack of commits which changes the App ID suffix (and optionally the application name) so that there is no conflict.&lt;&#x2F;p&gt;
+&lt;p&gt;Here is an example diff from a patch that changed an animation, so having it install alongside what we shipped let you compare them easily:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;diff&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-diff &quot;&gt;&lt;code class=&quot;language-diff&quot; data-lang=&quot;diff&quot;&gt;&lt;span&gt;diff --git a&#x2F;mobile&#x2F;android&#x2F;fenix&#x2F;app&#x2F;build.gradle b&#x2F;mobile&#x2F;android&#x2F;fenix&#x2F;app&#x2F;build.gradle
+&lt;&#x2F;span&gt;&lt;span&gt;index 019fdb7ab4..772cc6cc3d 100644
+&lt;&#x2F;span&gt;&lt;span&gt;--- a&#x2F;mobile&#x2F;android&#x2F;fenix&#x2F;app&#x2F;build.gradle
+&lt;&#x2F;span&gt;&lt;span&gt;+++ b&#x2F;mobile&#x2F;android&#x2F;fenix&#x2F;app&#x2F;build.gradle
+&lt;&#x2F;span&gt;&lt;span&gt;@@ -127,7 +127,7 @@
+&lt;&#x2F;span&gt;&lt;span&gt;         debug {
+&lt;&#x2F;span&gt;&lt;span&gt;             shrinkResources = false
+&lt;&#x2F;span&gt;&lt;span&gt;             minifyEnabled = false
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;-            applicationIdSuffix &amp;quot;.fenix.debug&amp;quot;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;+            applicationIdSuffix &amp;quot;.fenix.debug_animator&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;             resValue &amp;quot;bool&amp;quot;, &amp;quot;IS_DEBUG&amp;quot;, &amp;quot;true&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;             pseudoLocalesEnabled = true
+&lt;&#x2F;span&gt;&lt;span&gt;         }
+&lt;&#x2F;span&gt;&lt;span&gt;diff --git a&#x2F;mobile&#x2F;android&#x2F;fenix&#x2F;app&#x2F;src&#x2F;main&#x2F;res&#x2F;values&#x2F;static_strings.xml b&#x2F;mobile&#x2F;android&#x2F;fenix&#x2F;app&#x2F;src&#x2F;main&#x2F;res&#x2F;values&#x2F;static_strings.xml
+&lt;&#x2F;span&gt;&lt;span&gt;index 4f6703eb35..1a57988477 100644
+&lt;&#x2F;span&gt;&lt;span&gt;--- a&#x2F;mobile&#x2F;android&#x2F;fenix&#x2F;app&#x2F;src&#x2F;main&#x2F;res&#x2F;values&#x2F;static_strings.xml
+&lt;&#x2F;span&gt;&lt;span&gt;+++ b&#x2F;mobile&#x2F;android&#x2F;fenix&#x2F;app&#x2F;src&#x2F;main&#x2F;res&#x2F;values&#x2F;static_strings.xml
+&lt;&#x2F;span&gt;&lt;span&gt;@@ -4,7 +4,7 @@
+&lt;&#x2F;span&gt;&lt;span&gt;    - file, You can obtain one at http:&#x2F;&#x2F;mozilla.org&#x2F;MPL&#x2F;2.0&#x2F;. --&amp;gt;
+&lt;&#x2F;span&gt;&lt;span&gt; &amp;lt;resources xmlns:moz=&amp;quot;http:&#x2F;&#x2F;schemas.android.com&#x2F;apk&#x2F;res-auto&amp;quot; xmlns:tools=&amp;quot;http:&#x2F;&#x2F;schemas.android.com&#x2F;tools&amp;quot;&amp;gt;
+&lt;&#x2F;span&gt;&lt;span&gt;     &amp;lt;!-- Name of the application --&amp;gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;-    &amp;lt;string name=&amp;quot;app_name&amp;quot; translatable=&amp;quot;false&amp;quot;&amp;gt;Firefox Fenix&amp;lt;&#x2F;string&amp;gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;+    &amp;lt;string name=&amp;quot;app_name&amp;quot; translatable=&amp;quot;false&amp;quot;&amp;gt;Firefox Fenix (animator)&amp;lt;&#x2F;string&amp;gt;
+&lt;&#x2F;span&gt;&lt;span&gt;     &amp;lt;string name=&amp;quot;firefox&amp;quot; translatable=&amp;quot;false&amp;quot;&amp;gt;Firefox&amp;lt;&#x2F;string&amp;gt;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;     &amp;lt;!-- Preference for developers --&amp;gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;In the future, we can add &lt;code&gt;mach try&lt;&#x2F;code&gt; support to do this automatically for any push.&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>CMD + Enter autocompletes a word with a .com TLD</title>
+        <published>2026-02-05T00:00:00+00:00</published>
+        <updated>2026-02-05T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Jonathan Almeida
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/til/cmd-enter-dot-com/"/>
+        <id>https://jonalmeida.com/til/cmd-enter-dot-com/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/til/cmd-enter-dot-com/">&lt;p&gt;This has apparently existed since the dawn of time in all browsers (except Safari?).&lt;&#x2F;p&gt;
+&lt;p&gt;Entering a word into the address bar, and then using Cmd + Enter&lt;sup class=&quot;footnote-reference&quot;&gt;&lt;a href=&quot;#1&quot;&gt;1&lt;&#x2F;a&gt;&lt;&#x2F;sup&gt; wraps the word with &#x27;www.&#x27; in the front and &#x27;.com&#x27; and the end of it.&lt;&#x2F;p&gt;
+&lt;div&gt;
+  &lt;img src=&quot;search-word.png&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; &#x2F;&gt;
+&lt;&#x2F;div&gt;
+&lt;p&gt;Pretty neat! I tried this with &lt;code&gt;nautil.us&lt;&#x2F;code&gt; but it didn&#x27;t work and went straight to &lt;code&gt;https:&#x2F;&#x2F;nautil.us&lt;&#x2F;code&gt; in Firefox. There might be some logic to respect known TLDs.&lt;&#x2F;p&gt;
+&lt;div class=&quot;footnote-definition&quot; id=&quot;1&quot;&gt;&lt;sup class=&quot;footnote-definition-label&quot;&gt;1&lt;&#x2F;sup&gt;
+&lt;p&gt;Control + Enter on Windows.&lt;&#x2F;p&gt;
+&lt;&#x2F;div&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Update jj bookmarks to the latest revision</title>
+        <published>2026-01-05T00:00:00+00:00</published>
+        <updated>2026-02-08T00:14:35-05:00</updated>
+        
+        <author>
+          <name>
+            
+              Jonathan Almeida
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/til/jj-tug/"/>
+        <id>https://jonalmeida.com/til/jj-tug/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/til/jj-tug/">&lt;p&gt;Got this one from another colleague as well but it seems like most folks use some version of this daily that it might be good to have this built-in.&lt;&#x2F;p&gt;
+&lt;p&gt;Before I can &lt;code&gt;jj git push&lt;&#x2F;code&gt; my current bookmark to my remote, I need to update where my (tracked) bookmark is, to the latest change:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;jj&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-jj &quot;&gt;&lt;code class=&quot;language-jj&quot; data-lang=&quot;jj&quot;&gt;&lt;mark style=&quot;background-color:#65737e30;&quot;&gt;&lt;span&gt;@  ptuqwsty &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;git@jonalmeida.com &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;2026-01-05 16:00:22 &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;451384bf&lt;&#x2F;span&gt;&lt;span&gt; &amp;lt;-- move &amp;#39;main&amp;#39; here.
+&lt;&#x2F;span&gt;&lt;&#x2F;mark&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;│  &lt;&#x2F;span&gt;&lt;span&gt;TIL: Update remote bookmark to the latest revision
+&lt;&#x2F;span&gt;&lt;mark style=&quot;background-color:#65737e30;&quot;&gt;&lt;span&gt;◆  xoqwkuvu &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;git@jonalmeida.com &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;2025-12-30 19:50:51&lt;&#x2F;span&gt;&lt;span&gt; main &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;git_head() &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;9ad7ce11
+&lt;&#x2F;span&gt;&lt;&#x2F;mark&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;│  &lt;&#x2F;span&gt;&lt;span&gt;TIL: Preserve image scale with ImageMagick
+&lt;&#x2F;span&gt;&lt;span&gt;~
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;A quick one-liner &lt;code&gt;jj tug&lt;&#x2F;code&gt; does that for me:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;jj&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-jj &quot;&gt;&lt;code class=&quot;language-jj&quot; data-lang=&quot;jj&quot;&gt;&lt;mark style=&quot;background-color:#65737e30;&quot;&gt;&lt;span&gt;@  ptuqwsty &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;git@jonalmeida.com &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;2026-01-05 16:03:54&lt;&#x2F;span&gt;&lt;span&gt; main* &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;6e7173b4
+&lt;&#x2F;span&gt;&lt;&#x2F;mark&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;│  &lt;&#x2F;span&gt;&lt;span&gt;TIL: Update remote bookmark to the latest revision
+&lt;&#x2F;span&gt;&lt;mark style=&quot;background-color:#65737e30;&quot;&gt;&lt;span&gt;◆  xoqwkuvu &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;git@jonalmeida.com &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;2025-12-30 19:50:51 &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;main@&lt;&#x2F;span&gt;&lt;span&gt;origin &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;git_head() &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;9ad7ce11
+&lt;&#x2F;span&gt;&lt;&#x2F;mark&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;│  &lt;&#x2F;span&gt;&lt;span&gt;TIL: Preserve image scale with ImageMagick
+&lt;&#x2F;span&gt;&lt;span&gt;~
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;The alias is quite straight-forward:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;toml&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-toml &quot;&gt;&lt;code class=&quot;language-toml&quot; data-lang=&quot;toml&quot;&gt;&lt;span&gt;[aliases]
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;# Update your bookmarks to your latest rev.
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;tug &lt;&#x2F;span&gt;&lt;span&gt;= [&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;bookmark&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;, &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;move&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;, &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;--from&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;, &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;heads(::@ &amp;amp; bookmarks())&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;, &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;--to&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;, &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;@&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;]
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Preserve image scale with ImageMagick</title>
+        <published>2025-12-30T00:00:00+00:00</published>
+        <updated>2025-12-30T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Jonathan Almeida
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/til/imagemagick-resize/"/>
+        <id>https://jonalmeida.com/til/imagemagick-resize/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/til/imagemagick-resize/">&lt;p&gt;Resizing images with &lt;code&gt;imagemagick&lt;&#x2F;code&gt; is straightforward even if the tool comes off intimidating.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;magick&lt;&#x2F;span&gt;&lt;span&gt; input.jpg&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; -resize&lt;&#x2F;span&gt;&lt;span&gt; 1024x output.jpg
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;The &lt;code&gt;1024x&lt;&#x2F;code&gt; is a &quot;geometry&quot; argument that says, &quot;make the image 1024 pixels width for any height&quot;. This preserves the scale for the image without needing to compute it yourself.&lt;&#x2F;p&gt;
+&lt;p&gt;You can also do the same for the height as well.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;magick&lt;&#x2F;span&gt;&lt;span&gt; input.jpg&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; -resize&lt;&#x2F;span&gt;&lt;span&gt; x768 output.jpg
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;There are more details on the full geometry argument at &lt;a href=&quot;https:&#x2F;&#x2F;imagemagick.org&#x2F;script&#x2F;command-line-processing.php#geometry&quot;&gt;the ImageMagick documentation site&lt;&#x2F;a&gt; (&lt;a href=&quot;https:&#x2F;&#x2F;imagemagick.org&#x2F;Magick++&#x2F;Geometry.html&quot; title=&quot;Alternative ImageMagick link to API docs.&quot;&gt;alternative link&lt;&#x2F;a&gt;).&lt;&#x2F;p&gt;
+&lt;p&gt;If you want to perform this in bulk, there seems to be built-in wildcard support or wildcard shell handling for it:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;$&lt;&#x2F;span&gt;&lt;span&gt; magick *.jpg&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; -resize&lt;&#x2F;span&gt;&lt;span&gt; x768 image.jpg
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;$&lt;&#x2F;span&gt;&lt;span&gt; ls
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;picture.jpg
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;another.jpg
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;onemore.jpg
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;image-0.jpg
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;image-1.jpg
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;image-2.jpg
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Editing YAML front matter in bulk</title>
+        <published>2025-12-28T00:00:00+00:00</published>
+        <updated>2025-12-30T17:04:53-05:00</updated>
+        
+        <author>
+          <name>
+            
+              Jonathan Almeida
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/til/yq-editing-frontmatter/"/>
+        <id>https://jonalmeida.com/til/yq-editing-frontmatter/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/til/yq-editing-frontmatter/">&lt;p&gt;When you want to edit YAML front matter in bulk on markdown files or similar, the tool &lt;code&gt;yq&lt;&#x2F;code&gt; works for this with similar syntax to &lt;code&gt;jq&lt;&#x2F;code&gt; for JSON query&#x2F;transformation.&lt;&#x2F;p&gt;
+&lt;p&gt;First, try out the queries without writing them to the files:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;find&lt;&#x2F;span&gt;&lt;span&gt; .&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; -name  &lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;*.md&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; -exec&lt;&#x2F;span&gt;&lt;span&gt; yq&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; --front-matter&lt;&#x2F;span&gt;&lt;span&gt;=&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;extract&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot; &amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;.taxonomies.categories[]&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39; {} &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;\;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;blockquote&gt;
+&lt;p&gt;[!NOTE] This pipes only the extracted YAML properties output to the terminal. Keep reading below for writing it to the file.&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;p&gt;To append to the categories with new entries:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;find&lt;&#x2F;span&gt;&lt;span&gt; .&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; -name  &lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;*.md&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; -exec&lt;&#x2F;span&gt;&lt;span&gt; yq&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; --front-matter&lt;&#x2F;span&gt;&lt;span&gt;=&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;extract&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot; &amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;.taxonomies.categories[] += &amp;quot;archive&amp;quot;&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39; {} &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;\;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;When we&#x27;re ready to write our changes to the file, we use &lt;code&gt;--front-matter=&quot;process&quot;&lt;&#x2F;code&gt; and the in-place flag &lt;code&gt;-I&lt;&#x2F;code&gt; (using the example above):&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;find&lt;&#x2F;span&gt;&lt;span&gt; .&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; -name  &lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;*.md&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; -exec&lt;&#x2F;span&gt;&lt;span&gt; yq&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; --front-matter&lt;&#x2F;span&gt;&lt;span&gt;=&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;process&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot; &amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;.taxonomies.categories[] += &amp;quot;archive&amp;quot;&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; -i &lt;&#x2F;span&gt;&lt;span&gt;{} &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;\;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Rebase all WIPs to the new main</title>
+        <published>2025-10-07T00:00:00+00:00</published>
+        <updated>2026-01-05T18:10:50-05:00</updated>
+        
+        <author>
+          <name>
+            
+              Jonathan Almeida
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/til/jj-rebase-all/"/>
+        <id>https://jonalmeida.com/til/jj-rebase-all/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/til/jj-rebase-all/">&lt;p&gt;A small pet-peeve with fetching the latest main on jujutsu is that I like to move all my WIP patches to the new one. That&#x27;s also nice because jj doesn&#x27;t make me fix the conflicts immediately!&lt;&#x2F;p&gt;
+&lt;p&gt;The solution from a co-worker (kudos to skippyhammond!) is to query all immediate decendants of the &lt;em&gt;previous&lt;&#x2F;em&gt; main after the fetch.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;jj&lt;&#x2F;span&gt;&lt;span&gt; git fetch
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;# assuming &amp;#39;z&amp;#39; is the rev-id of the previous main.
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;jj&lt;&#x2F;span&gt;&lt;span&gt; rebase&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; -s &lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;mutable()&amp;amp;z+&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; -d&lt;&#x2F;span&gt;&lt;span&gt; main
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;&lt;del&gt;I haven&#x27;t learnt how to make aliases accept params with it yet, so this will have to do for now.&lt;&#x2F;del&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;Update: After a bit of searching, it seems that today this is only possible by &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;jj-vcs&#x2F;jj&#x2F;discussions&#x2F;7129#discussioncomment-13933358&quot;&gt;wrapping it in a shell script&lt;&#x2F;a&gt;. Based on the examples in &lt;a href=&quot;https:&#x2F;&#x2F;docs.jj-vcs.dev&#x2F;latest&#x2F;config&#x2F;#aliases&quot;&gt;the jj documentation&lt;&#x2F;a&gt; an alias would look like this:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;toml&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-toml &quot;&gt;&lt;code class=&quot;language-toml&quot; data-lang=&quot;toml&quot;&gt;&lt;span&gt;[aliases]
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;# Update all revs to the latest main; point to the previous one.
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;hoist &lt;&#x2F;span&gt;&lt;span&gt;= [&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;util&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;, &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;exec&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;, &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;--&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;, &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;bash&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;, &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;-c&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;, &amp;quot;&amp;quot;&amp;quot;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;set -euo pipefail
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;jj rebase -s &amp;quot;mutable()&amp;amp;$1+&amp;quot; -d &amp;quot;main&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&amp;quot;&amp;quot;, &amp;quot;&amp;quot;]
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Hello, world!</title>
+        <published>2025-10-05T00:00:00+00:00</published>
+        <updated>2025-10-05T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Jonathan Almeida
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/til/hello-world/"/>
+        <id>https://jonalmeida.com/til/hello-world/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/til/hello-world/">&lt;p&gt;Like other blogs, this section is also inspired by Simon Willison’s &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;simonw&#x2F;til&quot;&gt;til&lt;&#x2F;a&gt;. The desire is that small snippets of code or helper tools end up here as a record with relevant tags for future-me to be able to sort through.&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+</feed>

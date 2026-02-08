@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Start a Startup - Lecture 14 Notes | Jonathan Almeida</title>
+  <meta name="title" content="How to Start a Startup - Lecture 14 Notes">
+<meta name="description" content="Scribblings and nonsense">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+  
+  <link rel="alternate" type="application/atom+xml" title="Jonathan Almeida" href="https://jonalmeida.com/atom.xml">
+  <style>
+    :root {
+    --width: 800px;
+    --font-main: Verdana, sans-serif;
+    --font-secondary: Verdana, sans-serif;
+    --font-scale: 1em;
+    --background-color: #fff;
+    --heading-color: #222;
+    --text-color: #444;
+    --link-color: #3273dc;
+    --visited-color: #8b6fcb;
+    --code-background-color: #f2f2f2;
+    --code-color: #222;
+    --blockquote-color: #222;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --background-color: #01242e;
+      --heading-color: #eee;
+      --text-color: #ddd;
+      --link-color: #8cc2dd;
+      --visited-color: #8b6fcb;
+      --code-background-color: #000;
+      --code-color: #ddd;
+      --blockquote-color: #ccc;
+    }
+  }
+
+  body {
+    font-family: var(--font-secondary);
+    font-size: var(--font-scale);
+    margin: auto;
+    padding: 20px;
+    max-width: var(--width);
+    text-align: left;
+    background-color: var(--background-color);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.5;
+    color: var(--text-color);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-main);
+    color: var(--heading-color);
+  }
+
+  a {
+    color: var(--link-color);
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  nav a {
+    margin-right: 8px;
+  }
+
+  nav span.active {
+    font-weight: bold;
+    margin-right: 10px;
+  }
+  strong,
+  b {
+    color: var(--heading-color);
+  }
+
+  button {
+    margin: 0;
+    cursor: pointer;
+  }
+
+  main {
+    line-height: 1.6;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  hr {
+    border: 0;
+    border-top: 1px dashed;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  pre code {
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    display: block;
+    padding: 20px;
+    white-space: pre-wrap;
+    font-size: 0.875rem;
+    overflow-x: auto;
+  }
+
+  code {
+    font-family: monospace;
+    padding: 2px;
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    border-radius: 3px;
+  }
+
+  blockquote {
+    border-left: 1px solid #999;
+    color: var(--code-color);
+    padding-left: 20px;
+    font-style: italic;
+  }
+
+  footer {
+    padding: 25px 0;
+    text-align: center;
+  }
+
+  .title:hover {
+    text-decoration: none;
+  }
+
+  .title h1 {
+    font-size: 1.5em;
+  }
+
+  .inline {
+    width: auto !important;
+  }
+
+  .highlight,
+  .code {
+    padding: 1px 15px;
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    border-radius: 3px;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    overflow-x: auto;
+  }
+
+  /* blog post list */
+  ul.blog-posts {
+    list-style-type: none;
+    padding: unset;
+  }
+
+  ul.blog-posts li {
+    display: flex;
+  }
+
+  ul.blog-posts li span {
+    flex: 0 0 130px;
+  }
+
+  ul.blog-posts li a:visited {
+    color: var(--visited-color);
+  }
+
+  .tags {
+    font-size: smaller;
+  }
+
+  .footnote-definition {
+    display: flex;
+    margin-top: 1em;
+  }
+  .footnote-definition-label {
+    margin-left: 1rem;
+    margin-right: 0.5rem;
+    vertical-align: baseline;
+  }
+  .footnote-definition-label::after {
+    content: "."
+  }
+  .footnote-definition > p {
+    margin: 0;
+  }
+
+  </style><style>
+
+section#comments {
+  p {
+    font-size: 0.8em;
+  }
+}
+
+
+pre mark {
+  color: var(--code-color);
+}
+</style>
+
+</head>
+<body>
+  <header>
+  <a href="https://jonalmeida.com/" class="title">
+    <h1>Jonathan Almeida</h1>
+  </a>
+  <nav aria-label="site">
+      <a href="https://jonalmeida.com/">Home</a>
+      <a href="https://jonalmeida.com/blog/">Blog</a>
+      <a href="https://jonalmeida.com/til/">TIL</a>
+      <a href="https://jonalmeida.com/archive/">Archive</a>
+  </nav>
+</header>
+
+  <h1>How to Start a Startup - Lecture 14 Notes</h1>
+      <p>
+        <i>
+          <time datetime="2014-11-06T00:00:00+00:00" pubdate>2014-11-06</time>
+        </i>
+      </p>
+    <details >
+      <summary>Table of contents</summary>
+    <ul>
+        <li>
+          <a href="https://jonalmeida.com/archive/htsas-lec14/#how-to-operate">How to Operate</a>
+        <ul>
+            <li>
+              <a href="https://jonalmeida.com/archive/htsas-lec14/#concept-of-editing">Concept of Editing</a>
+            </li>
+            <li>
+              <a href="https://jonalmeida.com/archive/htsas-lec14/#barrels-ammunition">Barrels &amp; Ammunition</a>
+            <ul>
+                <li>
+                  <a href="https://jonalmeida.com/archive/htsas-lec14/#how-do-you-figure-out-who-is-a-barrel">How do you figure out who is a barrel?</a>
+                </li>
+            </ul>
+            </li>
+            <li>
+              <a href="https://jonalmeida.com/archive/htsas-lec14/#insist-on-focus">Insist on Focus</a>
+            </li>
+            <li>
+              <a href="https://jonalmeida.com/archive/htsas-lec14/#metrics-transparency">Metrics &amp; Transparency</a>
+            <ul>
+                <li>
+                  <a href="https://jonalmeida.com/archive/htsas-lec14/#transparency">Transparency</a>
+                <ul>
+                    <li>
+                      <a href="https://jonalmeida.com/archive/htsas-lec14/#minimal-viable-transparency-mvt">Minimal Viable Transparency (MVT)</a>
+                    </li>
+                </ul>
+                </li>
+                <li>
+                  <a href="https://jonalmeida.com/archive/htsas-lec14/#metrics">Metrics</a>
+                </li>
+            </ul>
+            </li>
+            <li>
+              <a href="https://jonalmeida.com/archive/htsas-lec14/#details">Details</a>
+            </li>
+            <li>
+              <a href="https://jonalmeida.com/archive/htsas-lec14/#effort">Effort</a>
+            </li>
+            <li>
+              <a href="https://jonalmeida.com/archive/htsas-lec14/#questions">Questions</a>
+            </li>
+        </ul>
+        </li>
+    </ul>
+    </details>
+  <main>
+    <p>I'm taking down notes for Sam Altman's class, How to Start a Startup and I figured I'd start sharing them. This is for the <a href="https://www.youtube.com/watch?v=6fQHLK1aIBs">fourteenth lecture</a> with the following notes:</p>
+<h1 id="how-to-operate">How to Operate</h1>
+<ul>
+<li>Forging a company is harder than forging a product</li>
+<li><em>"Building a company is taking all the irrational people you know, putting them in one building, and living with them for 12 hours a day at least."</em></li>
+<li><em>"Build a company that idiots can run because eventually they will"</em> -Warren Buffett</li>
+<li>As a leader (founder), what is your role?
+<ul>
+<li>Manage the maximum output of your organization AND the organizations around you.</li>
+<li>In practice, you're ordering smoothies, teaching your secretary to answer the phone correctly, etc.</li>
+</ul>
+</li>
+<li>Everything will initially feel like a mess
+<ul>
+<li>Some things will go away (solve itself or isn't really an issue), some things are fatal.</li>
+<li>You need to triage them but you need to learn which is which.</li>
+</ul>
+</li>
+</ul>
+<h2 id="concept-of-editing">Concept of Editing</h2>
+<ul>
+<li>A way to think about your job and transmit to your employees for them to know if they're "writing" or "editing"</li>
+<li>What does an editor do?
+<ol>
+<li>You start, by taking out a red pen and strike things off.
+<ul>
+<li>Your job is to clarify and simplify.</li>
+<li>People might say, "this is too challenging", "this doesn't work for me", etc.</li>
+<li>This is wrong! Force yourself to simply everything you do!</li>
+</ul>
+</li>
+<li>Ask clarifying questions.
+<ul>
+<li>"Did you mean this?"</li>
+<li>"Where is our competitive advantage here?"</li>
+</ul>
+</li>
+<li>Allocate resources
+<ul>
+<li>The goal is to use less red ink everyday.
+<ul>
+<li>It's okay if you're having a bad day, but your red ink should reduce every month/quarter</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Ensure consistent voice
+<ul>
+<li>Not as intuitive to most people</li>
+<li>Your PR release/packaging/recruiting page should all sound like it was written by one person.</li>
+<li>Initially, you can do it all yourself. Over time, you want others to do this.</li>
+<li>Almost every company has one piece that isn't under the same voice.</li>
+</ul>
+</li>
+<li>Delegate
+<ul>
+<li>You shouldn't be doing most of the work. The way to get out of doing the work is to delegate.</li>
+<li>The problem: you're actually responsible for everything.</li>
+<li><strong>Abdicate vs. Micromanagement</strong> requires you to use Task-Relevant Maturity
+<ul>
+<li>Any one executive/CEO shouldn't have one management style. Management style needs to be dictated by the employee.</li>
+<li>Different people require varying amounts of management. Some require micro-management.</li>
+<li>How do you make decisions? (Delegate vs. doing it yourself)</li>
+<li>Delegate when you have a low confidence in your own opinion.
+<ul>
+<li>Let people make mistakes, so they can learn.</li>
+<li>Letting your employees making mistakes teaches them the mistake, but it allows them to be excited about their job and how to filter their ideas.</li>
+</ul>
+</li>
+<li>If your conviction is high, you can't let your employee make a mistake. (You're ultimately responsible for that mistake).</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<h2 id="barrels-ammunition">Barrels &amp; Ammunition</h2>
+<ul>
+<li><em>(Barrels referring to gun barrels)</em></li>
+<li>Most great people in companies are "ammunition"</li>
+<li>What you really need in your company are barrels
+<ul>
+<li>You can only shoot though the number of unique barrels you have</li>
+</ul>
+</li>
+<li>Barrels are incredibly difficult to find
+<ul>
+<li>When you do, promote them, give them equity (Don't lose them!)</li>
+</ul>
+</li>
+<li>A barrel in one company is not always a barrel at another company</li>
+<li>A barrel can take an idea from conception all the way to shipping and bring people to them</li>
+</ul>
+<h3 id="how-do-you-figure-out-who-is-a-barrel">How do you figure out who is a barrel?</h3>
+<ul>
+<li>Start by giving them very simple responsibilities</li>
+<li>Keep expanding the scope of their responsibilities until they break</li>
+<li>Everyone will break. Everyone has some level of complexity that they can handle</li>
+<li>Some people will surprise you, so you have to keep testing the envelope to see what that point is for everyone</li>
+<li>(!) Once you've hired someone, (in an open office) watch who goes up to other peoples desk. Particularly, people they don't report to.
+<ul>
+<li>If people start going to people's desk, it's a sign that that person can help them</li>
+<li>THESE ARE YOUR BARRELS!</li>
+</ul>
+</li>
+<li>When do you hire somebody over somebody OR when do you replace someone?
+<ul>
+<li>You have to track the companies growth rate and the individuals growth rate to determine how much you can keep throwing at them. High velocity companies would probably need more hires instead.</li>
+</ul>
+</li>
+</ul>
+<h2 id="insist-on-focus">Insist on Focus</h2>
+<ul>
+<li>Peter Theil forced everyone to work on one thing and only one thing.</li>
+<li>The idea is that if you have multiple things to work on, you're more likely to solve B+ problems instead of A+ problems (which are more important to your company, but are much harder to solve).
+<ul>
+<li>Recommended workflow, but you can be less stringent though</li>
+</ul>
+</li>
+</ul>
+<h2 id="metrics-transparency">Metrics &amp; Transparency</h2>
+<ul>
+<li>You can't make every decision yourself</li>
+<li>So you need to create tools that leverage people to make good decisions</li>
+<li>Use dashboards. Draft out (as the founder) what your dashboard should look like
+<ul>
+<li><em>You</em> do this because it has to align to the company's metrics for success</li>
+</ul>
+</li>
+<li>Your key to success is: how many employees actually use that dashboard everyday
+<ul>
+<li>You want something close to 100%</li>
+</ul>
+</li>
+<li>Very few people adhere to transparency within the company</li>
+</ul>
+<h3 id="transparency">Transparency</h3>
+<ul>
+<li>Take your board desk into daily meetings and review every slide with every employee
+<ul>
+<li>Use their feedback</li>
+</ul>
+</li>
+<li>As your company scales, not everyone is going to be able to go for every meeting but everyone will want to go for every meeting.
+<ul>
+<li>You scale by sending notes to everyone</li>
+<li>Every conference room should have glass walls
+<ul>
+<li>When you have regular walls, people start to wonder what's going on</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="minimal-viable-transparency-mvt">Minimal Viable Transparency (MVT)</h4>
+<ul>
+<li>Tried by Steve Jobs at NeXT</li>
+<li>Doesn't work entirely well</li>
+<li>Actual transparency seems to work more</li>
+</ul>
+<h3 id="metrics">Metrics</h3>
+<ul>
+<li>Gathering and simplifying information</li>
+<li>Measure outputs, NOT inputs
+<ul>
+<li>Draft your dashboard to tie it all together</li>
+</ul>
+</li>
+<li>Measure your false-positive rate</li>
+<li>Track the quality of hires
+<ul>
+<li>Give metrics to recruiters</li>
+<li>Helps you get better quality of hires as the quality of people coming in increases</li>
+</ul>
+</li>
+</ul>
+<h2 id="details">Details</h2>
+<ul>
+<li>If you get all the details right, you think about how to have a billion users/how to get a billion dollars.
+<ul>
+<li>This is a byproduct</li>
+</ul>
+</li>
+<li>If everyone does exactly what they're supposed to do, the incremental outcome will be at the highest possible level</li>
+<li>To a company, this translates to a lot of details that may not matter</li>
+<li>What food do you serve people who work for you?
+<ul>
+<li>If you serve terrible food, people start to gossip and complain to their friends</li>
+<li>This is time they could be using brainstorming instead</li>
+</ul>
+</li>
+<li>The office environment that your company works in matters on your culture and how they make decisions</li>
+</ul>
+<h2 id="effort">Effort</h2>
+<ul>
+<li>You need to lead by example</li>
+<li><em>"Do you know how to tell if you're doing the job? If you're up at 3 AM every night talking into a tape recorder and writing notes on scraps of paper, have a knot in your stomach and a rash on your skin, are losing sleep and losing touch with your wife and kids, have no appetite or sense of humour, and feel that everything might turn out wrong, then you're probably doing the job."</em></li>
+</ul>
+<h2 id="questions">Questions</h2>
+<p>Q. <em>How would to use transparency especially when people evaluate themselves on the salary that they get?</em></p>
+<p><strong>Ans.</strong> Either everyone in the company gets paid the same, or you could have it set by discipline (all engineers get paid the same), or by experience.</p>
+<p>Steve Jobs at NeXT did it with bands (high or low). You were either highly experienced or low experience.</p>
+<hr />
+<p>Q. <em>Besides food, what other details do people care about?</em></p>
+<p><strong>Ans.</strong></p>
+<ul>
+<li>For example, the laptops they use. 5 years ago, it was a "benefit" to give everyone a high quality laptop.</li>
+<li>You want to give people the best possible tools to do the best possible job.</li>
+<li>What things do they not need to be working on that are distracting, and what things can I give them to make them more valuable per day</li>
+</ul>
+<hr />
+<p>Q. <em>When you're in a startup, how do you optimize those things because resources are sparse.</em></p>
+<p><strong>Ans.</strong></p>
+<ul>
+<li>You must have your own office.</li>
+<li>(Keith) does not believe in shared office space.</li>
+<li>Every good startup is a cult. A cult means that you're better than others and you're doing special things that others aren't doing.</li>
+<li>When you're sharing places with others, it's very hard to inculcate that.</li>
+<li>This is a managing issue.
+<ul>
+<li>You need a good office space because it's important for recruiting.</li>
+</ul>
+</li>
+</ul>
+<hr />
+<p>Q. <em>What is the best way to gain street cred when being a new manager?</em></p>
+<p><strong>Ans.</strong></p>
+<ul>
+<li>You try to promote people who are already doing well in their position.</li>
+<li><strong>No general manager</strong></li>
+<li>Engineers can be promoted and have them learn to manage later.</li>
+<li>Find a mentor who has been a manager before and get them to help you figure out how to manage your schedule
+<ul>
+<li>Not your boss - he already has a set of objectives that he needs you to focus on</li>
+</ul>
+</li>
+</ul>
+<hr />
+<p>Q. <em>Can you give more examples on how to consistently have a consistent voice in the company?</em></p>
+<p><strong>Ans.</strong></p>
+<ul>
+<li>Look at every piece of copy in every department
+<ul>
+<li>Look at your recruiting website</li>
+</ul>
+</li>
+<li>Customer support
+<ul>
+<li>Treat it like a product</li>
+<li>Have an engineering team and a design team for it in the end to get</li>
+</ul>
+</li>
+</ul>
+<hr />
+<p>Q. <em>Can you talk about how you manage people, how do you give them roles on how to (???)</em></p>
+<p><strong>Ans.</strong></p>
+<ul>
+<li>Seems canonical now, but you should have one-on-ones approx. every two weeks</li>
+<li>You should also only have not more than 5 - 7 direct reports
+<ul>
+<li>This came from the idea that you can fit the number of one-on-ones into your calendar and still get other things done</li>
+</ul>
+</li>
+<li>The agenda should be crafted by the employee, since the one-on-one is for the employee</li>
+</ul>
+<hr />
+<p>Q. <em>When do you compromise and hire more ammunition instead of a barrel?</em></p>
+<p><strong>Ans.</strong></p>
+<ul>
+<li>You're going to hire more ammunition than barrels so that there's a ratio between the two.</li>
+<li>The real question is, what is that ratio?</li>
+<li>You will be wasting resources if that ratio goes out of whack.</li>
+<li>1:10 seems like the ideal</li>
+<li>Tell barrels that <code>x/y</code> is the grade they get on their performance review, where:
+<ul>
+<li><code>x</code> is the the number of successful things they've done</li>
+<li><code>y</code> is the number of people on their team</li>
+<li>The number of people that barrels what in their team goes down so that it averages out and creates less animosity between barrels</li>
+</ul>
+</li>
+</ul>
+<hr />
+<p>Q. <em>As a VC, how often do you meet with your companies?</em></p>
+<p><strong>Ans.</strong></p>
+<ul>
+<li>Meet with the founders/CEO every two weeks</li>
+<li>Deals a lot with text message (some even snapchat)</li>
+<li>Preferably an in-person meeting</li>
+</ul>
+<hr />
+<p>Q. <em>How do you harmonize when details matter and you're only allowed one thing to do. How do you put those things together?</em></p>
+<p><strong>Ans.</strong></p>
+<ul>
+<li>The underlying philosophy of getting the details right is important to install very early in the company.</li>
+<li>This gets people to have this basis in their work.</li>
+<li>You shouldn't have to actually do this. If you have to, that means that you've done something wrong.</li>
+<li>The key is how to start and get others to follow this rule. A framework for how to make decisions.</li>
+</ul>
+<hr />
+
+  </main>
+  <p>
+        Categories:
+          <a href="https://jonalmeida.com/categories/archive/">#archive</a>
+  </p>
+
+  <!-- Add temporary footnote back-links support -->
+  <script src="/footnotes.js"></script>
+<footer>
+</footer>
+</body>
+</html>

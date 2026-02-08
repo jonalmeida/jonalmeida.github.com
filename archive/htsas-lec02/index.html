@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Start a Startup - Lecture 2 Notes | Jonathan Almeida</title>
+  <meta name="title" content="How to Start a Startup - Lecture 2 Notes">
+<meta name="description" content="Scribblings and nonsense">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+  
+  <link rel="alternate" type="application/atom+xml" title="Jonathan Almeida" href="https://jonalmeida.com/atom.xml">
+  <style>
+    :root {
+    --width: 800px;
+    --font-main: Verdana, sans-serif;
+    --font-secondary: Verdana, sans-serif;
+    --font-scale: 1em;
+    --background-color: #fff;
+    --heading-color: #222;
+    --text-color: #444;
+    --link-color: #3273dc;
+    --visited-color: #8b6fcb;
+    --code-background-color: #f2f2f2;
+    --code-color: #222;
+    --blockquote-color: #222;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --background-color: #01242e;
+      --heading-color: #eee;
+      --text-color: #ddd;
+      --link-color: #8cc2dd;
+      --visited-color: #8b6fcb;
+      --code-background-color: #000;
+      --code-color: #ddd;
+      --blockquote-color: #ccc;
+    }
+  }
+
+  body {
+    font-family: var(--font-secondary);
+    font-size: var(--font-scale);
+    margin: auto;
+    padding: 20px;
+    max-width: var(--width);
+    text-align: left;
+    background-color: var(--background-color);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.5;
+    color: var(--text-color);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-main);
+    color: var(--heading-color);
+  }
+
+  a {
+    color: var(--link-color);
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  nav a {
+    margin-right: 8px;
+  }
+
+  nav span.active {
+    font-weight: bold;
+    margin-right: 10px;
+  }
+  strong,
+  b {
+    color: var(--heading-color);
+  }
+
+  button {
+    margin: 0;
+    cursor: pointer;
+  }
+
+  main {
+    line-height: 1.6;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  hr {
+    border: 0;
+    border-top: 1px dashed;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  pre code {
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    display: block;
+    padding: 20px;
+    white-space: pre-wrap;
+    font-size: 0.875rem;
+    overflow-x: auto;
+  }
+
+  code {
+    font-family: monospace;
+    padding: 2px;
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    border-radius: 3px;
+  }
+
+  blockquote {
+    border-left: 1px solid #999;
+    color: var(--code-color);
+    padding-left: 20px;
+    font-style: italic;
+  }
+
+  footer {
+    padding: 25px 0;
+    text-align: center;
+  }
+
+  .title:hover {
+    text-decoration: none;
+  }
+
+  .title h1 {
+    font-size: 1.5em;
+  }
+
+  .inline {
+    width: auto !important;
+  }
+
+  .highlight,
+  .code {
+    padding: 1px 15px;
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    border-radius: 3px;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    overflow-x: auto;
+  }
+
+  /* blog post list */
+  ul.blog-posts {
+    list-style-type: none;
+    padding: unset;
+  }
+
+  ul.blog-posts li {
+    display: flex;
+  }
+
+  ul.blog-posts li span {
+    flex: 0 0 130px;
+  }
+
+  ul.blog-posts li a:visited {
+    color: var(--visited-color);
+  }
+
+  .tags {
+    font-size: smaller;
+  }
+
+  .footnote-definition {
+    display: flex;
+    margin-top: 1em;
+  }
+  .footnote-definition-label {
+    margin-left: 1rem;
+    margin-right: 0.5rem;
+    vertical-align: baseline;
+  }
+  .footnote-definition-label::after {
+    content: "."
+  }
+  .footnote-definition > p {
+    margin: 0;
+  }
+
+  </style><style>
+
+section#comments {
+  p {
+    font-size: 0.8em;
+  }
+}
+
+
+pre mark {
+  color: var(--code-color);
+}
+</style>
+
+</head>
+<body>
+  <header>
+  <a href="https://jonalmeida.com/" class="title">
+    <h1>Jonathan Almeida</h1>
+  </a>
+  <nav aria-label="site">
+      <a href="https://jonalmeida.com/">Home</a>
+      <a href="https://jonalmeida.com/blog/">Blog</a>
+      <a href="https://jonalmeida.com/til/">TIL</a>
+      <a href="https://jonalmeida.com/archive/">Archive</a>
+  </nav>
+</header>
+
+  <h1>How to Start a Startup - Lecture 2 Notes</h1>
+      <p>
+        <i>
+          <time datetime="2014-09-25T00:00:00+00:00" pubdate>2014-09-25</time>
+        </i>
+      </p>
+    <details >
+      <summary>Table of contents</summary>
+    <ul>
+        <li>
+          <a href="https://jonalmeida.com/archive/htsas-lec02/#choosing-a-co-founder">Choosing a co-founder</a>
+        </li>
+        <li>
+          <a href="https://jonalmeida.com/archive/htsas-lec02/#how-to-hire">How to Hire</a>
+        <ul>
+            <li>
+              <a href="https://jonalmeida.com/archive/htsas-lec02/#don-t-hire">Don&#x27;t Hire</a>
+            </li>
+            <li>
+              <a href="https://jonalmeida.com/archive/htsas-lec02/#how-to-actually-hire">How to ACTUALLY Hire</a>
+            </li>
+            <li>
+              <a href="https://jonalmeida.com/archive/htsas-lec02/#mediocre-engineers-do-not-build-great-companies">Mediocre engineers do not build great companies</a>
+            </li>
+            <li>
+              <a href="https://jonalmeida.com/archive/htsas-lec02/#sources-of-candidates">Sources of Candidates</a>
+            <ul>
+                <li>
+                  <a href="https://jonalmeida.com/archive/htsas-lec02/#the-animal-test">The Animal Test</a>
+                </li>
+            </ul>
+            </li>
+            <li>
+              <a href="https://jonalmeida.com/archive/htsas-lec02/#employee-equity">Employee Equity</a>
+            </li>
+        </ul>
+        </li>
+        <li>
+          <a href="https://jonalmeida.com/archive/htsas-lec02/#how-to-fire">How to Fire..</a>
+        </li>
+        <li>
+          <a href="https://jonalmeida.com/archive/htsas-lec02/#execution">Execution</a>
+        <ul>
+            <li>
+              <a href="https://jonalmeida.com/archive/htsas-lec02/#jobs-of-a-ceo">Jobs of a CEO</a>
+            <ul>
+                <li>
+                  <a href="https://jonalmeida.com/archive/htsas-lec02/#can-you-get-it-done-focus">Can you get it done: Focus</a>
+                </li>
+                <li>
+                  <a href="https://jonalmeida.com/archive/htsas-lec02/#can-you-get-it-done-intensity">Can you get it done: Intensity</a>
+                </li>
+            </ul>
+            </li>
+            <li>
+              <a href="https://jonalmeida.com/archive/htsas-lec02/#growth">Growth</a>
+            </li>
+        </ul>
+        </li>
+    </ul>
+    </details>
+  <main>
+    <p>I'm taking down notes for Sam Altman's class, How to Start a Startup and I figured I'd start sharing them. This is for the <a href="https://www.youtube.com/watch?v=CVfnkM44Urs">second lecture</a> with the following notes:</p>
+<h1 id="choosing-a-co-founder">Choosing a co-founder</h1>
+<ul>
+<li>Don't choose a random co-founder</li>
+<li>Choose someone you have a long history with</li>
+<li>When something goes really wrong, you have a past history that binds us together</li>
+<li>Meet a co-founder in college</li>
+<li>Meeting co-founder while working in a startup</li>
+<li>Starting a startup alone is <strong>STILL</strong> a bad idea</li>
+<li>Model for choosing a co-founder:
+<ul>
+<li>Look for a person that behalves like "<strong>James Bond</strong>" rather than one that's an expert in a particular domain</li>
+</ul>
+</li>
+<li>Tough and calm co-founder IF you aren't.</li>
+<li>You need a technical co-founder</li>
+<li>Average number of co-founders: 2-3</li>
+<li><em>Q. How about co-founders that aren't working in the same location?</em>
+<ul>
+<li><strong>DO NOT DO IT!</strong></li>
+</ul>
+</li>
+</ul>
+<h1 id="how-to-hire">How to Hire</h1>
+<h2 id="don-t-hire">Don't Hire</h2>
+<ul>
+<li>First, try <strong>NOT</strong> to hire
+<ul>
+<li>The goal is not to hire for as long as possible</li>
+<li>E.g. Airbnb hired only two people in the first year, and took 5 months</li>
+</ul>
+</li>
+<li>Find people who feel that they're apart of the founding of the company</li>
+<li>Hire slowly and with a high hiring bar</li>
+</ul>
+<h2 id="how-to-actually-hire">How to ACTUALLY Hire</h2>
+<ul>
+<li>Recruiting is hard, not everyone wants to join. It can take a year sometimes.</li>
+<li>It's important to get the product right first</li>
+</ul>
+<blockquote>
+<p>If you're going to join a startup, pick a "rocketship". Something that <em>you</em> know is going to be huge, but not everyone realizes yet.</p>
+</blockquote>
+<ul>
+<li>Good people wait to see if you're going to be a "rocketship"</li>
+<li>How much should you spend hiring: 0% or 25%</li>
+</ul>
+<h2 id="mediocre-engineers-do-not-build-great-companies">Mediocre engineers do not build great companies</h2>
+<ul>
+<li>This can kill the company</li>
+<li>They are needed to build the culture of the company</li>
+<li>If you comprise in the first ~10 hires that may just <strong>kill</strong> the company
+<ul>
+<li><em>Will I bet the future of the company on this single hire?</em></li>
+</ul>
+</li>
+<li>When you're bigger, you will eventually comprise..</li>
+</ul>
+<h2 id="sources-of-candidates">Sources of Candidates</h2>
+<ul>
+<li>
+<p>Personal referrals for the first 100</p>
+</li>
+<li>
+<p>Look outside the SV, it's brutally hard to hire in SV</p>
+</li>
+<li>
+<p>Experience:</p>
+<ul>
+<li>Experience matters for some roles.</li>
+<li>Early hires doesn't matter much, you need to look for aptitude.</li>
+<li><em>Are they smart? Do they get things done? Do I want to spend a lot of time around them?</em></li>
+</ul>
+</li>
+<li>
+<p><em>Q. How do you know if their initial in-experience is going to be okay when things scale up?</em></p>
+<ul>
+<li>People who are smart can almost always find a role in the company.</li>
+<li>May need to move to a different role or team.</li>
+<li>Great employees can move around easily and it's usually an issue.</li>
+</ul>
+</li>
+<li>
+<p>Best way to hire is to work with them to hire. Sometimes you don't need to even interview if you've worked on the same project together.</p>
+</li>
+<li>
+<p><strong>Call references!</strong></p>
+<ul>
+<li><em>Is this person in the top 5% of the people you've ever worked with?</em></li>
+<li><em>What specifically did you do?</em></li>
+<li><em>Will you hire them again? Why aren't you hiring them again?</em></li>
+</ul>
+</li>
+<li>
+<p>If someone cannot communicate clearly, that's a BIG problem in the future that they'll work out</p>
+</li>
+<li>
+<p>Someone who likes to take a bit of risk.</p>
+</li>
+</ul>
+<h3 id="the-animal-test">The Animal Test</h3>
+<ul>
+<li>"You should be able to describe any employee as an animal of what they do."
+<ul>
+<li>You need unstoppable people</li>
+</ul>
+</li>
+<li>Mark Zuckerberg said he likes to hire people:
+<ol>
+<li>He would spend time socially</li>
+<li>He'd be comfortable reporting to if the roles were reversed (you need to have high respect for them).</li>
+</ol>
+</li>
+</ul>
+<h2 id="employee-equity">Employee Equity</h2>
+<ul>
+<li>
+<p>10% to the first ten employees.</p>
+</li>
+<li>
+<p>Don't be stingy with equity to employees, investors only write the check.</p>
+</li>
+<li>
+<p>Fight with investors to reduce the equity they get.</p>
+</li>
+<li>
+<p><em>Q. When should co-founders decide on the equity split?</em></p>
+<ul>
+<li>Set this very soon as you get started.</li>
+<li>If you're not willing to give them equal shares, you should question if this is the right relationship?</li>
+</ul>
+</li>
+<li>
+<p><em>"You shouldn't tell your employees they're fucking up everyday otherwise they will."</em></p>
+</li>
+<li>
+<p>Learn to praise your team, you need to give people more responsibility.</p>
+</li>
+<li>
+<p>Dan Pink (TED) talk on Autonomy, Mastery and Purpose.</p>
+</li>
+<li>
+<p>Use one-on-ones.</p>
+</li>
+</ul>
+<h1 id="how-to-fire">How to Fire..</h1>
+<ul>
+<li>Every first-time founder waits too long
+<ul>
+<li>It's better for you, and them</li>
+</ul>
+</li>
+<li>Fire people who create office politics and always negative
+<ul>
+<li>These will kill a startup!</li>
+</ul>
+</li>
+<li><em>Q. How do you balance firing people fast and make early employees feel secure?</em>
+<ul>
+<li>Anyone will screw up once or twice</li>
+<li>If someone is getting every decision wrong, it's be blatantly obvious who these people are amongst others.</li>
+<li>In practice, there's almost never any doubt.</li>
+</ul>
+</li>
+<li><em>Q. What if you're relationship with a co-founder breaks down?</em>
+<ul>
+<li>You have to have "vesting".</li>
+<li>Pre-negotiate how this will play out before this ever happens.</li>
+<li>In SV, it takes four years to earn all of that.
+<ul>
+<li>E.g. If you leave after one year, you keep 25% of that, two years; 50%, etc.</li>
+</ul>
+</li>
+<li>If the company leaves with half the company, getting investments is VERY hard after that.</li>
+<li><strong>Talk about it early, don't let it fester!</strong></li>
+</ul>
+</li>
+</ul>
+<h1 id="execution">Execution</h1>
+<ul>
+<li>The way to execute well is to execute it yourself.</li>
+<li>You need to been executing tasks; creates company culture this way.</li>
+<li>Put in the effort</li>
+</ul>
+<h2 id="jobs-of-a-ceo">Jobs of a CEO</h2>
+<ul>
+<li>Set the vision</li>
+<li>Raise money</li>
+<li>Evangelize</li>
+<li>Hire and manage</li>
+<li>Make sure the entire company executes (!)
+<ul>
+<li>Can you figure out what to do?</li>
+<li>Can you get it done?</li>
+</ul>
+</li>
+</ul>
+<h3 id="can-you-get-it-done-focus">Can you get it done: Focus</h3>
+<ul>
+<li>There are several things that need your attention.
+<ul>
+<li>You need to figure which of the two or three tasks are the most important, get those done and differ the rest.</li>
+</ul>
+</li>
+<li>Say no. A Lot.</li>
+<li>Don't work really hard on the things no one cares about.</li>
+<li>Set overreaching goals.
+<ul>
+<li>This is what the whole company focuses on then.</li>
+</ul>
+</li>
+<li>Communication
+<ul>
+<li>You can't be focused without really good communication.</li>
+</ul>
+</li>
+<li>Maintain growth and momentum
+<ul>
+<li>Have the right metrics and be focused on growing</li>
+</ul>
+</li>
+<li>Don't get (the company) distracted or excited with other things (PR).</li>
+<li>Work together. Again, remote co-founders DO NOT WORK.</li>
+</ul>
+<h3 id="can-you-get-it-done-intensity">Can you get it done: Intensity</h3>
+<ul>
+<li>Startups can't give you a good work/life balance - that's the reality.
+<ul>
+<li>They're all consuming.</li>
+<li>You have to be able to outwork your competitors.</li>
+<li>You have to be intense (needs to come from co-founders).</li>
+</ul>
+</li>
+<li>Obsess with quality
+<ul>
+<li>You need to have a culture where people have high quality standards for everything the company does, but still move quickly.</li>
+<li>Move fast and break things.</li>
+<li>Be frugal in the right places, but care about quality everywhere.</li>
+<li>"<em>Don't buy people shitty computers, if you don't want them to write shitty code."</em></li>
+</ul>
+</li>
+<li>Be decisive/Quick
+<ul>
+<li>Talk about grand plans, but be biased towards action.</li>
+<li>It lets you done in incremental pieces. In the end, you have a huge project completed.</li>
+</ul>
+</li>
+<li>Show up
+<ul>
+<li>Get on a plane in marginal situations. &lt;- This is good <em>literal</em> advice</li>
+</ul>
+</li>
+<li>Momentum and growth are the life-blood of startups
+<ul>
+<li>Always keep momentum!</li>
+</ul>
+</li>
+</ul>
+<h2 id="growth">Growth</h2>
+<ul>
+<li>When there's a disagreement among the team on what to do, you ask your users.
+<ul>
+<li>Stuff isn't working right now, we don't actually hate each other, we just need to get back on track.</li>
+</ul>
+</li>
+<li>Shipping a product</li>
+<li>Launching a new feature</li>
+<li>Reviewing/reporting metrics and milestones</li>
+</ul>
+<blockquote>
+<p>Don't worry about a competitor at all until they're actually beating you with a shipped product. Don't get down because of the press.</p>
+</blockquote>
+<blockquote>
+<p>"The competitor to be feared is one who never bothers about you at all, but goes on making his own business better all the time." - Henry Ford</p>
+</blockquote>
+
+  </main>
+  <p>
+        Categories:
+          <a href="https://jonalmeida.com/categories/archive/">#archive</a>
+  </p>
+
+  <!-- Add temporary footnote back-links support -->
+  <script src="/footnotes.js"></script>
+<footer>
+</footer>
+</body>
+</html>

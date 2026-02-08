@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Start a Startup - Lecture 4 Notes | Jonathan Almeida</title>
+  <meta name="title" content="How to Start a Startup - Lecture 4 Notes">
+<meta name="description" content="Scribblings and nonsense">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+  
+  <link rel="alternate" type="application/atom+xml" title="Jonathan Almeida" href="https://jonalmeida.com/atom.xml">
+  <style>
+    :root {
+    --width: 800px;
+    --font-main: Verdana, sans-serif;
+    --font-secondary: Verdana, sans-serif;
+    --font-scale: 1em;
+    --background-color: #fff;
+    --heading-color: #222;
+    --text-color: #444;
+    --link-color: #3273dc;
+    --visited-color: #8b6fcb;
+    --code-background-color: #f2f2f2;
+    --code-color: #222;
+    --blockquote-color: #222;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --background-color: #01242e;
+      --heading-color: #eee;
+      --text-color: #ddd;
+      --link-color: #8cc2dd;
+      --visited-color: #8b6fcb;
+      --code-background-color: #000;
+      --code-color: #ddd;
+      --blockquote-color: #ccc;
+    }
+  }
+
+  body {
+    font-family: var(--font-secondary);
+    font-size: var(--font-scale);
+    margin: auto;
+    padding: 20px;
+    max-width: var(--width);
+    text-align: left;
+    background-color: var(--background-color);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.5;
+    color: var(--text-color);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-main);
+    color: var(--heading-color);
+  }
+
+  a {
+    color: var(--link-color);
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  nav a {
+    margin-right: 8px;
+  }
+
+  nav span.active {
+    font-weight: bold;
+    margin-right: 10px;
+  }
+  strong,
+  b {
+    color: var(--heading-color);
+  }
+
+  button {
+    margin: 0;
+    cursor: pointer;
+  }
+
+  main {
+    line-height: 1.6;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  hr {
+    border: 0;
+    border-top: 1px dashed;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  pre code {
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    display: block;
+    padding: 20px;
+    white-space: pre-wrap;
+    font-size: 0.875rem;
+    overflow-x: auto;
+  }
+
+  code {
+    font-family: monospace;
+    padding: 2px;
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    border-radius: 3px;
+  }
+
+  blockquote {
+    border-left: 1px solid #999;
+    color: var(--code-color);
+    padding-left: 20px;
+    font-style: italic;
+  }
+
+  footer {
+    padding: 25px 0;
+    text-align: center;
+  }
+
+  .title:hover {
+    text-decoration: none;
+  }
+
+  .title h1 {
+    font-size: 1.5em;
+  }
+
+  .inline {
+    width: auto !important;
+  }
+
+  .highlight,
+  .code {
+    padding: 1px 15px;
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    border-radius: 3px;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    overflow-x: auto;
+  }
+
+  /* blog post list */
+  ul.blog-posts {
+    list-style-type: none;
+    padding: unset;
+  }
+
+  ul.blog-posts li {
+    display: flex;
+  }
+
+  ul.blog-posts li span {
+    flex: 0 0 130px;
+  }
+
+  ul.blog-posts li a:visited {
+    color: var(--visited-color);
+  }
+
+  .tags {
+    font-size: smaller;
+  }
+
+  .footnote-definition {
+    display: flex;
+    margin-top: 1em;
+  }
+  .footnote-definition-label {
+    margin-left: 1rem;
+    margin-right: 0.5rem;
+    vertical-align: baseline;
+  }
+  .footnote-definition-label::after {
+    content: "."
+  }
+  .footnote-definition > p {
+    margin: 0;
+  }
+
+  </style><style>
+
+section#comments {
+  p {
+    font-size: 0.8em;
+  }
+}
+
+
+pre mark {
+  color: var(--code-color);
+}
+</style>
+
+</head>
+<body>
+  <header>
+  <a href="https://jonalmeida.com/" class="title">
+    <h1>Jonathan Almeida</h1>
+  </a>
+  <nav aria-label="site">
+      <a href="https://jonalmeida.com/">Home</a>
+      <a href="https://jonalmeida.com/blog/">Blog</a>
+      <a href="https://jonalmeida.com/til/">TIL</a>
+      <a href="https://jonalmeida.com/archive/">Archive</a>
+  </nav>
+</header>
+
+  <h1>How to Start a Startup - Lecture 4 Notes</h1>
+      <p>
+        <i>
+          <time datetime="2014-10-01T00:00:00+00:00" pubdate>2014-10-01</time>
+        </i>
+      </p>
+    <details >
+      <summary>Table of contents</summary>
+    <ul>
+        <li>
+          <a href="https://jonalmeida.com/archive/htsas-lec04/#building-a-product">Building a Product</a>
+        <ul>
+            <li>
+              <a href="https://jonalmeida.com/archive/htsas-lec04/#what-not-to-do-when-starting-a-startup-sas">What not to do when starting a startup (SAS)</a>
+            </li>
+            <li>
+              <a href="https://jonalmeida.com/archive/htsas-lec04/#what-is-v1">What is v1?</a>
+            </li>
+            <li>
+              <a href="https://jonalmeida.com/archive/htsas-lec04/#how-to-get-your-first-users">How to get your first users?</a>
+            </li>
+            <li>
+              <a href="https://jonalmeida.com/archive/htsas-lec04/#what-do-you-do-with-all-these-users">What do you do with all these users?</a>
+            <ul>
+                <li>
+                  <a href="https://jonalmeida.com/archive/htsas-lec04/#everybody-lies">Everybody lies</a>
+                </li>
+            </ul>
+            </li>
+            <li>
+              <a href="https://jonalmeida.com/archive/htsas-lec04/#post-feedback-pre-launch">Post-feedback&#x2F;Pre-launch</a>
+            </li>
+            <li>
+              <a href="https://jonalmeida.com/archive/htsas-lec04/#ready-for-a-lot-of-users">Ready for a lot of users?</a>
+            <ul>
+                <li>
+                  <a href="https://jonalmeida.com/archive/htsas-lec04/#sticky-growth">Sticky Growth</a>
+                </li>
+                <li>
+                  <a href="https://jonalmeida.com/archive/htsas-lec04/#viral-growth">Viral Growth</a>
+                </li>
+                <li>
+                  <a href="https://jonalmeida.com/archive/htsas-lec04/#paid-growth">Paid Growth</a>
+                </li>
+            </ul>
+            </li>
+            <li>
+              <a href="https://jonalmeida.com/archive/htsas-lec04/#the-art-of-pivoting">The art of pivoting</a>
+            </li>
+        </ul>
+        </li>
+    </ul>
+    </details>
+  <main>
+    <p>I'm taking down notes for Sam Altman's class, How to Start a Startup and I figured I'd start sharing them. This is for the <a href="https://www.youtube.com/watch?v=yP176MBG9Tk">fourth lecture</a> with the following notes:</p>
+<h1 id="building-a-product">Building a Product</h1>
+<h2 id="what-not-to-do-when-starting-a-startup-sas">What not to do when starting a startup (SAS)</h2>
+<ul>
+<li>Adora learned these from experiences.</li>
+<li>If you're in school, spend one or two days straight (per week) to work on your idea, instead of one or two hours throughout your week.
+<ul>
+<li>Less context switching is involved</li>
+</ul>
+</li>
+<li>The wrong approach:
+<ul>
+<li>Don't tell anyone about your idea</li>
+<li>Work on it in secret</li>
+<li>Launch it on TC</li>
+<li>Eventually loosing customers because you didn't get that initial feedback</li>
+</ul>
+</li>
+<li>TODO: What is your problem and what are you trying to solve?</li>
+<li>Where do you start?
+<ul>
+<li>Emerse yourself in that industry first</li>
+<li>When you're a noob coming into the industry, you have to understand how the bits and pieces work.</li>
+<li>Reading books on the industry isn't enough, you have to get a job in that industry.
+<ul>
+<li>You learn how a company in that industry works</li>
+<li>Why it can't become a large company (a.k.a it's faults)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>e.g. If you want to get into the restaurant business, become a waiter.</li>
+<li>Become obsessed with the industry:
+<ul>
+<li>Find the competitors</li>
+<li>Go for their earning calls</li>
+<li>Notes, etc.</li>
+</ul>
+</li>
+<li>BEFORE you start putting down code, storyboard the user experience you want.</li>
+</ul>
+<h2 id="what-is-v1">What is v1?</h2>
+<ul>
+<li>Build the Minimum Viable Product first
+<ul>
+<li>What is the smallest feature set you can build.
+<ul>
+<li>You need to talk to users to find out this.</li>
+</ul>
+</li>
+<li>You should be able to describe it in one sentence.
+<ul>
+<li>"Get your place clean for $20!"</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="how-to-get-your-first-users">How to get your first users?</h2>
+<ul>
+<li>You &amp; your co-founder should be using it</li>
+<li>Mum, dad, friends, etc.</li>
+<li>Online communities: Show HN, Reddit, mailing lists, local communities.</li>
+<li>Guilt-trip people in your local communities to get them to use it the first time!</li>
+</ul>
+<h2 id="what-do-you-do-with-all-these-users">What do you do with all these users?</h2>
+<ul>
+<li>Customer feedback:
+<ul>
+<li>Phone number
+<ul>
+<li>Setup voicemail</li>
+</ul>
+</li>
+<li>Email</li>
+<li>What you really need is to get out and go meet them</li>
+</ul>
+</li>
+<li>Send out surveys:
+<ul>
+<li>This gets you the extremes (people who really like you, or really hate you)</li>
+<li>The in-between requires you to get out</li>
+</ul>
+</li>
+<li>Don't poke your users, "why why why?"
+<ul>
+<li><strong>This is what you want -&gt;</strong> Socialize with your users at a human-level (take them out for drinks, coffee, etc.)</li>
+</ul>
+</li>
+<li>Track customer retention:
+<ul>
+<li>People who came today, are they returning?</li>
+<li>Collect NPS (Net Promoter Score).</li>
+</ul>
+</li>
+</ul>
+<h3 id="everybody-lies">Everybody lies</h3>
+<ul>
+<li>For a free product:
+<ul>
+<li>Mum: She will always be nice and give you a great review (least honest)</li>
+<li>Acquaintances: More likely to give you honest opinions</li>
+<li>Random person (who doesn't know you): More honest, but don't care that much</li>
+</ul>
+</li>
+<li>For a paid product:
+<ul>
+<li>Mum: Still lies and says you're awesome</li>
+<li>Acquaintances: More likely to give you honest opinions</li>
+<li>Random person: If they don't think the product they paid for was worth it, they're really going to tell you <strong>(Most honest)</strong></li>
+</ul>
+</li>
+<li>Doesn't mean you should make people pay when you first launch.
+<ul>
+<li>If you're going to make them pay eventually, get to the point where you do that really fast.</li>
+</ul>
+</li>
+</ul>
+<h2 id="post-feedback-pre-launch">Post-feedback/Pre-launch</h2>
+<ul>
+<li>Build fast, optimize for this stage of growth.</li>
+<li>Don't build features if you had a million, build for the first 10/100.</li>
+<li>You don't need to automate everything:
+<ul>
+<li>You need to learn what should be automated and what shouldn't</li>
+<li>e.g. Some questions for cleaners applying could be asked online, but some interviewing questions needed to be done in-person</li>
+</ul>
+</li>
+<li>Temporary brokenness is better than permanent paralysis
+<ul>
+<li>Do not worry about all the edge cases</li>
+<li>Worry about the generic user first</li>
+<li>As you start to scale, the edge cases become more and more clearer</li>
+</ul>
+</li>
+<li>Beware of "Frankenstein" approach:
+<ul>
+<li>With all the feedback, you build it the next day and try to make them happier.</li>
+<li>When someone asks you to build a feature:
+<ul>
+<li>Get to the bottom of why they're asking the feature</li>
+<li>There maybe a root solution that would otherwise be hidden with all these features</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>'S' is for stealth and stupidity
+<ul>
+<li>Don't be worried about imitators, that will always be the case</li>
+<li>Don't let it stop you from launching</li>
+</ul>
+</li>
+</ul>
+<h2 id="ready-for-a-lot-of-users">Ready for a lot of users?</h2>
+<ul>
+<li>Focus only on one channel for growth at a time:
+<ul>
+<li>DON'T be tempted to do many at once.</li>
+<li>Try one channel for a week, move to the next
+<ul>
+<li>If it fails, move to the next</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Channels always change (e.g. Facebook ads, Google ads)
+<ul>
+<li>Always optimize for that</li>
+</ul>
+</li>
+<li>Go back to the failed channels and try to re-visit</li>
+<li>Three types of growth:
+<ul>
+<li>Sticky: Trying to get your existing users to pay you more</li>
+<li>Viral: User uses your product, likes it, and tells their friends about it.</li>
+<li>Paid: If you have money in the bank, you buy users.</li>
+</ul>
+</li>
+</ul>
+<h3 id="sticky-growth">Sticky Growth</h3>
+<ul>
+<li>You need to deliver a good experience, people will want to keep using you</li>
+<li>To measure this, you need to look at the CLVs and Retention Cohort analysis
+<ul>
+<li>Customer Life Time: How much a customer revenue gives you over a time period (6 months, 12 months, etc.)</li>
+<li>Retention Cohort analysis: <em>(graph in the video explaining this bit at <a href="http://youtu.be/yP176MBG9Tk?t=35m10s">35:10</a>)</em></li>
+</ul>
+</li>
+</ul>
+<h3 id="viral-growth">Viral Growth</h3>
+<ul>
+<li>Like Sticky, you need to deliver a good experience, but you need to develop a REALLY good experience</li>
+<li>You need a good referral program:
+<ul>
+<li>Where are people going learning that they can refer other people? (Customer Touch Point)</li>
+<li>CTP should be when the user is highly engaged.</li>
+<li>"You get $10 if your friend joins and they get $10 too"</li>
+</ul>
+</li>
+</ul>
+<h3 id="paid-growth">Paid Growth</h3>
+<ul>
+<li>Obvious ways:
+<ul>
+<li>Display ads</li>
+<li>Groupon</li>
+<li>Facebook ads</li>
+<li>Street marketing</li>
+<li>B2b sales</li>
+</ul>
+</li>
+<li>Do the math to see if paying for the ads actually breaks even or gives you a profit.</li>
+</ul>
+<h2 id="the-art-of-pivoting">The art of pivoting</h2>
+<ul>
+<li>Homejoy was the 13th idea they tried to build.</li>
+<li>How did you get to that 13th idea and how did you decide whether to move on?
+<ul>
+<li>Once you realize you can't grow</li>
+<li>You can't retain users</li>
+<li>The economics of the business don't make sense</li>
+</ul>
+</li>
+<li>How do you know if you may have a delayed growth period? (e.g. 3 years until you start growing)
+<ul>
+<li>Build what you need to to get 1 user, then 4 users, etc.</li>
+<li>If you're doing this, and you go three-four weeks with no growth, you're probably doing something fundamentally work.
+<ul>
+<li>In this stage you should always be growing.</li>
+<li>The graph should start with an exponential growth.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>Q. <em>If your users already have a product that they're comfortable with, how do you get them to switch?</em></p>
+<p>**Ans. ** Find the moments, when you're product is much more different from their original product. E.g. If you had a party and you needed the place to be cleaned the next day, you would advertise the next day cleaning part. That's when they start using it with the initial product and start to realize how your solution is better.
+"These are the 50 ways we're better than product X!" is harder to sell rather than a few points that clearly differentiate yourself.</p>
+
+  </main>
+  <p>
+        Categories:
+          <a href="https://jonalmeida.com/categories/archive/">#archive</a>
+  </p>
+
+  <!-- Add temporary footnote back-links support -->
+  <script src="/footnotes.js"></script>
+<footer>
+</footer>
+</body>
+</html>

@@ -1,0 +1,555 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>Jonathan Almeida - mozilla</title>
+    <subtitle>Scribblings and nonsense</subtitle>
+    <link rel="self" type="application/atom+xml" href="https://jonalmeida.com/tags/mozilla/atom.xml"/>
+    <link rel="alternate" type="text/html" href="https://jonalmeida.com"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2026-02-08T00:14:35-05:00</updated>
+    <id>https://jonalmeida.com/tags/mozilla/atom.xml</id>
+    <entry xml:lang="en">
+        <title>Test a Firefox Android variant alongside your daily driver</title>
+        <published>2026-02-06T00:00:00+00:00</published>
+        <updated>2026-02-06T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Jonathan Almeida
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/til/install-fenix-variants/"/>
+        <id>https://jonalmeida.com/til/install-fenix-variants/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/til/install-fenix-variants/">&lt;p&gt;In the Mozilla Android team, we want engineers to talk with Product and UX more and hash out ideas sooner. Prototype an idea, then discuss the feature&#x27;s merits. For this, we built &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;mozilla-mobile&#x2F;TryFox&#x2F;&quot;&gt;TryFox&lt;&#x2F;a&gt; to make it easier for everyone to get the latest version of Firefox Nightly or install a &quot;try&quot; build with a link to the build on our CI servers.&lt;&#x2F;p&gt;
+&lt;p&gt;The downside with using a Try build is that you sometimes have to uninstall your existing version of Nightly before you can install another and that means losing app data. Typically, if you were doing this on your daily driver, you don&#x27;t want to do that. A quick work around is to add a temporary patch above your stack of commits which changes the App ID suffix (and optionally the application name) so that there is no conflict.&lt;&#x2F;p&gt;
+&lt;p&gt;Here is an example diff from a patch that changed an animation, so having it install alongside what we shipped let you compare them easily:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;diff&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-diff &quot;&gt;&lt;code class=&quot;language-diff&quot; data-lang=&quot;diff&quot;&gt;&lt;span&gt;diff --git a&#x2F;mobile&#x2F;android&#x2F;fenix&#x2F;app&#x2F;build.gradle b&#x2F;mobile&#x2F;android&#x2F;fenix&#x2F;app&#x2F;build.gradle
+&lt;&#x2F;span&gt;&lt;span&gt;index 019fdb7ab4..772cc6cc3d 100644
+&lt;&#x2F;span&gt;&lt;span&gt;--- a&#x2F;mobile&#x2F;android&#x2F;fenix&#x2F;app&#x2F;build.gradle
+&lt;&#x2F;span&gt;&lt;span&gt;+++ b&#x2F;mobile&#x2F;android&#x2F;fenix&#x2F;app&#x2F;build.gradle
+&lt;&#x2F;span&gt;&lt;span&gt;@@ -127,7 +127,7 @@
+&lt;&#x2F;span&gt;&lt;span&gt;         debug {
+&lt;&#x2F;span&gt;&lt;span&gt;             shrinkResources = false
+&lt;&#x2F;span&gt;&lt;span&gt;             minifyEnabled = false
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;-            applicationIdSuffix &amp;quot;.fenix.debug&amp;quot;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;+            applicationIdSuffix &amp;quot;.fenix.debug_animator&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;             resValue &amp;quot;bool&amp;quot;, &amp;quot;IS_DEBUG&amp;quot;, &amp;quot;true&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;             pseudoLocalesEnabled = true
+&lt;&#x2F;span&gt;&lt;span&gt;         }
+&lt;&#x2F;span&gt;&lt;span&gt;diff --git a&#x2F;mobile&#x2F;android&#x2F;fenix&#x2F;app&#x2F;src&#x2F;main&#x2F;res&#x2F;values&#x2F;static_strings.xml b&#x2F;mobile&#x2F;android&#x2F;fenix&#x2F;app&#x2F;src&#x2F;main&#x2F;res&#x2F;values&#x2F;static_strings.xml
+&lt;&#x2F;span&gt;&lt;span&gt;index 4f6703eb35..1a57988477 100644
+&lt;&#x2F;span&gt;&lt;span&gt;--- a&#x2F;mobile&#x2F;android&#x2F;fenix&#x2F;app&#x2F;src&#x2F;main&#x2F;res&#x2F;values&#x2F;static_strings.xml
+&lt;&#x2F;span&gt;&lt;span&gt;+++ b&#x2F;mobile&#x2F;android&#x2F;fenix&#x2F;app&#x2F;src&#x2F;main&#x2F;res&#x2F;values&#x2F;static_strings.xml
+&lt;&#x2F;span&gt;&lt;span&gt;@@ -4,7 +4,7 @@
+&lt;&#x2F;span&gt;&lt;span&gt;    - file, You can obtain one at http:&#x2F;&#x2F;mozilla.org&#x2F;MPL&#x2F;2.0&#x2F;. --&amp;gt;
+&lt;&#x2F;span&gt;&lt;span&gt; &amp;lt;resources xmlns:moz=&amp;quot;http:&#x2F;&#x2F;schemas.android.com&#x2F;apk&#x2F;res-auto&amp;quot; xmlns:tools=&amp;quot;http:&#x2F;&#x2F;schemas.android.com&#x2F;tools&amp;quot;&amp;gt;
+&lt;&#x2F;span&gt;&lt;span&gt;     &amp;lt;!-- Name of the application --&amp;gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;-    &amp;lt;string name=&amp;quot;app_name&amp;quot; translatable=&amp;quot;false&amp;quot;&amp;gt;Firefox Fenix&amp;lt;&#x2F;string&amp;gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;+    &amp;lt;string name=&amp;quot;app_name&amp;quot; translatable=&amp;quot;false&amp;quot;&amp;gt;Firefox Fenix (animator)&amp;lt;&#x2F;string&amp;gt;
+&lt;&#x2F;span&gt;&lt;span&gt;     &amp;lt;string name=&amp;quot;firefox&amp;quot; translatable=&amp;quot;false&amp;quot;&amp;gt;Firefox&amp;lt;&#x2F;string&amp;gt;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;     &amp;lt;!-- Preference for developers --&amp;gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;In the future, we can add &lt;code&gt;mach try&lt;&#x2F;code&gt; support to do this automatically for any push.&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Test sites for browser developers</title>
+        <published>2026-01-19T00:00:00+00:00</published>
+        <updated>2026-01-29T16:39:59-05:00</updated>
+        
+        <author>
+          <name>
+            
+              Jonathan Almeida
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/blog/browser-test-sites/"/>
+        <id>https://jonalmeida.com/blog/browser-test-sites/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/blog/browser-test-sites/">&lt;p&gt;Working on the mobile Firefox team gives you the opportunity to touch on many different parts of the browser space. You often need to test the interaction between web content and the application integration&#x27;s to another component, say for example, a site registering for a WebPush subscription and Firefox using Firebase Cloud Messaging to deliver the encrypted message to the end-user. Hunting around for an example to validate everything fine and dandy takes time.&lt;&#x2F;p&gt;
+&lt;p&gt;Sometimes a simple test site for your use case is helpful for initial validation or comparison against other browsers.&lt;&#x2F;p&gt;
+&lt;p&gt;Below is a list of tests that I&#x27;ve used in the past (in no particular order):&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;badssl.com&quot;&gt;badssl.com&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;Great for testing out the various error pages that a browser can show.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;testsafebrowsing.appspot.com&#x2F;&quot;&gt;(Safe) Safe Browsing Testing Links &lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;For making sure we are still using the &lt;a href=&quot;https:&#x2F;&#x2F;safebrowsing.google.com&#x2F;&quot;&gt;Safe Browsing&lt;&#x2F;a&gt; list correctly.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;webauthn-passkeys-prf-demo.explore.corbado.com&#x2F;&quot;&gt;WebAuthn &#x2F; Passkeys &amp;amp; PRF Demo&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;For &lt;a href=&quot;https:&#x2F;&#x2F;developer.mozilla.org&#x2F;en-US&#x2F;docs&#x2F;Web&#x2F;API&#x2F;Web_Authentication_API&quot;&gt;WebAuthn&lt;&#x2F;a&gt; login&#x2F;registration, but also includes PRF extension support.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;mozilla-services.github.io&#x2F;WebPushDataTestPage&#x2F;&quot;&gt;Web Push: Data Encryption Test Page&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;Push notifications requires a server to send a notification to the client (not the same as a WebNotification), so you can use this WebPush test site for validating just that.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;simple-push-demo.vercel.app&#x2F;&quot;&gt;Simple Push Demo&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;Similar to the above, but prettier.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;http:&#x2F;&#x2F;www.sharonminsuk.com&#x2F;code&#x2F;storage-test.html&quot;&gt;Test of HTML5 localStorage and sessionStorage persistence - sharonminsuk.com&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;When you have to verify that &lt;a href=&quot;https:&#x2F;&#x2F;developer.mozilla.org&#x2F;en-US&#x2F;docs&#x2F;Web&#x2F;API&#x2F;Window&#x2F;localStorage&quot;&gt;&lt;code&gt;localStorage&lt;&#x2F;code&gt;&lt;&#x2F;a&gt; is truly gone. This is especially helpful for Firefox Focus where private browsing is the primary feature.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;developer.mozilla.org&#x2F;en-US&#x2F;docs&#x2F;Web&#x2F;HTML&#x2F;Reference&#x2F;Elements&#x2F;input&quot;&gt;&lt;code&gt;&amp;lt;input&amp;gt;&lt;&#x2F;code&gt;: The HTML Input element - MDN&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;There are Too Many™ different prompt and input element types. The MDN docs have the best collection of all of them.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h3 id=&quot;forms-and-autocomplete&quot;&gt;Forms and Autocomplete&lt;&#x2F;h3&gt;
+&lt;p&gt;There are various form types and various heuristics to trigger completion options, so they deserve their own section. The more (test sites) the merrier!&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;bugs.mattn.ca&#x2F;pwmgr&#x2F;login_and_change_form.html&quot;&gt;Registration, Login and Change Forms - MattN&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;Web forms come in all shapes and sizes. Some simple forms to see if we can detect a login&#x2F;registration form and fill a login entry into them.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;fill.dev&#x2F;form&#x2F;login-simple&quot;&gt;fill.dev&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;More forms, but also includes credit card and address form filling.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;daleharvey.github.io&#x2F;testapp&#x2F;&quot;&gt;daleharvey.github.io&#x2F;testapp&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;Good for sanity testing simple forms, links that have same&#x2F;different origins, or (location) permission prompts.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;dimidl.github.io&#x2F;signup&#x2F;test.html&quot;&gt;Sign-Up &amp;amp; Login Forms - Dimi&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;Sign-up and login forms behave differently, so they are handy to test separately. For example, autofilling a generated password is useful on a registration form but not on a login one.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h3 id=&quot;make-your-own&quot;&gt;Make your own&lt;&#x2F;h3&gt;
+&lt;p&gt;If you need to make your own, try to write out the code yourself so you can understand the reduced test case. If it&#x27;s not straight-forward, try using the &lt;a href=&quot;https:&#x2F;&#x2F;addons.mozilla.org&#x2F;en-CA&#x2F;firefox&#x2F;addon&#x2F;testcase-reducer&#x2F;&quot;&gt;Testcase Reducer by Thomas Wisniewski&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+
+&lt;section id=&quot;comments&quot; class=&quot;article-content&quot;&gt;
+  &lt;h3&gt;Comments&lt;&#x2F;h3&gt;
+  &lt;p&gt;With an account on the Fediverse or Mastodon, you can respond to this &lt;a href=&quot;https:&#x2F;&#x2F;mindly.social&#x2F;@jonalmeida&#x2F;115937256635328128&quot;&gt;post&lt;&#x2F;a&gt;. Since Mastodon is decentralized, you can use your existing account hosted by another Mastodon server or compatible platform if you don&#x27;t have an account on this one. Known non-private replies are displayed below.&lt;&#x2F;p&gt;
+  &lt;p&gt;Learn how this was implemented from the original source &lt;a class=&quot;link&quot; href=&quot;&#x2F;2020&#x2F;12&#x2F;29&#x2F;adding-comments-to-your-static-blog-with-mastodon&#x2F;&quot;&gt;here.&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+
+  &lt;p id=&quot;mastodon-comments-list&quot;&gt;
+  &lt;button id=&quot;load-comment&quot;&gt;Load comments&lt;&#x2F;button&gt;&lt;&#x2F;p&gt;
+  &lt;div id=&quot;comments-wrapper&quot;&gt;
+    &lt;noscript&gt;&lt;p&gt;Loading comments relies on JavaScript. Try enabling JavaScript and reloading, or visit &lt;a href=&quot;https:&#x2F;&#x2F;mindly.social&#x2F;@jonalmeida&#x2F;115937256635328128&quot;&gt;the original post&lt;&#x2F;a&gt; on Mastodon.&lt;&#x2F;p&gt;&lt;&#x2F;noscript&gt;
+  &lt;&#x2F;div&gt;
+
+  &lt;noscript&gt;You need JavaScript to view the comments.&lt;&#x2F;noscript&gt;
+  &lt;script type=&quot;text&#x2F;javascript&quot;&gt;
+    function escapeHtml(unsafe) {
+      return unsafe
+           .replace(&#x2F;&amp;&#x2F;g, &quot;&amp;amp;&quot;)
+           .replace(&#x2F;&lt;&#x2F;g, &quot;&amp;lt;&quot;)
+           .replace(&#x2F;&gt;&#x2F;g, &quot;&amp;gt;&quot;)
+           .replace(&#x2F;&quot;&#x2F;g, &quot;&amp;quot;&quot;)
+           .replace(&#x2F;&#x27;&#x2F;g, &quot;&amp;#039;&quot;);
+    }
+    function emojify(input, emojis) {
+      let output = input;
+
+      emojis.forEach(emoji =&gt; {
+        let picture = document.createElement(&quot;picture&quot;);
+
+        let source = document.createElement(&quot;source&quot;);
+        source.setAttribute(&quot;srcset&quot;, escapeHtml(emoji.url));
+        source.setAttribute(&quot;media&quot;, &quot;(prefers-reduced-motion: no-preference)&quot;);
+
+        let img = document.createElement(&quot;img&quot;);
+        img.className = &quot;emoji&quot;;
+        img.setAttribute(&quot;src&quot;, escapeHtml(emoji.static_url));
+        img.setAttribute(&quot;alt&quot;, `:${ emoji.shortcode }:`);
+        img.setAttribute(&quot;title&quot;, `:${ emoji.shortcode }:`);
+        img.setAttribute(&quot;width&quot;, &quot;20&quot;);
+        img.setAttribute(&quot;height&quot;, &quot;20&quot;);
+
+        picture.appendChild(source);
+        picture.appendChild(img);
+
+        output = output.replace(`:${ emoji.shortcode }:`, picture.outerHTML);
+      });
+
+      return output;
+    }
+
+    function loadCssFile(path) {
+      const link = document.createElement(&#x27;link&#x27;);
+      link.rel = &#x27;stylesheet&#x27;;
+      link.type = &#x27;text&#x2F;css&#x27;;
+      link.href = path; &#x2F;&#x2F; relative path to your CSS file
+      document.head.appendChild(link);
+    }
+
+    function loadComments() {
+      let purifyPromise = import(&quot;&#x2F;assets&#x2F;js&#x2F;purify.min.js&quot;);
+      let cssPromise = loadCssFile(&quot;&#x2F;comments.css&quot;);
+
+      let commentsWrapper = document.getElementById(&quot;comments-wrapper&quot;);
+      document.getElementById(&quot;load-comment&quot;).innerHTML = &quot;Loading&quot;;
+      fetch(&quot;https:&#x2F;&#x2F;mindly.social&#x2F;api&#x2F;v1&#x2F;statuses&#x2F;115937256635328128&#x2F;context&quot;)
+        .then(function(response) {
+          return response.json();
+        })
+        .then(function(data) {
+          let descendants = data[&#x27;descendants&#x27;];
+          if(
+            descendants &amp;&amp;
+            Array.isArray(descendants) &amp;&amp;
+            descendants.length &gt; 0
+          ) {
+            commentsWrapper.innerHTML = &quot;&quot;;
+
+            descendants.forEach(function(status) {
+              &#x2F;* For debugging *&#x2F;
+              &#x2F;* console.log(descendants) *&#x2F;
+              if( status.account.display_name.length &gt; 0 ) {
+                status.account.display_name = escapeHtml(status.account.display_name);
+                status.account.display_name = emojify(status.account.display_name, status.account.emojis);
+              } else {
+                status.account.display_name = status.account.username;
+              };
+
+              let instance = &quot;&quot;;
+              if( status.account.acct.includes(&quot;@&quot;) ) {
+                instance = status.account.acct.split(&quot;@&quot;)[1];
+              } else {
+                instance = &quot;mindly.social&quot;;
+              }
+
+              const isReply = status.in_reply_to_id !== &quot;115937256635328128&quot;;
+
+              let op = false;
+              if( status.account.acct == &quot;jonalmeida&quot; ) {
+                op = true;
+              }
+
+              status.content = emojify(status.content, status.emojis);
+
+              let avatarSource = document.createElement(&quot;source&quot;);
+              avatarSource.setAttribute(&quot;srcset&quot;, escapeHtml(status.account.avatar));
+              avatarSource.setAttribute(&quot;media&quot;, &quot;(prefers-reduced-motion: no-preference)&quot;);
+
+              let avatarImg = document.createElement(&quot;img&quot;);
+              avatarImg.className = &quot;avatar&quot;;
+              avatarImg.setAttribute(&quot;src&quot;, escapeHtml(status.account.avatar_static));
+              avatarImg.setAttribute(&quot;alt&quot;, `@${ status.account.username }@${ instance } avatar`);
+
+              let avatarPicture = document.createElement(&quot;picture&quot;);
+              avatarPicture.appendChild(avatarSource);
+              avatarPicture.appendChild(avatarImg);
+
+              let avatar = document.createElement(&quot;a&quot;);
+              avatar.className = &quot;avatar-link&quot;;
+              avatar.setAttribute(&quot;href&quot;, status.account.url);
+              avatar.setAttribute(&quot;rel&quot;, &quot;external nofollow&quot;);
+              avatar.setAttribute(&quot;title&quot;, `View profile at @${ status.account.username }@${ instance }`);
+              avatar.appendChild(avatarPicture);
+
+              let instanceBadge = document.createElement(&quot;a&quot;);
+              instanceBadge.className = &quot;instance&quot;;
+              instanceBadge.setAttribute(&quot;href&quot;, status.account.url);
+              instanceBadge.setAttribute(&quot;title&quot;, `@${ status.account.username }@${ instance }`);
+              instanceBadge.setAttribute(&quot;rel&quot;, &quot;external nofollow&quot;);
+              instanceBadge.textContent = instance;
+
+              let display = document.createElement(&quot;span&quot;);
+              display.className = &quot;display&quot;;
+              display.setAttribute(&quot;itemprop&quot;, &quot;author&quot;);
+              display.setAttribute(&quot;itemtype&quot;, &quot;http:&#x2F;&#x2F;schema.org&#x2F;Person&quot;);
+              display.innerHTML = status.account.display_name;
+
+              let header = document.createElement(&quot;header&quot;);
+              header.className = &quot;author&quot;;
+              header.appendChild(display);
+              header.appendChild(instanceBadge);
+
+              let permalink = document.createElement(&quot;a&quot;);
+              permalink.setAttribute(&quot;href&quot;, status.url);
+              permalink.setAttribute(&quot;itemprop&quot;, &quot;url&quot;);
+              permalink.setAttribute(&quot;title&quot;, `View comment at ${ instance }`);
+              permalink.setAttribute(&quot;rel&quot;, &quot;external nofollow&quot;);
+              permalink.textContent = new Date( status.created_at ).toLocaleString(&#x27;en-US&#x27;, {
+                dateStyle: &quot;long&quot;,
+                timeStyle: &quot;short&quot;,
+              });
+
+              let timestamp = document.createElement(&quot;time&quot;);
+              timestamp.setAttribute(&quot;datetime&quot;, status.created_at);
+              timestamp.appendChild(permalink);
+
+              let main = document.createElement(&quot;main&quot;);
+              main.setAttribute(&quot;itemprop&quot;, &quot;text&quot;);
+              main.innerHTML = status.content;
+
+              let interactions = document.createElement(&quot;footer&quot;);
+              if(status.favourites_count &gt; 0) {
+                let faves = document.createElement(&quot;a&quot;);
+                faves.className = &quot;faves&quot;;
+                faves.setAttribute(&quot;href&quot;, `${ status.url }&#x2F;favourites`);
+                faves.setAttribute(&quot;title&quot;, `Favorites from ${ instance }`);
+                faves.textContent = status.favourites_count;
+
+                interactions.appendChild(faves);
+              }
+
+              let comment = document.createElement(&quot;article&quot;);
+              comment.id = `comment-${ status.id }`;
+              comment.className = isReply ? &quot;comment comment-reply&quot; : &quot;comment&quot;;
+              comment.setAttribute(&quot;itemprop&quot;, &quot;comment&quot;);
+              comment.setAttribute(&quot;itemtype&quot;, &quot;http:&#x2F;&#x2F;schema.org&#x2F;Comment&quot;);
+              comment.appendChild(avatar);
+              comment.appendChild(header);
+              comment.appendChild(timestamp);
+              comment.appendChild(main);
+              comment.appendChild(interactions);
+
+              if(op === true) {
+                comment.classList.add(&quot;op&quot;);
+
+                avatar.classList.add(&quot;op&quot;);
+                avatar.setAttribute(
+                  &quot;title&quot;,
+                  &quot;Blog post author; &quot; + avatar.getAttribute(&quot;title&quot;)
+                );
+
+                instanceBadge.classList.add(&quot;op&quot;);
+                instanceBadge.setAttribute(
+                  &quot;title&quot;,
+                  &quot;Blog post author: &quot; + instanceBadge.getAttribute(&quot;title&quot;)
+                );
+              }
+
+              Promise.all([purifyPromise, cssPromise]).then(() =&gt; {
+                commentsWrapper.innerHTML += DOMPurify.sanitize(comment.outerHTML);
+              });
+
+            });
+          }
+          &#x2F;&#x2F; Makes the button update more user-perceivable.
+          setTimeout(() =&gt; {
+            document.getElementById(&quot;load-comment&quot;).innerHTML = &quot;Reload comments&quot;;
+          }, 300);
+        });
+      }
+      document.getElementById(&quot;load-comment&quot;).addEventListener(&quot;click&quot;, loadComments);
+  &lt;&#x2F;script&gt;
+&lt;&#x2F;section&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Update jj bookmarks to the latest revision</title>
+        <published>2026-01-05T00:00:00+00:00</published>
+        <updated>2026-02-08T00:14:35-05:00</updated>
+        
+        <author>
+          <name>
+            
+              Jonathan Almeida
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/til/jj-tug/"/>
+        <id>https://jonalmeida.com/til/jj-tug/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/til/jj-tug/">&lt;p&gt;Got this one from another colleague as well but it seems like most folks use some version of this daily that it might be good to have this built-in.&lt;&#x2F;p&gt;
+&lt;p&gt;Before I can &lt;code&gt;jj git push&lt;&#x2F;code&gt; my current bookmark to my remote, I need to update where my (tracked) bookmark is, to the latest change:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;jj&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-jj &quot;&gt;&lt;code class=&quot;language-jj&quot; data-lang=&quot;jj&quot;&gt;&lt;mark style=&quot;background-color:#65737e30;&quot;&gt;&lt;span&gt;@  ptuqwsty &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;git@jonalmeida.com &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;2026-01-05 16:00:22 &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;451384bf&lt;&#x2F;span&gt;&lt;span&gt; &amp;lt;-- move &amp;#39;main&amp;#39; here.
+&lt;&#x2F;span&gt;&lt;&#x2F;mark&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;│  &lt;&#x2F;span&gt;&lt;span&gt;TIL: Update remote bookmark to the latest revision
+&lt;&#x2F;span&gt;&lt;mark style=&quot;background-color:#65737e30;&quot;&gt;&lt;span&gt;◆  xoqwkuvu &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;git@jonalmeida.com &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;2025-12-30 19:50:51&lt;&#x2F;span&gt;&lt;span&gt; main &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;git_head() &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;9ad7ce11
+&lt;&#x2F;span&gt;&lt;&#x2F;mark&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;│  &lt;&#x2F;span&gt;&lt;span&gt;TIL: Preserve image scale with ImageMagick
+&lt;&#x2F;span&gt;&lt;span&gt;~
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;A quick one-liner &lt;code&gt;jj tug&lt;&#x2F;code&gt; does that for me:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;jj&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-jj &quot;&gt;&lt;code class=&quot;language-jj&quot; data-lang=&quot;jj&quot;&gt;&lt;mark style=&quot;background-color:#65737e30;&quot;&gt;&lt;span&gt;@  ptuqwsty &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;git@jonalmeida.com &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;2026-01-05 16:03:54&lt;&#x2F;span&gt;&lt;span&gt; main* &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;6e7173b4
+&lt;&#x2F;span&gt;&lt;&#x2F;mark&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;│  &lt;&#x2F;span&gt;&lt;span&gt;TIL: Update remote bookmark to the latest revision
+&lt;&#x2F;span&gt;&lt;mark style=&quot;background-color:#65737e30;&quot;&gt;&lt;span&gt;◆  xoqwkuvu &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;git@jonalmeida.com &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;2025-12-30 19:50:51 &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;main@&lt;&#x2F;span&gt;&lt;span&gt;origin &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;git_head() &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;9ad7ce11
+&lt;&#x2F;span&gt;&lt;&#x2F;mark&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;│  &lt;&#x2F;span&gt;&lt;span&gt;TIL: Preserve image scale with ImageMagick
+&lt;&#x2F;span&gt;&lt;span&gt;~
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;The alias is quite straight-forward:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;toml&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-toml &quot;&gt;&lt;code class=&quot;language-toml&quot; data-lang=&quot;toml&quot;&gt;&lt;span&gt;[aliases]
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;# Update your bookmarks to your latest rev.
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;tug &lt;&#x2F;span&gt;&lt;span&gt;= [&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;bookmark&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;, &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;move&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;, &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;--from&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;, &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;heads(::@ &amp;amp; bookmarks())&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;, &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;--to&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;, &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;@&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;]
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Rebase all WIPs to the new main</title>
+        <published>2025-10-07T00:00:00+00:00</published>
+        <updated>2026-01-05T18:10:50-05:00</updated>
+        
+        <author>
+          <name>
+            
+              Jonathan Almeida
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/til/jj-rebase-all/"/>
+        <id>https://jonalmeida.com/til/jj-rebase-all/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/til/jj-rebase-all/">&lt;p&gt;A small pet-peeve with fetching the latest main on jujutsu is that I like to move all my WIP patches to the new one. That&#x27;s also nice because jj doesn&#x27;t make me fix the conflicts immediately!&lt;&#x2F;p&gt;
+&lt;p&gt;The solution from a co-worker (kudos to skippyhammond!) is to query all immediate decendants of the &lt;em&gt;previous&lt;&#x2F;em&gt; main after the fetch.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;jj&lt;&#x2F;span&gt;&lt;span&gt; git fetch
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;# assuming &amp;#39;z&amp;#39; is the rev-id of the previous main.
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;jj&lt;&#x2F;span&gt;&lt;span&gt; rebase&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; -s &lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;mutable()&amp;amp;z+&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; -d&lt;&#x2F;span&gt;&lt;span&gt; main
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;&lt;del&gt;I haven&#x27;t learnt how to make aliases accept params with it yet, so this will have to do for now.&lt;&#x2F;del&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;Update: After a bit of searching, it seems that today this is only possible by &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;jj-vcs&#x2F;jj&#x2F;discussions&#x2F;7129#discussioncomment-13933358&quot;&gt;wrapping it in a shell script&lt;&#x2F;a&gt;. Based on the examples in &lt;a href=&quot;https:&#x2F;&#x2F;docs.jj-vcs.dev&#x2F;latest&#x2F;config&#x2F;#aliases&quot;&gt;the jj documentation&lt;&#x2F;a&gt; an alias would look like this:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;toml&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-toml &quot;&gt;&lt;code class=&quot;language-toml&quot; data-lang=&quot;toml&quot;&gt;&lt;span&gt;[aliases]
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;# Update all revs to the latest main; point to the previous one.
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;hoist &lt;&#x2F;span&gt;&lt;span&gt;= [&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;util&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;, &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;exec&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;, &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;--&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;, &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;bash&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;, &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;-c&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;, &amp;quot;&amp;quot;&amp;quot;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;set -euo pipefail
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;jj rebase -s &amp;quot;mutable()&amp;amp;$1+&amp;quot; -d &amp;quot;main&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&amp;quot;&amp;quot;, &amp;quot;&amp;quot;]
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Useful bookmark keywords for Firefox (mobile) development</title>
+        <published>2021-10-15T00:00:00+00:00</published>
+        <updated>2021-10-15T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Jonathan Almeida
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/blog/browser-keyboard-shortcuts-mozilla-mobile/"/>
+        <id>https://jonalmeida.com/blog/browser-keyboard-shortcuts-mozilla-mobile/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/blog/browser-keyboard-shortcuts-mozilla-mobile/">&lt;p&gt;Firefox has support for keyword search in the address bar, which is handy during development at Mozilla. There are often many sources of information to look through and being able to get to them efficiently will save you &lt;em&gt;a lot&lt;&#x2F;em&gt; of time.&lt;&#x2F;p&gt;
+&lt;p&gt;The &lt;a href=&quot;https:&#x2F;&#x2F;support.mozilla.org&#x2F;en-US&#x2F;kb&#x2F;how-search-from-address-bar&quot;&gt;support documentation&lt;&#x2F;a&gt; has excellent examples of how this works, but here is a simple annotated image of what it does:&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;&#x2F;images&#x2F;20211015&#x2F;keywords.png&quot; alt=&quot;&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;Below are a list of keyword shortcuts I use on a daily basis. Many of them are related to mobile development, but there are other userful ones too. You can manually copy over to your bookmark manager the ones that might seem useful.&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;search-fox&quot;&gt;Search Fox&lt;&#x2F;h1&gt;
+&lt;p&gt;Search Fox is another internal tool at Mozilla for code indexes across all of mozilla-central and particular it&#x27;s branches, mozilla-mobile, rust and many others. Search Fox is a go because of how fast it is and with symbolic references to JS&#x2F;Rust&#x2F;C++, you can navigate quite easily around the place. There are a few keywords that I&#x27;d recommend here.&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;sf - regular indexes of mozilla-central.&lt;&#x2F;li&gt;
+&lt;li&gt;sfm - search through mozilla-mobile repositories (this includes application-services too).&lt;&#x2F;li&gt;
+&lt;li&gt;sff - search through the 68 release branch code. This is particularly useful for mobile because it&#x27;s the last release of Fennec (old Firefox Mobile) if you want to compare implementations.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;pre style=&quot;background-color:#2b303b;color:#c0c5ce;&quot;&gt;&lt;code&gt;&lt;span&gt;Name: Searchfox - mozilla-central
+&lt;&#x2F;span&gt;&lt;span&gt;Keyword: sf
+&lt;&#x2F;span&gt;&lt;span&gt;URL: https:&#x2F;&#x2F;searchfox.org&#x2F;mozilla-central&#x2F;search?path=&amp;amp;q=%s
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;Name: Searchfox - mozilla-mobile (Mobile)
+&lt;&#x2F;span&gt;&lt;span&gt;Keyword: sfm
+&lt;&#x2F;span&gt;&lt;span&gt;URL: https:&#x2F;&#x2F;searchfox.org&#x2F;mozilla-mobile&#x2F;search?path=&amp;amp;q=%s
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;Name: Searchfox - Fennec - mozsearch
+&lt;&#x2F;span&gt;&lt;span&gt;Keyword: sff
+&lt;&#x2F;span&gt;&lt;span&gt;URL: http:&#x2F;&#x2F;searchfox.org&#x2F;mozilla-esr68&#x2F;search?q=%s&amp;amp;path=
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h1 id=&quot;mercurial&quot;&gt;Mercurial&lt;&#x2F;h1&gt;
+&lt;p&gt;Sometimes you want to look up a diff from a changeset in your browser.&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;color:#c0c5ce;&quot;&gt;&lt;code&gt;&lt;span&gt;Name: Search mozilla-central with revision (changeset) ID
+&lt;&#x2F;span&gt;&lt;span&gt;Keyword: diff
+&lt;&#x2F;span&gt;&lt;span&gt;URL: https:&#x2F;&#x2F;hg.mozilla.org&#x2F;mozilla-central&#x2F;rev&#x2F;%s
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h1 id=&quot;github&quot;&gt;Github&lt;&#x2F;h1&gt;
+&lt;p&gt;Many of our mobile projects are on Github so having quick access to an issue or pull request is great. We currently work on Android Components, Fenix and Focus a lot, so these keywords let me get to an issue or pull request directly. For example, &lt;code&gt;aci 10000&lt;&#x2F;code&gt; for navigating to the 10,000 issue in Android Components.&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;color:#c0c5ce;&quot;&gt;&lt;code&gt;&lt;span&gt;Name: Github - Android Components - Issues&#x2F;Pull Requests
+&lt;&#x2F;span&gt;&lt;span&gt;Keyword: aci
+&lt;&#x2F;span&gt;&lt;span&gt;URL: https:&#x2F;&#x2F;github.com&#x2F;mozilla-mobile&#x2F;android-components&#x2F;issues&#x2F;%s
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;Name: Github - Fenix - Issues&#x2F;Pull Requests
+&lt;&#x2F;span&gt;&lt;span&gt;Keyword: fbi
+&lt;&#x2F;span&gt;&lt;span&gt;URL: https:&#x2F;&#x2F;github.com&#x2F;mozilla-mobile&#x2F;fenix&#x2F;issues&#x2F;%s
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;Name: Github - Focus - Issues&#x2F;Pull Requests
+&lt;&#x2F;span&gt;&lt;span&gt;Keyword: fci
+&lt;&#x2F;span&gt;&lt;span&gt;URL: https:&#x2F;&#x2F;github.com&#x2F;mozilla-mobile&#x2F;focus-android&#x2F;issues&#x2F;%s
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h1 id=&quot;taskcluster&quot;&gt;Taskcluster&lt;&#x2F;h1&gt;
+&lt;p&gt;Taskcluster is our internal CI build system. When a build fails or when you want to wait for a build, you can grab the ID from a pull request or release.&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;color:#c0c5ce;&quot;&gt;&lt;code&gt;&lt;span&gt;Name: FirefoxCI - Navigate to a task item (Task ID)
+&lt;&#x2F;span&gt;&lt;span&gt;Keyword: ti
+&lt;&#x2F;span&gt;&lt;span&gt;URL: https:&#x2F;&#x2F;firefox-ci-tc.services.mozilla.com&#x2F;tasks&#x2F;%s
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;Name: FirefoxCI - Navigate to a task group (Group ID)
+&lt;&#x2F;span&gt;&lt;span&gt;Keyword: gi
+&lt;&#x2F;span&gt;&lt;span&gt;URL: https:&#x2F;&#x2F;firefox-ci-tc.services.mozilla.com&#x2F;tasks&#x2F;groups&#x2F;%s
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h1 id=&quot;android-chromium&quot;&gt;Android &#x2F; Chromium&lt;&#x2F;h1&gt;
+&lt;p&gt;It&#x27;s common to want source references to Android sources or compare Chromium implementations as well.&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;color:#c0c5ce;&quot;&gt;&lt;code&gt;&lt;span&gt;Name: Chromium Android - Code Search (Chromium Reference)
+&lt;&#x2F;span&gt;&lt;span&gt;Keyword: cr
+&lt;&#x2F;span&gt;&lt;span&gt;URL: https:&#x2F;&#x2F;cs.chromium.org&#x2F;search&#x2F;?q=%s&amp;amp;sq=package:chromium&amp;amp;type=cs
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;Name: Android Source References
+&lt;&#x2F;span&gt;&lt;span&gt;Keyword: ar
+&lt;&#x2F;span&gt;&lt;span&gt;URL: https:&#x2F;&#x2F;cs.android.com&#x2F;search?q=%s
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>How I manage my github notifications with Gmail</title>
+        <published>2021-10-14T00:00:00+00:00</published>
+        <updated>2021-10-14T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Jonathan Almeida
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/blog/github-notifications-mozilla-mobile/"/>
+        <id>https://jonalmeida.com/blog/github-notifications-mozilla-mobile/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/blog/github-notifications-mozilla-mobile/">&lt;p&gt;A lot of &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;mozilla-mobile&#x2F;&quot;&gt;Mozilla mobile&lt;&#x2F;a&gt; product development is now hosted on Github, which is what many of our contributors prefer as a platform too. This leads to a lot of noise from Github&#x27;s notification system and I&#x27;ve had some troubles managing it over the years.&lt;&#x2F;p&gt;
+&lt;p&gt;As a follow-up to &lt;a href=&quot;https:&#x2F;&#x2F;blog.margaretleibovic.com&#x2F;2012&#x2F;09&#x2F;21&#x2F;how-i-manage-my-bugmail-with-gmail.html&quot;&gt;how you can manage bugmail with gmail&lt;&#x2F;a&gt;, I found a similar way to manage my most important Github notifications via Gmail:&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;&#x2F;images&#x2F;20211014&#x2F;gmail-sidebar.png&quot; alt=&quot;&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;You can apply the same filters with the rules below:&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;color:#c0c5ce;&quot;&gt;&lt;code&gt;&lt;span&gt;Matches: from:(notifications@github.com)
+&lt;&#x2F;span&gt;&lt;span&gt;Do this: Skip Inbox, Apply label &amp;quot;GitHub&amp;quot;, Categorize as Forums
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;Matches: to:(author@noreply.github.com)
+&lt;&#x2F;span&gt;&lt;span&gt;Do this: Apply label &amp;quot;GitHub&#x2F;Author&amp;quot;, Mark it as important
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;Matches: cc:comment@noreply.github.com
+&lt;&#x2F;span&gt;&lt;span&gt;Do this: Skip Inbox, Apply label &amp;quot;GitHub&#x2F;Comments&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;Matches: to:(mention@noreply.github.com)
+&lt;&#x2F;span&gt;&lt;span&gt;Do this: Skip Inbox, Apply label &amp;quot;GitHub&#x2F;Mentions&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;Matches: to:(review_requested@noreply.github.com) &amp;quot;requested your review&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;Do this: Apply label &amp;quot;GitHub&#x2F;Review Requested&amp;quot;, Mark it as important
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;Matches: to:(review_requested@noreply.github.com)
+&lt;&#x2F;span&gt;&lt;span&gt;Do this: Apply label &amp;quot;GitHub&#x2F;Reviews&amp;quot;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;The filters above are sorted in the same order as the screenshot if you&#x27;d like to only use a select few.&lt;&#x2F;p&gt;
+&lt;p&gt;If you&#x27;re feeling ambitious, you can &lt;a href=&quot;&#x2F;images&#x2F;20211014&#x2F;mailFilters.xml&quot;&gt;download the filters&lt;&#x2F;a&gt; in the appropriate XML format for Gmail so that you can import them for your account. This is probably not advisable because I&#x27;m someone on the internet that you probably do not know. :)&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+</feed>

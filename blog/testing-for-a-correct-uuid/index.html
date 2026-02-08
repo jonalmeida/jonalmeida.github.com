@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to verify if a UUID follows the IETF specification | Jonathan Almeida</title>
+  <meta name="title" content="How to verify if a UUID follows the IETF specification">
+<meta name="description" content="Scribblings and nonsense">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+  
+  <link rel="alternate" type="application/atom+xml" title="Jonathan Almeida" href="https://jonalmeida.com/atom.xml">
+  <style>
+    :root {
+    --width: 800px;
+    --font-main: Verdana, sans-serif;
+    --font-secondary: Verdana, sans-serif;
+    --font-scale: 1em;
+    --background-color: #fff;
+    --heading-color: #222;
+    --text-color: #444;
+    --link-color: #3273dc;
+    --visited-color: #8b6fcb;
+    --code-background-color: #f2f2f2;
+    --code-color: #222;
+    --blockquote-color: #222;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --background-color: #01242e;
+      --heading-color: #eee;
+      --text-color: #ddd;
+      --link-color: #8cc2dd;
+      --visited-color: #8b6fcb;
+      --code-background-color: #000;
+      --code-color: #ddd;
+      --blockquote-color: #ccc;
+    }
+  }
+
+  body {
+    font-family: var(--font-secondary);
+    font-size: var(--font-scale);
+    margin: auto;
+    padding: 20px;
+    max-width: var(--width);
+    text-align: left;
+    background-color: var(--background-color);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.5;
+    color: var(--text-color);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-main);
+    color: var(--heading-color);
+  }
+
+  a {
+    color: var(--link-color);
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  nav a {
+    margin-right: 8px;
+  }
+
+  nav span.active {
+    font-weight: bold;
+    margin-right: 10px;
+  }
+  strong,
+  b {
+    color: var(--heading-color);
+  }
+
+  button {
+    margin: 0;
+    cursor: pointer;
+  }
+
+  main {
+    line-height: 1.6;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  hr {
+    border: 0;
+    border-top: 1px dashed;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  pre code {
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    display: block;
+    padding: 20px;
+    white-space: pre-wrap;
+    font-size: 0.875rem;
+    overflow-x: auto;
+  }
+
+  code {
+    font-family: monospace;
+    padding: 2px;
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    border-radius: 3px;
+  }
+
+  blockquote {
+    border-left: 1px solid #999;
+    color: var(--code-color);
+    padding-left: 20px;
+    font-style: italic;
+  }
+
+  footer {
+    padding: 25px 0;
+    text-align: center;
+  }
+
+  .title:hover {
+    text-decoration: none;
+  }
+
+  .title h1 {
+    font-size: 1.5em;
+  }
+
+  .inline {
+    width: auto !important;
+  }
+
+  .highlight,
+  .code {
+    padding: 1px 15px;
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    border-radius: 3px;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    overflow-x: auto;
+  }
+
+  /* blog post list */
+  ul.blog-posts {
+    list-style-type: none;
+    padding: unset;
+  }
+
+  ul.blog-posts li {
+    display: flex;
+  }
+
+  ul.blog-posts li span {
+    flex: 0 0 130px;
+  }
+
+  ul.blog-posts li a:visited {
+    color: var(--visited-color);
+  }
+
+  .tags {
+    font-size: smaller;
+  }
+
+  .footnote-definition {
+    display: flex;
+    margin-top: 1em;
+  }
+  .footnote-definition-label {
+    margin-left: 1rem;
+    margin-right: 0.5rem;
+    vertical-align: baseline;
+  }
+  .footnote-definition-label::after {
+    content: "."
+  }
+  .footnote-definition > p {
+    margin: 0;
+  }
+
+  </style><style>
+
+section#comments {
+  p {
+    font-size: 0.8em;
+  }
+}
+
+
+pre mark {
+  color: var(--code-color);
+}
+</style>
+
+</head>
+<body>
+  <header>
+  <a href="https://jonalmeida.com/" class="title">
+    <h1>Jonathan Almeida</h1>
+  </a>
+  <nav aria-label="site">
+      <a href="https://jonalmeida.com/">Home</a>
+      <a href="https://jonalmeida.com/blog/">Blog</a>
+      <a href="https://jonalmeida.com/til/">TIL</a>
+      <a href="https://jonalmeida.com/archive/">Archive</a>
+  </nav>
+</header>
+
+  <h1>How to verify if a UUID follows the IETF specification</h1>
+      <p>
+        <i>
+          <time datetime="2014-05-20T00:00:00+00:00" pubdate>2014-05-20</time>
+        </i>
+      </p>
+    <details >
+      <summary>Table of contents</summary>
+    <ul>
+        <li>
+          <a href="https://jonalmeida.com/blog/testing-for-a-correct-uuid/#understanding-the-spec">Understanding the spec</a>
+        </li>
+        <li>
+          <a href="https://jonalmeida.com/blog/testing-for-a-correct-uuid/#verifying-the-correct-form">Verifying the correct form</a>
+        </li>
+        <li>
+          <a href="https://jonalmeida.com/blog/testing-for-a-correct-uuid/#conclusion">Conclusion</a>
+        </li>
+    </ul>
+    </details>
+  <main>
+    <p>I was playing around with creating UUIDs for adding uniqueness in a project, so I started reading the spec for creating one in the <a href="https://tools.ietf.org/html/rfc4122">RFC 4122</a>. Also as a side note, the spec sheets there are really interesting and finely detailed for almost anyone to understand. I don't know why I spent so much time on this, I was just having fun and time seemed to pass by..</p>
+<h2 id="understanding-the-spec">Understanding the spec</h2>
+<p>The one I was after was a type 4 UUID which is randomly generated consisting of hex values under <a href="https://tools.ietf.org/html/rfc4122#section-4.4">section 4.4</a>. Luckily, from everything explained, this was the smallest algorithm required to implement:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>4.4.  Algorithms for Creating a UUID from Truly Random or
+</span><span>      Pseudo-Random Numbers
+</span><span>
+</span><span>   The version 4 UUID is meant for generating UUIDs from truly-random or
+</span><span>   pseudo-random numbers.
+</span><span>
+</span><span>   The algorithm is as follows:
+</span><span>
+</span><span>   o  Set the two most significant bits (bits 6 and 7) of the
+</span><span>      clock_seq_hi_and_reserved to zero and one, respectively.
+</span><span>
+</span><span>   o  Set the four most significant bits (bits 12 through 15) of the
+</span><span>      time_hi_and_version field to the 4-bit version number from
+</span><span>      Section 4.1.3.
+</span><span>
+</span><span>   o  Set all the other bits to randomly (or pseudo-randomly) chosen
+</span><span>      values.
+</span></code></pre>
+<p>So maybe that's easier to understand if you read it from the top, but what it essentially says is that you can generate a random set of hex values for 30 of the 32 values, but the 13th bit must be <em>4</em>, which is a way of identifying what type of UUID it is (i.e. type 4), and the 17th bit can be of <em>8</em>, <em>9</em>, <em>a</em> or <em>b</em>. Here's an example:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>a0424604-03c6-4468-963b-002e5fbe2812
+</span><span>              ^    ^
+</span><span>              |    |
+</span><span>           always 4|
+</span><span>                   |
+</span><span>               either 8,9,a,b
+</span></code></pre>
+<p>The code for writing this was fairly simple and can be found <a href="https://github.com/jonalmeida/UUIDGenerator">on GitHub</a>, but I wanted a way to verify it was created correctly.</p>
+<h2 id="verifying-the-correct-form">Verifying the correct form</h2>
+<p>After asking around and a few StackOverflow questions later, it seemed easiest to use a regex expression to solve this. I came up with a regex expression that tests for all four possible formats it could be expressed in. They look like this:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>Lower case without hypens: 7185f40e722c4cfa8de5daedf048ea12
+</span><span>Upper case without hypens: 21A338B30A57462780450D4B6AF7A3EE
+</span><span>Lower case with hypens: 7e0b2da6-38c3-4873-83f7-aab0cacb7603
+</span><span>Upper case with hypens: FDFC7265-BA5E-4A63-9A51-AC661107EB37
+</span></code></pre>
+<p>This is the regex expression I finally ended up using:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>[0-9a-fA-F]{8}-?[0-9a-fA-F]{4}-?4[0-9a-fA-F]{3}-?[89abAB][0-9a-fA-F]{3}-?[0-9a-fA-F]{12}
+</span></code></pre>
+<p>To break down what the regex says:</p>
+<ol>
+<li>First 8 characters can be anything from 0-9, a-f, A-F: <code>[0-9a-fA-F]{8}</code></li>
+<li>A single hypen may follow: <code>-?</code></li>
+<li>Next 4 characters can be anything from 0-9, a-f, A-F: <code>[0-9a-fA-F]{4}</code></li>
+<li>A single hypen may follow: <code>-?</code></li>
+<li>A single '4' must follow</li>
+<li>Next 3 characters can be anything from 0-9, a-f, A-F: <code>[0-9a-fA-F]{3}</code></li>
+<li>A single hypen may follow: <code>-?</code></li>
+<li>The next character must be either 8, 9, a, b: <code>[89abAB]</code></li>
+<li>Next 3 characters can be anything from 0-9, a-f, A-F: <code>[0-9a-fA-F]{3}</code></li>
+<li>A single hypen may follow: <code>-?</code></li>
+<li>Next 12 characters can be anything from 0-9, a-f, A-F: <code>[0-9a-fA-F]{12}</code></li>
+</ol>
+<h2 id="conclusion">Conclusion</h2>
+<p>Spec sheets explain everything you need about said thing even though they look ugly and seem too monotinous to read. You can find a couple of tests I wrote <a href="https://github.com/jonalmeida/UUIDGenerator/blob/master/UUIDGeneratorTests/UUIDGeneratorTests.m">on GitHub</a> as well in an objective-c implementation. This is what one of the tests look like:</p>
+<pre data-lang="objective-c" style="background-color:#2b303b;color:#c0c5ce;" class="language-objective-c "><code class="language-objective-c" data-lang="objective-c"><span>- (</span><span style="color:#b48ead;">void</span><span>)testCorrectUUIDFormat
+</span><span>{
+</span><span>  UUIDGenerator *u_generator = [[UUIDGenerator </span><span style="color:#8fa1b3;">alloc</span><span>] init];
+</span><span>  </span><span style="color:#ebcb8b;">NSString </span><span>*sample_uuid = [u_generator </span><span style="color:#8fa1b3;">uuid4WithCaps:</span><span style="color:#d08770;">false </span><span style="color:#8fa1b3;">hypenated:</span><span style="color:#d08770;">true</span><span>];
+</span><span>  </span><span style="color:#ebcb8b;">NSString </span><span>*pattern = @&quot;</span><span style="color:#a3be8c;">[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}</span><span>&quot;;
+</span><span>  NSRange searchRange = </span><span style="color:#96b5b4;">NSMakeRange</span><span>(</span><span style="color:#d08770;">0</span><span>, [sample_uuid </span><span style="color:#8fa1b3;">length</span><span>]);
+</span><span>  </span><span style="color:#ebcb8b;">NSError </span><span>*error = </span><span style="color:#d08770;">NULL</span><span>;
+</span><span>  NSRegularExpression *regex = [NSRegularExpression </span><span style="color:#8fa1b3;">regularExpressionWithPattern:</span><span>pattern </span><span style="color:#8fa1b3;">options:</span><span style="color:#d08770;">0 </span><span style="color:#8fa1b3;">error:</span><span>&amp;error];
+</span><span>  </span><span style="color:#ebcb8b;">NSArray </span><span>*matches = [regex </span><span style="color:#8fa1b3;">matchesInString:</span><span>sample_uuid </span><span style="color:#8fa1b3;">options:</span><span style="color:#d08770;">0 </span><span style="color:#8fa1b3;">range:</span><span>searchRange];
+</span><span>
+</span><span>  [matches </span><span style="color:#8fa1b3;">count</span><span>];
+</span><span>  </span><span style="color:#b48ead;">for </span><span>(NSTextCheckingResult* match in matches) {
+</span><span>    </span><span style="color:#ebcb8b;">NSString</span><span>* matchText = [sample_uuid </span><span style="color:#8fa1b3;">substringWithRange:</span><span>[match </span><span style="color:#8fa1b3;">range</span><span>]];
+</span><span>    </span><span style="color:#96b5b4;">NSLog</span><span>(@&quot;</span><span style="color:#a3be8c;">match: </span><span style="color:#d08770;">%@</span><span>&quot;, matchText);
+</span><span>    NSRange group1 = [match </span><span style="color:#8fa1b3;">rangeAtIndex:</span><span style="color:#d08770;">0</span><span>];
+</span><span>    </span><span style="color:#96b5b4;">NSLog</span><span>(@&quot;</span><span style="color:#a3be8c;">group1: </span><span style="color:#d08770;">%@</span><span>&quot;, [sample_uuid </span><span style="color:#8fa1b3;">substringWithRange:</span><span>group1]);
+</span><span>  }
+</span><span>
+</span><span>  </span><span style="color:#96b5b4;">NSLog</span><span>(@&quot;</span><span style="color:#a3be8c;">Our UUID, </span><span style="color:#d08770;">%@</span><span>&quot;, sample_uuid);
+</span><span>  </span><span style="color:#96b5b4;">NSLog</span><span>(@&quot;</span><span style="color:#a3be8c;">Our UUID length, </span><span style="color:#d08770;">%lu</span><span>&quot;, (</span><span style="color:#b48ead;">unsigned long</span><span>)[sample_uuid </span><span style="color:#8fa1b3;">length</span><span>]);
+</span><span>
+</span><span>  </span><span style="color:#bf616a;">XCTAssertEqual</span><span>([matches </span><span style="color:#8fa1b3;">count</span><span>], </span><span style="color:#d08770;">1</span><span>, @&quot;</span><span style="color:#a3be8c;">UUID generated doesn&#39;t match the type 4 UUID RFC</span><span>&quot;);
+</span><span>}
+</span></code></pre>
+<p>Refs:</p>
+<ul>
+<li><a href="http://stackoverflow.com/questions/11384589/what-is-the-correct-regex-for-matching-values-generated-by-uuid-uuid4-hex">What is the correct regex for matching values generated by uuid.uuid4().hex?</a></li>
+</ul>
+
+  </main>
+  <p>
+        Categories:
+          <a href="https://jonalmeida.com/categories/blog/">#blog</a>
+  </p>
+
+  <!-- Add temporary footnote back-links support -->
+  <script src="/footnotes.js"></script>
+<footer>
+</footer>
+</body>
+</html>
