@@ -9,8 +9,6 @@ Thumbs.db
 .rbenv-version
 .rvmrc
 
-*.sublime*
-
 # Jekyll
 .jekyll-cache
 

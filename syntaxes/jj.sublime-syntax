@@ -1,0 +1,51 @@
+%YAML 1.2
+---
+name: JJ Log
+file_extensions: [jj]
+scope: source.jj
+
+contexts:
+  main:
+    # Graph characters
+    - match: '^[○●◉◌│├┤┬┴┼╭╮╯╰─┬┴\s]+'
+      scope: comment.line.jj
+
+    # Conflict marker
+    - match: '\b(conflict)\b'
+      scope: invalid.illegal.conflict.jj
+
+    # Commit hash
+    - match: '\b[a-f0-9]{6,40}\b'
+      scope: constant.numeric.hash.jj
+
+    # Email
+    - match: '[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}'
+      scope: string.unquoted.email.jj
+
+    # Date
+    - match: '\d{4}-\d{2}-\d{2}'
+      scope: comment.line.date.jj
+
+    # Time
+    - match: '\d{2}:\d{2}:\d{2}'
+      scope: comment.line.time.jj
+
+    # Bug number
+    - match: '\b(Bug|bug)\s+\d+'
+      scope: keyword.control.bug.jj
+
+    # WIP
+    - match: '\b(WIP)\b'
+      scope: keyword.control.wip.jj
+
+    # Reviewer
+    - match: 'r=[a-zA-Z0-9,_-]+'
+      scope: entity.name.function.reviewer.jj
+
+    # Branch/ref
+    - match: '[a-zA-Z0-9_-]+@|git_head\(\)'
+      scope: entity.name.tag.branch.jj
+
+    # Empty markers
+    - match: '\((empty|no description set)\)'
+      scope: comment.line.empty.jj
