@@ -1,5 +1,38 @@
+{#
+
+An image gallery viewer that can render selected images from a
+provided `files` list, a `dir` directory, or otherwise all images in
+the `page.assets` if no arguments provided.
+
+Examples:
+
+# Renders all images that can be found.
+{{ gallery() }}
+
+# Renders all images in the sub-directory `top_images`.
+{{ gallery(dir="top_images/") }}
+
+# Renders all images listed in the `files` parameter.
+{{ gallery(files=["top_images/image-2.jpg", "top_images/image-0.jpg"]) }}
+
+#}
 <div>
-{% for asset in page.assets -%}
+{% if files %}
+  {% set_global assets = [] %}
+  {% for p in files %}
+    {% set_global assets = assets | concat(with=[page.colocated_path ~ p]) %}
+  {% endfor %}
+{% elif dir %}
+  {% set_global assets = [] %}
+  {% for asset in page.assets %}
+    {% if dir in asset %}
+      {% set_global assets = assets | concat(with=[asset]) %}
+    {% endif %}
+  {% endfor %}
+{% else %}
+  {% set assets = page.assets %}
+{% endif %}
+{% for asset in assets -%}
   {%- if asset is matching("[.](jpg|png)$") -%}
     {% set image = resize_image(path=asset, width=240, height=180) %}
 
