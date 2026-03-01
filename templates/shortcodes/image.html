@@ -1,3 +1,24 @@
+{#
+  A shortcode for centered single image. Includes optional `width`
+  and `height` parameters.
+
+  Examples:
+  {% image(path="image-01.jpg") %}
+
+  {% image(path="image-02.jpg", width=240) %}
+
+  {% image(path="image-02.jpg", width=240, height=360) %}
+#}
 <div>
-  <img src="{{ path }}" style="display: block; margin-left: auto; margin-right: auto;" />
+  <img
+    src="{{ path }}"
+    style="display: block; margin-left: auto; margin-right: auto;"
+
+    {% if width %}
+      width={{width}}
+    {% endif %}
+    {% if height %}
+      height={{height}}
+    {% endif %}
+  />
 </div>
