@@ -14,3 +14,7 @@ Thumbs.db
 
 # Zola default generated directory
 public/
+static/processed_images/
+
+# Claude
+.claude/
