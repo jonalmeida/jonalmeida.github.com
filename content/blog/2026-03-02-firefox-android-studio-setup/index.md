@@ -1,6 +1,6 @@
 ---
 title: "My Firefox for Android local build environment"
-draft: true
+draft: false
 #updated: 2026-01-19T16:08:32-05:00
 taxonomies:
   tags: ["mozilla", "workflow"]
