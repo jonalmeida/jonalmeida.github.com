@@ -1,7 +1,7 @@
 ---
 title: "My Firefox for Android local build environment"
 draft: false
-#updated: 2026-01-19T16:08:32-05:00
+updated: 2026-03-05T19:32:05-05:00
 taxonomies:
   tags: ["mozilla", "workflow"]
   categories: ["blog"]
