@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Setting up ownCloud on Mac OS Mountain Lion to use via SSH | Jonathan Almeida</title>
+  <meta name="title" content="Setting up ownCloud on Mac OS Mountain Lion to use via SSH">
+<meta name="description" content="Scribblings and nonsense">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+  
+  <link rel="alternate" type="application/atom+xml" title="Jonathan Almeida" href="https://jonalmeida.com/atom.xml">
+  <style>
+    :root {
+    --width: 800px;
+    --font-main: Verdana, sans-serif;
+    --font-secondary: Verdana, sans-serif;
+    --font-scale: 1em;
+    --background-color: #fff;
+    --heading-color: #222;
+    --text-color: #444;
+    --link-color: #3273dc;
+    --visited-color: #8b6fcb;
+    --code-background-color: #f2f2f2;
+    --code-color: #222;
+    --blockquote-color: #222;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --background-color: #01242e;
+      --heading-color: #eee;
+      --text-color: #ddd;
+      --link-color: #8cc2dd;
+      --visited-color: #8b6fcb;
+      --code-background-color: #000;
+      --code-color: #ddd;
+      --blockquote-color: #ccc;
+    }
+  }
+
+  body {
+    font-family: var(--font-secondary);
+    font-size: var(--font-scale);
+    margin: auto;
+    padding: 20px;
+    max-width: var(--width);
+    text-align: left;
+    background-color: var(--background-color);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.5;
+    color: var(--text-color);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-main);
+    color: var(--heading-color);
+  }
+
+  a {
+    color: var(--link-color);
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  nav a {
+    margin-right: 8px;
+  }
+
+  nav span.active {
+    font-weight: bold;
+    margin-right: 10px;
+  }
+  strong,
+  b {
+    color: var(--heading-color);
+  }
+
+  button {
+    margin: 0;
+    cursor: pointer;
+  }
+
+  main {
+    line-height: 1.6;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  hr {
+    border: 0;
+    border-top: 1px dashed;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  pre code {
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    display: block;
+    padding: 20px;
+    white-space: pre-wrap;
+    font-size: 0.875rem;
+    overflow-x: auto;
+  }
+
+  code {
+    font-family: monospace;
+    padding: 2px;
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    border-radius: 3px;
+  }
+
+  blockquote {
+    border-left: 1px solid #999;
+    color: var(--code-color);
+    padding-left: 20px;
+    font-style: italic;
+  }
+
+  footer {
+    padding: 25px 0;
+    text-align: center;
+  }
+
+  .title:hover {
+    text-decoration: none;
+  }
+
+  .title h1 {
+    font-size: 1.5em;
+  }
+
+  .inline {
+    width: auto !important;
+  }
+
+  .highlight,
+  .code {
+    padding: 1px 15px;
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    border-radius: 3px;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    overflow-x: auto;
+  }
+
+  /* blog post list */
+  ul.blog-posts {
+    list-style-type: none;
+    padding: unset;
+  }
+
+  ul.blog-posts li {
+    display: flex;
+  }
+
+  ul.blog-posts li span {
+    flex: 0 0 130px;
+  }
+
+  ul.blog-posts li a:visited {
+    color: var(--visited-color);
+  }
+
+  .tags {
+    font-size: smaller;
+  }
+
+  .footnote-definition {
+    display: flex;
+    margin-top: 1em;
+  }
+  .footnote-definition-label {
+    margin-left: 1rem;
+    margin-right: 0.5rem;
+    vertical-align: baseline;
+  }
+  .footnote-definition-label::after {
+    content: "."
+  }
+  .footnote-definition > p {
+    margin: 0;
+  }
+
+  </style><style>
+
+section#comments {
+  p {
+    font-size: 0.8em;
+  }
+}
+
+
+pre mark {
+  color: var(--code-color);
+}
+</style>
+
+</head>
+<body>
+  <header>
+  <a href="https://jonalmeida.com/" class="title">
+    <h1>Jonathan Almeida</h1>
+  </a>
+  <nav aria-label="site">
+      <a href="https://jonalmeida.com/">Home</a>
+      <a href="https://jonalmeida.com/blog/">Blog</a>
+      <a href="https://jonalmeida.com/til/">TIL</a>
+      <a href="https://jonalmeida.com/archive/">Archive</a>
+  </nav>
+</header>
+
+  <h1>Setting up ownCloud on Mac OS Mountain Lion to use via SSH</h1>
+      <p>
+        <i>
+          <time datetime="2014-01-05T00:00:00+00:00" pubdate>2014-01-05</time>
+        </i>
+      </p>
+    <details >
+      <summary>Table of contents</summary>
+    <ul>
+        <li>
+          <a href="https://jonalmeida.com/archive/setting-up-owncloud/#setting-up-the-web-server">Setting up the web server</a>
+        </li>
+        <li>
+          <a href="https://jonalmeida.com/archive/setting-up-owncloud/#installing-owncloud-server">Installing ownCloud server</a>
+        </li>
+        <li>
+          <a href="https://jonalmeida.com/archive/setting-up-owncloud/#adding-local-server-directories">Adding local server directories</a>
+        </li>
+        <li>
+          <a href="https://jonalmeida.com/archive/setting-up-owncloud/#accessing-via-ssh">Accessing via SSH</a>
+        </li>
+    </ul>
+    </details>
+  <main>
+    <p>I've been looking for a way to remotely access my media securely using ownCloud but I could never get myself to sit down and do it. Turns out that it's a bit of a hurdle on Mac OS because it <a href="http://doc.owncloud.org/server/5.0/admin_manual/installation/installation_macos.html">isn't officially supported</a>.</p>
+<h2 id="setting-up-the-web-server">Setting up the web server</h2>
+<p>In Mountain Lion, Apple remove the option to easily start a web server from System Preferences -&gt; Sharing. So instead we have to do it via Terminal.app, which if fine since we can setup a few more things from there as well.</p>
+<p>First check where the server's root directory starts in:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span>
+</span><span style="color:#bf616a;">jonathan$</span><span> grep &quot;</span><span style="color:#a3be8c;">DocumentRoot </span><span style="color:#96b5b4;">\&quot;</span><span>&quot; /etc/apache2/httpd.conf
+</span><span style="color:#bf616a;">DocumentRoot </span><span>&quot;</span><span style="color:#a3be8c;">/Library/WebServer/Documents</span><span>&quot;
+</span><span>
+</span></code></pre>
+<br>
+I preferred to change this to `/Library/WebServer/Sites` to make it more consistent, but I'll only refer to the default one in this post.
+<p>Uncomment the line <code>php5_module</code> in the <code>/etc/apache2/httpd.conf</code> to enable php5 since ownCloud requires it. It should look something like this:</p>
+<p><img src="/images/20140105/1.png" alt="" /></p>
+<p>Create a configuration that allows your user to access the web server.</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span>
+</span><span style="color:#bf616a;">sudo</span><span> vim /etc/apache2/users/`</span><span style="color:#bf616a;">whoami</span><span>`.conf
+</span><span>
+</span></code></pre>
+<br>
+Add this configuration into the file:
+<pre data-lang="html" style="background-color:#2b303b;color:#c0c5ce;" class="language-html "><code class="language-html" data-lang="html"><span>
+</span><span>&lt;</span><span style="color:#bf616a;">Directory </span><span style="background-color:#bf616a;color:#2b303b;">&quot;</span><span>/</span><span style="color:#d08770;">Library</span><span>/</span><span style="color:#d08770;">WebServer</span><span>/</span><span style="color:#d08770;">Documents</span><span>/</span><span style="background-color:#bf616a;color:#2b303b;">&quot;</span><span>&gt;
+</span><span>     Options Indexes MultiViews
+</span><span>     AllowOverride All
+</span><span>     Order allow,deny
+</span><span>     Allow from all
+</span><span>&lt;/</span><span style="color:#bf616a;">Directory</span><span>&gt;
+</span><span>
+</span></code></pre>
+<br>
+Then start the server with:
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span>
+</span><span style="color:#bf616a;">sudo</span><span> apachectl start
+</span><span>
+</span></code></pre>
+<br>
+If you didn't modify your DocumentRoot, going to `localhost` in your web browser will show "It Works!", otherwise, create a simple `index.html` file in your DocumentRoot directory just to verify it works.
+<p><img src="/images/20140105/2.png" alt="" /></p>
+<h2 id="installing-owncloud-server">Installing ownCloud server</h2>
+<p>Go to the <a href="http://owncloud.org/install/">ownCloud download page</a> and download the latest server as a tar file and extract the contents. You want to move the '/owncloud' directory to your DocumentRoot location <code>/Library/WebServer/Documents</code>.</p>
+<p>Give the apache webserver the right ownership to the owncloud directory:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span>
+</span><span style="color:#bf616a;">sudo</span><span> chown</span><span style="color:#bf616a;"> -R</span><span> _www:_www /Library/WebServer/Documents/owncloud
+</span><span>
+</span></code></pre>
+<br>
+You also need to create a `.htaccess` file at the DocumentRoot location with:
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span>
+</span><span style="color:#bf616a;">Options</span><span> FollowSymLinks
+</span><span>
+</span></code></pre>
+<br>
+If all went well, you should now be able to setup an administrator account in ownCloud from your browser with `http://localhost/owncloud`. <br>
+*Note: During the setup, you should change the data folder to another location under Advanced for security. I chose mine to be* `/Library/WebServer/owncloud/data`.
+<p>If you do change the data directory, remember to give that directory the same ownership so that it can be accessed as well:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span>
+</span><span style="color:#bf616a;">sudo</span><span> chown</span><span style="color:#bf616a;"> -R</span><span> _www:_www /Library/WebServer/owncloud/data
+</span><span>
+</span></code></pre>
+<h2 id="adding-local-server-directories">Adding local server directories</h2>
+<p>I wanted to be able to add local directories that were part of my user files on my Mac. I found out that you can do that by installing the ownCloud app <strong>External storage support</strong>.
+Then in the admin settings, setup a folder from there with the 'Configuration' field as the absolute path to the directory you want. When done, a green circle will show up, to confirm if the folder is accessible.</p>
+<p><img src="/images/20140105/3.png" alt="" /></p>
+<h2 id="accessing-via-ssh">Accessing via SSH</h2>
+<p>If you're behind a firewall or a local network, this web server won't be accessible past your LAN (which is how I wanted it). For those instances where I <em>did</em> want to access it remotely, I wanted to do so over SSH which makes me feel a bit safer.</p>
+<p>You can enable SSH from System Preferences -&gt; Sharing -&gt; Check "Remote Login" and port forward that from your router if needed. If you need help port forwarding, <a href="http://lmgtfy.com/?q=how+to+port+forward">this is a generic solution that should work for most</a>.</p>
+<p>Also, consider changing the default SSH port to something other that port 22 to avoid random attacks at your IP address. <a href="http://serverfault.com/questions/18761/how-to-change-sshd-port-on-mac-os-x">Check out this serverfault question on how to do that.</a></p>
+<p>Open an SSH tunnel to your remote ownCloud server like so:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span>
+</span><span style="color:#bf616a;">ssh -L</span><span> 5900:localhost:80 user@your_host_ip
+</span><span>
+</span></code></pre>
+<br>
+This tunnels all traffic from your remote port 80 to your local port 5900. Once you've authenticated that connection, you can go to your web browser on this computer and access your ownCloud with `http://localhost:5900/owncloud`
+<p><img src="/images/20140105/4.png" alt="" /></p>
+<br>
+Refs: 
+<ul>
+<li><a href="http://www.ranjith.info/p/owncloud.html">Adding an internal directory or external hard drive to Owncloud server</a></li>
+<li><a href="http://stackoverflow.com/questions/9720325/wordpress-options-followsymlinks-error">Wordpress Options FollowSymLinks error</a></li>
+<li><a href="http://www.cyberciti.biz/faq/enable-apache2-2-php5-on-apple-os-x-10-8-mountain-lion/">OS X Mountain Lion 10.8 Set Apache and PHP Web-Server</a></li>
+<li><a href="http://blog.macminicolo.net/post/30393400851/install-owncloud-on-a-mac-mini-server">Install Owncloud on a Mac mini server</a></li>
+<li><a href="http://doc.owncloud.org/server/5.0/admin_manual/installation.html">ownCloud Administrators Manual</a></li>
+</ul>
+
+  </main>
+  <p>
+        Categories:
+          <a href="https://jonalmeida.com/categories/archive/">#archive</a>
+  </p>
+
+  <!-- Add temporary footnote back-links support -->
+  <script src="/footnotes.js"></script>
+<footer>
+</footer>
+</body>
+</html>

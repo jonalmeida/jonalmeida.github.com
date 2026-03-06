@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ubuntu 14.04 without Unity launcher | Jonathan Almeida</title>
+  <meta name="title" content="Ubuntu 14.04 without Unity launcher">
+<meta name="description" content="Scribblings and nonsense">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+  
+  <link rel="alternate" type="application/atom+xml" title="Jonathan Almeida" href="https://jonalmeida.com/atom.xml">
+  <style>
+    :root {
+    --width: 800px;
+    --font-main: Verdana, sans-serif;
+    --font-secondary: Verdana, sans-serif;
+    --font-scale: 1em;
+    --background-color: #fff;
+    --heading-color: #222;
+    --text-color: #444;
+    --link-color: #3273dc;
+    --visited-color: #8b6fcb;
+    --code-background-color: #f2f2f2;
+    --code-color: #222;
+    --blockquote-color: #222;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --background-color: #01242e;
+      --heading-color: #eee;
+      --text-color: #ddd;
+      --link-color: #8cc2dd;
+      --visited-color: #8b6fcb;
+      --code-background-color: #000;
+      --code-color: #ddd;
+      --blockquote-color: #ccc;
+    }
+  }
+
+  body {
+    font-family: var(--font-secondary);
+    font-size: var(--font-scale);
+    margin: auto;
+    padding: 20px;
+    max-width: var(--width);
+    text-align: left;
+    background-color: var(--background-color);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.5;
+    color: var(--text-color);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-main);
+    color: var(--heading-color);
+  }
+
+  a {
+    color: var(--link-color);
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  nav a {
+    margin-right: 8px;
+  }
+
+  nav span.active {
+    font-weight: bold;
+    margin-right: 10px;
+  }
+  strong,
+  b {
+    color: var(--heading-color);
+  }
+
+  button {
+    margin: 0;
+    cursor: pointer;
+  }
+
+  main {
+    line-height: 1.6;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  hr {
+    border: 0;
+    border-top: 1px dashed;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  pre code {
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    display: block;
+    padding: 20px;
+    white-space: pre-wrap;
+    font-size: 0.875rem;
+    overflow-x: auto;
+  }
+
+  code {
+    font-family: monospace;
+    padding: 2px;
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    border-radius: 3px;
+  }
+
+  blockquote {
+    border-left: 1px solid #999;
+    color: var(--code-color);
+    padding-left: 20px;
+    font-style: italic;
+  }
+
+  footer {
+    padding: 25px 0;
+    text-align: center;
+  }
+
+  .title:hover {
+    text-decoration: none;
+  }
+
+  .title h1 {
+    font-size: 1.5em;
+  }
+
+  .inline {
+    width: auto !important;
+  }
+
+  .highlight,
+  .code {
+    padding: 1px 15px;
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    border-radius: 3px;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    overflow-x: auto;
+  }
+
+  /* blog post list */
+  ul.blog-posts {
+    list-style-type: none;
+    padding: unset;
+  }
+
+  ul.blog-posts li {
+    display: flex;
+  }
+
+  ul.blog-posts li span {
+    flex: 0 0 130px;
+  }
+
+  ul.blog-posts li a:visited {
+    color: var(--visited-color);
+  }
+
+  .tags {
+    font-size: smaller;
+  }
+
+  .footnote-definition {
+    display: flex;
+    margin-top: 1em;
+  }
+  .footnote-definition-label {
+    margin-left: 1rem;
+    margin-right: 0.5rem;
+    vertical-align: baseline;
+  }
+  .footnote-definition-label::after {
+    content: "."
+  }
+  .footnote-definition > p {
+    margin: 0;
+  }
+
+  </style><style>
+
+section#comments {
+  p {
+    font-size: 0.8em;
+  }
+}
+
+
+pre mark {
+  color: var(--code-color);
+}
+</style>
+
+</head>
+<body>
+  <header>
+  <a href="https://jonalmeida.com/" class="title">
+    <h1>Jonathan Almeida</h1>
+  </a>
+  <nav aria-label="site">
+      <a href="https://jonalmeida.com/">Home</a>
+      <a href="https://jonalmeida.com/blog/">Blog</a>
+      <a href="https://jonalmeida.com/til/">TIL</a>
+      <a href="https://jonalmeida.com/archive/">Archive</a>
+  </nav>
+</header>
+
+  <h1>Ubuntu 14.04 without Unity launcher</h1>
+      <p>
+        <i>
+          <time datetime="2014-05-08T00:00:00+00:00" pubdate>2014-05-08</time>
+        </i>
+      </p>
+    <details >
+      <summary>Table of contents</summary>
+    <ul>
+        <li>
+          <a href="https://jonalmeida.com/archive/ubuntu-14-04-without-unity-launcher/#unity-tweak-tool">Unity Tweak Tool</a>
+        </li>
+        <li>
+          <a href="https://jonalmeida.com/archive/ubuntu-14-04-without-unity-launcher/#removing-unity-lens-optional">Removing Unity Lens (Optional)</a>
+        </li>
+    </ul>
+    </details>
+  <main>
+    <p>Ubuntu 14.04 LTS recently launched so I decided to give it a spin on a spare SSD I had (I'm not a fan of desktop VMs). So far I'm really happy with everything, especially the polish that comes with it. On my T420s I get optimal battery performance and a level of speed I'm able to live with. The only thing I didn't want was the Unity launcher - it's a neat idea and I'm not a crazy rager who is out to kill everything new, but I just don't find myself using it <em>at all</em> since Ubuntu 11.04.</p>
+<p>There isn't any way to disable it entirely, but you can make it go away and never show up.</p>
+<h2 id="unity-tweak-tool">Unity Tweak Tool</h2>
+<p>You're going to need Unity Tweak Tool which should be in Trusty third party repos:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span>
+</span><span style="color:#bf616a;">sudo</span><span> apt-get install unity-tweak-tool
+</span><span>
+</span></code></pre>
+<p>There are a couple of things you need to disable to stop the launcher from showing up when you mouse-over certain areas or certain key combinations:</p>
+<ul>
+<li>Unity -&gt; Launcher</li>
+<li>Auto-Hide: <em>ON</em></li>
+<li>Reveal Location: <em>Top Left Corner</em></li>
+<li>Reveal Sensitivity: <em>0%</em></li>
+<li>Unity -&gt; Web Apps</li>
+<li>Integration prompts: <em>OFF</em></li>
+<li>Amazon: <em>UNCHECK</em></li>
+<li>Ubuntu One: <em>UNCHECK</em></li>
+</ul>
+<p><img src="/images/20140508/1.png" alt="image" />
+<br></p>
+<p>Disable the launcher from appearing when you press and hold the super key:</p>
+<ul>
+<li>Unity -&gt; Additional</li>
+<li>Show Launcher: <em>Disabled</em></li>
+</ul>
+<p><img src="/images/20140508/2.png" alt="image" /></p>
+<h2 id="removing-unity-lens-optional">Removing Unity Lens (Optional)</h2>
+<p>I didn't really see the point of keeping a bunch of Unity lenses. Even if I was going to re-enable the launcher, I was never going to use them. These are just a few of them that I had particularly no interest in them.</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span>
+</span><span style="color:#bf616a;">sudo</span><span> apt-get purge unity-lens-video unity-lens-music unity-scope-audacious unity-scope-clementine unity-scope-colourlovers unity-scope-gdrive unity-scope-gmusicbrowser unity-scope-gourmet unity-scope-guayadeque unity-scope-manpages unity-scope-musique unity-scope-openclipart unity-scope-tomboy unity-scope-yelp unity-scope-zotero unity-scope-musicstores
+</span><span>
+</span></code></pre>
+
+  </main>
+  <p>
+        Categories:
+          <a href="https://jonalmeida.com/categories/archive/">#archive</a>
+  </p>
+
+  <!-- Add temporary footnote back-links support -->
+  <script src="/footnotes.js"></script>
+<footer>
+</footer>
+</body>
+</html>

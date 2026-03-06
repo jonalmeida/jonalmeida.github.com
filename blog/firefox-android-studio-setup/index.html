@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Firefox for Android local build environment | Jonathan Almeida</title>
+  <meta name="title" content="My Firefox for Android local build environment">
+<meta name="description" content="Scribblings and nonsense">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+  
+  <link rel="alternate" type="application/atom+xml" title="Jonathan Almeida" href="https://jonalmeida.com/atom.xml">
+  <style>
+    :root {
+    --width: 800px;
+    --font-main: Verdana, sans-serif;
+    --font-secondary: Verdana, sans-serif;
+    --font-scale: 1em;
+    --background-color: #fff;
+    --heading-color: #222;
+    --text-color: #444;
+    --link-color: #3273dc;
+    --visited-color: #8b6fcb;
+    --code-background-color: #f2f2f2;
+    --code-color: #222;
+    --blockquote-color: #222;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --background-color: #01242e;
+      --heading-color: #eee;
+      --text-color: #ddd;
+      --link-color: #8cc2dd;
+      --visited-color: #8b6fcb;
+      --code-background-color: #000;
+      --code-color: #ddd;
+      --blockquote-color: #ccc;
+    }
+  }
+
+  body {
+    font-family: var(--font-secondary);
+    font-size: var(--font-scale);
+    margin: auto;
+    padding: 20px;
+    max-width: var(--width);
+    text-align: left;
+    background-color: var(--background-color);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.5;
+    color: var(--text-color);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-main);
+    color: var(--heading-color);
+  }
+
+  a {
+    color: var(--link-color);
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  nav a {
+    margin-right: 8px;
+  }
+
+  nav span.active {
+    font-weight: bold;
+    margin-right: 10px;
+  }
+  strong,
+  b {
+    color: var(--heading-color);
+  }
+
+  button {
+    margin: 0;
+    cursor: pointer;
+  }
+
+  main {
+    line-height: 1.6;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  hr {
+    border: 0;
+    border-top: 1px dashed;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  pre code {
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    display: block;
+    padding: 20px;
+    white-space: pre-wrap;
+    font-size: 0.875rem;
+    overflow-x: auto;
+  }
+
+  code {
+    font-family: monospace;
+    padding: 2px;
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    border-radius: 3px;
+  }
+
+  blockquote {
+    border-left: 1px solid #999;
+    color: var(--code-color);
+    padding-left: 20px;
+    font-style: italic;
+  }
+
+  footer {
+    padding: 25px 0;
+    text-align: center;
+  }
+
+  .title:hover {
+    text-decoration: none;
+  }
+
+  .title h1 {
+    font-size: 1.5em;
+  }
+
+  .inline {
+    width: auto !important;
+  }
+
+  .highlight,
+  .code {
+    padding: 1px 15px;
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    border-radius: 3px;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    overflow-x: auto;
+  }
+
+  /* blog post list */
+  ul.blog-posts {
+    list-style-type: none;
+    padding: unset;
+  }
+
+  ul.blog-posts li {
+    display: flex;
+  }
+
+  ul.blog-posts li span {
+    flex: 0 0 130px;
+  }
+
+  ul.blog-posts li a:visited {
+    color: var(--visited-color);
+  }
+
+  .tags {
+    font-size: smaller;
+  }
+
+  .footnote-definition {
+    display: flex;
+    margin-top: 1em;
+  }
+  .footnote-definition-label {
+    margin-left: 1rem;
+    margin-right: 0.5rem;
+    vertical-align: baseline;
+  }
+  .footnote-definition-label::after {
+    content: "."
+  }
+  .footnote-definition > p {
+    margin: 0;
+  }
+
+  </style><style>
+
+section#comments {
+  p {
+    font-size: 0.8em;
+  }
+}
+
+
+pre mark {
+  color: var(--code-color);
+}
+</style>
+
+</head>
+<body>
+  <header>
+  <a href="https://jonalmeida.com/" class="title">
+    <h1>Jonathan Almeida</h1>
+  </a>
+  <nav aria-label="site">
+      <a href="https://jonalmeida.com/">Home</a>
+      <a href="https://jonalmeida.com/blog/">Blog</a>
+      <a href="https://jonalmeida.com/til/">TIL</a>
+      <a href="https://jonalmeida.com/archive/">Archive</a>
+  </nav>
+</header>
+
+  <h1>My Firefox for Android local build environment</h1>
+      <p>
+        <i>
+          <time datetime="2026-03-05T00:00:00+00:00" pubdate>2026-03-05</time>
+        </i>
+      </p>
+  <main>
+    <p>The Firefox for Android app has always had a complicated build process - we're cramping a complex cross-platform browser engine and all the related components that make it work on Android into one package. In its current form, it lives in the Firefox mono-repo at <code>mozilla-central</code> (now <code>mozilla-firefox</code> using the git repository).</p>
+<p>I wanted to document my "artifact-mode" environment here since it's worked quite successfully for me for many years with minor changes.</p>
+<blockquote>
+<p><strong>NOTE:</strong> After a fresh clone of the mono-repo, don't forget to first run and follow the prompts of <code>./mach bootstrap</code> .</p>
+</blockquote>
+<h2 id="mozconfig">mozconfig</h2>
+<p>My <code>mozconfig</code> below is enabled for artifact mode, but occasionally I switch between various configurations. You can see those commented out, with these few extra notes:</p>
+<ul>
+<li>I like to separate out my objdirs to avoid cache pollution between the different build types. I think you can get away without needing to specify this and an objdir for your build type and arch will be generated.</li>
+<li><code>sccache</code> speeds up the native portion of full builds after the first slow one, but it's a hit or miss if you fetch from the remote repository but don't need to rebuild as often.</li>
+<li>I don't care to manually run the clobber step, and I don't truly appreciate why that isn't always automatically done.</li>
+<li><a href="https://github.com/emilio/mozconfigs">Emilio's mozconfig manager</a> looks like a better solution, however my needs are very simple.</li>
+</ul>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#65737e;"># Build GeckoView/Firefox for Android:
+</span><span style="color:#bf616a;">ac_add_options --enable-application</span><span>=mobile/android
+</span><span>
+</span><span style="color:#65737e;"># Targeting the following architecture.
+</span><span style="color:#65737e;"># For regular phones, no --target is needed.
+</span><span style="color:#65737e;"># For x86 emulators (and x86 devices, which are uncommon):
+</span><span style="color:#65737e;"># ac_add_options --target=i686
+</span><span style="color:#65737e;"># For newer phones or Apple silicon
+</span><span style="color:#bf616a;">ac_add_options --target</span><span>=aarch64
+</span><span style="color:#65737e;"># For x86_64 emulators (and x86_64 devices, which are even less common):
+</span><span style="color:#65737e;"># ac_add_options --target=x86_64
+</span><span>
+</span><span style="color:#65737e;"># sccache will significantly speed up your builds by caching
+</span><span style="color:#65737e;"># compilation results. The Firefox build system will download
+</span><span style="color:#65737e;"># sccache automatically.
+</span><span style="color:#65737e;"># This only works for non-artifact builds.
+</span><span style="color:#65737e;">#ac_add_options --with-ccache=sccache
+</span><span>
+</span><span style="color:#65737e;"># Enable artifact builds; manager-mode.
+</span><span style="color:#bf616a;">ac_add_options --enable-artifact-builds
+</span><span>
+</span><span style="color:#65737e;"># Write build artifacts to..
+</span><span>
+</span><span style="color:#65737e;">## Full build dir
+</span><span style="color:#65737e;">#mk_add_options MOZ_OBJDIR=./objdir-droid
+</span><span style="color:#65737e;">#mk_add_options MOZ_OBJDIR=./objdir-desktop
+</span><span>
+</span><span style="color:#65737e;">## Artifact builds
+</span><span style="color:#bf616a;">mk_add_options</span><span> MOZ_OBJDIR=./objdir-frontend
+</span><span>
+</span><span style="color:#65737e;"># Automatic clobbering; don&#39;t ask me.
+</span><span style="color:#bf616a;">mk_add_options</span><span> AUTOCLOBBER=1
+</span></code></pre>
+<h2 id="java-home">JAVA_HOME</h2>
+<p>Sometimes you might find yourself needing to run a (non-mach) command in the terminal. Those typically will need to invoke some parts of gradle for an Android build, so it's best to make sure those are using the same JDK as the bootstrapped one in the mono-repo. This avoids weird build errors where something that compiles in one place isn't working in another (like Android Studio).</p>
+<p>The location for the JDKs are typically in <code>~/.mozbuild/jdk/</code>, and if you've between around for ~6 months you end up with multiple versions after every JDK bump:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">$</span><span> ls</span><span style="color:#bf616a;"> -l ~</span><span>/.mozbuild/jdk/
+</span><span style="color:#bf616a;">drwxr-xr-x@</span><span> - jalmeida 15 Apr  2025 jdk-17.0.15+6
+</span><span style="color:#bf616a;">drwxr-xr-x@</span><span> - jalmeida 15 Jul  2025 jdk-17.0.16+8
+</span><span style="color:#bf616a;">drwxr-xr-x@</span><span> - jalmeida 21 Oct  2025 jdk-17.0.17+10
+</span><span style="color:#bf616a;">drwxr-xr-x@</span><span> - jalmeida 20 Jan 09:00 jdk-17.0.18+8
+</span><span style="color:#bf616a;">drwxr-xr-x@</span><span> - jalmeida 26 Feb 15:04 mozboot
+</span><span>
+</span></code></pre>
+<p>You can find some way to point your latest JDK to one location or you can be lazy like me and pick the latest version to assign as your <code>JAVA_HOME</code> property by adding this to your shell's RC file:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#b48ead;">export </span><span style="color:#bf616a;">JAVA_HOME</span><span>=&quot;$</span><span style="color:#a3be8c;">(</span><span style="color:#bf616a;">ls -1dr</span><span> -- $</span><span style="color:#bf616a;">HOME</span><span style="color:#a3be8c;">/.mozbuild/jdk/jdk-</span><span>* | </span><span style="color:#bf616a;">head -n</span><span style="color:#a3be8c;"> 1)/Contents/Home</span><span>&quot;
+</span></code></pre>
+<h3 id="android-studio">Android Studio</h3>
+<p>Similarly for Android Studio, let's do the same so that environment is identical. Head to, Settings | Build, Execution, Deployment | Build Tools | Gradle, and ensure that "Gradle JDK" path is set to <code>JAVA_HOME</code>.</p>
+<p>Lately, the default seems to be for it to follow <code>GRADLE_LOCAL_JAVA_HOME</code> which is a property we can't easily override, so we have to manually set this ourselves.</p>
+
+<div>
+  <img
+    src="android-studio-build-tools-gradle.png"
+    style="display: block; margin-left: auto; margin-right: auto;"
+
+    
+    
+  />
+</div>
+<h2 id="debugging">Debugging</h2>
+<p>This section is for miscellaneous build error situations that come-up, but assuming <code>mach build</code> work and there are no known Android build changes, my solution has typically always been the same.</p>
+<p>For example, the other day I fetched another engineers patch to test out locally<sup class="footnote-reference"><a href="#1">1</a></sup> as part of reviewing it where I faced the error message below:</p>
+<details>
+<summary>Execution failed for task ':components:feature-pwa:compileDebugKotlin'.</summary>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>FAILURE: Build failed with an exception.
+</span><span>
+</span><span>* What went wrong:
+</span><span>Execution failed for task &#39;:components:feature-pwa:compileDebugKotlin&#39;.
+</span><span>&gt; A failure occurred while executing org.jetbrains.kotlin.compilerRunner.GradleCompilerRunnerWithWorkers$GradleKotlinCompilerWorkAction
+</span><span>   &gt; Internal compiler error. See log for more details
+</span><span>
+</span><span>* Try:
+</span><span>&gt; Run with --info or --debug option to get more log output.
+</span><span>&gt; Run with --scan to generate a Build Scan (powered by Develocity).
+</span><span>&gt; Get more help at https://help.gradle.org.
+</span><span>
+</span><span>* Exception is:
+</span><span>org.gradle.api.tasks.TaskExecutionException: Execution failed for task &#39;:components:feature-pwa:compileDebugKotlin&#39;.
+</span><span>	at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.lambda$executeIfValid$1(ExecuteActionsTaskExecuter.java:135)
+</span><span>	at org.gradle.internal.Try$Failure.ifSuccessfulOrElse(Try.java:288)
+</span><span>	at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.executeIfValid(ExecuteActionsTaskExecuter.java:133)
+</span><span>	at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.execute(ExecuteActionsTaskExecuter.java:121)
+</span><span>	at org.gradle.api.internal.tasks.execution.ProblemsTaskPathTrackingTaskExecuter.execute(ProblemsTaskPathTrackingTaskExecuter.java:41)
+</span><span>	at org.gradle.api.internal.tasks.execution.FinalizePropertiesTaskExecuter.execute(FinalizePropertiesTaskExecuter.java:46)
+</span><span>	at org.gradle.api.internal.tasks.execution.ResolveTaskExecutionModeExecuter.execute(ResolveTaskExecutionModeExecuter.java:51)
+</span><span>	at org.gradle.api.internal.tasks.execution.SkipTaskWithNoActionsExecuter.execute(SkipTaskWithNoActionsExecuter.java:57)
+</span><span>	at org.gradle.api.internal.tasks.execution.SkipOnlyIfTaskExecuter.execute(SkipOnlyIfTaskExecuter.java:74)
+</span><span>	at org.gradle.api.internal.tasks.execution.CatchExceptionTaskExecuter.execute(CatchExceptionTaskExecuter.java:36)
+</span><span>	at org.gradle.api.internal.tasks.execution.EventFiringTaskExecuter$1.executeTask(EventFiringTaskExecuter.java:77)
+</span><span>	at org.gradle.api.internal.tasks.execution.EventFiringTaskExecuter$1.call(EventFiringTaskExecuter.java:55)
+</span><span>	at org.gradle.api.internal.tasks.execution.EventFiringTaskExecuter$1.call(EventFiringTaskExecuter.java:52)
+</span><span>	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:209)
+</span><span>	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:204)
+</span><span>	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:66)
+</span><span>	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:59)
+</span><span>	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:166)
+</span><span>	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:59)
+</span><span>	at org.gradle.internal.operations.DefaultBuildOperationRunner.call(DefaultBuildOperationRunner.java:53)
+</span><span>	at org.gradle.api.internal.tasks.execution.EventFiringTaskExecuter.execute(EventFiringTaskExecuter.java:52)
+</span><span>	at org.gradle.execution.plan.DefaultNodeExecutor.executeLocalTaskNode(DefaultNodeExecutor.java:55)
+</span><span>	at org.gradle.execution.plan.DefaultNodeExecutor.execute(DefaultNodeExecutor.java:34)
+</span><span>	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$InvokeNodeExecutorsAction.execute(DefaultTaskExecutionGraph.java:355)
+</span><span>	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$InvokeNodeExecutorsAction.execute(DefaultTaskExecutionGraph.java:343)
+</span><span>	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$BuildOperationAwareExecutionAction.lambda$execute$0(DefaultTaskExecutionGraph.java:339)
+</span><span>	at org.gradle.internal.operations.CurrentBuildOperationRef.with(CurrentBuildOperationRef.java:84)
+</span><span>	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$BuildOperationAwareExecutionAction.execute(DefaultTaskExecutionGraph.java:339)
+</span><span>	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$BuildOperationAwareExecutionAction.execute(DefaultTaskExecutionGraph.java:328)
+</span><span>	at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.execute(DefaultPlanExecutor.java:459)
+</span><span>	at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.run(DefaultPlanExecutor.java:376)
+</span><span>	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
+</span><span>	at org.gradle.internal.concurrent.AbstractManagedExecutor$1.run(AbstractManagedExecutor.java:47)
+</span><span>Caused by: org.gradle.workers.internal.DefaultWorkerExecutor$WorkExecutionException: A failure occurred while executing org.jetbrains.kotlin.compilerRunner.GradleCompilerRunnerWithWorkers$GradleKotlinCompilerWorkAction
+</span><span>	at org.gradle.workers.internal.DefaultWorkerExecutor$WorkItemExecution.waitForCompletion(DefaultWorkerExecutor.java:289)
+</span><span>	at org.gradle.internal.work.DefaultAsyncWorkTracker.lambda$waitForItemsAndGatherFailures$2(DefaultAsyncWorkTracker.java:130)
+</span><span>	at org.gradle.internal.Factories$1.create(Factories.java:33)
+</span><span>	at org.gradle.internal.work.DefaultWorkerLeaseService.lambda$withoutLocks$2(DefaultWorkerLeaseService.java:344)
+</span><span>	at org.gradle.internal.work.ResourceLockStatistics$1.measure(ResourceLockStatistics.java:42)
+</span><span>	at org.gradle.internal.work.DefaultWorkerLeaseService.withoutLocks(DefaultWorkerLeaseService.java:342)
+</span><span>	at org.gradle.internal.work.DefaultWorkerLeaseService.withoutLocks(DefaultWorkerLeaseService.java:326)
+</span><span>	at org.gradle.internal.work.DefaultWorkerLeaseService.withoutLock(DefaultWorkerLeaseService.java:331)
+</span><span>	at org.gradle.internal.work.DefaultAsyncWorkTracker.waitForItemsAndGatherFailures(DefaultAsyncWorkTracker.java:126)
+</span><span>	at org.gradle.internal.work.DefaultAsyncWorkTracker.waitForItemsAndGatherFailures(DefaultAsyncWorkTracker.java:92)
+</span><span>	at org.gradle.internal.work.DefaultAsyncWorkTracker.waitForAll(DefaultAsyncWorkTracker.java:78)
+</span><span>	at org.gradle.internal.work.DefaultAsyncWorkTracker.waitForCompletion(DefaultAsyncWorkTracker.java:66)
+</span><span>	at org.gradle.api.internal.tasks.execution.TaskExecution$3.run(TaskExecution.java:260)
+</span><span>	at org.gradle.internal.operations.DefaultBuildOperationRunner$1.execute(DefaultBuildOperationRunner.java:29)
+</span><span>	at org.gradle.internal.operations.DefaultBuildOperationRunner$1.execute(DefaultBuildOperationRunner.java:26)
+</span><span>	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:66)
+</span><span>	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:59)
+</span><span>	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:166)
+</span><span>	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:59)
+</span><span>	at org.gradle.internal.operations.DefaultBuildOperationRunner.run(DefaultBuildOperationRunner.java:47)
+</span><span>	at org.gradle.api.internal.tasks.execution.TaskExecution.executeAction(TaskExecution.java:237)
+</span><span>	at org.gradle.api.internal.tasks.execution.TaskExecution.executeActions(TaskExecution.java:220)
+</span><span>	at org.gradle.api.internal.tasks.execution.TaskExecution.executeWithPreviousOutputFiles(TaskExecution.java:203)
+</span><span>	at org.gradle.api.internal.tasks.execution.TaskExecution.execute(TaskExecution.java:170)
+</span><span>	at org.gradle.internal.execution.steps.ExecuteStep.executeInternal(ExecuteStep.java:105)
+</span><span>	at org.gradle.internal.execution.steps.ExecuteStep.access$000(ExecuteStep.java:44)
+</span><span>	at org.gradle.internal.execution.steps.ExecuteStep$1.call(ExecuteStep.java:59)
+</span><span>	at org.gradle.internal.execution.steps.ExecuteStep$1.call(ExecuteStep.java:56)
+</span><span>	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:209)
+</span><span>	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:204)
+</span><span>	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:66)
+</span><span>	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:59)
+</span><span>	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:166)
+</span><span>	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:59)
+</span><span>	at org.gradle.internal.operations.DefaultBuildOperationRunner.call(DefaultBuildOperationRunner.java:53)
+</span><span>	at org.gradle.internal.execution.steps.ExecuteStep.execute(ExecuteStep.java:56)
+</span><span>	at org.gradle.internal.execution.steps.ExecuteStep.execute(ExecuteStep.java:44)
+</span><span>	at org.gradle.internal.execution.steps.CancelExecutionStep.execute(CancelExecutionStep.java:42)
+</span><span>	at org.gradle.internal.execution.steps.TimeoutStep.executeWithoutTimeout(TimeoutStep.java:75)
+</span><span>	at org.gradle.internal.execution.steps.TimeoutStep.execute(TimeoutStep.java:55)
+</span><span>	at org.gradle.internal.execution.steps.PreCreateOutputParentsStep.execute(PreCreateOutputParentsStep.java:50)
+</span><span>	at org.gradle.internal.execution.steps.PreCreateOutputParentsStep.execute(PreCreateOutputParentsStep.java:28)
+</span><span>	at org.gradle.internal.execution.steps.RemovePreviousOutputsStep.execute(RemovePreviousOutputsStep.java:68)
+</span><span>	at org.gradle.internal.execution.steps.RemovePreviousOutputsStep.execute(RemovePreviousOutputsStep.java:38)
+</span><span>	at org.gradle.internal.execution.steps.BroadcastChangingOutputsStep.execute(BroadcastChangingOutputsStep.java:61)
+</span><span>	at org.gradle.internal.execution.steps.BroadcastChangingOutputsStep.execute(BroadcastChangingOutputsStep.java:26)
+</span><span>	at org.gradle.internal.execution.steps.CaptureOutputsAfterExecutionStep.execute(CaptureOutputsAfterExecutionStep.java:69)
+</span><span>	at org.gradle.internal.execution.steps.CaptureOutputsAfterExecutionStep.execute(CaptureOutputsAfterExecutionStep.java:46)
+</span><span>	at org.gradle.internal.execution.steps.ResolveInputChangesStep.execute(ResolveInputChangesStep.java:39)
+</span><span>	at org.gradle.internal.execution.steps.ResolveInputChangesStep.execute(ResolveInputChangesStep.java:28)
+</span><span>	at org.gradle.internal.execution.steps.BuildCacheStep.executeWithoutCache(BuildCacheStep.java:189)
+</span><span>	at org.gradle.internal.execution.steps.BuildCacheStep.lambda$execute$1(BuildCacheStep.java:75)
+</span><span>	at org.gradle.internal.Either$Right.fold(Either.java:176)
+</span><span>	at org.gradle.internal.execution.caching.CachingState.fold(CachingState.java:62)
+</span><span>	at org.gradle.internal.execution.steps.BuildCacheStep.execute(BuildCacheStep.java:73)
+</span><span>	at org.gradle.internal.execution.steps.BuildCacheStep.execute(BuildCacheStep.java:48)
+</span><span>	at org.gradle.internal.execution.steps.StoreExecutionStateStep.execute(StoreExecutionStateStep.java:46)
+</span><span>	at org.gradle.internal.execution.steps.StoreExecutionStateStep.execute(StoreExecutionStateStep.java:35)
+</span><span>	at org.gradle.internal.execution.steps.SkipUpToDateStep.executeBecause(SkipUpToDateStep.java:75)
+</span><span>	at org.gradle.internal.execution.steps.SkipUpToDateStep.lambda$execute$2(SkipUpToDateStep.java:53)
+</span><span>	at org.gradle.internal.execution.steps.SkipUpToDateStep.execute(SkipUpToDateStep.java:53)
+</span><span>	at org.gradle.internal.execution.steps.SkipUpToDateStep.execute(SkipUpToDateStep.java:35)
+</span><span>	at org.gradle.internal.execution.steps.legacy.MarkSnapshottingInputsFinishedStep.execute(MarkSnapshottingInputsFinishedStep.java:37)
+</span><span>	at org.gradle.internal.execution.steps.legacy.MarkSnapshottingInputsFinishedStep.execute(MarkSnapshottingInputsFinishedStep.java:27)
+</span><span>	at org.gradle.internal.execution.steps.ResolveIncrementalCachingStateStep.executeDelegate(ResolveIncrementalCachingStateStep.java:49)
+</span><span>	at org.gradle.internal.execution.steps.ResolveIncrementalCachingStateStep.executeDelegate(ResolveIncrementalCachingStateStep.java:27)
+</span><span>	at org.gradle.internal.execution.steps.AbstractResolveCachingStateStep.execute(AbstractResolveCachingStateStep.java:71)
+</span><span>	at org.gradle.internal.execution.steps.AbstractResolveCachingStateStep.execute(AbstractResolveCachingStateStep.java:39)
+</span><span>	at org.gradle.internal.execution.steps.ResolveChangesStep.execute(ResolveChangesStep.java:64)
+</span><span>	at org.gradle.internal.execution.steps.ResolveChangesStep.execute(ResolveChangesStep.java:35)
+</span><span>	at org.gradle.internal.execution.steps.ValidateStep.execute(ValidateStep.java:62)
+</span><span>	at org.gradle.internal.execution.steps.ValidateStep.execute(ValidateStep.java:40)
+</span><span>	at org.gradle.internal.execution.steps.AbstractCaptureStateBeforeExecutionStep.execute(AbstractCaptureStateBeforeExecutionStep.java:76)
+</span><span>	at org.gradle.internal.execution.steps.AbstractCaptureStateBeforeExecutionStep.execute(AbstractCaptureStateBeforeExecutionStep.java:45)
+</span><span>	at org.gradle.internal.execution.steps.AbstractSkipEmptyWorkStep.executeWithNonEmptySources(AbstractSkipEmptyWorkStep.java:136)
+</span><span>	at org.gradle.internal.execution.steps.AbstractSkipEmptyWorkStep.execute(AbstractSkipEmptyWorkStep.java:66)
+</span><span>	at org.gradle.internal.execution.steps.AbstractSkipEmptyWorkStep.execute(AbstractSkipEmptyWorkStep.java:38)
+</span><span>	at org.gradle.internal.execution.steps.legacy.MarkSnapshottingInputsStartedStep.execute(MarkSnapshottingInputsStartedStep.java:38)
+</span><span>	at org.gradle.internal.execution.steps.LoadPreviousExecutionStateStep.execute(LoadPreviousExecutionStateStep.java:36)
+</span><span>	at org.gradle.internal.execution.steps.LoadPreviousExecutionStateStep.execute(LoadPreviousExecutionStateStep.java:23)
+</span><span>	at org.gradle.internal.execution.steps.HandleStaleOutputsStep.execute(HandleStaleOutputsStep.java:75)
+</span><span>	at org.gradle.internal.execution.steps.HandleStaleOutputsStep.execute(HandleStaleOutputsStep.java:41)
+</span><span>	at org.gradle.internal.execution.steps.AssignMutableWorkspaceStep.lambda$execute$0(AssignMutableWorkspaceStep.java:35)
+</span><span>	at org.gradle.api.internal.tasks.execution.TaskExecution$4.withWorkspace(TaskExecution.java:297)
+</span><span>	at org.gradle.internal.execution.steps.AssignMutableWorkspaceStep.execute(AssignMutableWorkspaceStep.java:31)
+</span><span>	at org.gradle.internal.execution.steps.AssignMutableWorkspaceStep.execute(AssignMutableWorkspaceStep.java:22)
+</span><span>	at org.gradle.internal.execution.steps.ChoosePipelineStep.execute(ChoosePipelineStep.java:40)
+</span><span>	at org.gradle.internal.execution.steps.ChoosePipelineStep.execute(ChoosePipelineStep.java:23)
+</span><span>	at org.gradle.internal.execution.steps.ExecuteWorkBuildOperationFiringStep.lambda$execute$2(ExecuteWorkBuildOperationFiringStep.java:67)
+</span><span>	at org.gradle.internal.execution.steps.ExecuteWorkBuildOperationFiringStep.execute(ExecuteWorkBuildOperationFiringStep.java:67)
+</span><span>	at org.gradle.internal.execution.steps.ExecuteWorkBuildOperationFiringStep.execute(ExecuteWorkBuildOperationFiringStep.java:39)
+</span><span>	at org.gradle.internal.execution.steps.IdentityCacheStep.execute(IdentityCacheStep.java:46)
+</span><span>	at org.gradle.internal.execution.steps.IdentityCacheStep.execute(IdentityCacheStep.java:34)
+</span><span>	at org.gradle.internal.execution.steps.IdentifyStep.execute(IdentifyStep.java:44)
+</span><span>	at org.gradle.internal.execution.steps.IdentifyStep.execute(IdentifyStep.java:31)
+</span><span>	at org.gradle.internal.execution.impl.DefaultExecutionEngine$1.execute(DefaultExecutionEngine.java:64)
+</span><span>	at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.executeIfValid(ExecuteActionsTaskExecuter.java:132)
+</span><span>	... 30 more
+</span><span>Caused by: org.jetbrains.kotlin.gradle.tasks.FailedCompilationException: Internal compiler error. See log for more details
+</span><span>	at org.jetbrains.kotlin.gradle.tasks.TasksUtilsKt.throwExceptionIfCompilationFailed(tasksUtils.kt:22)
+</span><span>	at org.jetbrains.kotlin.compilerRunner.GradleKotlinCompilerWork.run(GradleKotlinCompilerWork.kt:112)
+</span><span>	at org.jetbrains.kotlin.compilerRunner.GradleCompilerRunnerWithWorkers$GradleKotlinCompilerWorkAction.execute(GradleCompilerRunnerWithWorkers.kt:75)
+</span><span>	at org.gradle.workers.internal.DefaultWorkerServer.execute(DefaultWorkerServer.java:68)
+</span><span>	at org.gradle.workers.internal.NoIsolationWorkerFactory$1$1.create(NoIsolationWorkerFactory.java:64)
+</span><span>	at org.gradle.workers.internal.NoIsolationWorkerFactory$1$1.create(NoIsolationWorkerFactory.java:61)
+</span><span>	at org.gradle.internal.classloader.ClassLoaderUtils.executeInClassloader(ClassLoaderUtils.java:100)
+</span><span>	at org.gradle.workers.internal.NoIsolationWorkerFactory$1.lambda$execute$0(NoIsolationWorkerFactory.java:61)
+</span><span>	at org.gradle.workers.internal.AbstractWorker$1.call(AbstractWorker.java:44)
+</span><span>	at org.gradle.workers.internal.AbstractWorker$1.call(AbstractWorker.java:41)
+</span><span>	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:209)
+</span><span>	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:204)
+</span><span>	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:66)
+</span><span>	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:59)
+</span><span>	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:166)
+</span><span>	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:59)
+</span><span>	at org.gradle.internal.operations.DefaultBuildOperationRunner.call(DefaultBuildOperationRunner.java:53)
+</span><span>	at org.gradle.workers.internal.AbstractWorker.executeWrappedInBuildOperation(AbstractWorker.java:41)
+</span><span>	at org.gradle.workers.internal.NoIsolationWorkerFactory$1.execute(NoIsolationWorkerFactory.java:58)
+</span><span>	at org.gradle.workers.internal.DefaultWorkerExecutor.lambda$submitWork$0(DefaultWorkerExecutor.java:176)
+</span><span>	at org.gradle.internal.work.DefaultConditionalExecutionQueue$ExecutionRunner.runExecution(DefaultConditionalExecutionQueue.java:194)
+</span><span>	at org.gradle.internal.work.DefaultConditionalExecutionQueue$ExecutionRunner.access$700(DefaultConditionalExecutionQueue.java:127)
+</span><span>	at org.gradle.internal.work.DefaultConditionalExecutionQueue$ExecutionRunner$1.run(DefaultConditionalExecutionQueue.java:169)
+</span><span>	at org.gradle.internal.Factories$1.create(Factories.java:33)
+</span><span>	at org.gradle.internal.work.DefaultWorkerLeaseService.lambda$withLocksAcquired$0(DefaultWorkerLeaseService.java:269)
+</span><span>	at org.gradle.internal.work.ResourceLockStatistics$1.measure(ResourceLockStatistics.java:42)
+</span><span>	at org.gradle.internal.work.DefaultWorkerLeaseService.withLocksAcquired(DefaultWorkerLeaseService.java:267)
+</span><span>	at org.gradle.internal.work.DefaultWorkerLeaseService.withLocks(DefaultWorkerLeaseService.java:259)
+</span><span>	at org.gradle.internal.work.DefaultWorkerLeaseService.runAsWorkerThread(DefaultWorkerLeaseService.java:127)
+</span><span>	at org.gradle.internal.work.DefaultWorkerLeaseService.runAsWorkerThread(DefaultWorkerLeaseService.java:132)
+</span><span>	at org.gradle.internal.work.DefaultConditionalExecutionQueue$ExecutionRunner.runBatch(DefaultConditionalExecutionQueue.java:164)
+</span><span>	at org.gradle.internal.work.DefaultConditionalExecutionQueue$ExecutionRunner.run(DefaultConditionalExecutionQueue.java:133)
+</span><span>	... 2 more
+</span><span>
+</span></code></pre>
+</details>
+<p>The full trace was long and didn't seem related to a code failure in the module itself. So I employed the solution, which is always the same:</p>
+<ol>
+<li><code>./mach build</code></li>
+<li>In Android Studio, File &gt; Sync Project with Gradle Files.</li>
+</ol>
+<p>Yup, that's all. Very simple and boring.</p>
+<hr />
+<div class="footnote-definition" id="1"><sup class="footnote-definition-label">1</sup>
+<p>With Jujutsu, this is the moz-phab command I use which has made it easier to manage review patches: <code>moz-phab patch &lt;patch-id&gt; --no-branch --apply-to main@origin</code></p>
+</div>
+
+  </main>
+  <p>
+        Categories:
+          <a href="https://jonalmeida.com/categories/blog/">#blog</a>
+        Tags:
+          <a href="https://jonalmeida.com/tags/mozilla/">#mozilla</a>
+          <a href="https://jonalmeida.com/tags/workflow/">#workflow</a>
+  </p>
+
+  <!-- Add temporary footnote back-links support -->
+  <script src="/footnotes.js"></script>
+<footer>
+</footer>
+</body>
+</html>

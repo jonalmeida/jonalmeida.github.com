@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lessons from a remote internship for 4 months | Jonathan Almeida</title>
+  <meta name="title" content="Lessons from a remote internship for 4 months">
+<meta name="description" content="Scribblings and nonsense">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+  
+  <link rel="alternate" type="application/atom+xml" title="Jonathan Almeida" href="https://jonalmeida.com/atom.xml">
+  <style>
+    :root {
+    --width: 800px;
+    --font-main: Verdana, sans-serif;
+    --font-secondary: Verdana, sans-serif;
+    --font-scale: 1em;
+    --background-color: #fff;
+    --heading-color: #222;
+    --text-color: #444;
+    --link-color: #3273dc;
+    --visited-color: #8b6fcb;
+    --code-background-color: #f2f2f2;
+    --code-color: #222;
+    --blockquote-color: #222;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --background-color: #01242e;
+      --heading-color: #eee;
+      --text-color: #ddd;
+      --link-color: #8cc2dd;
+      --visited-color: #8b6fcb;
+      --code-background-color: #000;
+      --code-color: #ddd;
+      --blockquote-color: #ccc;
+    }
+  }
+
+  body {
+    font-family: var(--font-secondary);
+    font-size: var(--font-scale);
+    margin: auto;
+    padding: 20px;
+    max-width: var(--width);
+    text-align: left;
+    background-color: var(--background-color);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.5;
+    color: var(--text-color);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-main);
+    color: var(--heading-color);
+  }
+
+  a {
+    color: var(--link-color);
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  nav a {
+    margin-right: 8px;
+  }
+
+  nav span.active {
+    font-weight: bold;
+    margin-right: 10px;
+  }
+  strong,
+  b {
+    color: var(--heading-color);
+  }
+
+  button {
+    margin: 0;
+    cursor: pointer;
+  }
+
+  main {
+    line-height: 1.6;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  hr {
+    border: 0;
+    border-top: 1px dashed;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  pre code {
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    display: block;
+    padding: 20px;
+    white-space: pre-wrap;
+    font-size: 0.875rem;
+    overflow-x: auto;
+  }
+
+  code {
+    font-family: monospace;
+    padding: 2px;
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    border-radius: 3px;
+  }
+
+  blockquote {
+    border-left: 1px solid #999;
+    color: var(--code-color);
+    padding-left: 20px;
+    font-style: italic;
+  }
+
+  footer {
+    padding: 25px 0;
+    text-align: center;
+  }
+
+  .title:hover {
+    text-decoration: none;
+  }
+
+  .title h1 {
+    font-size: 1.5em;
+  }
+
+  .inline {
+    width: auto !important;
+  }
+
+  .highlight,
+  .code {
+    padding: 1px 15px;
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    border-radius: 3px;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    overflow-x: auto;
+  }
+
+  /* blog post list */
+  ul.blog-posts {
+    list-style-type: none;
+    padding: unset;
+  }
+
+  ul.blog-posts li {
+    display: flex;
+  }
+
+  ul.blog-posts li span {
+    flex: 0 0 130px;
+  }
+
+  ul.blog-posts li a:visited {
+    color: var(--visited-color);
+  }
+
+  .tags {
+    font-size: smaller;
+  }
+
+  .footnote-definition {
+    display: flex;
+    margin-top: 1em;
+  }
+  .footnote-definition-label {
+    margin-left: 1rem;
+    margin-right: 0.5rem;
+    vertical-align: baseline;
+  }
+  .footnote-definition-label::after {
+    content: "."
+  }
+  .footnote-definition > p {
+    margin: 0;
+  }
+
+  </style><style>
+
+section#comments {
+  p {
+    font-size: 0.8em;
+  }
+}
+
+
+pre mark {
+  color: var(--code-color);
+}
+</style>
+
+</head>
+<body>
+  <header>
+  <a href="https://jonalmeida.com/" class="title">
+    <h1>Jonathan Almeida</h1>
+  </a>
+  <nav aria-label="site">
+      <a href="https://jonalmeida.com/">Home</a>
+      <a href="https://jonalmeida.com/blog/">Blog</a>
+      <a href="https://jonalmeida.com/til/">TIL</a>
+      <a href="https://jonalmeida.com/archive/">Archive</a>
+  </nav>
+</header>
+
+  <h1>Lessons from a remote internship for 4 months</h1>
+      <p>
+        <i>
+          <time datetime="2014-09-22T00:00:00+00:00" pubdate>2014-09-22</time>
+        </i>
+      </p>
+    <details >
+      <summary>Table of contents</summary>
+    <ul>
+        <li>
+          <a href="https://jonalmeida.com/archive/lessons-from-remote-work/#pyjamas-were-not-my-only-work-clothing">Pyjamas were not my only work clothing</a>
+        </li>
+        <li>
+          <a href="https://jonalmeida.com/archive/lessons-from-remote-work/#coffee-shops-are-your-friend">Coffee shops are your friend</a>
+        </li>
+        <li>
+          <a href="https://jonalmeida.com/archive/lessons-from-remote-work/#travel-in-the-weekends">Travel in the weekends</a>
+        </li>
+        <li>
+          <a href="https://jonalmeida.com/archive/lessons-from-remote-work/#conclusion">Conclusion</a>
+        </li>
+    </ul>
+    </details>
+  <main>
+    <p>I finally got down to writing this post after settling down back at university wth a proper schedule. When people ask about my last internship at <a href="http://snowplowanalytics.com">Snowplow Analytics</a>, they're always surprised and asking the same question, "Really? A remote internship? How does that work?". I wanted to write this down to show others what I've learned from my first remote work experience.</p>
+<h3 id="pyjamas-were-not-my-only-work-clothing">Pyjamas were not my only work clothing</h3>
+<p>Yes, it's true at first that since you're working from home, you don't physcally interact with people much, so you don't have to dress up in any specific way. I started my day by waking up and then watch YouTube videos or read some news sites for a bit. Then pivot straight to opening my work environment and begin checking my email. An hour and a half later, I'd realize I hadn't eaten yet, so I'd go do that then clean up and get back at it until lunch. Some times I'd go straight from bed to emails until lunch (while snacking) to actually getting myself cleaned up. All of this was fun to do at first, just because I couldn't.</p>
+<blockquote>
+<p><img src="/images/20140922/1.png" alt="I&#39;m an adult... I guess.." /><br></p>
+</blockquote>
+<p>I learned the hard way that I started to become sluggish, grumpy and affected my lifestyle. The first few hours of my day I'd get very little done, I'd half sleep and use the computer (since my workspace was also my bedroom). Everything done during that time was barely productive that I'd need to work extra later on to get some value out of the day. The longer hours further worsened my day.</p>
+<p>I was lucky enough to notice this early on before it started to become a habt. I fixed my schedule by acting like I was going to leave to go work (i.e. breakfast, shower, dress up) but finally head back to my desk, all propped up, and sit down like I just reached. This was a major change in my current routine. Productivity increased, lifestyle, and general happiness.</p>
+<h3 id="coffee-shops-are-your-friend">Coffee shops are your friend</h3>
+<p>One of the problems with always working remotely is that you spend majority of your time alone. I love working in silence wth just the sound of some musc or TV in the background; loud enough to hear, not loud enough to pay attention to. As humans though, we're natually social beings so it's necessary to get out and interact with others; even being in a social atmosphere. You're working remotely and in most situations (like mine), it meant that you only need a computer and nothing else.</p>
+<p>I decided to try out working half a day in a coffee shop, and I found out that I'm just as productive (and sometimes even more) when at a coffee shop. It seemed like being in a social atmosphere seemed to make me focus on my work since there were fewer distractions there than my house which let me fool around and relax too much. This became into a mini-ritual that I would follow: if I needed carefully designed code, grab my laptop head to a coffee shop. It seems odd to rationalize, but this setup worked probably because I zone out everything around, and begin focusing on the task in from of me.</p>
+<h3 id="travel-in-the-weekends">Travel in the weekends</h3>
+<p>I later realized that I could work <em>ANY WHERE</em> I wanted! So I used this opportunity to travel around Canada to places I hadn't been to yet. One weekend that included bank holidays, I hopped on a plane to Vancouver and visited some friends there. We went hiking and visited the city all weekend, then on the next work day, I would work in the evenings in order to be on the same time zone as the rest of the team.</p>
+<blockquote>
+<p><img src="https://lh4.googleusercontent.com/-LVOJRbtYQQA/U4wQjH2J-mI/AAAAAAAAIgY/hAslDPl0GtU/w1278-h340-no/PANO_20140601_163008.jpg" alt="Vancouver!" /><br></p>
+</blockquote>
+<p>I hit Montreal as well for the Osheaga Music Festival on another weekend!</p>
+<blockquote>
+<p><img src="https://lh6.googleusercontent.com/-bqsTloHViuM/U-Hdnl93qqI/AAAAAAAAJ6o/WqgRauhGjLw/w945-h699-no/IMG_20140801_173442.jpg" alt="Montreal!" /><br></p>
+</blockquote>
+<h3 id="conclusion">Conclusion</h3>
+<p>Don't be afraid to try to get out and go different places, you're not limited to just your desk at home. If you were, there wouldn't be much difference from working in an office. Also a shout out to Alex and Yali for giving me this internship in the first place that let me do this. I learned <strong>SO MUCH</strong> in so little time and deployed several versions for a <a href="https://github.com/snowplow/snowplow-java-tracker">bunch</a> <a href="https://github.com/snowplow/snowplow-ios-tracker">of</a> <a href="https://github.com/snowplow/snowplow-android-tracker">projects</a>!</p>
+
+  </main>
+  <p>
+        Categories:
+          <a href="https://jonalmeida.com/categories/archive/">#archive</a>
+  </p>
+
+  <!-- Add temporary footnote back-links support -->
+  <script src="/footnotes.js"></script>
+<footer>
+</footer>
+</body>
+</html>

@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Start a Startup - Lecture 13 Notes | Jonathan Almeida</title>
+  <meta name="title" content="How to Start a Startup - Lecture 13 Notes">
+<meta name="description" content="Scribblings and nonsense">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+  
+  <link rel="alternate" type="application/atom+xml" title="Jonathan Almeida" href="https://jonalmeida.com/atom.xml">
+  <style>
+    :root {
+    --width: 800px;
+    --font-main: Verdana, sans-serif;
+    --font-secondary: Verdana, sans-serif;
+    --font-scale: 1em;
+    --background-color: #fff;
+    --heading-color: #222;
+    --text-color: #444;
+    --link-color: #3273dc;
+    --visited-color: #8b6fcb;
+    --code-background-color: #f2f2f2;
+    --code-color: #222;
+    --blockquote-color: #222;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --background-color: #01242e;
+      --heading-color: #eee;
+      --text-color: #ddd;
+      --link-color: #8cc2dd;
+      --visited-color: #8b6fcb;
+      --code-background-color: #000;
+      --code-color: #ddd;
+      --blockquote-color: #ccc;
+    }
+  }
+
+  body {
+    font-family: var(--font-secondary);
+    font-size: var(--font-scale);
+    margin: auto;
+    padding: 20px;
+    max-width: var(--width);
+    text-align: left;
+    background-color: var(--background-color);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.5;
+    color: var(--text-color);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-main);
+    color: var(--heading-color);
+  }
+
+  a {
+    color: var(--link-color);
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  nav a {
+    margin-right: 8px;
+  }
+
+  nav span.active {
+    font-weight: bold;
+    margin-right: 10px;
+  }
+  strong,
+  b {
+    color: var(--heading-color);
+  }
+
+  button {
+    margin: 0;
+    cursor: pointer;
+  }
+
+  main {
+    line-height: 1.6;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  hr {
+    border: 0;
+    border-top: 1px dashed;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  pre code {
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    display: block;
+    padding: 20px;
+    white-space: pre-wrap;
+    font-size: 0.875rem;
+    overflow-x: auto;
+  }
+
+  code {
+    font-family: monospace;
+    padding: 2px;
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    border-radius: 3px;
+  }
+
+  blockquote {
+    border-left: 1px solid #999;
+    color: var(--code-color);
+    padding-left: 20px;
+    font-style: italic;
+  }
+
+  footer {
+    padding: 25px 0;
+    text-align: center;
+  }
+
+  .title:hover {
+    text-decoration: none;
+  }
+
+  .title h1 {
+    font-size: 1.5em;
+  }
+
+  .inline {
+    width: auto !important;
+  }
+
+  .highlight,
+  .code {
+    padding: 1px 15px;
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    border-radius: 3px;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    overflow-x: auto;
+  }
+
+  /* blog post list */
+  ul.blog-posts {
+    list-style-type: none;
+    padding: unset;
+  }
+
+  ul.blog-posts li {
+    display: flex;
+  }
+
+  ul.blog-posts li span {
+    flex: 0 0 130px;
+  }
+
+  ul.blog-posts li a:visited {
+    color: var(--visited-color);
+  }
+
+  .tags {
+    font-size: smaller;
+  }
+
+  .footnote-definition {
+    display: flex;
+    margin-top: 1em;
+  }
+  .footnote-definition-label {
+    margin-left: 1rem;
+    margin-right: 0.5rem;
+    vertical-align: baseline;
+  }
+  .footnote-definition-label::after {
+    content: "."
+  }
+  .footnote-definition > p {
+    margin: 0;
+  }
+
+  </style><style>
+
+section#comments {
+  p {
+    font-size: 0.8em;
+  }
+}
+
+
+pre mark {
+  color: var(--code-color);
+}
+</style>
+
+</head>
+<body>
+  <header>
+  <a href="https://jonalmeida.com/" class="title">
+    <h1>Jonathan Almeida</h1>
+  </a>
+  <nav aria-label="site">
+      <a href="https://jonalmeida.com/">Home</a>
+      <a href="https://jonalmeida.com/blog/">Blog</a>
+      <a href="https://jonalmeida.com/til/">TIL</a>
+      <a href="https://jonalmeida.com/archive/">Archive</a>
+  </nav>
+</header>
+
+  <h1>How to Start a Startup - Lecture 13 Notes</h1>
+      <p>
+        <i>
+          <time datetime="2014-11-04T00:00:00+00:00" pubdate>2014-11-04</time>
+        </i>
+      </p>
+    <details >
+      <summary>Table of contents</summary>
+    <ul>
+        <li>
+          <a href="https://jonalmeida.com/archive/htsas-lec13/#how-to-be-a-great-founder">How to be a Great Founder</a>
+        <ul>
+            <li>
+              <a href="https://jonalmeida.com/archive/htsas-lec13/#perception">Perception</a>
+            <ul>
+                <li>
+                  <a href="https://jonalmeida.com/archive/htsas-lec13/#team">Team</a>
+                </li>
+                <li>
+                  <a href="https://jonalmeida.com/archive/htsas-lec13/#location">Location</a>
+                </li>
+                <li>
+                  <a href="https://jonalmeida.com/archive/htsas-lec13/#delegation">Delegation</a>
+                </li>
+                <li>
+                  <a href="https://jonalmeida.com/archive/htsas-lec13/#flexibility">Flexibility</a>
+                </li>
+                <li>
+                  <a href="https://jonalmeida.com/archive/htsas-lec13/#confident">Confident</a>
+                </li>
+                <li>
+                  <a href="https://jonalmeida.com/archive/htsas-lec13/#internally">Internally</a>
+                </li>
+                <li>
+                  <a href="https://jonalmeida.com/archive/htsas-lec13/#vision-or-data">Vision or Data</a>
+                </li>
+                <li>
+                  <a href="https://jonalmeida.com/archive/htsas-lec13/#risk">Risk</a>
+                </li>
+                <li>
+                  <a href="https://jonalmeida.com/archive/htsas-lec13/#vision">Vision</a>
+                </li>
+            </ul>
+            </li>
+            <li>
+              <a href="https://jonalmeida.com/archive/htsas-lec13/#how-do-you-know-if-you-are-a-great-founder">How do you know if you are a Great Founder?</a>
+            </li>
+            <li>
+              <a href="https://jonalmeida.com/archive/htsas-lec13/#questions">Questions</a>
+            </li>
+        </ul>
+        </li>
+    </ul>
+    </details>
+  <main>
+    <p>I'm taking down notes for Sam Altman's class, How to Start a Startup and I figured I'd start sharing them. This is for the <a href="https://www.youtube.com/watch?v=dQ7ZvO5DpIw">thirteenth lecture</a> with the following notes:</p>
+<h1 id="how-to-be-a-great-founder">How to be a Great Founder</h1>
+<h2 id="perception">Perception</h2>
+<ul>
+<li>Perception of a founder:
+<ul>
+<li>Elon Musk, Bill Gates, Steve Jobs, etc.</li>
+<li>An image of Superman/Superwoman</li>
+</ul>
+</li>
+<li>Reality:
+<ul>
+<li>Someone who deals with a lot of problems</li>
+<li>No one is generally "superpowered"</li>
+<li>You want to have a couple of "superpowers", something that gives you an edge</li>
+<li>Although, this is not a function of genius</li>
+<li>It's hard to tell the difference between genius/madness</li>
+</ul>
+</li>
+<li>Potential skills of a founder:
+<ul>
+<li>Founding Team</li>
+<li>Location</li>
+<li>Delegation</li>
+<li>Flexibility</li>
+<li>Vision</li>
+<li>Focus</li>
+<li>Confidence</li>
+<li>Evaluation</li>
+<li>Risk</li>
+<li>Persistence</li>
+<li>Data</li>
+<li>Time Horizon</li>
+</ul>
+</li>
+<li>May seem like a super human task</li>
+<li>You don't necessarily want to score 10/10 in all the skills of a founder</li>
+</ul>
+<h3 id="team">Team</h3>
+<ul>
+<li>It's usually best to have two/three people as the founders (broad set of skills to spread)</li>
+<li>You can compensate with other founders weaknesses</li>
+<li>Diversity of problems as a founder, you can go at them from different angles</li>
+<li>Have a high degree of trust with those co-founders (see previous lectures for more detail)</li>
+</ul>
+<h3 id="location">Location</h3>
+<ul>
+<li>
+<p>In order to be successful, I need to go where the strongest networks are where the particular kind of problem that I'm trying to solve.</p>
+</li>
+<li>
+<p>Silicon Valley is good for software products (not for all though!)</p>
+<ul>
+<li>This is due to various off-topic reasons</li>
+</ul>
+</li>
+<li>
+<p>e.g. Groupon needed massive numbers of sales forces. Silicon Valley is suboptimal for plans where you want to rent a 20 storey building full of sales people. Groupon was required to be in Chicago which is good at this.</p>
+</li>
+<li>
+<p>What kinds of startups would someone be an idiot to do in SV?</p>
+<ul>
+<li>e.g. Designing a fashion company. Great idea, but there isn't a good network for it here!</li>
+</ul>
+</li>
+<li>
+<p>Should I be a contrarian?</p>
+<ul>
+<li><em>(A contrarian is a person who takes up a contrary position, a person who seems to be "contrary for the sake of being contrary,")</em></li>
+<li>Its hard to be contrarian and right.</li>
+<li>How does a smart person actually disagree with me?</li>
+<li>A really good contrarian idea: what would smart people (in that field) think is a good idea.</li>
+<li>In general, as a founder, it's good to be a contrarian.</li>
+</ul>
+</li>
+</ul>
+<h3 id="delegation">Delegation</h3>
+<ul>
+<li>Should I do the work or delegate the work?
+<ul>
+<li>In truth: both</li>
+</ul>
+</li>
+<li>Should I be recruiting people?</li>
+<li>Sometimes one at 100% or the other at 100%</li>
+</ul>
+<h3 id="flexibility">Flexibility</h3>
+<ul>
+<li>Should I be flexible or persistent?
+<ul>
+<li>Again: both</li>
+</ul>
+</li>
+<li>You get opinions from both ends of the spectrum on how to do this.</li>
+<li>Have an investment thesis (possibly contrarian) on why you think is potentially a good idea.
+<ul>
+<li>Should include what you know that others don't know</li>
+<li>Do I have an increase in confidence or decreasing?</li>
+</ul>
+</li>
+<li>If increasing, stay on track, be persistent</li>
+<li>If decreasing, you don't have to necessarily jump out
+<ul>
+<li>What do we do to fix this? (flexibility)</li>
+</ul>
+</li>
+</ul>
+<h3 id="confident">Confident</h3>
+<ul>
+<li>Should I be confident or cautious?
+<ul>
+<li>Third time: both</li>
+</ul>
+</li>
+<li>I have my vision of how the world should be <strong>BUT</strong> smart enough to listen to criticism, negative feedback, competitive entries.</li>
+<li>Is this changing my investment thesis?</li>
+</ul>
+<h3 id="internally">Internally</h3>
+<ul>
+<li>Should I focus internally or externally?
+<ul>
+<li>People in the back haven't heard: both</li>
+</ul>
+</li>
+<li>Internally: Build the product, ignore the world, ignore competitors</li>
+<li>Externally: Recruiting, meeting people, gathering network intelligence</li>
+</ul>
+<h3 id="vision-or-data">Vision or Data</h3>
+<ul>
+<li>Should I work by vision or data?
+<ul>
+<li>Both</li>
+</ul>
+</li>
+<li>Data: motivated by data, gather the data, be guided by the data</li>
+<li><em>Data</em> only exists within the framework of a <em>vision</em> you are building to</li>
+</ul>
+<h3 id="risk">Risk</h3>
+<ul>
+<li>Should I take risks or minimize risks?
+<ul>
+<li>Both</li>
+</ul>
+</li>
+<li>You have to be a risk taker</li>
+<li>One of the skillsets you need to build on is, how do I make intelligent risks
+<ul>
+<li>How do I minimize my other risks with this? (i.e. two birds with one stone)</li>
+</ul>
+</li>
+</ul>
+<h3 id="vision">Vision</h3>
+<ul>
+<li>Should I focus on the short term or long term?
+<ul>
+<li>Both</li>
+</ul>
+</li>
+<li>Jump between the two</li>
+<li>Solve the problem that's immediately in front of you</li>
+<li>Short term: What do I need to be doing today? Have I made progress today?
+<ul>
+<li><strong>BUT</strong>, is it largely on path?</li>
+</ul>
+</li>
+</ul>
+<h2 id="how-do-you-know-if-you-are-a-great-founder">How do you know if you are a Great Founder?</h2>
+<ul>
+<li>
+<p>You should have <em>some</em> superpowers</p>
+</li>
+<li>
+<p>Useful to be a product person (in software especially)</p>
+</li>
+<li>
+<p>Useful to have leadership and persuading people</p>
+</li>
+<li>
+<p>Recognizing whether you're on track or not (am I <em>STILL</em> on track with my thesis?)</p>
+</li>
+<li>
+<p>There's no one skillset</p>
+</li>
+<li>
+<p>There's an ability to learn and adapt, and the ability to constantly have a vision that drives you, and take input from all sources and take networks from around you. (!)</p>
+</li>
+</ul>
+<h2 id="questions">Questions</h2>
+<p>Q. <em>How did you stick with a strategy to get your investment thesis?</em></p>
+<p><strong>Ans.</strong></p>
+<ul>
+<li>The problems in 2003 were different from what we have now. They (LinkedIn) sent out invitations to different people, and got PR to get people.</li>
+<li>Now, how are you competing for potential customers?</li>
+<li>What is the hack that I know that others don't?</li>
+</ul>
+<hr />
+<p>Q. <em>How do you know if someone is a good founder or not?</em></p>
+<p><strong>Ans.</strong></p>
+<ul>
+<li>I'm a believer of references</li>
+<li>Only meet with people through a reference</li>
+<li>It's a way to sort out time</li>
+<li>Network is really key</li>
+</ul>
+<hr />
+<p>Q. <em>Density of insight is a strong signal for great founders. Being able to distil a thesis into a concise sentence.</em></p>
+<p><strong>Ans.</strong></p>
+<ul>
+<li>The ability to be coherent on what you're targetting.</li>
+<li>NOT a Swiss army knife approach</li>
+<li>Founders who have analyzed the problem in a good way</li>
+<li>Founders who do not have a good analysis, but have an instinct on what they're doing</li>
+</ul>
+<hr />
+<p>Q. <em>What kept you going with persistence (RE: LinkedIn)?</em></p>
+<p><strong>Ans.</strong></p>
+<ul>
+<li>Believing the right economic system design was to have a public professional profile</li>
+<li>It may not have taken off the speed that we want</li>
+<li>It takes us longer to get there, but that's okay</li>
+</ul>
+<hr />
+<p>Q. <em>When you get a founder that you think is going to be good. What makes you get wrong about someone who looks good at first observation?</em></p>
+<p><strong>Ans.</strong></p>
+<ul>
+<li>Conviction in the person when they're trying to reason with you is what you look for in a founder</li>
+<li>Sometimes you find people who have learned to mimic that behaviour. They look like they're thinking about the challenges that you're bringing up but they're actually ignoring you.</li>
+<li>Adaptability questions</li>
+<li>Is there an ego issue that might get in the way</li>
+</ul>
+<hr />
+<p>Q. <em>Co-founding team, how to evaluate how to be co-founders?</em></p>
+<p><strong>Ans.</strong></p>
+<ul>
+<li>Serious trust</li>
+<li>People say don't invest in a husband-wife team (since personal dynamics can affect)</li>
+<li>You should ask: do they collaborate well? Do they help each other get to truth?</li>
+<li>Adjusting to what is the truth (i.e. people who work off each other)</li>
+</ul>
+<hr />
+<p>Q. <em>Different founder, different areas. How do you identify them?</em></p>
+<p><strong>Ans.</strong></p>
+<ul>
+<li>This talk is about, what is unique to all founders as a whole (not specifically technology).</li>
+<li>Investors try to understand a domain so they cam better invest in that domain.</li>
+<li>Each domain has a set of attributes in that domain.</li>
+</ul>
+<hr />
+<p>Q. <em>How do you know when to stay in longer than expected? Or when do you pivot?</em></p>
+<p><strong>Ans.</strong></p>
+<ul>
+<li>The part of the reason of having an investment thesis (IT)</li>
+<li>If your confidence in IT is decreasing for a very long time:
+<ul>
+<li>You've gone into intense mode to see what could do to increase confidence</li>
+<li>When <em>THAT</em> starts failing, then you should consider pivoting.</li>
+</ul>
+</li>
+<li>A frequent mistake: wait till everything has crashed into the wall. You waited way too long!</li>
+<li>Founders have no balance
+<ul>
+<li>While you are working on this thing, you cannot remain balanced. It is 100% of you that goes into it.</li>
+<li><em>(This isn't forever, but maybe for a couple of years before you go off to do other things)</em></li>
+</ul>
+</li>
+</ul>
+<hr />
+<p>Q. <em>How good is the startup eco-system in identifying contrarian opportunities?</em></p>
+<p><strong>Ans.</strong></p>
+<ul>
+<li>Mixed.</li>
+<li>Generally, the system is good at it.</li>
+</ul>
+<hr />
+<p>Q. <em>What you do think about creating markets vs. covering them?</em></p>
+<p><strong>Ans.</strong></p>
+<ul>
+<li>What would lead you to believe what would be a market there or not?</li>
+<li>What is it that you think you know that others don't know.</li>
+</ul>
+<hr />
+<p>Q. <em>When do you know someone long enough to ask someone to be their co-founder?</em></p>
+<p><strong>Ans.</strong></p>
+<ul>
+<li>It's one of the risks that you take</li>
+<li>You're going to spend 20+ hours with this person, do you feel comfortable doing that?</li>
+<li>Have a set of robust conversations with this person that you can later bring up (re-iterating trust)</li>
+</ul>
+
+  </main>
+  <p>
+        Categories:
+          <a href="https://jonalmeida.com/categories/archive/">#archive</a>
+  </p>
+
+  <!-- Add temporary footnote back-links support -->
+  <script src="/footnotes.js"></script>
+<footer>
+</footer>
+</body>
+</html>

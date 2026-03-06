@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cleaning up a messy master branch | Jonathan Almeida</title>
+  <meta name="title" content="Cleaning up a messy master branch">
+<meta name="description" content="Scribblings and nonsense">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+  
+  <link rel="alternate" type="application/atom+xml" title="Jonathan Almeida" href="https://jonalmeida.com/atom.xml">
+  <style>
+    :root {
+    --width: 800px;
+    --font-main: Verdana, sans-serif;
+    --font-secondary: Verdana, sans-serif;
+    --font-scale: 1em;
+    --background-color: #fff;
+    --heading-color: #222;
+    --text-color: #444;
+    --link-color: #3273dc;
+    --visited-color: #8b6fcb;
+    --code-background-color: #f2f2f2;
+    --code-color: #222;
+    --blockquote-color: #222;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --background-color: #01242e;
+      --heading-color: #eee;
+      --text-color: #ddd;
+      --link-color: #8cc2dd;
+      --visited-color: #8b6fcb;
+      --code-background-color: #000;
+      --code-color: #ddd;
+      --blockquote-color: #ccc;
+    }
+  }
+
+  body {
+    font-family: var(--font-secondary);
+    font-size: var(--font-scale);
+    margin: auto;
+    padding: 20px;
+    max-width: var(--width);
+    text-align: left;
+    background-color: var(--background-color);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.5;
+    color: var(--text-color);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-main);
+    color: var(--heading-color);
+  }
+
+  a {
+    color: var(--link-color);
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  nav a {
+    margin-right: 8px;
+  }
+
+  nav span.active {
+    font-weight: bold;
+    margin-right: 10px;
+  }
+  strong,
+  b {
+    color: var(--heading-color);
+  }
+
+  button {
+    margin: 0;
+    cursor: pointer;
+  }
+
+  main {
+    line-height: 1.6;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  hr {
+    border: 0;
+    border-top: 1px dashed;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  pre code {
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    display: block;
+    padding: 20px;
+    white-space: pre-wrap;
+    font-size: 0.875rem;
+    overflow-x: auto;
+  }
+
+  code {
+    font-family: monospace;
+    padding: 2px;
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    border-radius: 3px;
+  }
+
+  blockquote {
+    border-left: 1px solid #999;
+    color: var(--code-color);
+    padding-left: 20px;
+    font-style: italic;
+  }
+
+  footer {
+    padding: 25px 0;
+    text-align: center;
+  }
+
+  .title:hover {
+    text-decoration: none;
+  }
+
+  .title h1 {
+    font-size: 1.5em;
+  }
+
+  .inline {
+    width: auto !important;
+  }
+
+  .highlight,
+  .code {
+    padding: 1px 15px;
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    border-radius: 3px;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    overflow-x: auto;
+  }
+
+  /* blog post list */
+  ul.blog-posts {
+    list-style-type: none;
+    padding: unset;
+  }
+
+  ul.blog-posts li {
+    display: flex;
+  }
+
+  ul.blog-posts li span {
+    flex: 0 0 130px;
+  }
+
+  ul.blog-posts li a:visited {
+    color: var(--visited-color);
+  }
+
+  .tags {
+    font-size: smaller;
+  }
+
+  .footnote-definition {
+    display: flex;
+    margin-top: 1em;
+  }
+  .footnote-definition-label {
+    margin-left: 1rem;
+    margin-right: 0.5rem;
+    vertical-align: baseline;
+  }
+  .footnote-definition-label::after {
+    content: "."
+  }
+  .footnote-definition > p {
+    margin: 0;
+  }
+
+  </style><style>
+
+section#comments {
+  p {
+    font-size: 0.8em;
+  }
+}
+
+
+pre mark {
+  color: var(--code-color);
+}
+</style>
+
+</head>
+<body>
+  <header>
+  <a href="https://jonalmeida.com/" class="title">
+    <h1>Jonathan Almeida</h1>
+  </a>
+  <nav aria-label="site">
+      <a href="https://jonalmeida.com/">Home</a>
+      <a href="https://jonalmeida.com/blog/">Blog</a>
+      <a href="https://jonalmeida.com/til/">TIL</a>
+      <a href="https://jonalmeida.com/archive/">Archive</a>
+  </nav>
+</header>
+
+  <h1>Cleaning up a messy master branch</h1>
+      <p>
+        <i>
+          <time datetime="2013-07-28T00:00:00+00:00" pubdate>2013-07-28</time>
+        </i>
+      </p>
+  <main>
+    <p>Note: This is for the foolish and lazy side of you</p>
+<p>Twice I've come across a situation where I've messed up local master branch before I merge my topic branch. I've pushed commits to my local master that are now lost in the abyss so when I pull down the latest changes to the master branch I have to do a merge commit. Let's fix that with a bit of frustration..</p>
+<p>Create a orphan branch with any branch name (we'll rename it later):</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">git</span><span> checkout</span><span style="color:#bf616a;"> --orphan</span><span> any_branch_name
+</span></code></pre>
+<p>Pull the lastest changes:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">git</span><span> pull origin master
+</span></code></pre>
+<p>Rename the branch back to master if you fancy it:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>git branch -m any_branch_name master
+</span></code></pre>
+<p>If you're working on a topic branch, that you've previously created over your old master, you should be able to rebase it with your new branch, before you push it your remote:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">git</span><span> checkout topic_branch
+</span><span style="color:#bf616a;">git</span><span> rebase master
+</span><span style="color:#bf616a;">git</span><span> checkout master
+</span><span style="color:#bf616a;">git</span><span> merge topic_branch
+</span><span style="color:#bf616a;">git</span><span> push origin master
+</span></code></pre>
+<p>A shorter way (but still somewhat untidy) to do this would be to cherry-pick your change(s) from your topic branch to your newly created local master and then push them. While this works just a well. There are changes you turn into a walking-talking-moron and screw up again if those changes aren't merged with your remote:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">git</span><span> checkout master
+</span><span style="color:#bf616a;">git</span><span> cherry-pick SHA_VALUE
+</span><span style="color:#bf616a;">git</span><span> push origin master
+</span></code></pre>
+<p><em>For the not-so-foolish...</em><br>
+How about a third option? I prefer this one to most though since it's the only way you <em>should</em> be doing it.
+Let's say you were working on a commit on your topic branch for a while, and your remote master has been updated a fair bit since then.
+First, fetch the latest changes from upstream, rebase your topic branch to your remote's master and then push it:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">git</span><span> fetch
+</span><span style="color:#bf616a;">git</span><span> rebase origin/master
+</span><span style="color:#bf616a;">git</span><span> push origin master
+</span></code></pre>
+<p>This way, you get your changes pushed to the top of the tree based of the remote's master (which should be the most up-to-date version you want). You don't need to maintain your local master, because hey, why the hell should you? AND.. you should be able to push to the remote repo without any errors.</p>
+
+  </main>
+  <p>
+        Tags:
+          <a href="https://jonalmeida.com/tags/workflow/">#workflow</a>
+        Categories:
+          <a href="https://jonalmeida.com/categories/blog/">#blog</a>
+  </p>
+
+  <!-- Add temporary footnote back-links support -->
+  <script src="/footnotes.js"></script>
+<footer>
+</footer>
+</body>
+</html>
