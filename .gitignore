@@ -8,6 +8,7 @@ Thumbs.db
 
 .rbenv-version
 .rvmrc
+.env
 
 # Jekyll
 .jekyll-cache

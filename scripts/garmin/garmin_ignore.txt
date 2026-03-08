@@ -1,0 +1,4 @@
+# One Garmin activity ID per line
+# Lines starting with # are comments
+# Example:
+# 17283746291
