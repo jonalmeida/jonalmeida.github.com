@@ -1,0 +1,14 @@
+{#
+
+Usage in markdown:
+  {% mermaid() %}
+  graph TD
+      A[Start] --> B[End]
+  {% end %}
+
+The CDN approach was used instead of local files since mermaid.min.js is 2.8 MB and would exceed jj's 1 MB
+  snapshot limit.
+#}
+<pre class="mermaid">
+{{ body }}
+</pre>
