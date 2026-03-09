@@ -295,3 +295,6 @@ Yup, that's all. Very simple and boring.
 ---
 
 [^1]: With Jujutsu, this is the moz-phab command I use which has made it easier to manage review patches: `moz-phab patch <patch-id> --no-branch --apply-to main@origin`
+
+
+{{ comments(host="mindly.social", username="jonalmeida", id=116197244320129422) }}
