@@ -123,6 +123,7 @@ config:
   themeVariables:
     xyChart:
       plotColorPalette: "#555555,#FF8200,#56CC3C,#4090D4,#AAAAAA"
+      backgroundColor: "transparent"
 ---
         """,
         "xychart horizontal",
