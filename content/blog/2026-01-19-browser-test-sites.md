@@ -1,6 +1,6 @@
 ---
 title: "Test sites for browser developers"
-updated: 2026-01-29T16:39:59-05:00
+updated: 2026-03-17T14:58:43-04:00
 draft: false
 taxonomies:
   tags: ["workflow", "mozilla"]
@@ -11,16 +11,10 @@ extra:
 
 Working on the mobile Firefox team gives you the opportunity to touch on many different parts of the browser space. You often need to test the interaction between web content and the application integration's to another component, say for example, a site registering for a WebPush subscription and Firefox using Firebase Cloud Messaging to deliver the encrypted message to the end-user. Hunting around for an example to validate everything fine and dandy takes time.
 
-
-
 Sometimes a simple test site for your use case is helpful for initial validation or comparison against other browsers.
 
 Below is a list of tests that I've used in the past (in no particular order):
 
-- [badssl.com](https://badssl.com)
-  - Great for testing out the various error pages that a browser can show.
-- [(Safe) Safe Browsing Testing Links ](https://testsafebrowsing.appspot.com/)
-  - For making sure we are still using the [Safe Browsing](https://safebrowsing.google.com/) list correctly.
 - [WebAuthn / Passkeys & PRF Demo](https://webauthn-passkeys-prf-demo.explore.corbado.com/)
   - For [WebAuthn](https://developer.mozilla.org/en-US/docs/Web/API/Web_Authentication_API) login/registration, but also includes PRF extension support.
 - [Web Push: Data Encryption Test Page](https://mozilla-services.github.io/WebPushDataTestPage/)
@@ -31,6 +25,14 @@ Below is a list of tests that I've used in the past (in no particular order):
   - When you have to verify that [`localStorage`](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage) is truly gone. This is especially helpful for Firefox Focus where private browsing is the primary feature.
 - [`<input>`: The HTML Input element - MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input)
   - There are Too Many™ different prompt and input element types. The MDN docs have the best collection of all of them.
+
+### Browsing privacy and Tracking Protection
+- [badssl.com](https://badssl.com)
+  - Great for testing out the various error pages that a browser can show.
+- [(Safe) Safe Browsing Testing Links ](https://testsafebrowsing.appspot.com/)
+  - For making sure we are still using the [Safe Browsing](https://safebrowsing.google.com/) list correctly.
+- [senglehardt.com/test/trackingprotection](https://senglehardt.com/test/trackingprotection/test_pages/tracking_protection)
+  - Tracking Protection test page. Somewhat ancient so cookie blocking might not work.
 
 ### Forms and Autocomplete
 There are various form types and various heuristics to trigger completion options, so they deserve their own section. The more (test sites) the merrier!
