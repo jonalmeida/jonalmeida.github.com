@@ -1,0 +1,1186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>Jonathan Almeida - mozilla</title>
+    <subtitle>Scribblings and nonsense</subtitle>
+    <link rel="self" type="application/atom+xml" href="https://jonalmeida.com/tags/mozilla/atom.xml"/>
+    <link rel="alternate" type="text/html" href="https://jonalmeida.com"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2026-03-22T00:00:00+00:00</updated>
+    <id>https://jonalmeida.com/tags/mozilla/atom.xml</id>
+    <entry xml:lang="en">
+        <title>Create new revisions in Jujutsu with multiple heads</title>
+        <published>2026-03-22T00:00:00+00:00</published>
+        <updated>2026-03-22T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Jonathan Almeida
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/til/jj-megamerge/"/>
+        <id>https://jonalmeida.com/til/jj-megamerge/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/til/jj-megamerge/">&lt;p&gt;It was one of those &quot;ah ha!&quot; moments for me when I finally used it. Chris Krycho &lt;a href=&quot;https:&#x2F;&#x2F;v5.chriskrycho.com&#x2F;journal&#x2F;jujutsu-megamerges-and-jj-absorb&#x2F;&quot;&gt;covers the concept of megamerges&lt;&#x2F;a&gt; with this diagram:&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;color:#c0c5ce;&quot;&gt;&lt;code&gt;&lt;span&gt;       m --- n
+&lt;&#x2F;span&gt;&lt;span&gt;      &#x2F;       \
+&lt;&#x2F;span&gt;&lt;span&gt;a -- b -- c -- [merge] -- [wip]
+&lt;&#x2F;span&gt;&lt;span&gt;      \       &#x2F;
+&lt;&#x2F;span&gt;&lt;span&gt;       w --- x
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;I&#x27;ve found a more realistic example that best relates to my natural workflow: implementing feature (A) benefitted from having the changes of another tooling patch upgrade (B), that lead to discovering and fixing a bug (C).&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;color:#c0c5ce;&quot;&gt;&lt;code&gt;&lt;span&gt;      (B)
+&lt;&#x2F;span&gt;&lt;span&gt;       m ----- n
+&lt;&#x2F;span&gt;&lt;span&gt;      &#x2F;         \           (A)
+&lt;&#x2F;span&gt;&lt;span&gt;a -- b --------- [merge] --- y -- z
+&lt;&#x2F;span&gt;&lt;span&gt;      \                     &#x2F;      \                (C)
+&lt;&#x2F;span&gt;&lt;span&gt;        -------------------         ----- [merge] -- w -- x
+&lt;&#x2F;span&gt;&lt;span&gt;        \                                &#x2F;
+&lt;&#x2F;span&gt;&lt;span&gt;          -------------------------------
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;In this case, trying to separate these into distinct streams of work is quite logically, but we also don&#x27;t need to leave them unlinked so that they can benefit from each other.&lt;&#x2F;p&gt;
+&lt;p&gt;This is what my &lt;code&gt;jj log&lt;&#x2F;code&gt; ended up looking like:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;jj&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-jj &quot;&gt;&lt;code class=&quot;language-jj&quot; data-lang=&quot;jj&quot;&gt;&lt;span&gt;@  oppmsuvz &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;jxxxxxxxxxxxx@gmail.com &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;2026-03-22 00:34:10 &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;firefox@ &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;05259417
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;│  &lt;&#x2F;span&gt;&lt;span&gt;Bug xxxxxxx - Simplify the tests
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;○  &lt;&#x2F;span&gt;&lt;span&gt;ultowtnr &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;jxxxxxxxxxxxx@gmail.com &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;2026-03-22 00:34:04 &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;100c4cce
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;│  &lt;&#x2F;span&gt;&lt;span&gt;Bug xxxxxxx - Include private flag in ShareData
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;○    &lt;&#x2F;span&gt;&lt;span&gt;lorusmuo &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;jxxxxxxxxxxxx@gmail.com &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;2026-03-21 20:19:30 &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;905b0460
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;├─╮  (empty) (no description set)
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;│ ○  &lt;&#x2F;span&gt;&lt;span&gt;sumqskuu &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;jxxxxxxxxxxxx@gmail.com &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;2026-03-21 04:22:00 &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;92f6028b
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;│ │  &lt;&#x2F;span&gt;&lt;span&gt;Add a new secret settings fragment
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;│ ○  &lt;&#x2F;span&gt;&lt;span&gt;oylmprpu &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;jxxxxxxxxxxxx@gmail.com &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;2026-03-21 04:22:00 &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;18931825
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;│ │  &lt;&#x2F;span&gt;&lt;span&gt;Create a new feature for receiving and sending commands.
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;│ ○  &lt;&#x2F;span&gt;&lt;span&gt;xrnnoonu &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;jxxxxxxxxxxxx@gmail.com &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;2026-03-21 04:21:48 &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;618020c7
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;╭─┤  (empty) (no description set)
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;│ ○  &lt;&#x2F;span&gt;&lt;span&gt;rqlyqqzx &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;jxxxxxxxxxxxx@gmail.com &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;2026-03-19 17:20:20 &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;c9b5323c
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;│ │  &lt;&#x2F;span&gt;&lt;span&gt;Bug xxxxxxx - Part 2: Create new android gradle module skill
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;│ ○  &lt;&#x2F;span&gt;&lt;span&gt;txvozpwz &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;jxxxxxxxxxxxx@gmail.com &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;2026-03-19 17:20:13 &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;cee18510
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;├─╯  &lt;&#x2F;span&gt;&lt;span&gt;Bug xxxxxxx - Part 1: Add new gradle example module
+&lt;&#x2F;span&gt;&lt;span&gt;◆  pwsnmryn &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;vxxxxxxxxxxxx@gmail.com &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;2026-03-18 13:21:47 &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;main@&lt;&#x2F;span&gt;&lt;span&gt;origin &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;fa20ce29
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;│  &lt;&#x2F;span&gt;&lt;span&gt;Bug xxxxxxx - Make my feature work for everyone
+&lt;&#x2F;span&gt;&lt;span&gt;~
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;When I need to submit these, [moz-phab][&lt;a href=&quot;https:&#x2F;&#x2F;pypi.org&#x2F;project&#x2F;MozPhab&#x2F;&quot;&gt;1&lt;&#x2F;a&gt; has support for specifying revset ranges with &lt;code&gt;moz-phab start_rev end_rev&lt;&#x2F;code&gt;. However, I can also use &lt;code&gt;jj rebase -s &amp;lt;rev&amp;gt; -d main@origin&lt;&#x2F;code&gt; to put out some try pushes to validate they still work separately - so far, no conflicts in this step.&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Use |mach try --no-push| for a configuration dry run</title>
+        <published>2026-03-22T00:00:00+00:00</published>
+        <updated>2026-03-22T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Jonathan Almeida
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/til/mach-try-no-push/"/>
+        <id>https://jonalmeida.com/til/mach-try-no-push/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/til/mach-try-no-push/">&lt;p&gt;I wanted to see what the generated try configuration would be for a new preset I made and did this by submitting real try pushes (with &lt;code&gt;empty&lt;&#x2F;code&gt; so they don&#x27;t execute resources). What I was looking for was &quot;dry run&quot; in the help files, but I recently discovered it to be &lt;code&gt;--no-push&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;$&lt;&#x2F;span&gt;&lt;span&gt; jj try-push&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; --preset&lt;&#x2F;span&gt;&lt;span&gt; fenix&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; --no-push &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;# &amp;#39;fenix&amp;#39; as an example preset
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Artifact&lt;&#x2F;span&gt;&lt;span&gt; builds enabled, pass&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; --no-artifact&lt;&#x2F;span&gt;&lt;span&gt; to disable
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Commit&lt;&#x2F;span&gt;&lt;span&gt; message:
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Fuzzy&lt;&#x2F;span&gt;&lt;span&gt; (preset: fenix) &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;query&lt;&#x2F;span&gt;&lt;span&gt;=&amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;build-apk-fenix-debug&amp;amp;query=&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;signing-apk-fenix-debug&amp;amp;query=&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;build-apk-fenix-android-test-debug&amp;amp;query=&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;signing-apk-fenix-android-test-debug&amp;amp;query=&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;test-apk-fenix-debug&amp;amp;query=&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;ui-test-apk-fenix-arm-debug&amp;amp;query=^source-test &lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;fenix&amp;amp;query=&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;generate-baseline-profile-firebase-fenix
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;mach&lt;&#x2F;span&gt;&lt;span&gt; try command: `&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;.&#x2F;mach&lt;&#x2F;span&gt;&lt;span&gt; try&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; --preset&lt;&#x2F;span&gt;&lt;span&gt; fenix&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; --no-push&lt;&#x2F;span&gt;&lt;span&gt;`
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Pushed&lt;&#x2F;span&gt;&lt;span&gt; via `&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;mach&lt;&#x2F;span&gt;&lt;span&gt; try fuzzy`
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Calculated&lt;&#x2F;span&gt;&lt;span&gt; try_task_config.json:
+&lt;&#x2F;span&gt;&lt;span&gt;{
+&lt;&#x2F;span&gt;&lt;span&gt;    &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;parameters&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span&gt;{
+&lt;&#x2F;span&gt;&lt;span&gt;        &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;optimize_target_tasks&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;: false,
+&lt;&#x2F;span&gt;&lt;span&gt;        &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;try_task_config&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;: {
+&lt;&#x2F;span&gt;&lt;span&gt;            &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;disable-pgo&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;: true,
+&lt;&#x2F;span&gt;&lt;span&gt;            &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;env&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;: {
+&lt;&#x2F;span&gt;&lt;span&gt;                &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;TRY_SELECTOR&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;: &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;fuzzy&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;            },
+&lt;&#x2F;span&gt;&lt;span&gt;            &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;tasks&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;: [
+&lt;&#x2F;span&gt;&lt;span&gt;                &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;build-apk-fenix-android-test-debug&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;,
+&lt;&#x2F;span&gt;&lt;span&gt;                &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;build-apk-fenix-debug&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;,
+&lt;&#x2F;span&gt;&lt;span&gt;                &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;generate-baseline-profile-firebase-fenix&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;,
+&lt;&#x2F;span&gt;&lt;span&gt;                &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;source-test-android-detekt-detekt-fenix&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;,
+&lt;&#x2F;span&gt;&lt;span&gt;                &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;source-test-android-l10n-lint-l10n-lint-fenix&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;,
+&lt;&#x2F;span&gt;&lt;span&gt;                &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;source-test-android-lint-fenix&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;,
+&lt;&#x2F;span&gt;&lt;span&gt;                &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;source-test-buildconfig-buildconfig-fenix&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;,
+&lt;&#x2F;span&gt;&lt;span&gt;                &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;source-test-ktlint-fenix&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;,
+&lt;&#x2F;span&gt;&lt;span&gt;                &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;source-test-mozlint-android-fenix&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;,
+&lt;&#x2F;span&gt;&lt;span&gt;                &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;test-apk-fenix-debug&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;,
+&lt;&#x2F;span&gt;&lt;span&gt;                &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;ui-test-apk-fenix-arm-debug&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;,
+&lt;&#x2F;span&gt;&lt;span&gt;                &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;ui-test-apk-fenix-arm-debug-smoke&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;            ],
+&lt;&#x2F;span&gt;&lt;span&gt;            &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;use-artifact-builds&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;: true
+&lt;&#x2F;span&gt;&lt;span&gt;        }
+&lt;&#x2F;span&gt;&lt;span&gt;    },
+&lt;&#x2F;span&gt;&lt;span&gt;    &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;version&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;:&lt;&#x2F;span&gt;&lt;span&gt; 2
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Here, &lt;code&gt;jj try-push&lt;&#x2F;code&gt; is my quick alias around &lt;code&gt;.&#x2F;mach try&lt;&#x2F;code&gt; for personal simplicity with my workflow.&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>My Firefox for Android local build environment</title>
+        <published>2026-03-05T00:00:00+00:00</published>
+        <updated>2026-03-05T19:32:05-05:00</updated>
+        
+        <author>
+          <name>
+            
+              Jonathan Almeida
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/blog/firefox-android-studio-setup/"/>
+        <id>https://jonalmeida.com/blog/firefox-android-studio-setup/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/blog/firefox-android-studio-setup/">&lt;p&gt;The Firefox for Android app has always had a complicated build process - we&#x27;re cramping a complex cross-platform browser engine and all the related components that make it work on Android into one package. In its current form, it lives in the Firefox mono-repo at &lt;code&gt;mozilla-central&lt;&#x2F;code&gt; (now &lt;code&gt;mozilla-firefox&lt;&#x2F;code&gt; using the git repository).&lt;&#x2F;p&gt;
+&lt;p&gt;I wanted to document my &quot;artifact-mode&quot; environment here since it&#x27;s worked quite successfully for me for many years with minor changes.&lt;&#x2F;p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;NOTE:&lt;&#x2F;strong&gt; After a fresh clone of the mono-repo, don&#x27;t forget to first run and follow the prompts of &lt;code&gt;.&#x2F;mach bootstrap&lt;&#x2F;code&gt; .&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;h2 id=&quot;mozconfig&quot;&gt;mozconfig&lt;&#x2F;h2&gt;
+&lt;p&gt;My &lt;code&gt;mozconfig&lt;&#x2F;code&gt; below is enabled for artifact mode, but occasionally I switch between various configurations. You can see those commented out, with these few extra notes:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;I like to separate out my objdirs to avoid cache pollution between the different build types. I think you can get away without needing to specify this and an objdir for your build type and arch will be generated.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;code&gt;sccache&lt;&#x2F;code&gt; speeds up the native portion of full builds after the first slow one, but it&#x27;s a hit or miss if you fetch from the remote repository but don&#x27;t need to rebuild as often.&lt;&#x2F;li&gt;
+&lt;li&gt;I don&#x27;t care to manually run the clobber step, and I don&#x27;t truly appreciate why that isn&#x27;t always automatically done.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;emilio&#x2F;mozconfigs&quot;&gt;Emilio&#x27;s mozconfig manager&lt;&#x2F;a&gt; looks like a better solution, however my needs are very simple.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;# Build GeckoView&#x2F;Firefox for Android:
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;ac_add_options --enable-application&lt;&#x2F;span&gt;&lt;span&gt;=mobile&#x2F;android
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;# Targeting the following architecture.
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;# For regular phones, no --target is needed.
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;# For x86 emulators (and x86 devices, which are uncommon):
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;# ac_add_options --target=i686
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;# For newer phones or Apple silicon
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;ac_add_options --target&lt;&#x2F;span&gt;&lt;span&gt;=aarch64
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;# For x86_64 emulators (and x86_64 devices, which are even less common):
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;# ac_add_options --target=x86_64
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;# sccache will significantly speed up your builds by caching
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;# compilation results. The Firefox build system will download
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;# sccache automatically.
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;# This only works for non-artifact builds.
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;#ac_add_options --with-ccache=sccache
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;# Enable artifact builds; manager-mode.
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;ac_add_options --enable-artifact-builds
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;# Write build artifacts to..
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;## Full build dir
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;#mk_add_options MOZ_OBJDIR=.&#x2F;objdir-droid
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;#mk_add_options MOZ_OBJDIR=.&#x2F;objdir-desktop
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;## Artifact builds
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;mk_add_options&lt;&#x2F;span&gt;&lt;span&gt; MOZ_OBJDIR=.&#x2F;objdir-frontend
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;# Automatic clobbering; don&amp;#39;t ask me.
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;mk_add_options&lt;&#x2F;span&gt;&lt;span&gt; AUTOCLOBBER=1
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h2 id=&quot;java-home&quot;&gt;JAVA_HOME&lt;&#x2F;h2&gt;
+&lt;p&gt;Sometimes you might find yourself needing to run a (non-mach) command in the terminal. Those typically will need to invoke some parts of gradle for an Android build, so it&#x27;s best to make sure those are using the same JDK as the bootstrapped one in the mono-repo. This avoids weird build errors where something that compiles in one place isn&#x27;t working in another (like Android Studio).&lt;&#x2F;p&gt;
+&lt;p&gt;The location for the JDKs are typically in &lt;code&gt;~&#x2F;.mozbuild&#x2F;jdk&#x2F;&lt;&#x2F;code&gt;, and if you&#x27;ve between around for ~6 months you end up with multiple versions after every JDK bump:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;$&lt;&#x2F;span&gt;&lt;span&gt; ls&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; -l ~&lt;&#x2F;span&gt;&lt;span&gt;&#x2F;.mozbuild&#x2F;jdk&#x2F;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;drwxr-xr-x@&lt;&#x2F;span&gt;&lt;span&gt; - jalmeida 15 Apr  2025 jdk-17.0.15+6
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;drwxr-xr-x@&lt;&#x2F;span&gt;&lt;span&gt; - jalmeida 15 Jul  2025 jdk-17.0.16+8
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;drwxr-xr-x@&lt;&#x2F;span&gt;&lt;span&gt; - jalmeida 21 Oct  2025 jdk-17.0.17+10
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;drwxr-xr-x@&lt;&#x2F;span&gt;&lt;span&gt; - jalmeida 20 Jan 09:00 jdk-17.0.18+8
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;drwxr-xr-x@&lt;&#x2F;span&gt;&lt;span&gt; - jalmeida 26 Feb 15:04 mozboot
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;You can find some way to point your latest JDK to one location or you can be lazy like me and pick the latest version to assign as your &lt;code&gt;JAVA_HOME&lt;&#x2F;code&gt; property by adding this to your shell&#x27;s RC file:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;export &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;JAVA_HOME&lt;&#x2F;span&gt;&lt;span&gt;=&amp;quot;$&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;ls -1dr&lt;&#x2F;span&gt;&lt;span&gt; -- $&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;HOME&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;&#x2F;.mozbuild&#x2F;jdk&#x2F;jdk-&lt;&#x2F;span&gt;&lt;span&gt;* | &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;head -n&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt; 1)&#x2F;Contents&#x2F;Home&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h3 id=&quot;android-studio&quot;&gt;Android Studio&lt;&#x2F;h3&gt;
+&lt;p&gt;Similarly for Android Studio, let&#x27;s do the same so that environment is identical. Head to, Settings | Build, Execution, Deployment | Build Tools | Gradle, and ensure that &quot;Gradle JDK&quot; path is set to &lt;code&gt;JAVA_HOME&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;Lately, the default seems to be for it to follow &lt;code&gt;GRADLE_LOCAL_JAVA_HOME&lt;&#x2F;code&gt; which is a property we can&#x27;t easily override, so we have to manually set this ourselves.&lt;&#x2F;p&gt;
+
+&lt;div&gt;
+  &lt;img
+    src=&quot;android-studio-build-tools-gradle.png&quot;
+    style=&quot;display: block; margin-left: auto; margin-right: auto;&quot;
+
+    
+    
+  &#x2F;&gt;
+&lt;&#x2F;div&gt;
+&lt;h2 id=&quot;debugging&quot;&gt;Debugging&lt;&#x2F;h2&gt;
+&lt;p&gt;This section is for miscellaneous build error situations that come-up, but assuming &lt;code&gt;mach build&lt;&#x2F;code&gt; work and there are no known Android build changes, my solution has typically always been the same.&lt;&#x2F;p&gt;
+&lt;p&gt;For example, the other day I fetched another engineers patch to test out locally&lt;sup class=&quot;footnote-reference&quot;&gt;&lt;a href=&quot;#1&quot;&gt;1&lt;&#x2F;a&gt;&lt;&#x2F;sup&gt; as part of reviewing it where I faced the error message below:&lt;&#x2F;p&gt;
+&lt;details&gt;
+&lt;summary&gt;Execution failed for task &#x27;:components:feature-pwa:compileDebugKotlin&#x27;.&lt;&#x2F;summary&gt;
+&lt;pre style=&quot;background-color:#2b303b;color:#c0c5ce;&quot;&gt;&lt;code&gt;&lt;span&gt;FAILURE: Build failed with an exception.
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;* What went wrong:
+&lt;&#x2F;span&gt;&lt;span&gt;Execution failed for task &amp;#39;:components:feature-pwa:compileDebugKotlin&amp;#39;.
+&lt;&#x2F;span&gt;&lt;span&gt;&amp;gt; A failure occurred while executing org.jetbrains.kotlin.compilerRunner.GradleCompilerRunnerWithWorkers$GradleKotlinCompilerWorkAction
+&lt;&#x2F;span&gt;&lt;span&gt;   &amp;gt; Internal compiler error. See log for more details
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;* Try:
+&lt;&#x2F;span&gt;&lt;span&gt;&amp;gt; Run with --info or --debug option to get more log output.
+&lt;&#x2F;span&gt;&lt;span&gt;&amp;gt; Run with --scan to generate a Build Scan (powered by Develocity).
+&lt;&#x2F;span&gt;&lt;span&gt;&amp;gt; Get more help at https:&#x2F;&#x2F;help.gradle.org.
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;* Exception is:
+&lt;&#x2F;span&gt;&lt;span&gt;org.gradle.api.tasks.TaskExecutionException: Execution failed for task &amp;#39;:components:feature-pwa:compileDebugKotlin&amp;#39;.
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.lambda$executeIfValid$1(ExecuteActionsTaskExecuter.java:135)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.Try$Failure.ifSuccessfulOrElse(Try.java:288)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.executeIfValid(ExecuteActionsTaskExecuter.java:133)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.execute(ExecuteActionsTaskExecuter.java:121)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.api.internal.tasks.execution.ProblemsTaskPathTrackingTaskExecuter.execute(ProblemsTaskPathTrackingTaskExecuter.java:41)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.api.internal.tasks.execution.FinalizePropertiesTaskExecuter.execute(FinalizePropertiesTaskExecuter.java:46)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.api.internal.tasks.execution.ResolveTaskExecutionModeExecuter.execute(ResolveTaskExecutionModeExecuter.java:51)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.api.internal.tasks.execution.SkipTaskWithNoActionsExecuter.execute(SkipTaskWithNoActionsExecuter.java:57)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.api.internal.tasks.execution.SkipOnlyIfTaskExecuter.execute(SkipOnlyIfTaskExecuter.java:74)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.api.internal.tasks.execution.CatchExceptionTaskExecuter.execute(CatchExceptionTaskExecuter.java:36)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.api.internal.tasks.execution.EventFiringTaskExecuter$1.executeTask(EventFiringTaskExecuter.java:77)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.api.internal.tasks.execution.EventFiringTaskExecuter$1.call(EventFiringTaskExecuter.java:55)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.api.internal.tasks.execution.EventFiringTaskExecuter$1.call(EventFiringTaskExecuter.java:52)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:209)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:204)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:66)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:59)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:166)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:59)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.operations.DefaultBuildOperationRunner.call(DefaultBuildOperationRunner.java:53)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.api.internal.tasks.execution.EventFiringTaskExecuter.execute(EventFiringTaskExecuter.java:52)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.execution.plan.DefaultNodeExecutor.executeLocalTaskNode(DefaultNodeExecutor.java:55)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.execution.plan.DefaultNodeExecutor.execute(DefaultNodeExecutor.java:34)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$InvokeNodeExecutorsAction.execute(DefaultTaskExecutionGraph.java:355)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$InvokeNodeExecutorsAction.execute(DefaultTaskExecutionGraph.java:343)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$BuildOperationAwareExecutionAction.lambda$execute$0(DefaultTaskExecutionGraph.java:339)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.operations.CurrentBuildOperationRef.with(CurrentBuildOperationRef.java:84)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$BuildOperationAwareExecutionAction.execute(DefaultTaskExecutionGraph.java:339)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$BuildOperationAwareExecutionAction.execute(DefaultTaskExecutionGraph.java:328)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.execute(DefaultPlanExecutor.java:459)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.run(DefaultPlanExecutor.java:376)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.concurrent.AbstractManagedExecutor$1.run(AbstractManagedExecutor.java:47)
+&lt;&#x2F;span&gt;&lt;span&gt;Caused by: org.gradle.workers.internal.DefaultWorkerExecutor$WorkExecutionException: A failure occurred while executing org.jetbrains.kotlin.compilerRunner.GradleCompilerRunnerWithWorkers$GradleKotlinCompilerWorkAction
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.workers.internal.DefaultWorkerExecutor$WorkItemExecution.waitForCompletion(DefaultWorkerExecutor.java:289)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.work.DefaultAsyncWorkTracker.lambda$waitForItemsAndGatherFailures$2(DefaultAsyncWorkTracker.java:130)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.Factories$1.create(Factories.java:33)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.work.DefaultWorkerLeaseService.lambda$withoutLocks$2(DefaultWorkerLeaseService.java:344)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.work.ResourceLockStatistics$1.measure(ResourceLockStatistics.java:42)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.work.DefaultWorkerLeaseService.withoutLocks(DefaultWorkerLeaseService.java:342)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.work.DefaultWorkerLeaseService.withoutLocks(DefaultWorkerLeaseService.java:326)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.work.DefaultWorkerLeaseService.withoutLock(DefaultWorkerLeaseService.java:331)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.work.DefaultAsyncWorkTracker.waitForItemsAndGatherFailures(DefaultAsyncWorkTracker.java:126)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.work.DefaultAsyncWorkTracker.waitForItemsAndGatherFailures(DefaultAsyncWorkTracker.java:92)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.work.DefaultAsyncWorkTracker.waitForAll(DefaultAsyncWorkTracker.java:78)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.work.DefaultAsyncWorkTracker.waitForCompletion(DefaultAsyncWorkTracker.java:66)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.api.internal.tasks.execution.TaskExecution$3.run(TaskExecution.java:260)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.operations.DefaultBuildOperationRunner$1.execute(DefaultBuildOperationRunner.java:29)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.operations.DefaultBuildOperationRunner$1.execute(DefaultBuildOperationRunner.java:26)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:66)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:59)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:166)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:59)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.operations.DefaultBuildOperationRunner.run(DefaultBuildOperationRunner.java:47)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.api.internal.tasks.execution.TaskExecution.executeAction(TaskExecution.java:237)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.api.internal.tasks.execution.TaskExecution.executeActions(TaskExecution.java:220)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.api.internal.tasks.execution.TaskExecution.executeWithPreviousOutputFiles(TaskExecution.java:203)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.api.internal.tasks.execution.TaskExecution.execute(TaskExecution.java:170)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.execution.steps.ExecuteStep.executeInternal(ExecuteStep.java:105)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.execution.steps.ExecuteStep.access$000(ExecuteStep.java:44)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.execution.steps.ExecuteStep$1.call(ExecuteStep.java:59)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.execution.steps.ExecuteStep$1.call(ExecuteStep.java:56)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:209)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:204)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:66)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:59)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:166)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:59)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.operations.DefaultBuildOperationRunner.call(DefaultBuildOperationRunner.java:53)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.execution.steps.ExecuteStep.execute(ExecuteStep.java:56)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.execution.steps.ExecuteStep.execute(ExecuteStep.java:44)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.execution.steps.CancelExecutionStep.execute(CancelExecutionStep.java:42)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.execution.steps.TimeoutStep.executeWithoutTimeout(TimeoutStep.java:75)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.execution.steps.TimeoutStep.execute(TimeoutStep.java:55)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.execution.steps.PreCreateOutputParentsStep.execute(PreCreateOutputParentsStep.java:50)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.execution.steps.PreCreateOutputParentsStep.execute(PreCreateOutputParentsStep.java:28)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.execution.steps.RemovePreviousOutputsStep.execute(RemovePreviousOutputsStep.java:68)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.execution.steps.RemovePreviousOutputsStep.execute(RemovePreviousOutputsStep.java:38)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.execution.steps.BroadcastChangingOutputsStep.execute(BroadcastChangingOutputsStep.java:61)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.execution.steps.BroadcastChangingOutputsStep.execute(BroadcastChangingOutputsStep.java:26)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.execution.steps.CaptureOutputsAfterExecutionStep.execute(CaptureOutputsAfterExecutionStep.java:69)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.execution.steps.CaptureOutputsAfterExecutionStep.execute(CaptureOutputsAfterExecutionStep.java:46)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.execution.steps.ResolveInputChangesStep.execute(ResolveInputChangesStep.java:39)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.execution.steps.ResolveInputChangesStep.execute(ResolveInputChangesStep.java:28)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.execution.steps.BuildCacheStep.executeWithoutCache(BuildCacheStep.java:189)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.execution.steps.BuildCacheStep.lambda$execute$1(BuildCacheStep.java:75)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.Either$Right.fold(Either.java:176)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.execution.caching.CachingState.fold(CachingState.java:62)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.execution.steps.BuildCacheStep.execute(BuildCacheStep.java:73)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.execution.steps.BuildCacheStep.execute(BuildCacheStep.java:48)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.execution.steps.StoreExecutionStateStep.execute(StoreExecutionStateStep.java:46)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.execution.steps.StoreExecutionStateStep.execute(StoreExecutionStateStep.java:35)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.execution.steps.SkipUpToDateStep.executeBecause(SkipUpToDateStep.java:75)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.execution.steps.SkipUpToDateStep.lambda$execute$2(SkipUpToDateStep.java:53)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.execution.steps.SkipUpToDateStep.execute(SkipUpToDateStep.java:53)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.execution.steps.SkipUpToDateStep.execute(SkipUpToDateStep.java:35)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.execution.steps.legacy.MarkSnapshottingInputsFinishedStep.execute(MarkSnapshottingInputsFinishedStep.java:37)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.execution.steps.legacy.MarkSnapshottingInputsFinishedStep.execute(MarkSnapshottingInputsFinishedStep.java:27)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.execution.steps.ResolveIncrementalCachingStateStep.executeDelegate(ResolveIncrementalCachingStateStep.java:49)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.execution.steps.ResolveIncrementalCachingStateStep.executeDelegate(ResolveIncrementalCachingStateStep.java:27)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.execution.steps.AbstractResolveCachingStateStep.execute(AbstractResolveCachingStateStep.java:71)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.execution.steps.AbstractResolveCachingStateStep.execute(AbstractResolveCachingStateStep.java:39)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.execution.steps.ResolveChangesStep.execute(ResolveChangesStep.java:64)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.execution.steps.ResolveChangesStep.execute(ResolveChangesStep.java:35)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.execution.steps.ValidateStep.execute(ValidateStep.java:62)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.execution.steps.ValidateStep.execute(ValidateStep.java:40)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.execution.steps.AbstractCaptureStateBeforeExecutionStep.execute(AbstractCaptureStateBeforeExecutionStep.java:76)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.execution.steps.AbstractCaptureStateBeforeExecutionStep.execute(AbstractCaptureStateBeforeExecutionStep.java:45)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.execution.steps.AbstractSkipEmptyWorkStep.executeWithNonEmptySources(AbstractSkipEmptyWorkStep.java:136)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.execution.steps.AbstractSkipEmptyWorkStep.execute(AbstractSkipEmptyWorkStep.java:66)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.execution.steps.AbstractSkipEmptyWorkStep.execute(AbstractSkipEmptyWorkStep.java:38)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.execution.steps.legacy.MarkSnapshottingInputsStartedStep.execute(MarkSnapshottingInputsStartedStep.java:38)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.execution.steps.LoadPreviousExecutionStateStep.execute(LoadPreviousExecutionStateStep.java:36)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.execution.steps.LoadPreviousExecutionStateStep.execute(LoadPreviousExecutionStateStep.java:23)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.execution.steps.HandleStaleOutputsStep.execute(HandleStaleOutputsStep.java:75)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.execution.steps.HandleStaleOutputsStep.execute(HandleStaleOutputsStep.java:41)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.execution.steps.AssignMutableWorkspaceStep.lambda$execute$0(AssignMutableWorkspaceStep.java:35)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.api.internal.tasks.execution.TaskExecution$4.withWorkspace(TaskExecution.java:297)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.execution.steps.AssignMutableWorkspaceStep.execute(AssignMutableWorkspaceStep.java:31)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.execution.steps.AssignMutableWorkspaceStep.execute(AssignMutableWorkspaceStep.java:22)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.execution.steps.ChoosePipelineStep.execute(ChoosePipelineStep.java:40)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.execution.steps.ChoosePipelineStep.execute(ChoosePipelineStep.java:23)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.execution.steps.ExecuteWorkBuildOperationFiringStep.lambda$execute$2(ExecuteWorkBuildOperationFiringStep.java:67)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.execution.steps.ExecuteWorkBuildOperationFiringStep.execute(ExecuteWorkBuildOperationFiringStep.java:67)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.execution.steps.ExecuteWorkBuildOperationFiringStep.execute(ExecuteWorkBuildOperationFiringStep.java:39)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.execution.steps.IdentityCacheStep.execute(IdentityCacheStep.java:46)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.execution.steps.IdentityCacheStep.execute(IdentityCacheStep.java:34)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.execution.steps.IdentifyStep.execute(IdentifyStep.java:44)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.execution.steps.IdentifyStep.execute(IdentifyStep.java:31)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.execution.impl.DefaultExecutionEngine$1.execute(DefaultExecutionEngine.java:64)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.executeIfValid(ExecuteActionsTaskExecuter.java:132)
+&lt;&#x2F;span&gt;&lt;span&gt;	... 30 more
+&lt;&#x2F;span&gt;&lt;span&gt;Caused by: org.jetbrains.kotlin.gradle.tasks.FailedCompilationException: Internal compiler error. See log for more details
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.jetbrains.kotlin.gradle.tasks.TasksUtilsKt.throwExceptionIfCompilationFailed(tasksUtils.kt:22)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.jetbrains.kotlin.compilerRunner.GradleKotlinCompilerWork.run(GradleKotlinCompilerWork.kt:112)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.jetbrains.kotlin.compilerRunner.GradleCompilerRunnerWithWorkers$GradleKotlinCompilerWorkAction.execute(GradleCompilerRunnerWithWorkers.kt:75)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.workers.internal.DefaultWorkerServer.execute(DefaultWorkerServer.java:68)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.workers.internal.NoIsolationWorkerFactory$1$1.create(NoIsolationWorkerFactory.java:64)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.workers.internal.NoIsolationWorkerFactory$1$1.create(NoIsolationWorkerFactory.java:61)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.classloader.ClassLoaderUtils.executeInClassloader(ClassLoaderUtils.java:100)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.workers.internal.NoIsolationWorkerFactory$1.lambda$execute$0(NoIsolationWorkerFactory.java:61)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.workers.internal.AbstractWorker$1.call(AbstractWorker.java:44)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.workers.internal.AbstractWorker$1.call(AbstractWorker.java:41)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:209)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:204)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:66)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:59)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:166)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:59)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.operations.DefaultBuildOperationRunner.call(DefaultBuildOperationRunner.java:53)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.workers.internal.AbstractWorker.executeWrappedInBuildOperation(AbstractWorker.java:41)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.workers.internal.NoIsolationWorkerFactory$1.execute(NoIsolationWorkerFactory.java:58)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.workers.internal.DefaultWorkerExecutor.lambda$submitWork$0(DefaultWorkerExecutor.java:176)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.work.DefaultConditionalExecutionQueue$ExecutionRunner.runExecution(DefaultConditionalExecutionQueue.java:194)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.work.DefaultConditionalExecutionQueue$ExecutionRunner.access$700(DefaultConditionalExecutionQueue.java:127)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.work.DefaultConditionalExecutionQueue$ExecutionRunner$1.run(DefaultConditionalExecutionQueue.java:169)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.Factories$1.create(Factories.java:33)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.work.DefaultWorkerLeaseService.lambda$withLocksAcquired$0(DefaultWorkerLeaseService.java:269)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.work.ResourceLockStatistics$1.measure(ResourceLockStatistics.java:42)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.work.DefaultWorkerLeaseService.withLocksAcquired(DefaultWorkerLeaseService.java:267)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.work.DefaultWorkerLeaseService.withLocks(DefaultWorkerLeaseService.java:259)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.work.DefaultWorkerLeaseService.runAsWorkerThread(DefaultWorkerLeaseService.java:127)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.work.DefaultWorkerLeaseService.runAsWorkerThread(DefaultWorkerLeaseService.java:132)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.work.DefaultConditionalExecutionQueue$ExecutionRunner.runBatch(DefaultConditionalExecutionQueue.java:164)
+&lt;&#x2F;span&gt;&lt;span&gt;	at org.gradle.internal.work.DefaultConditionalExecutionQueue$ExecutionRunner.run(DefaultConditionalExecutionQueue.java:133)
+&lt;&#x2F;span&gt;&lt;span&gt;	... 2 more
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;&#x2F;details&gt;
+&lt;p&gt;The full trace was long and didn&#x27;t seem related to a code failure in the module itself. So I employed the solution, which is always the same:&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;.&#x2F;mach build&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;In Android Studio, File &amp;gt; Sync Project with Gradle Files.&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;Yup, that&#x27;s all. Very simple and boring.&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;div class=&quot;footnote-definition&quot; id=&quot;1&quot;&gt;&lt;sup class=&quot;footnote-definition-label&quot;&gt;1&lt;&#x2F;sup&gt;
+&lt;p&gt;With Jujutsu, this is the moz-phab command I use which has made it easier to manage review patches: &lt;code&gt;moz-phab patch &amp;lt;patch-id&amp;gt; --no-branch --apply-to main@origin&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;div&gt;
+
+&lt;section id=&quot;comments&quot; class=&quot;article-content&quot;&gt;
+  &lt;h3&gt;Comments&lt;&#x2F;h3&gt;
+  &lt;p&gt;With an account on the Fediverse or Mastodon, you can respond to this &lt;a href=&quot;https:&#x2F;&#x2F;mindly.social&#x2F;@jonalmeida&#x2F;116197244320129422&quot;&gt;post&lt;&#x2F;a&gt;. Since Mastodon is decentralized, you can use your existing account hosted by another Mastodon server or compatible platform if you don&#x27;t have an account on this one. Known non-private replies are displayed below.&lt;&#x2F;p&gt;
+  &lt;p&gt;Learn how this was implemented from the original source &lt;a class=&quot;link&quot; href=&quot;&#x2F;2020&#x2F;12&#x2F;29&#x2F;adding-comments-to-your-static-blog-with-mastodon&#x2F;&quot;&gt;here.&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+
+  &lt;p id=&quot;mastodon-comments-list&quot;&gt;
+  &lt;button id=&quot;load-comment&quot;&gt;Load comments&lt;&#x2F;button&gt;&lt;&#x2F;p&gt;
+  &lt;div id=&quot;comments-wrapper&quot;&gt;
+    &lt;noscript&gt;&lt;p&gt;Loading comments relies on JavaScript. Try enabling JavaScript and reloading, or visit &lt;a href=&quot;https:&#x2F;&#x2F;mindly.social&#x2F;@jonalmeida&#x2F;116197244320129422&quot;&gt;the original post&lt;&#x2F;a&gt; on Mastodon.&lt;&#x2F;p&gt;&lt;&#x2F;noscript&gt;
+  &lt;&#x2F;div&gt;
+
+  &lt;noscript&gt;You need JavaScript to view the comments.&lt;&#x2F;noscript&gt;
+  &lt;script type=&quot;text&#x2F;javascript&quot;&gt;
+    function escapeHtml(unsafe) {
+      return unsafe
+           .replace(&#x2F;&amp;&#x2F;g, &quot;&amp;amp;&quot;)
+           .replace(&#x2F;&lt;&#x2F;g, &quot;&amp;lt;&quot;)
+           .replace(&#x2F;&gt;&#x2F;g, &quot;&amp;gt;&quot;)
+           .replace(&#x2F;&quot;&#x2F;g, &quot;&amp;quot;&quot;)
+           .replace(&#x2F;&#x27;&#x2F;g, &quot;&amp;#039;&quot;);
+    }
+    function emojify(input, emojis) {
+      let output = input;
+
+      emojis.forEach(emoji =&gt; {
+        let picture = document.createElement(&quot;picture&quot;);
+
+        let source = document.createElement(&quot;source&quot;);
+        source.setAttribute(&quot;srcset&quot;, escapeHtml(emoji.url));
+        source.setAttribute(&quot;media&quot;, &quot;(prefers-reduced-motion: no-preference)&quot;);
+
+        let img = document.createElement(&quot;img&quot;);
+        img.className = &quot;emoji&quot;;
+        img.setAttribute(&quot;src&quot;, escapeHtml(emoji.static_url));
+        img.setAttribute(&quot;alt&quot;, `:${ emoji.shortcode }:`);
+        img.setAttribute(&quot;title&quot;, `:${ emoji.shortcode }:`);
+        img.setAttribute(&quot;width&quot;, &quot;20&quot;);
+        img.setAttribute(&quot;height&quot;, &quot;20&quot;);
+
+        picture.appendChild(source);
+        picture.appendChild(img);
+
+        output = output.replace(`:${ emoji.shortcode }:`, picture.outerHTML);
+      });
+
+      return output;
+    }
+
+    function loadCssFile(path) {
+      const link = document.createElement(&#x27;link&#x27;);
+      link.rel = &#x27;stylesheet&#x27;;
+      link.type = &#x27;text&#x2F;css&#x27;;
+      link.href = path; &#x2F;&#x2F; relative path to your CSS file
+      document.head.appendChild(link);
+    }
+
+    function loadComments() {
+      let purifyPromise = import(&quot;&#x2F;assets&#x2F;js&#x2F;purify.min.js&quot;);
+      let cssPromise = loadCssFile(&quot;&#x2F;comments.css&quot;);
+
+      let commentsWrapper = document.getElementById(&quot;comments-wrapper&quot;);
+      document.getElementById(&quot;load-comment&quot;).innerHTML = &quot;Loading&quot;;
+      fetch(&quot;https:&#x2F;&#x2F;mindly.social&#x2F;api&#x2F;v1&#x2F;statuses&#x2F;116197244320129422&#x2F;context&quot;)
+        .then(function(response) {
+          return response.json();
+        })
+        .then(function(data) {
+          let descendants = data[&#x27;descendants&#x27;];
+          if(
+            descendants &amp;&amp;
+            Array.isArray(descendants) &amp;&amp;
+            descendants.length &gt; 0
+          ) {
+            commentsWrapper.innerHTML = &quot;&quot;;
+
+            descendants.forEach(function(status) {
+              &#x2F;* For debugging *&#x2F;
+              &#x2F;* console.log(descendants) *&#x2F;
+              if( status.account.display_name.length &gt; 0 ) {
+                status.account.display_name = escapeHtml(status.account.display_name);
+                status.account.display_name = emojify(status.account.display_name, status.account.emojis);
+              } else {
+                status.account.display_name = status.account.username;
+              };
+
+              let instance = &quot;&quot;;
+              if( status.account.acct.includes(&quot;@&quot;) ) {
+                instance = status.account.acct.split(&quot;@&quot;)[1];
+              } else {
+                instance = &quot;mindly.social&quot;;
+              }
+
+              const isReply = status.in_reply_to_id !== &quot;116197244320129422&quot;;
+
+              let op = false;
+              if( status.account.acct == &quot;jonalmeida&quot; ) {
+                op = true;
+              }
+
+              status.content = emojify(status.content, status.emojis);
+
+              let avatarSource = document.createElement(&quot;source&quot;);
+              avatarSource.setAttribute(&quot;srcset&quot;, escapeHtml(status.account.avatar));
+              avatarSource.setAttribute(&quot;media&quot;, &quot;(prefers-reduced-motion: no-preference)&quot;);
+
+              let avatarImg = document.createElement(&quot;img&quot;);
+              avatarImg.className = &quot;avatar&quot;;
+              avatarImg.setAttribute(&quot;src&quot;, escapeHtml(status.account.avatar_static));
+              avatarImg.setAttribute(&quot;alt&quot;, `@${ status.account.username }@${ instance } avatar`);
+
+              let avatarPicture = document.createElement(&quot;picture&quot;);
+              avatarPicture.appendChild(avatarSource);
+              avatarPicture.appendChild(avatarImg);
+
+              let avatar = document.createElement(&quot;a&quot;);
+              avatar.className = &quot;avatar-link&quot;;
+              avatar.setAttribute(&quot;href&quot;, status.account.url);
+              avatar.setAttribute(&quot;rel&quot;, &quot;external nofollow&quot;);
+              avatar.setAttribute(&quot;title&quot;, `View profile at @${ status.account.username }@${ instance }`);
+              avatar.appendChild(avatarPicture);
+
+              let instanceBadge = document.createElement(&quot;a&quot;);
+              instanceBadge.className = &quot;instance&quot;;
+              instanceBadge.setAttribute(&quot;href&quot;, status.account.url);
+              instanceBadge.setAttribute(&quot;title&quot;, `@${ status.account.username }@${ instance }`);
+              instanceBadge.setAttribute(&quot;rel&quot;, &quot;external nofollow&quot;);
+              instanceBadge.textContent = instance;
+
+              let display = document.createElement(&quot;span&quot;);
+              display.className = &quot;display&quot;;
+              display.setAttribute(&quot;itemprop&quot;, &quot;author&quot;);
+              display.setAttribute(&quot;itemtype&quot;, &quot;http:&#x2F;&#x2F;schema.org&#x2F;Person&quot;);
+              display.innerHTML = status.account.display_name;
+
+              let header = document.createElement(&quot;header&quot;);
+              header.className = &quot;author&quot;;
+              header.appendChild(display);
+              header.appendChild(instanceBadge);
+
+              let permalink = document.createElement(&quot;a&quot;);
+              permalink.setAttribute(&quot;href&quot;, status.url);
+              permalink.setAttribute(&quot;itemprop&quot;, &quot;url&quot;);
+              permalink.setAttribute(&quot;title&quot;, `View comment at ${ instance }`);
+              permalink.setAttribute(&quot;rel&quot;, &quot;external nofollow&quot;);
+              permalink.textContent = new Date( status.created_at ).toLocaleString(&#x27;en-US&#x27;, {
+                dateStyle: &quot;long&quot;,
+                timeStyle: &quot;short&quot;,
+              });
+
+              let timestamp = document.createElement(&quot;time&quot;);
+              timestamp.setAttribute(&quot;datetime&quot;, status.created_at);
+              timestamp.appendChild(permalink);
+
+              let main = document.createElement(&quot;main&quot;);
+              main.setAttribute(&quot;itemprop&quot;, &quot;text&quot;);
+              main.innerHTML = status.content;
+
+              let interactions = document.createElement(&quot;footer&quot;);
+              if(status.favourites_count &gt; 0) {
+                let faves = document.createElement(&quot;a&quot;);
+                faves.className = &quot;faves&quot;;
+                faves.setAttribute(&quot;href&quot;, `${ status.url }&#x2F;favourites`);
+                faves.setAttribute(&quot;title&quot;, `Favorites from ${ instance }`);
+                faves.textContent = status.favourites_count;
+
+                interactions.appendChild(faves);
+              }
+
+              let comment = document.createElement(&quot;article&quot;);
+              comment.id = `comment-${ status.id }`;
+              comment.className = isReply ? &quot;comment comment-reply&quot; : &quot;comment&quot;;
+              comment.setAttribute(&quot;itemprop&quot;, &quot;comment&quot;);
+              comment.setAttribute(&quot;itemtype&quot;, &quot;http:&#x2F;&#x2F;schema.org&#x2F;Comment&quot;);
+              comment.appendChild(avatar);
+              comment.appendChild(header);
+              comment.appendChild(timestamp);
+              comment.appendChild(main);
+              comment.appendChild(interactions);
+
+              if(op === true) {
+                comment.classList.add(&quot;op&quot;);
+
+                avatar.classList.add(&quot;op&quot;);
+                avatar.setAttribute(
+                  &quot;title&quot;,
+                  &quot;Blog post author; &quot; + avatar.getAttribute(&quot;title&quot;)
+                );
+
+                instanceBadge.classList.add(&quot;op&quot;);
+                instanceBadge.setAttribute(
+                  &quot;title&quot;,
+                  &quot;Blog post author: &quot; + instanceBadge.getAttribute(&quot;title&quot;)
+                );
+              }
+
+              Promise.all([purifyPromise, cssPromise]).then(() =&gt; {
+                commentsWrapper.innerHTML += DOMPurify.sanitize(comment.outerHTML);
+              });
+
+            });
+          } else {
+            commentsWrapper.innerHTML = &quot;&lt;p&gt;No comments.&lt;&#x2F;p&gt;&quot;;
+          }
+          &#x2F;&#x2F; Makes the button update more user-perceivable.
+          setTimeout(() =&gt; {
+            document.getElementById(&quot;load-comment&quot;).innerHTML = &quot;Reload comments&quot;;
+          }, 300);
+        });
+      }
+      document.getElementById(&quot;load-comment&quot;).addEventListener(&quot;click&quot;, loadComments);
+  &lt;&#x2F;script&gt;
+&lt;&#x2F;section&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Test a Firefox Android variant alongside your daily driver</title>
+        <published>2026-02-06T00:00:00+00:00</published>
+        <updated>2026-02-06T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Jonathan Almeida
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/til/install-fenix-variants/"/>
+        <id>https://jonalmeida.com/til/install-fenix-variants/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/til/install-fenix-variants/">&lt;p&gt;In the Mozilla Android team, we want engineers to talk with Product and UX more and hash out ideas sooner. Prototype an idea, then discuss the feature&#x27;s merits. For this, we built &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;mozilla-mobile&#x2F;TryFox&#x2F;&quot;&gt;TryFox&lt;&#x2F;a&gt; to make it easier for everyone to get the latest version of Firefox Nightly or install a &quot;try&quot; build with a link to the build on our CI servers.&lt;&#x2F;p&gt;
+&lt;p&gt;The downside with using a Try build is that you sometimes have to uninstall your existing version of Nightly before you can install another and that means losing app data. Typically, if you were doing this on your daily driver, you don&#x27;t want to do that. A quick work around is to add a temporary patch above your stack of commits which changes the App ID suffix (and optionally the application name) so that there is no conflict.&lt;&#x2F;p&gt;
+&lt;p&gt;Here is an example diff from a patch that changed an animation, so having it install alongside what we shipped let you compare them easily:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;diff&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-diff &quot;&gt;&lt;code class=&quot;language-diff&quot; data-lang=&quot;diff&quot;&gt;&lt;span&gt;diff --git a&#x2F;mobile&#x2F;android&#x2F;fenix&#x2F;app&#x2F;build.gradle b&#x2F;mobile&#x2F;android&#x2F;fenix&#x2F;app&#x2F;build.gradle
+&lt;&#x2F;span&gt;&lt;span&gt;index 019fdb7ab4..772cc6cc3d 100644
+&lt;&#x2F;span&gt;&lt;span&gt;--- a&#x2F;mobile&#x2F;android&#x2F;fenix&#x2F;app&#x2F;build.gradle
+&lt;&#x2F;span&gt;&lt;span&gt;+++ b&#x2F;mobile&#x2F;android&#x2F;fenix&#x2F;app&#x2F;build.gradle
+&lt;&#x2F;span&gt;&lt;span&gt;@@ -127,7 +127,7 @@
+&lt;&#x2F;span&gt;&lt;span&gt;         debug {
+&lt;&#x2F;span&gt;&lt;span&gt;             shrinkResources = false
+&lt;&#x2F;span&gt;&lt;span&gt;             minifyEnabled = false
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;-            applicationIdSuffix &amp;quot;.fenix.debug&amp;quot;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;+            applicationIdSuffix &amp;quot;.fenix.debug_animator&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;             resValue &amp;quot;bool&amp;quot;, &amp;quot;IS_DEBUG&amp;quot;, &amp;quot;true&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;             pseudoLocalesEnabled = true
+&lt;&#x2F;span&gt;&lt;span&gt;         }
+&lt;&#x2F;span&gt;&lt;span&gt;diff --git a&#x2F;mobile&#x2F;android&#x2F;fenix&#x2F;app&#x2F;src&#x2F;main&#x2F;res&#x2F;values&#x2F;static_strings.xml b&#x2F;mobile&#x2F;android&#x2F;fenix&#x2F;app&#x2F;src&#x2F;main&#x2F;res&#x2F;values&#x2F;static_strings.xml
+&lt;&#x2F;span&gt;&lt;span&gt;index 4f6703eb35..1a57988477 100644
+&lt;&#x2F;span&gt;&lt;span&gt;--- a&#x2F;mobile&#x2F;android&#x2F;fenix&#x2F;app&#x2F;src&#x2F;main&#x2F;res&#x2F;values&#x2F;static_strings.xml
+&lt;&#x2F;span&gt;&lt;span&gt;+++ b&#x2F;mobile&#x2F;android&#x2F;fenix&#x2F;app&#x2F;src&#x2F;main&#x2F;res&#x2F;values&#x2F;static_strings.xml
+&lt;&#x2F;span&gt;&lt;span&gt;@@ -4,7 +4,7 @@
+&lt;&#x2F;span&gt;&lt;span&gt;    - file, You can obtain one at http:&#x2F;&#x2F;mozilla.org&#x2F;MPL&#x2F;2.0&#x2F;. --&amp;gt;
+&lt;&#x2F;span&gt;&lt;span&gt; &amp;lt;resources xmlns:moz=&amp;quot;http:&#x2F;&#x2F;schemas.android.com&#x2F;apk&#x2F;res-auto&amp;quot; xmlns:tools=&amp;quot;http:&#x2F;&#x2F;schemas.android.com&#x2F;tools&amp;quot;&amp;gt;
+&lt;&#x2F;span&gt;&lt;span&gt;     &amp;lt;!-- Name of the application --&amp;gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;-    &amp;lt;string name=&amp;quot;app_name&amp;quot; translatable=&amp;quot;false&amp;quot;&amp;gt;Firefox Fenix&amp;lt;&#x2F;string&amp;gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;+    &amp;lt;string name=&amp;quot;app_name&amp;quot; translatable=&amp;quot;false&amp;quot;&amp;gt;Firefox Fenix (animator)&amp;lt;&#x2F;string&amp;gt;
+&lt;&#x2F;span&gt;&lt;span&gt;     &amp;lt;string name=&amp;quot;firefox&amp;quot; translatable=&amp;quot;false&amp;quot;&amp;gt;Firefox&amp;lt;&#x2F;string&amp;gt;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;     &amp;lt;!-- Preference for developers --&amp;gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;In the future, we can add &lt;code&gt;mach try&lt;&#x2F;code&gt; support to do this automatically for any push.&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Test sites for browser developers</title>
+        <published>2026-01-19T00:00:00+00:00</published>
+        <updated>2026-03-17T14:58:43-04:00</updated>
+        
+        <author>
+          <name>
+            
+              Jonathan Almeida
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/blog/browser-test-sites/"/>
+        <id>https://jonalmeida.com/blog/browser-test-sites/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/blog/browser-test-sites/">&lt;p&gt;Working on the mobile Firefox team gives you the opportunity to touch on many different parts of the browser space. You often need to test the interaction between web content and the application integration&#x27;s to another component, say for example, a site registering for a WebPush subscription and Firefox using Firebase Cloud Messaging to deliver the encrypted message to the end-user. Hunting around for an example to validate everything fine and dandy takes time.&lt;&#x2F;p&gt;
+&lt;p&gt;Sometimes a simple test site for your use case is helpful for initial validation or comparison against other browsers.&lt;&#x2F;p&gt;
+&lt;p&gt;Below is a list of tests that I&#x27;ve used in the past (in no particular order):&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;webauthn-passkeys-prf-demo.explore.corbado.com&#x2F;&quot;&gt;WebAuthn &#x2F; Passkeys &amp;amp; PRF Demo&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;For &lt;a href=&quot;https:&#x2F;&#x2F;developer.mozilla.org&#x2F;en-US&#x2F;docs&#x2F;Web&#x2F;API&#x2F;Web_Authentication_API&quot;&gt;WebAuthn&lt;&#x2F;a&gt; login&#x2F;registration, but also includes PRF extension support.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;mozilla-services.github.io&#x2F;WebPushDataTestPage&#x2F;&quot;&gt;Web Push: Data Encryption Test Page&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;Push notifications requires a server to send a notification to the client (not the same as a WebNotification), so you can use this WebPush test site for validating just that.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;simple-push-demo.vercel.app&#x2F;&quot;&gt;Simple Push Demo&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;Similar to the above, but prettier.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;http:&#x2F;&#x2F;www.sharonminsuk.com&#x2F;code&#x2F;storage-test.html&quot;&gt;Test of HTML5 localStorage and sessionStorage persistence - sharonminsuk.com&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;When you have to verify that &lt;a href=&quot;https:&#x2F;&#x2F;developer.mozilla.org&#x2F;en-US&#x2F;docs&#x2F;Web&#x2F;API&#x2F;Window&#x2F;localStorage&quot;&gt;&lt;code&gt;localStorage&lt;&#x2F;code&gt;&lt;&#x2F;a&gt; is truly gone. This is especially helpful for Firefox Focus where private browsing is the primary feature.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;developer.mozilla.org&#x2F;en-US&#x2F;docs&#x2F;Web&#x2F;HTML&#x2F;Reference&#x2F;Elements&#x2F;input&quot;&gt;&lt;code&gt;&amp;lt;input&amp;gt;&lt;&#x2F;code&gt;: The HTML Input element - MDN&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;There are Too Many™ different prompt and input element types. The MDN docs have the best collection of all of them.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h3 id=&quot;browsing-privacy-and-tracking-protection&quot;&gt;Browsing privacy and Tracking Protection&lt;&#x2F;h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;badssl.com&quot;&gt;badssl.com&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;Great for testing out the various error pages that a browser can show.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;testsafebrowsing.appspot.com&#x2F;&quot;&gt;(Safe) Safe Browsing Testing Links &lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;For making sure we are still using the &lt;a href=&quot;https:&#x2F;&#x2F;safebrowsing.google.com&#x2F;&quot;&gt;Safe Browsing&lt;&#x2F;a&gt; list correctly.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;senglehardt.com&#x2F;test&#x2F;trackingprotection&#x2F;test_pages&#x2F;tracking_protection&quot;&gt;senglehardt.com&#x2F;test&#x2F;trackingprotection&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;Tracking Protection test page. Somewhat ancient so cookie blocking might not work.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h3 id=&quot;forms-and-autocomplete&quot;&gt;Forms and Autocomplete&lt;&#x2F;h3&gt;
+&lt;p&gt;There are various form types and various heuristics to trigger completion options, so they deserve their own section. The more (test sites) the merrier!&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;bugs.mattn.ca&#x2F;pwmgr&#x2F;login_and_change_form.html&quot;&gt;Registration, Login and Change Forms - MattN&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;Web forms come in all shapes and sizes. Some simple forms to see if we can detect a login&#x2F;registration form and fill a login entry into them.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;fill.dev&#x2F;form&#x2F;login-simple&quot;&gt;fill.dev&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;More forms, but also includes credit card and address form filling.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;daleharvey.github.io&#x2F;testapp&#x2F;&quot;&gt;daleharvey.github.io&#x2F;testapp&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;Good for sanity testing simple forms, links that have same&#x2F;different origins, or (location) permission prompts.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;dimidl.github.io&#x2F;signup&#x2F;test.html&quot;&gt;Sign-Up &amp;amp; Login Forms - Dimi&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;Sign-up and login forms behave differently, so they are handy to test separately. For example, autofilling a generated password is useful on a registration form but not on a login one.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h3 id=&quot;make-your-own&quot;&gt;Make your own&lt;&#x2F;h3&gt;
+&lt;p&gt;If you need to make your own, try to write out the code yourself so you can understand the reduced test case. If it&#x27;s not straight-forward, try using the &lt;a href=&quot;https:&#x2F;&#x2F;addons.mozilla.org&#x2F;en-CA&#x2F;firefox&#x2F;addon&#x2F;testcase-reducer&#x2F;&quot;&gt;Testcase Reducer by Thomas Wisniewski&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+
+&lt;section id=&quot;comments&quot; class=&quot;article-content&quot;&gt;
+  &lt;h3&gt;Comments&lt;&#x2F;h3&gt;
+  &lt;p&gt;With an account on the Fediverse or Mastodon, you can respond to this &lt;a href=&quot;https:&#x2F;&#x2F;mindly.social&#x2F;@jonalmeida&#x2F;115937256635328128&quot;&gt;post&lt;&#x2F;a&gt;. Since Mastodon is decentralized, you can use your existing account hosted by another Mastodon server or compatible platform if you don&#x27;t have an account on this one. Known non-private replies are displayed below.&lt;&#x2F;p&gt;
+  &lt;p&gt;Learn how this was implemented from the original source &lt;a class=&quot;link&quot; href=&quot;&#x2F;2020&#x2F;12&#x2F;29&#x2F;adding-comments-to-your-static-blog-with-mastodon&#x2F;&quot;&gt;here.&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+
+  &lt;p id=&quot;mastodon-comments-list&quot;&gt;
+  &lt;button id=&quot;load-comment&quot;&gt;Load comments&lt;&#x2F;button&gt;&lt;&#x2F;p&gt;
+  &lt;div id=&quot;comments-wrapper&quot;&gt;
+    &lt;noscript&gt;&lt;p&gt;Loading comments relies on JavaScript. Try enabling JavaScript and reloading, or visit &lt;a href=&quot;https:&#x2F;&#x2F;mindly.social&#x2F;@jonalmeida&#x2F;115937256635328128&quot;&gt;the original post&lt;&#x2F;a&gt; on Mastodon.&lt;&#x2F;p&gt;&lt;&#x2F;noscript&gt;
+  &lt;&#x2F;div&gt;
+
+  &lt;noscript&gt;You need JavaScript to view the comments.&lt;&#x2F;noscript&gt;
+  &lt;script type=&quot;text&#x2F;javascript&quot;&gt;
+    function escapeHtml(unsafe) {
+      return unsafe
+           .replace(&#x2F;&amp;&#x2F;g, &quot;&amp;amp;&quot;)
+           .replace(&#x2F;&lt;&#x2F;g, &quot;&amp;lt;&quot;)
+           .replace(&#x2F;&gt;&#x2F;g, &quot;&amp;gt;&quot;)
+           .replace(&#x2F;&quot;&#x2F;g, &quot;&amp;quot;&quot;)
+           .replace(&#x2F;&#x27;&#x2F;g, &quot;&amp;#039;&quot;);
+    }
+    function emojify(input, emojis) {
+      let output = input;
+
+      emojis.forEach(emoji =&gt; {
+        let picture = document.createElement(&quot;picture&quot;);
+
+        let source = document.createElement(&quot;source&quot;);
+        source.setAttribute(&quot;srcset&quot;, escapeHtml(emoji.url));
+        source.setAttribute(&quot;media&quot;, &quot;(prefers-reduced-motion: no-preference)&quot;);
+
+        let img = document.createElement(&quot;img&quot;);
+        img.className = &quot;emoji&quot;;
+        img.setAttribute(&quot;src&quot;, escapeHtml(emoji.static_url));
+        img.setAttribute(&quot;alt&quot;, `:${ emoji.shortcode }:`);
+        img.setAttribute(&quot;title&quot;, `:${ emoji.shortcode }:`);
+        img.setAttribute(&quot;width&quot;, &quot;20&quot;);
+        img.setAttribute(&quot;height&quot;, &quot;20&quot;);
+
+        picture.appendChild(source);
+        picture.appendChild(img);
+
+        output = output.replace(`:${ emoji.shortcode }:`, picture.outerHTML);
+      });
+
+      return output;
+    }
+
+    function loadCssFile(path) {
+      const link = document.createElement(&#x27;link&#x27;);
+      link.rel = &#x27;stylesheet&#x27;;
+      link.type = &#x27;text&#x2F;css&#x27;;
+      link.href = path; &#x2F;&#x2F; relative path to your CSS file
+      document.head.appendChild(link);
+    }
+
+    function loadComments() {
+      let purifyPromise = import(&quot;&#x2F;assets&#x2F;js&#x2F;purify.min.js&quot;);
+      let cssPromise = loadCssFile(&quot;&#x2F;comments.css&quot;);
+
+      let commentsWrapper = document.getElementById(&quot;comments-wrapper&quot;);
+      document.getElementById(&quot;load-comment&quot;).innerHTML = &quot;Loading&quot;;
+      fetch(&quot;https:&#x2F;&#x2F;mindly.social&#x2F;api&#x2F;v1&#x2F;statuses&#x2F;115937256635328128&#x2F;context&quot;)
+        .then(function(response) {
+          return response.json();
+        })
+        .then(function(data) {
+          let descendants = data[&#x27;descendants&#x27;];
+          if(
+            descendants &amp;&amp;
+            Array.isArray(descendants) &amp;&amp;
+            descendants.length &gt; 0
+          ) {
+            commentsWrapper.innerHTML = &quot;&quot;;
+
+            descendants.forEach(function(status) {
+              &#x2F;* For debugging *&#x2F;
+              &#x2F;* console.log(descendants) *&#x2F;
+              if( status.account.display_name.length &gt; 0 ) {
+                status.account.display_name = escapeHtml(status.account.display_name);
+                status.account.display_name = emojify(status.account.display_name, status.account.emojis);
+              } else {
+                status.account.display_name = status.account.username;
+              };
+
+              let instance = &quot;&quot;;
+              if( status.account.acct.includes(&quot;@&quot;) ) {
+                instance = status.account.acct.split(&quot;@&quot;)[1];
+              } else {
+                instance = &quot;mindly.social&quot;;
+              }
+
+              const isReply = status.in_reply_to_id !== &quot;115937256635328128&quot;;
+
+              let op = false;
+              if( status.account.acct == &quot;jonalmeida&quot; ) {
+                op = true;
+              }
+
+              status.content = emojify(status.content, status.emojis);
+
+              let avatarSource = document.createElement(&quot;source&quot;);
+              avatarSource.setAttribute(&quot;srcset&quot;, escapeHtml(status.account.avatar));
+              avatarSource.setAttribute(&quot;media&quot;, &quot;(prefers-reduced-motion: no-preference)&quot;);
+
+              let avatarImg = document.createElement(&quot;img&quot;);
+              avatarImg.className = &quot;avatar&quot;;
+              avatarImg.setAttribute(&quot;src&quot;, escapeHtml(status.account.avatar_static));
+              avatarImg.setAttribute(&quot;alt&quot;, `@${ status.account.username }@${ instance } avatar`);
+
+              let avatarPicture = document.createElement(&quot;picture&quot;);
+              avatarPicture.appendChild(avatarSource);
+              avatarPicture.appendChild(avatarImg);
+
+              let avatar = document.createElement(&quot;a&quot;);
+              avatar.className = &quot;avatar-link&quot;;
+              avatar.setAttribute(&quot;href&quot;, status.account.url);
+              avatar.setAttribute(&quot;rel&quot;, &quot;external nofollow&quot;);
+              avatar.setAttribute(&quot;title&quot;, `View profile at @${ status.account.username }@${ instance }`);
+              avatar.appendChild(avatarPicture);
+
+              let instanceBadge = document.createElement(&quot;a&quot;);
+              instanceBadge.className = &quot;instance&quot;;
+              instanceBadge.setAttribute(&quot;href&quot;, status.account.url);
+              instanceBadge.setAttribute(&quot;title&quot;, `@${ status.account.username }@${ instance }`);
+              instanceBadge.setAttribute(&quot;rel&quot;, &quot;external nofollow&quot;);
+              instanceBadge.textContent = instance;
+
+              let display = document.createElement(&quot;span&quot;);
+              display.className = &quot;display&quot;;
+              display.setAttribute(&quot;itemprop&quot;, &quot;author&quot;);
+              display.setAttribute(&quot;itemtype&quot;, &quot;http:&#x2F;&#x2F;schema.org&#x2F;Person&quot;);
+              display.innerHTML = status.account.display_name;
+
+              let header = document.createElement(&quot;header&quot;);
+              header.className = &quot;author&quot;;
+              header.appendChild(display);
+              header.appendChild(instanceBadge);
+
+              let permalink = document.createElement(&quot;a&quot;);
+              permalink.setAttribute(&quot;href&quot;, status.url);
+              permalink.setAttribute(&quot;itemprop&quot;, &quot;url&quot;);
+              permalink.setAttribute(&quot;title&quot;, `View comment at ${ instance }`);
+              permalink.setAttribute(&quot;rel&quot;, &quot;external nofollow&quot;);
+              permalink.textContent = new Date( status.created_at ).toLocaleString(&#x27;en-US&#x27;, {
+                dateStyle: &quot;long&quot;,
+                timeStyle: &quot;short&quot;,
+              });
+
+              let timestamp = document.createElement(&quot;time&quot;);
+              timestamp.setAttribute(&quot;datetime&quot;, status.created_at);
+              timestamp.appendChild(permalink);
+
+              let main = document.createElement(&quot;main&quot;);
+              main.setAttribute(&quot;itemprop&quot;, &quot;text&quot;);
+              main.innerHTML = status.content;
+
+              let interactions = document.createElement(&quot;footer&quot;);
+              if(status.favourites_count &gt; 0) {
+                let faves = document.createElement(&quot;a&quot;);
+                faves.className = &quot;faves&quot;;
+                faves.setAttribute(&quot;href&quot;, `${ status.url }&#x2F;favourites`);
+                faves.setAttribute(&quot;title&quot;, `Favorites from ${ instance }`);
+                faves.textContent = status.favourites_count;
+
+                interactions.appendChild(faves);
+              }
+
+              let comment = document.createElement(&quot;article&quot;);
+              comment.id = `comment-${ status.id }`;
+              comment.className = isReply ? &quot;comment comment-reply&quot; : &quot;comment&quot;;
+              comment.setAttribute(&quot;itemprop&quot;, &quot;comment&quot;);
+              comment.setAttribute(&quot;itemtype&quot;, &quot;http:&#x2F;&#x2F;schema.org&#x2F;Comment&quot;);
+              comment.appendChild(avatar);
+              comment.appendChild(header);
+              comment.appendChild(timestamp);
+              comment.appendChild(main);
+              comment.appendChild(interactions);
+
+              if(op === true) {
+                comment.classList.add(&quot;op&quot;);
+
+                avatar.classList.add(&quot;op&quot;);
+                avatar.setAttribute(
+                  &quot;title&quot;,
+                  &quot;Blog post author; &quot; + avatar.getAttribute(&quot;title&quot;)
+                );
+
+                instanceBadge.classList.add(&quot;op&quot;);
+                instanceBadge.setAttribute(
+                  &quot;title&quot;,
+                  &quot;Blog post author: &quot; + instanceBadge.getAttribute(&quot;title&quot;)
+                );
+              }
+
+              Promise.all([purifyPromise, cssPromise]).then(() =&gt; {
+                commentsWrapper.innerHTML += DOMPurify.sanitize(comment.outerHTML);
+              });
+
+            });
+          } else {
+            commentsWrapper.innerHTML = &quot;&lt;p&gt;No comments.&lt;&#x2F;p&gt;&quot;;
+          }
+          &#x2F;&#x2F; Makes the button update more user-perceivable.
+          setTimeout(() =&gt; {
+            document.getElementById(&quot;load-comment&quot;).innerHTML = &quot;Reload comments&quot;;
+          }, 300);
+        });
+      }
+      document.getElementById(&quot;load-comment&quot;).addEventListener(&quot;click&quot;, loadComments);
+  &lt;&#x2F;script&gt;
+&lt;&#x2F;section&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Update jj bookmarks to the latest revision</title>
+        <published>2026-01-05T00:00:00+00:00</published>
+        <updated>2026-03-04T18:52:14-05:00</updated>
+        
+        <author>
+          <name>
+            
+              Jonathan Almeida
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/til/jj-tug/"/>
+        <id>https://jonalmeida.com/til/jj-tug/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/til/jj-tug/">&lt;p&gt;&lt;strong&gt;Update:&lt;&#x2F;strong&gt; As of &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;jj-vcs&#x2F;jj&#x2F;releases&#x2F;tag&#x2F;v0.39.0&quot;&gt;v0.39.0&lt;&#x2F;a&gt;, &lt;code&gt;tug&lt;&#x2F;code&gt; is now built-in to jj as &lt;code&gt;bookmark advance&lt;&#x2F;code&gt;! :tada:&lt;&#x2F;p&gt;
+&lt;p&gt;Got this one from another colleague as well but it seems like most folks use some version of this daily that it might be good to have this built-in.&lt;&#x2F;p&gt;
+&lt;p&gt;Before I can &lt;code&gt;jj git push&lt;&#x2F;code&gt; my current bookmark to my remote, I need to update where my (tracked) bookmark is, to the latest change:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;jj&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-jj &quot;&gt;&lt;code class=&quot;language-jj&quot; data-lang=&quot;jj&quot;&gt;&lt;mark style=&quot;background-color:#65737e30;&quot;&gt;&lt;span&gt;@  ptuqwsty &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;git@jonalmeida.com &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;2026-01-05 16:00:22 &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;451384bf&lt;&#x2F;span&gt;&lt;span&gt; &amp;lt;-- move &amp;#39;main&amp;#39; here.
+&lt;&#x2F;span&gt;&lt;&#x2F;mark&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;│  &lt;&#x2F;span&gt;&lt;span&gt;TIL: Update remote bookmark to the latest revision
+&lt;&#x2F;span&gt;&lt;mark style=&quot;background-color:#65737e30;&quot;&gt;&lt;span&gt;◆  xoqwkuvu &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;git@jonalmeida.com &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;2025-12-30 19:50:51&lt;&#x2F;span&gt;&lt;span&gt; main &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;git_head() &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;9ad7ce11
+&lt;&#x2F;span&gt;&lt;&#x2F;mark&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;│  &lt;&#x2F;span&gt;&lt;span&gt;TIL: Preserve image scale with ImageMagick
+&lt;&#x2F;span&gt;&lt;span&gt;~
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;A quick one-liner &lt;code&gt;jj tug&lt;&#x2F;code&gt; does that for me:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;jj&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-jj &quot;&gt;&lt;code class=&quot;language-jj&quot; data-lang=&quot;jj&quot;&gt;&lt;mark style=&quot;background-color:#65737e30;&quot;&gt;&lt;span&gt;@  ptuqwsty &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;git@jonalmeida.com &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;2026-01-05 16:03:54&lt;&#x2F;span&gt;&lt;span&gt; main* &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;6e7173b4
+&lt;&#x2F;span&gt;&lt;&#x2F;mark&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;│  &lt;&#x2F;span&gt;&lt;span&gt;TIL: Update remote bookmark to the latest revision
+&lt;&#x2F;span&gt;&lt;mark style=&quot;background-color:#65737e30;&quot;&gt;&lt;span&gt;◆  xoqwkuvu &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;git@jonalmeida.com &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;2025-12-30 19:50:51 &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;main@&lt;&#x2F;span&gt;&lt;span&gt;origin &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;git_head() &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;9ad7ce11
+&lt;&#x2F;span&gt;&lt;&#x2F;mark&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;│  &lt;&#x2F;span&gt;&lt;span&gt;TIL: Preserve image scale with ImageMagick
+&lt;&#x2F;span&gt;&lt;span&gt;~
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;The alias is quite straight-forward:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;toml&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-toml &quot;&gt;&lt;code class=&quot;language-toml&quot; data-lang=&quot;toml&quot;&gt;&lt;span&gt;[aliases]
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;# Update your bookmarks to your latest rev.
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;tug &lt;&#x2F;span&gt;&lt;span&gt;= [&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;bookmark&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;, &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;move&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;, &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;--from&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;, &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;heads(::@ &amp;amp; bookmarks())&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;, &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;--to&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;, &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;@&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;]
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Rebase all WIPs to the new main</title>
+        <published>2025-10-07T00:00:00+00:00</published>
+        <updated>2026-01-05T18:10:50-05:00</updated>
+        
+        <author>
+          <name>
+            
+              Jonathan Almeida
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/til/jj-rebase-all/"/>
+        <id>https://jonalmeida.com/til/jj-rebase-all/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/til/jj-rebase-all/">&lt;p&gt;A small pet-peeve with fetching the latest main on jujutsu is that I like to move all my WIP patches to the new one. That&#x27;s also nice because jj doesn&#x27;t make me fix the conflicts immediately!&lt;&#x2F;p&gt;
+&lt;p&gt;The solution from a co-worker (kudos to skippyhammond!) is to query all immediate decendants of the &lt;em&gt;previous&lt;&#x2F;em&gt; main after the fetch.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;jj&lt;&#x2F;span&gt;&lt;span&gt; git fetch
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;# assuming &amp;#39;z&amp;#39; is the rev-id of the previous main.
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;jj&lt;&#x2F;span&gt;&lt;span&gt; rebase&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; -s &lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;mutable()&amp;amp;z+&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; -d&lt;&#x2F;span&gt;&lt;span&gt; main
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;&lt;del&gt;I haven&#x27;t learnt how to make aliases accept params with it yet, so this will have to do for now.&lt;&#x2F;del&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;Update: After a bit of searching, it seems that today this is only possible by &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;jj-vcs&#x2F;jj&#x2F;discussions&#x2F;7129#discussioncomment-13933358&quot;&gt;wrapping it in a shell script&lt;&#x2F;a&gt;. Based on the examples in &lt;a href=&quot;https:&#x2F;&#x2F;docs.jj-vcs.dev&#x2F;latest&#x2F;config&#x2F;#aliases&quot;&gt;the jj documentation&lt;&#x2F;a&gt; an alias would look like this:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;toml&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-toml &quot;&gt;&lt;code class=&quot;language-toml&quot; data-lang=&quot;toml&quot;&gt;&lt;span&gt;[aliases]
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;# Update all revs to the latest main; point to the previous one.
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;hoist &lt;&#x2F;span&gt;&lt;span&gt;= [&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;util&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;, &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;exec&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;, &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;--&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;, &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;bash&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;, &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;-c&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;, &amp;quot;&amp;quot;&amp;quot;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;set -euo pipefail
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;jj rebase -s &amp;quot;mutable()&amp;amp;$1+&amp;quot; -d &amp;quot;main&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&amp;quot;&amp;quot;, &amp;quot;&amp;quot;]
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Useful bookmark keywords for Firefox (mobile) development</title>
+        <published>2021-10-15T00:00:00+00:00</published>
+        <updated>2021-10-15T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Jonathan Almeida
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/blog/browser-keyboard-shortcuts-mozilla-mobile/"/>
+        <id>https://jonalmeida.com/blog/browser-keyboard-shortcuts-mozilla-mobile/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/blog/browser-keyboard-shortcuts-mozilla-mobile/">&lt;p&gt;Firefox has support for keyword search in the address bar, which is handy during development at Mozilla. There are often many sources of information to look through and being able to get to them efficiently will save you &lt;em&gt;a lot&lt;&#x2F;em&gt; of time.&lt;&#x2F;p&gt;
+&lt;p&gt;The &lt;a href=&quot;https:&#x2F;&#x2F;support.mozilla.org&#x2F;en-US&#x2F;kb&#x2F;how-search-from-address-bar&quot;&gt;support documentation&lt;&#x2F;a&gt; has excellent examples of how this works, but here is a simple annotated image of what it does:&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;&#x2F;images&#x2F;20211015&#x2F;keywords.png&quot; alt=&quot;&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;Below are a list of keyword shortcuts I use on a daily basis. Many of them are related to mobile development, but there are other userful ones too. You can manually copy over to your bookmark manager the ones that might seem useful.&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;search-fox&quot;&gt;Search Fox&lt;&#x2F;h1&gt;
+&lt;p&gt;Search Fox is another internal tool at Mozilla for code indexes across all of mozilla-central and particular it&#x27;s branches, mozilla-mobile, rust and many others. Search Fox is a go because of how fast it is and with symbolic references to JS&#x2F;Rust&#x2F;C++, you can navigate quite easily around the place. There are a few keywords that I&#x27;d recommend here.&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;sf - regular indexes of mozilla-central.&lt;&#x2F;li&gt;
+&lt;li&gt;sfm - search through mozilla-mobile repositories (this includes application-services too).&lt;&#x2F;li&gt;
+&lt;li&gt;sff - search through the 68 release branch code. This is particularly useful for mobile because it&#x27;s the last release of Fennec (old Firefox Mobile) if you want to compare implementations.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;pre style=&quot;background-color:#2b303b;color:#c0c5ce;&quot;&gt;&lt;code&gt;&lt;span&gt;Name: Searchfox - mozilla-central
+&lt;&#x2F;span&gt;&lt;span&gt;Keyword: sf
+&lt;&#x2F;span&gt;&lt;span&gt;URL: https:&#x2F;&#x2F;searchfox.org&#x2F;mozilla-central&#x2F;search?path=&amp;amp;q=%s
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;Name: Searchfox - mozilla-mobile (Mobile)
+&lt;&#x2F;span&gt;&lt;span&gt;Keyword: sfm
+&lt;&#x2F;span&gt;&lt;span&gt;URL: https:&#x2F;&#x2F;searchfox.org&#x2F;mozilla-mobile&#x2F;search?path=&amp;amp;q=%s
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;Name: Searchfox - Fennec - mozsearch
+&lt;&#x2F;span&gt;&lt;span&gt;Keyword: sff
+&lt;&#x2F;span&gt;&lt;span&gt;URL: http:&#x2F;&#x2F;searchfox.org&#x2F;mozilla-esr68&#x2F;search?q=%s&amp;amp;path=
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h1 id=&quot;mercurial&quot;&gt;Mercurial&lt;&#x2F;h1&gt;
+&lt;p&gt;Sometimes you want to look up a diff from a changeset in your browser.&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;color:#c0c5ce;&quot;&gt;&lt;code&gt;&lt;span&gt;Name: Search mozilla-central with revision (changeset) ID
+&lt;&#x2F;span&gt;&lt;span&gt;Keyword: diff
+&lt;&#x2F;span&gt;&lt;span&gt;URL: https:&#x2F;&#x2F;hg.mozilla.org&#x2F;mozilla-central&#x2F;rev&#x2F;%s
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h1 id=&quot;github&quot;&gt;Github&lt;&#x2F;h1&gt;
+&lt;p&gt;Many of our mobile projects are on Github so having quick access to an issue or pull request is great. We currently work on Android Components, Fenix and Focus a lot, so these keywords let me get to an issue or pull request directly. For example, &lt;code&gt;aci 10000&lt;&#x2F;code&gt; for navigating to the 10,000 issue in Android Components.&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;color:#c0c5ce;&quot;&gt;&lt;code&gt;&lt;span&gt;Name: Github - Android Components - Issues&#x2F;Pull Requests
+&lt;&#x2F;span&gt;&lt;span&gt;Keyword: aci
+&lt;&#x2F;span&gt;&lt;span&gt;URL: https:&#x2F;&#x2F;github.com&#x2F;mozilla-mobile&#x2F;android-components&#x2F;issues&#x2F;%s
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;Name: Github - Fenix - Issues&#x2F;Pull Requests
+&lt;&#x2F;span&gt;&lt;span&gt;Keyword: fbi
+&lt;&#x2F;span&gt;&lt;span&gt;URL: https:&#x2F;&#x2F;github.com&#x2F;mozilla-mobile&#x2F;fenix&#x2F;issues&#x2F;%s
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;Name: Github - Focus - Issues&#x2F;Pull Requests
+&lt;&#x2F;span&gt;&lt;span&gt;Keyword: fci
+&lt;&#x2F;span&gt;&lt;span&gt;URL: https:&#x2F;&#x2F;github.com&#x2F;mozilla-mobile&#x2F;focus-android&#x2F;issues&#x2F;%s
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h1 id=&quot;taskcluster&quot;&gt;Taskcluster&lt;&#x2F;h1&gt;
+&lt;p&gt;Taskcluster is our internal CI build system. When a build fails or when you want to wait for a build, you can grab the ID from a pull request or release.&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;color:#c0c5ce;&quot;&gt;&lt;code&gt;&lt;span&gt;Name: FirefoxCI - Navigate to a task item (Task ID)
+&lt;&#x2F;span&gt;&lt;span&gt;Keyword: ti
+&lt;&#x2F;span&gt;&lt;span&gt;URL: https:&#x2F;&#x2F;firefox-ci-tc.services.mozilla.com&#x2F;tasks&#x2F;%s
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;Name: FirefoxCI - Navigate to a task group (Group ID)
+&lt;&#x2F;span&gt;&lt;span&gt;Keyword: gi
+&lt;&#x2F;span&gt;&lt;span&gt;URL: https:&#x2F;&#x2F;firefox-ci-tc.services.mozilla.com&#x2F;tasks&#x2F;groups&#x2F;%s
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h1 id=&quot;android-chromium&quot;&gt;Android &#x2F; Chromium&lt;&#x2F;h1&gt;
+&lt;p&gt;It&#x27;s common to want source references to Android sources or compare Chromium implementations as well.&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;color:#c0c5ce;&quot;&gt;&lt;code&gt;&lt;span&gt;Name: Chromium Android - Code Search (Chromium Reference)
+&lt;&#x2F;span&gt;&lt;span&gt;Keyword: cr
+&lt;&#x2F;span&gt;&lt;span&gt;URL: https:&#x2F;&#x2F;cs.chromium.org&#x2F;search&#x2F;?q=%s&amp;amp;sq=package:chromium&amp;amp;type=cs
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;Name: Android Source References
+&lt;&#x2F;span&gt;&lt;span&gt;Keyword: ar
+&lt;&#x2F;span&gt;&lt;span&gt;URL: https:&#x2F;&#x2F;cs.android.com&#x2F;search?q=%s
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>How I manage my github notifications with Gmail</title>
+        <published>2021-10-14T00:00:00+00:00</published>
+        <updated>2021-10-14T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Jonathan Almeida
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/blog/github-notifications-mozilla-mobile/"/>
+        <id>https://jonalmeida.com/blog/github-notifications-mozilla-mobile/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/blog/github-notifications-mozilla-mobile/">&lt;p&gt;A lot of &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;mozilla-mobile&#x2F;&quot;&gt;Mozilla mobile&lt;&#x2F;a&gt; product development is now hosted on Github, which is what many of our contributors prefer as a platform too. This leads to a lot of noise from Github&#x27;s notification system and I&#x27;ve had some troubles managing it over the years.&lt;&#x2F;p&gt;
+&lt;p&gt;As a follow-up to &lt;a href=&quot;https:&#x2F;&#x2F;blog.margaretleibovic.com&#x2F;2012&#x2F;09&#x2F;21&#x2F;how-i-manage-my-bugmail-with-gmail.html&quot;&gt;how you can manage bugmail with gmail&lt;&#x2F;a&gt;, I found a similar way to manage my most important Github notifications via Gmail:&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;&#x2F;images&#x2F;20211014&#x2F;gmail-sidebar.png&quot; alt=&quot;&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;You can apply the same filters with the rules below:&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;color:#c0c5ce;&quot;&gt;&lt;code&gt;&lt;span&gt;Matches: from:(notifications@github.com)
+&lt;&#x2F;span&gt;&lt;span&gt;Do this: Skip Inbox, Apply label &amp;quot;GitHub&amp;quot;, Categorize as Forums
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;Matches: to:(author@noreply.github.com)
+&lt;&#x2F;span&gt;&lt;span&gt;Do this: Apply label &amp;quot;GitHub&#x2F;Author&amp;quot;, Mark it as important
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;Matches: cc:comment@noreply.github.com
+&lt;&#x2F;span&gt;&lt;span&gt;Do this: Skip Inbox, Apply label &amp;quot;GitHub&#x2F;Comments&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;Matches: to:(mention@noreply.github.com)
+&lt;&#x2F;span&gt;&lt;span&gt;Do this: Skip Inbox, Apply label &amp;quot;GitHub&#x2F;Mentions&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;Matches: to:(review_requested@noreply.github.com) &amp;quot;requested your review&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;Do this: Apply label &amp;quot;GitHub&#x2F;Review Requested&amp;quot;, Mark it as important
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;Matches: to:(review_requested@noreply.github.com)
+&lt;&#x2F;span&gt;&lt;span&gt;Do this: Apply label &amp;quot;GitHub&#x2F;Reviews&amp;quot;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;The filters above are sorted in the same order as the screenshot if you&#x27;d like to only use a select few.&lt;&#x2F;p&gt;
+&lt;p&gt;If you&#x27;re feeling ambitious, you can &lt;a href=&quot;&#x2F;images&#x2F;20211014&#x2F;mailFilters.xml&quot;&gt;download the filters&lt;&#x2F;a&gt; in the appropriate XML format for Gmail so that you can import them for your account. This is probably not advisable because I&#x27;m someone on the internet that you probably do not know. :)&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+</feed>
