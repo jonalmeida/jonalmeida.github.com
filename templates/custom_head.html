@@ -12,19 +12,9 @@ pre mark {
 }
 </style>
 
-{# mermaid diagram support #}
-<script type="importmap">
-{
-  "imports": {
-    "mermaid": "https://cdn.jsdelivr.net/npm/mermaid@11.12.3/dist/mermaid.esm.min.mjs"
-  },
-  "integrity": {
-    "https://cdn.jsdelivr.net/npm/mermaid@11.12.3/dist/mermaid.esm.min.mjs": "sha384-CLPs19boavmokHhmh7MgeVvnHkvg3fvdA2fUsQM+8tCRwISFZnZZ1uKjUO/nC7H7"
-  }
-}
-</script>
-<script type="module">
-  import mermaid from 'mermaid';
+{% if page is defined and page.extra.mermaid %}
+<script src="{{ get_url(path='js/mermaid.min.js') }}"></script>
+<script>
   const mermaidTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'default';
   mermaid.initialize({ startOnLoad: false, theme: mermaidTheme });
   document.addEventListener('DOMContentLoaded', async () => {
@@ -34,3 +24,4 @@ pre mark {
     }
   });
 </script>
+{% endif %}

@@ -132,7 +132,7 @@ config:
         f"    x-axis [{labels}]",
         # Start at 2 because of a weird mermaid rendering issue that shows
         # a bar even for zero values.
-        '    y-axis "%" 2 --> 100', 
+        '    y-axis "%" 2 --> 100',
         *bar_lines,
         "{% end %}",
     ]
@@ -167,6 +167,11 @@ def activity_to_markdown(activity: dict) -> str:
     #title = f"{run_date.day} {run_date.strftime('%B')}, {run_date.year}: {activity_name}"
     title = f"{activity_name}"
 
+    description = activity["description"]
+    mermaid_chart = hr_zones_mermaid(activity)
+    chart_section = f"\n## Heart Rate Zones\n\n{mermaid_chart}\n" if mermaid_chart else ""
+    mermaid_flag = "\n  mermaid: true" if mermaid_chart else ""
+
     frontmatter = f"""---
 title: "{title}"
 date: {date_str}
@@ -180,6 +185,7 @@ extra:
   duration: "{duration_str}"
   pace_per_km: "{pace_str}"
   elevation_gain_m: {elevation_str}
+  mermaid: {mermaid_flag}
 ---"""
 
     table = f"""
@@ -190,9 +196,6 @@ extra:
 | Pace | {pace_str} /km |
 | Elevation Gain | {elevation_str} m |
 """
-    description = activity["description"]
-    mermaid_chart = hr_zones_mermaid(activity)
-    chart_section = f"\n## Heart Rate Zones\n\n{mermaid_chart}\n" if mermaid_chart else ""
 
     return frontmatter + "\n" + description + "\n" + table + chart_section
 
