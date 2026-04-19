@@ -104,6 +104,3 @@ url = "@/blog/_index.md"
 name = "TIL"
 url = "@/til/_index.md"
 
-[[extra.main_menu]]
-name = "Archive"
-url = "@/archive/_index.md"
