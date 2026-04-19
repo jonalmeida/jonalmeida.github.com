@@ -19,3 +19,6 @@ static/processed_images/
 
 # Claude
 .claude/
+
+# Garmin OAuth token cache
+**/.garmin_tokens/

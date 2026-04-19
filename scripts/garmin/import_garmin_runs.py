@@ -1,7 +1,7 @@
 # /// script
 # requires-python = ">=3.11"
 # dependencies = [
-#   "garminconnect",
+#   "garminconnect==0.3.2",
 #   "python-dotenv",
 # ]
 # ///
@@ -37,6 +37,7 @@ SCRIPTS_DIR = Path(__file__).parent
 CONTENT_RUNS_DIR = SCRIPTS_DIR.parent.parent / "content" / "runs"
 IMPORTED_FILE = SCRIPTS_DIR / "garmin_imported.json"
 IGNORE_FILE = SCRIPTS_DIR / "garmin_ignore.txt"
+TOKENSTORE = str(SCRIPTS_DIR / ".garmin_tokens")
 START_DATE = "2026-03-07"
 
 
@@ -204,7 +205,7 @@ def output_path(date_str: str) -> Path:
         return base
     n = 2
     while True:
-        candidate = CONTENT_RUNS_DIR / f"{date_str}-run-{date_str}.md"
+        candidate = CONTENT_RUNS_DIR / f"{date_str}-run-{date_str}-{n}.md"
         if not candidate.exists():
             return candidate
         n += 1
@@ -256,7 +257,13 @@ def main() -> None:
 
     # Authenticate
     client = Garmin(email, password)
-    client.login()
+    tokenstore_path = Path(TOKENSTORE)
+    if (tokenstore_path / "garmin_tokens.json").exists():
+        client.client.load(TOKENSTORE)
+    else:
+        client.client.login(email, password, prompt_mfa=lambda: input("Enter MFA code: "))
+        tokenstore_path.mkdir(parents=True, exist_ok=True)
+        client.client.dump(TOKENSTORE)
     print("Authenticated with Garmin Connect.")
 
     activities = fetch_running_activities(client)
