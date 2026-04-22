@@ -10,6 +10,11 @@ section#comments {
 pre mark {
   color: var(--code-color);
 }
+
+{# Override syntect's inline background so the .highlight wrapper's --code-background-color (with border-radius) shows through #}
+pre {
+  background-color: transparent !important;
+}
 </style>
 
 {% if page is defined and page.extra.mermaid %}
