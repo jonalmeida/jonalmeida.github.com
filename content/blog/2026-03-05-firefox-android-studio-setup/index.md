@@ -1,7 +1,7 @@
 ---
 title: "My Firefox for Android local build environment"
 draft: false
-updated: 2026-03-05T19:32:05-05:00
+updated: 2026-04-24T14:00:00-04:00
 taxonomies:
   tags: ["mozilla", "workflow"]
   categories: ["blog"]
@@ -88,6 +88,10 @@ Similarly for Android Studio, let's do the same so that environment is identical
 Lately, the default seems to be for it to follow `GRADLE_LOCAL_JAVA_HOME` which is a property we can't easily override, so we have to manually set this ourselves.
 
 {{ image(path="android-studio-build-tools-gradle.png") }}
+
+Using the same Android SDK also helps speed things up and avoids source confusion. You can typically find it in `~/.mozbuild/android-sdk-macosx` and update it at Settings | Languages & Frameworks | Android SDK.
+
+{{ image(path="android-studio-android-sdk.png") }}
 
 ## Debugging
 
