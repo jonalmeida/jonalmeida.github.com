@@ -1,0 +1,536 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>Jonathan Almeida - TIL</title>
+    <subtitle>Scribblings and nonsense</subtitle>
+    <link rel="self" type="application/atom+xml" href="https://jonalmeida.com/categories/til/atom.xml"/>
+    <link rel="alternate" type="text/html" href="https://jonalmeida.com"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2026-04-28T14:00:00-04:00</updated>
+    <id>https://jonalmeida.com/categories/til/atom.xml</id>
+    <entry xml:lang="en">
+        <title>Gmail filters based on X-Phabricator-Stamps header</title>
+        <published>2026-04-23T00:00:00+00:00</published>
+        <updated>2026-04-23T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Jonathan Almeida
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/til/phabricator-label-filters/"/>
+        <id>https://jonalmeida.com/til/phabricator-label-filters/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/til/phabricator-label-filters/">&lt;p&gt;I want Phabricator emails to have a Gmail label so I can know which patches had me as a reviewer that then had follow-up comments from other folks.&lt;&#x2F;p&gt;
+&lt;p&gt;This is useful for me when I review a patch and then I need to respond back to discussions in a more timely manner in comment threads that I&#x27;ve created.&lt;&#x2F;p&gt;
+&lt;p&gt;It&#x27;s difficult to do this today similar to &lt;a href=&quot;http:&#x2F;&#x2F;blog.margaretleibovic.com&#x2F;post&#x2F;32008790345&#x2F;how-i-manage-my-bugmail-with-gmail&quot;&gt;Bugzilla Gmail filters&lt;&#x2F;a&gt; because there are fewer identifiers that the more simplistic Gmail filter parameters can help with.&lt;&#x2F;p&gt;
+&lt;p&gt;Today I learnt that there is an &lt;code&gt;X-Phabricator-Stamps&lt;&#x2F;code&gt; header in those Phabricator emails that let&#x27;s you identify you as a the reviewer in a patch. So using that information, I wrote the &lt;a href=&quot;https:&#x2F;&#x2F;script.google.com&#x2F;&quot;&gt;Google script&lt;&#x2F;a&gt; below to run every minute and avoid re-processing the same email twice.&lt;&#x2F;p&gt;
+&lt;p&gt;A couple variables were added to the top and some console.logs are sprinkled around for my own debugging.&lt;&#x2F;p&gt;
+&lt;details&gt;
+&lt;summary&gt;Code&lt;&#x2F;summary&gt;
+&lt;pre data-lang=&quot;js&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-js &quot;&gt;&lt;code class=&quot;language-js&quot; data-lang=&quot;js&quot;&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;var &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;REVIEWER &lt;&#x2F;span&gt;&lt;span&gt;= &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;jonalmeida&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;var &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;LABEL_NAME &lt;&#x2F;span&gt;&lt;span&gt;= &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;Phabricator&#x2F;Comments&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;var &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;BODY_MATCH &lt;&#x2F;span&gt;&lt;span&gt;= &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;commented on this revision.&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;var &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;SENDER &lt;&#x2F;span&gt;&lt;span&gt;= &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;phabricator@mozilla.com&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;**
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt; * Run once manually to install the per-minute trigger.
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt; *&#x2F;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;function &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;install&lt;&#x2F;span&gt;&lt;span&gt;() {
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;uninstall&lt;&#x2F;span&gt;&lt;span&gt;();
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;ScriptApp&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;newTrigger&lt;&#x2F;span&gt;&lt;span&gt;(&amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;processInbox&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;)
+&lt;&#x2F;span&gt;&lt;span&gt;  .&lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;timeBased&lt;&#x2F;span&gt;&lt;span&gt;()
+&lt;&#x2F;span&gt;&lt;span&gt;  .&lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;everyMinutes&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span&gt;)
+&lt;&#x2F;span&gt;&lt;span&gt;  .&lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;create&lt;&#x2F;span&gt;&lt;span&gt;();
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;**
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt; * Run once manually to remove the trigger.
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt; *&#x2F;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;function &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;uninstall&lt;&#x2F;span&gt;&lt;span&gt;() {
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;ScriptApp&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;getProjectTriggers&lt;&#x2F;span&gt;&lt;span&gt;().&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;forEach&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;function&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;t&lt;&#x2F;span&gt;&lt;span&gt;) {
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;ScriptApp&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;deleteTrigger&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;t&lt;&#x2F;span&gt;&lt;span&gt;);
+&lt;&#x2F;span&gt;&lt;span&gt;  });
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;PropertiesService&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;getScriptProperties&lt;&#x2F;span&gt;&lt;span&gt;().&lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;deleteProperty&lt;&#x2F;span&gt;&lt;span&gt;(&amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;lastRun&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;);
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;**
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt; * Every run, we try to avoid processing the same email twice because
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt; * there is no API trigger to run a script on every new email received.
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt; *&#x2F;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;function &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;processInbox&lt;&#x2F;span&gt;&lt;span&gt;() {
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;var &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;props &lt;&#x2F;span&gt;&lt;span&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;PropertiesService&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;getScriptProperties&lt;&#x2F;span&gt;&lt;span&gt;();
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;var &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;lastRun &lt;&#x2F;span&gt;&lt;span&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;parseInt&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;props&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;getProperty&lt;&#x2F;span&gt;&lt;span&gt;(&amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;lastRun&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;) || &amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;);
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;var &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;now &lt;&#x2F;span&gt;&lt;span&gt;= Math.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;floor&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ebcb8b;&quot;&gt;Date&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;now&lt;&#x2F;span&gt;&lt;span&gt;() &#x2F; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1000&lt;&#x2F;span&gt;&lt;span&gt;);
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;&#x2F; On first run, look back 2 minutes
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;if &lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;lastRun &lt;&#x2F;span&gt;&lt;span&gt;=== &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span&gt;) {
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;lastRun &lt;&#x2F;span&gt;&lt;span&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;now &lt;&#x2F;span&gt;&lt;span&gt;- &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;120&lt;&#x2F;span&gt;&lt;span&gt;;
+&lt;&#x2F;span&gt;&lt;span&gt;  }
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;var &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;label &lt;&#x2F;span&gt;&lt;span&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;GmailApp&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;getUserLabelByName&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;LABEL_NAME&lt;&#x2F;span&gt;&lt;span&gt;);
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;if &lt;&#x2F;span&gt;&lt;span&gt;(!&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;label&lt;&#x2F;span&gt;&lt;span&gt;) {
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;label &lt;&#x2F;span&gt;&lt;span&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;GmailApp&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;createLabel&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;LABEL_NAME&lt;&#x2F;span&gt;&lt;span&gt;);
+&lt;&#x2F;span&gt;&lt;span&gt;  }
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ebcb8b;&quot;&gt;console&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;log&lt;&#x2F;span&gt;&lt;span&gt;(&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;last run: &lt;&#x2F;span&gt;&lt;span&gt;&amp;quot; + &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;lastRun&lt;&#x2F;span&gt;&lt;span&gt;);
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;var &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;threads &lt;&#x2F;span&gt;&lt;span&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;GmailApp&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;search&lt;&#x2F;span&gt;&lt;span&gt;(&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;from:&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot; + &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;SENDER &lt;&#x2F;span&gt;&lt;span&gt;+ &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt; after:&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot; + &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;lastRun&lt;&#x2F;span&gt;&lt;span&gt;);
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ebcb8b;&quot;&gt;console&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;log&lt;&#x2F;span&gt;&lt;span&gt;(&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;threads to process: &lt;&#x2F;span&gt;&lt;span&gt;&amp;quot; + &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;threads&lt;&#x2F;span&gt;&lt;span&gt;.length);
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;for &lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;var &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;i &lt;&#x2F;span&gt;&lt;span&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span&gt;; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;i &lt;&#x2F;span&gt;&lt;span&gt;&amp;lt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;threads&lt;&#x2F;span&gt;&lt;span&gt;.length; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;i&lt;&#x2F;span&gt;&lt;span&gt;++) {
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;var &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;thread &lt;&#x2F;span&gt;&lt;span&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;threads&lt;&#x2F;span&gt;&lt;span&gt;[&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;i&lt;&#x2F;span&gt;&lt;span&gt;];
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;var &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;messages &lt;&#x2F;span&gt;&lt;span&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;thread&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;getMessages&lt;&#x2F;span&gt;&lt;span&gt;();
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ebcb8b;&quot;&gt;console&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;log&lt;&#x2F;span&gt;&lt;span&gt;(&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;messages to process: &lt;&#x2F;span&gt;&lt;span&gt;&amp;quot; + &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;messages&lt;&#x2F;span&gt;&lt;span&gt;.length);
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;for &lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;var &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;j &lt;&#x2F;span&gt;&lt;span&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span&gt;; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;j &lt;&#x2F;span&gt;&lt;span&gt;&amp;lt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;messages&lt;&#x2F;span&gt;&lt;span&gt;.length; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;j&lt;&#x2F;span&gt;&lt;span&gt;++) {
+&lt;&#x2F;span&gt;&lt;span&gt;      &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;if &lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;hasReviewerStamp&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;messages&lt;&#x2F;span&gt;&lt;span&gt;[&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;j&lt;&#x2F;span&gt;&lt;span&gt;])) {
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;thread&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;addLabel&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;label&lt;&#x2F;span&gt;&lt;span&gt;);
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ebcb8b;&quot;&gt;console&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;log&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;thread&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;getFirstMessageSubject&lt;&#x2F;span&gt;&lt;span&gt;());
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;break&lt;&#x2F;span&gt;&lt;span&gt;;
+&lt;&#x2F;span&gt;&lt;span&gt;      }
+&lt;&#x2F;span&gt;&lt;span&gt;    }
+&lt;&#x2F;span&gt;&lt;span&gt;  }
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;props&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;setProperty&lt;&#x2F;span&gt;&lt;span&gt;(&amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;lastRun&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ebcb8b;&quot;&gt;String&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;now&lt;&#x2F;span&gt;&lt;span&gt;));
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;function &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;hasReviewerStamp&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;message&lt;&#x2F;span&gt;&lt;span&gt;) {
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;var &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;raw &lt;&#x2F;span&gt;&lt;span&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;message&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;getRawContent&lt;&#x2F;span&gt;&lt;span&gt;();
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;var &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;match &lt;&#x2F;span&gt;&lt;span&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;raw&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;match&lt;&#x2F;span&gt;&lt;span&gt;(&#x2F;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;^&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;X-Phabricator-Stamps:&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;\s&lt;&#x2F;span&gt;&lt;span&gt;*&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span&gt;+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;)&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;$&lt;&#x2F;span&gt;&lt;span&gt;&#x2F;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;m&lt;&#x2F;span&gt;&lt;span&gt;);
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;if &lt;&#x2F;span&gt;&lt;span&gt;(!&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;match&lt;&#x2F;span&gt;&lt;span&gt;) {
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;return &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;false&lt;&#x2F;span&gt;&lt;span&gt;;
+&lt;&#x2F;span&gt;&lt;span&gt;  }
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;var &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;stamps &lt;&#x2F;span&gt;&lt;span&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;match&lt;&#x2F;span&gt;&lt;span&gt;[&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span&gt;].&lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;trim&lt;&#x2F;span&gt;&lt;span&gt;().&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;split&lt;&#x2F;span&gt;&lt;span&gt;(&#x2F;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;\s&lt;&#x2F;span&gt;&lt;span&gt;+&#x2F;);
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;return &lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;stamps&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;indexOf&lt;&#x2F;span&gt;&lt;span&gt;(&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;reviewer(@&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot; + &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;REVIEWER &lt;&#x2F;span&gt;&lt;span&gt;+ &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;)&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;) &amp;gt; -&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span&gt;) &amp;amp;&amp;amp; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;raw&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;indexOf&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;BODY_MATCH&lt;&#x2F;span&gt;&lt;span&gt;) &amp;gt; -&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span&gt;;
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;**
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt; * For debugging - see the list of labels you can search which
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt; * differs from what is used in the Gmail UI filter.
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt; *&#x2F;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;function &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;listAllLabels&lt;&#x2F;span&gt;&lt;span&gt;() {
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ebcb8b;&quot;&gt;console&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;log&lt;&#x2F;span&gt;&lt;span&gt;(&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;All labels&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;);
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;var &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;labels &lt;&#x2F;span&gt;&lt;span&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;GmailApp&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;getUserLabels&lt;&#x2F;span&gt;&lt;span&gt;();
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;for &lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;var &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;i &lt;&#x2F;span&gt;&lt;span&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span&gt;; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;i &lt;&#x2F;span&gt;&lt;span&gt;&amp;lt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;labels&lt;&#x2F;span&gt;&lt;span&gt;.length; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;i&lt;&#x2F;span&gt;&lt;span&gt;++) {
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ebcb8b;&quot;&gt;console&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;log&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;labels&lt;&#x2F;span&gt;&lt;span&gt;[&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;i&lt;&#x2F;span&gt;&lt;span&gt;].&lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;getName&lt;&#x2F;span&gt;&lt;span&gt;());
+&lt;&#x2F;span&gt;&lt;span&gt;  }
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;&#x2F;details&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Use Android Studio for resolving conflicts in Jujutsu</title>
+        <published>2026-03-25T00:00:00+00:00</published>
+        <updated>2026-03-25T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Jonathan Almeida
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/til/android-studio-jj-conflicts/"/>
+        <id>https://jonalmeida.com/til/android-studio-jj-conflicts/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/til/android-studio-jj-conflicts/">&lt;p&gt;You can use JJ&#x27;s built-in editor for conflict resolutions, but I&#x27;ve found it difficult to follow. A recommendation from co-workers was to use &lt;a href=&quot;https:&#x2F;&#x2F;meldmerge.org&#x2F;&quot;&gt;Meld&lt;&#x2F;a&gt; and that has worked quite well once I (begrudingly) accepted that I needed to download another single-purpose app.&lt;&#x2F;p&gt;
+&lt;p&gt;Today, another co-worker &lt;a href=&quot;https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;andreyzinovyev&quot;&gt;Andrey Zinovyev&lt;&#x2F;a&gt; found out that we can use Android Studio&#x27;s (IntelliJ IDEA&#x27;s really) built-in merge tool to resolve the three-way merge. This is more convenient for me since I spend most of my time here already, so using it as a general purpose merge editor for my work projects is quite nice.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;toml&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-toml &quot;&gt;&lt;code class=&quot;language-toml&quot; data-lang=&quot;toml&quot;&gt;&lt;span&gt;[ui]
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;merge-editor &lt;&#x2F;span&gt;&lt;span&gt;= &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;studio&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;[merge-tools.studio]
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;merge-args &lt;&#x2F;span&gt;&lt;span&gt;= [&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;merge&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;, &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;$left&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;, &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;$right&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;, &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;$base&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;, &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;$output&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;]
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;program &lt;&#x2F;span&gt;&lt;span&gt;= &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;&#x2F;Users&#x2F;jalmeida&#x2F;Applications&#x2F;Android Studio Nightly.app&#x2F;Contents&#x2F;MacOS&#x2F;studio&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Presto!&lt;&#x2F;p&gt;
+
+&lt;div&gt;
+  &lt;img
+    src=&quot;2026-03-25_1.png&quot;
+    style=&quot;display: block; margin-left: auto; margin-right: auto;&quot;
+
+    
+    
+  &#x2F;&gt;
+&lt;&#x2F;div&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Create new revisions in Jujutsu with multiple heads</title>
+        <published>2026-03-22T00:00:00+00:00</published>
+        <updated>2026-03-22T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Jonathan Almeida
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/til/jj-megamerge/"/>
+        <id>https://jonalmeida.com/til/jj-megamerge/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/til/jj-megamerge/">&lt;p&gt;It was one of those &quot;ah ha!&quot; moments for me when I finally used it. Chris Krycho &lt;a href=&quot;https:&#x2F;&#x2F;v5.chriskrycho.com&#x2F;journal&#x2F;jujutsu-megamerges-and-jj-absorb&#x2F;&quot;&gt;covers the concept of megamerges&lt;&#x2F;a&gt; with this diagram:&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;color:#c0c5ce;&quot;&gt;&lt;code&gt;&lt;span&gt;       m --- n
+&lt;&#x2F;span&gt;&lt;span&gt;      &#x2F;       \
+&lt;&#x2F;span&gt;&lt;span&gt;a -- b -- c -- [merge] -- [wip]
+&lt;&#x2F;span&gt;&lt;span&gt;      \       &#x2F;
+&lt;&#x2F;span&gt;&lt;span&gt;       w --- x
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;I&#x27;ve found a more realistic example that best relates to my natural workflow: implementing feature (A) benefitted from having the changes of another tooling patch upgrade (B), that lead to discovering and fixing a bug (C).&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;color:#c0c5ce;&quot;&gt;&lt;code&gt;&lt;span&gt;      (B)
+&lt;&#x2F;span&gt;&lt;span&gt;       m ----- n
+&lt;&#x2F;span&gt;&lt;span&gt;      &#x2F;         \           (A)
+&lt;&#x2F;span&gt;&lt;span&gt;a -- b --------- [merge] --- y -- z
+&lt;&#x2F;span&gt;&lt;span&gt;      \                     &#x2F;      \                (C)
+&lt;&#x2F;span&gt;&lt;span&gt;        -------------------         ----- [merge] -- w -- x
+&lt;&#x2F;span&gt;&lt;span&gt;        \                                &#x2F;
+&lt;&#x2F;span&gt;&lt;span&gt;          -------------------------------
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;In this case, trying to separate these into distinct streams of work is quite logically, but we also don&#x27;t need to leave them unlinked so that they can benefit from each other.&lt;&#x2F;p&gt;
+&lt;p&gt;This is what my &lt;code&gt;jj log&lt;&#x2F;code&gt; ended up looking like:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;jj&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-jj &quot;&gt;&lt;code class=&quot;language-jj&quot; data-lang=&quot;jj&quot;&gt;&lt;span&gt;@  oppmsuvz &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;jxxxxxxxxxxxx@gmail.com &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;2026-03-22 00:34:10 &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;firefox@ &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;05259417
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;│  &lt;&#x2F;span&gt;&lt;span&gt;Bug xxxxxxx - Simplify the tests
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;○  &lt;&#x2F;span&gt;&lt;span&gt;ultowtnr &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;jxxxxxxxxxxxx@gmail.com &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;2026-03-22 00:34:04 &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;100c4cce
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;│  &lt;&#x2F;span&gt;&lt;span&gt;Bug xxxxxxx - Include private flag in ShareData
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;○    &lt;&#x2F;span&gt;&lt;span&gt;lorusmuo &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;jxxxxxxxxxxxx@gmail.com &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;2026-03-21 20:19:30 &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;905b0460
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;├─╮  (empty) (no description set)
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;│ ○  &lt;&#x2F;span&gt;&lt;span&gt;sumqskuu &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;jxxxxxxxxxxxx@gmail.com &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;2026-03-21 04:22:00 &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;92f6028b
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;│ │  &lt;&#x2F;span&gt;&lt;span&gt;Add a new secret settings fragment
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;│ ○  &lt;&#x2F;span&gt;&lt;span&gt;oylmprpu &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;jxxxxxxxxxxxx@gmail.com &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;2026-03-21 04:22:00 &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;18931825
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;│ │  &lt;&#x2F;span&gt;&lt;span&gt;Create a new feature for receiving and sending commands.
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;│ ○  &lt;&#x2F;span&gt;&lt;span&gt;xrnnoonu &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;jxxxxxxxxxxxx@gmail.com &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;2026-03-21 04:21:48 &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;618020c7
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;╭─┤  (empty) (no description set)
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;│ ○  &lt;&#x2F;span&gt;&lt;span&gt;rqlyqqzx &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;jxxxxxxxxxxxx@gmail.com &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;2026-03-19 17:20:20 &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;c9b5323c
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;│ │  &lt;&#x2F;span&gt;&lt;span&gt;Bug xxxxxxx - Part 2: Create new android gradle module skill
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;│ ○  &lt;&#x2F;span&gt;&lt;span&gt;txvozpwz &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;jxxxxxxxxxxxx@gmail.com &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;2026-03-19 17:20:13 &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;cee18510
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;├─╯  &lt;&#x2F;span&gt;&lt;span&gt;Bug xxxxxxx - Part 1: Add new gradle example module
+&lt;&#x2F;span&gt;&lt;span&gt;◆  pwsnmryn &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;vxxxxxxxxxxxx@gmail.com &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;2026-03-18 13:21:47 &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;main@&lt;&#x2F;span&gt;&lt;span&gt;origin &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;fa20ce29
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;│  &lt;&#x2F;span&gt;&lt;span&gt;Bug xxxxxxx - Make my feature work for everyone
+&lt;&#x2F;span&gt;&lt;span&gt;~
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;When I need to submit these, [moz-phab][&lt;a href=&quot;https:&#x2F;&#x2F;pypi.org&#x2F;project&#x2F;MozPhab&#x2F;&quot;&gt;1&lt;&#x2F;a&gt; has support for specifying revset ranges with &lt;code&gt;moz-phab start_rev end_rev&lt;&#x2F;code&gt;. However, I can also use &lt;code&gt;jj rebase -s &amp;lt;rev&amp;gt; -d main@origin&lt;&#x2F;code&gt; to put out some try pushes to validate they still work separately - so far, no conflicts in this step.&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Use |mach try --no-push| for a configuration dry run</title>
+        <published>2026-03-22T00:00:00+00:00</published>
+        <updated>2026-03-22T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Jonathan Almeida
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/til/mach-try-no-push/"/>
+        <id>https://jonalmeida.com/til/mach-try-no-push/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/til/mach-try-no-push/">&lt;p&gt;I wanted to see what the generated try configuration would be for a new preset I made and did this by submitting real try pushes (with &lt;code&gt;empty&lt;&#x2F;code&gt; so they don&#x27;t execute resources). What I was looking for was &quot;dry run&quot; in the help files, but I recently discovered it to be &lt;code&gt;--no-push&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;$&lt;&#x2F;span&gt;&lt;span&gt; jj try-push&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; --preset&lt;&#x2F;span&gt;&lt;span&gt; fenix&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; --no-push &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;# &amp;#39;fenix&amp;#39; as an example preset
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Artifact&lt;&#x2F;span&gt;&lt;span&gt; builds enabled, pass&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; --no-artifact&lt;&#x2F;span&gt;&lt;span&gt; to disable
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Commit&lt;&#x2F;span&gt;&lt;span&gt; message:
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Fuzzy&lt;&#x2F;span&gt;&lt;span&gt; (preset: fenix) &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;query&lt;&#x2F;span&gt;&lt;span&gt;=&amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;build-apk-fenix-debug&amp;amp;query=&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;signing-apk-fenix-debug&amp;amp;query=&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;build-apk-fenix-android-test-debug&amp;amp;query=&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;signing-apk-fenix-android-test-debug&amp;amp;query=&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;test-apk-fenix-debug&amp;amp;query=&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;ui-test-apk-fenix-arm-debug&amp;amp;query=^source-test &lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;fenix&amp;amp;query=&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;generate-baseline-profile-firebase-fenix
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;mach&lt;&#x2F;span&gt;&lt;span&gt; try command: `&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;.&#x2F;mach&lt;&#x2F;span&gt;&lt;span&gt; try&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; --preset&lt;&#x2F;span&gt;&lt;span&gt; fenix&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; --no-push&lt;&#x2F;span&gt;&lt;span&gt;`
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Pushed&lt;&#x2F;span&gt;&lt;span&gt; via `&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;mach&lt;&#x2F;span&gt;&lt;span&gt; try fuzzy`
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Calculated&lt;&#x2F;span&gt;&lt;span&gt; try_task_config.json:
+&lt;&#x2F;span&gt;&lt;span&gt;{
+&lt;&#x2F;span&gt;&lt;span&gt;    &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;parameters&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span&gt;{
+&lt;&#x2F;span&gt;&lt;span&gt;        &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;optimize_target_tasks&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;: false,
+&lt;&#x2F;span&gt;&lt;span&gt;        &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;try_task_config&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;: {
+&lt;&#x2F;span&gt;&lt;span&gt;            &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;disable-pgo&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;: true,
+&lt;&#x2F;span&gt;&lt;span&gt;            &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;env&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;: {
+&lt;&#x2F;span&gt;&lt;span&gt;                &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;TRY_SELECTOR&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;: &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;fuzzy&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;            },
+&lt;&#x2F;span&gt;&lt;span&gt;            &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;tasks&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;: [
+&lt;&#x2F;span&gt;&lt;span&gt;                &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;build-apk-fenix-android-test-debug&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;,
+&lt;&#x2F;span&gt;&lt;span&gt;                &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;build-apk-fenix-debug&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;,
+&lt;&#x2F;span&gt;&lt;span&gt;                &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;generate-baseline-profile-firebase-fenix&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;,
+&lt;&#x2F;span&gt;&lt;span&gt;                &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;source-test-android-detekt-detekt-fenix&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;,
+&lt;&#x2F;span&gt;&lt;span&gt;                &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;source-test-android-l10n-lint-l10n-lint-fenix&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;,
+&lt;&#x2F;span&gt;&lt;span&gt;                &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;source-test-android-lint-fenix&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;,
+&lt;&#x2F;span&gt;&lt;span&gt;                &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;source-test-buildconfig-buildconfig-fenix&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;,
+&lt;&#x2F;span&gt;&lt;span&gt;                &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;source-test-ktlint-fenix&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;,
+&lt;&#x2F;span&gt;&lt;span&gt;                &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;source-test-mozlint-android-fenix&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;,
+&lt;&#x2F;span&gt;&lt;span&gt;                &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;test-apk-fenix-debug&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;,
+&lt;&#x2F;span&gt;&lt;span&gt;                &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;ui-test-apk-fenix-arm-debug&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;,
+&lt;&#x2F;span&gt;&lt;span&gt;                &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;ui-test-apk-fenix-arm-debug-smoke&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;            ],
+&lt;&#x2F;span&gt;&lt;span&gt;            &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;use-artifact-builds&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;: true
+&lt;&#x2F;span&gt;&lt;span&gt;        }
+&lt;&#x2F;span&gt;&lt;span&gt;    },
+&lt;&#x2F;span&gt;&lt;span&gt;    &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;version&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;:&lt;&#x2F;span&gt;&lt;span&gt; 2
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Here, &lt;code&gt;jj try-push&lt;&#x2F;code&gt; is my quick alias around &lt;code&gt;.&#x2F;mach try&lt;&#x2F;code&gt; for personal simplicity with my workflow.&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Test a Firefox Android variant alongside your daily driver</title>
+        <published>2026-02-06T00:00:00+00:00</published>
+        <updated>2026-02-06T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Jonathan Almeida
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/til/install-fenix-variants/"/>
+        <id>https://jonalmeida.com/til/install-fenix-variants/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/til/install-fenix-variants/">&lt;p&gt;In the Mozilla Android team, we want engineers to talk with Product and UX more and hash out ideas sooner. Prototype an idea, then discuss the feature&#x27;s merits. For this, we built &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;mozilla-mobile&#x2F;TryFox&#x2F;&quot;&gt;TryFox&lt;&#x2F;a&gt; to make it easier for everyone to get the latest version of Firefox Nightly or install a &quot;try&quot; build with a link to the build on our CI servers.&lt;&#x2F;p&gt;
+&lt;p&gt;The downside with using a Try build is that you sometimes have to uninstall your existing version of Nightly before you can install another and that means losing app data. Typically, if you were doing this on your daily driver, you don&#x27;t want to do that. A quick work around is to add a temporary patch above your stack of commits which changes the App ID suffix (and optionally the application name) so that there is no conflict.&lt;&#x2F;p&gt;
+&lt;p&gt;Here is an example diff from a patch that changed an animation, so having it install alongside what we shipped let you compare them easily:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;diff&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-diff &quot;&gt;&lt;code class=&quot;language-diff&quot; data-lang=&quot;diff&quot;&gt;&lt;span&gt;diff --git a&#x2F;mobile&#x2F;android&#x2F;fenix&#x2F;app&#x2F;build.gradle b&#x2F;mobile&#x2F;android&#x2F;fenix&#x2F;app&#x2F;build.gradle
+&lt;&#x2F;span&gt;&lt;span&gt;index 019fdb7ab4..772cc6cc3d 100644
+&lt;&#x2F;span&gt;&lt;span&gt;--- a&#x2F;mobile&#x2F;android&#x2F;fenix&#x2F;app&#x2F;build.gradle
+&lt;&#x2F;span&gt;&lt;span&gt;+++ b&#x2F;mobile&#x2F;android&#x2F;fenix&#x2F;app&#x2F;build.gradle
+&lt;&#x2F;span&gt;&lt;span&gt;@@ -127,7 +127,7 @@
+&lt;&#x2F;span&gt;&lt;span&gt;         debug {
+&lt;&#x2F;span&gt;&lt;span&gt;             shrinkResources = false
+&lt;&#x2F;span&gt;&lt;span&gt;             minifyEnabled = false
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;-            applicationIdSuffix &amp;quot;.fenix.debug&amp;quot;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;+            applicationIdSuffix &amp;quot;.fenix.debug_animator&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;             resValue &amp;quot;bool&amp;quot;, &amp;quot;IS_DEBUG&amp;quot;, &amp;quot;true&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;             pseudoLocalesEnabled = true
+&lt;&#x2F;span&gt;&lt;span&gt;         }
+&lt;&#x2F;span&gt;&lt;span&gt;diff --git a&#x2F;mobile&#x2F;android&#x2F;fenix&#x2F;app&#x2F;src&#x2F;main&#x2F;res&#x2F;values&#x2F;static_strings.xml b&#x2F;mobile&#x2F;android&#x2F;fenix&#x2F;app&#x2F;src&#x2F;main&#x2F;res&#x2F;values&#x2F;static_strings.xml
+&lt;&#x2F;span&gt;&lt;span&gt;index 4f6703eb35..1a57988477 100644
+&lt;&#x2F;span&gt;&lt;span&gt;--- a&#x2F;mobile&#x2F;android&#x2F;fenix&#x2F;app&#x2F;src&#x2F;main&#x2F;res&#x2F;values&#x2F;static_strings.xml
+&lt;&#x2F;span&gt;&lt;span&gt;+++ b&#x2F;mobile&#x2F;android&#x2F;fenix&#x2F;app&#x2F;src&#x2F;main&#x2F;res&#x2F;values&#x2F;static_strings.xml
+&lt;&#x2F;span&gt;&lt;span&gt;@@ -4,7 +4,7 @@
+&lt;&#x2F;span&gt;&lt;span&gt;    - file, You can obtain one at http:&#x2F;&#x2F;mozilla.org&#x2F;MPL&#x2F;2.0&#x2F;. --&amp;gt;
+&lt;&#x2F;span&gt;&lt;span&gt; &amp;lt;resources xmlns:moz=&amp;quot;http:&#x2F;&#x2F;schemas.android.com&#x2F;apk&#x2F;res-auto&amp;quot; xmlns:tools=&amp;quot;http:&#x2F;&#x2F;schemas.android.com&#x2F;tools&amp;quot;&amp;gt;
+&lt;&#x2F;span&gt;&lt;span&gt;     &amp;lt;!-- Name of the application --&amp;gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;-    &amp;lt;string name=&amp;quot;app_name&amp;quot; translatable=&amp;quot;false&amp;quot;&amp;gt;Firefox Fenix&amp;lt;&#x2F;string&amp;gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;+    &amp;lt;string name=&amp;quot;app_name&amp;quot; translatable=&amp;quot;false&amp;quot;&amp;gt;Firefox Fenix (animator)&amp;lt;&#x2F;string&amp;gt;
+&lt;&#x2F;span&gt;&lt;span&gt;     &amp;lt;string name=&amp;quot;firefox&amp;quot; translatable=&amp;quot;false&amp;quot;&amp;gt;Firefox&amp;lt;&#x2F;string&amp;gt;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;     &amp;lt;!-- Preference for developers --&amp;gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;In the future, we can add &lt;code&gt;mach try&lt;&#x2F;code&gt; support to do this automatically for any push.&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>CMD + Enter autocompletes a word with a .com TLD</title>
+        <published>2026-02-05T00:00:00+00:00</published>
+        <updated>2026-02-05T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Jonathan Almeida
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/til/cmd-enter-dot-com/"/>
+        <id>https://jonalmeida.com/til/cmd-enter-dot-com/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/til/cmd-enter-dot-com/">&lt;p&gt;This has apparently existed since the dawn of time in all browsers (except Safari?).&lt;&#x2F;p&gt;
+&lt;p&gt;Entering a word into the address bar, and then using Cmd + Enter&lt;sup class=&quot;footnote-reference&quot;&gt;&lt;a href=&quot;#1&quot;&gt;1&lt;&#x2F;a&gt;&lt;&#x2F;sup&gt; wraps the word with &#x27;www.&#x27; in the front and &#x27;.com&#x27; and the end of it.&lt;&#x2F;p&gt;
+
+&lt;div&gt;
+  &lt;img
+    src=&quot;search-word.png&quot;
+    style=&quot;display: block; margin-left: auto; margin-right: auto;&quot;
+
+    
+    
+  &#x2F;&gt;
+&lt;&#x2F;div&gt;
+&lt;p&gt;Pretty neat! I tried this with &lt;code&gt;nautil.us&lt;&#x2F;code&gt; but it didn&#x27;t work and went straight to &lt;code&gt;https:&#x2F;&#x2F;nautil.us&lt;&#x2F;code&gt; in Firefox. There might be some logic to respect known TLDs.&lt;&#x2F;p&gt;
+&lt;div class=&quot;footnote-definition&quot; id=&quot;1&quot;&gt;&lt;sup class=&quot;footnote-definition-label&quot;&gt;1&lt;&#x2F;sup&gt;
+&lt;p&gt;Control + Enter on Windows.&lt;&#x2F;p&gt;
+&lt;&#x2F;div&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Update jj bookmarks to the latest revision</title>
+        <published>2026-01-05T00:00:00+00:00</published>
+        <updated>2026-03-04T18:52:14-05:00</updated>
+        
+        <author>
+          <name>
+            
+              Jonathan Almeida
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/til/jj-tug/"/>
+        <id>https://jonalmeida.com/til/jj-tug/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/til/jj-tug/">&lt;p&gt;&lt;strong&gt;Update:&lt;&#x2F;strong&gt; As of &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;jj-vcs&#x2F;jj&#x2F;releases&#x2F;tag&#x2F;v0.39.0&quot;&gt;v0.39.0&lt;&#x2F;a&gt;, &lt;code&gt;tug&lt;&#x2F;code&gt; is now built-in to jj as &lt;code&gt;bookmark advance&lt;&#x2F;code&gt;! :tada:&lt;&#x2F;p&gt;
+&lt;p&gt;Got this one from another colleague as well but it seems like most folks use some version of this daily that it might be good to have this built-in.&lt;&#x2F;p&gt;
+&lt;p&gt;Before I can &lt;code&gt;jj git push&lt;&#x2F;code&gt; my current bookmark to my remote, I need to update where my (tracked) bookmark is, to the latest change:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;jj&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-jj &quot;&gt;&lt;code class=&quot;language-jj&quot; data-lang=&quot;jj&quot;&gt;&lt;mark style=&quot;background-color:#65737e30;&quot;&gt;&lt;span&gt;@  ptuqwsty &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;git@jonalmeida.com &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;2026-01-05 16:00:22 &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;451384bf&lt;&#x2F;span&gt;&lt;span&gt; &amp;lt;-- move &amp;#39;main&amp;#39; here.
+&lt;&#x2F;span&gt;&lt;&#x2F;mark&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;│  &lt;&#x2F;span&gt;&lt;span&gt;TIL: Update remote bookmark to the latest revision
+&lt;&#x2F;span&gt;&lt;mark style=&quot;background-color:#65737e30;&quot;&gt;&lt;span&gt;◆  xoqwkuvu &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;git@jonalmeida.com &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;2025-12-30 19:50:51&lt;&#x2F;span&gt;&lt;span&gt; main &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;git_head() &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;9ad7ce11
+&lt;&#x2F;span&gt;&lt;&#x2F;mark&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;│  &lt;&#x2F;span&gt;&lt;span&gt;TIL: Preserve image scale with ImageMagick
+&lt;&#x2F;span&gt;&lt;span&gt;~
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;A quick one-liner &lt;code&gt;jj tug&lt;&#x2F;code&gt; does that for me:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;jj&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-jj &quot;&gt;&lt;code class=&quot;language-jj&quot; data-lang=&quot;jj&quot;&gt;&lt;mark style=&quot;background-color:#65737e30;&quot;&gt;&lt;span&gt;@  ptuqwsty &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;git@jonalmeida.com &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;2026-01-05 16:03:54&lt;&#x2F;span&gt;&lt;span&gt; main* &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;6e7173b4
+&lt;&#x2F;span&gt;&lt;&#x2F;mark&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;│  &lt;&#x2F;span&gt;&lt;span&gt;TIL: Update remote bookmark to the latest revision
+&lt;&#x2F;span&gt;&lt;mark style=&quot;background-color:#65737e30;&quot;&gt;&lt;span&gt;◆  xoqwkuvu &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;git@jonalmeida.com &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;2025-12-30 19:50:51 &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;main@&lt;&#x2F;span&gt;&lt;span&gt;origin &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;git_head() &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;9ad7ce11
+&lt;&#x2F;span&gt;&lt;&#x2F;mark&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;│  &lt;&#x2F;span&gt;&lt;span&gt;TIL: Preserve image scale with ImageMagick
+&lt;&#x2F;span&gt;&lt;span&gt;~
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;The alias is quite straight-forward:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;toml&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-toml &quot;&gt;&lt;code class=&quot;language-toml&quot; data-lang=&quot;toml&quot;&gt;&lt;span&gt;[aliases]
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;# Update your bookmarks to your latest rev.
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;tug &lt;&#x2F;span&gt;&lt;span&gt;= [&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;bookmark&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;, &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;move&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;, &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;--from&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;, &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;heads(::@ &amp;amp; bookmarks())&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;, &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;--to&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;, &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;@&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;]
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Preserve image scale with ImageMagick</title>
+        <published>2025-12-30T00:00:00+00:00</published>
+        <updated>2025-12-30T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Jonathan Almeida
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/til/imagemagick-resize/"/>
+        <id>https://jonalmeida.com/til/imagemagick-resize/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/til/imagemagick-resize/">&lt;p&gt;Resizing images with &lt;code&gt;imagemagick&lt;&#x2F;code&gt; is straightforward even if the tool comes off intimidating.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;magick&lt;&#x2F;span&gt;&lt;span&gt; input.jpg&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; -resize&lt;&#x2F;span&gt;&lt;span&gt; 1024x output.jpg
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;The &lt;code&gt;1024x&lt;&#x2F;code&gt; is a &quot;geometry&quot; argument that says, &quot;make the image 1024 pixels width for any height&quot;. This preserves the scale for the image without needing to compute it yourself.&lt;&#x2F;p&gt;
+&lt;p&gt;You can also do the same for the height as well.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;magick&lt;&#x2F;span&gt;&lt;span&gt; input.jpg&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; -resize&lt;&#x2F;span&gt;&lt;span&gt; x768 output.jpg
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;There are more details on the full geometry argument at &lt;a href=&quot;https:&#x2F;&#x2F;imagemagick.org&#x2F;script&#x2F;command-line-processing.php#geometry&quot;&gt;the ImageMagick documentation site&lt;&#x2F;a&gt; (&lt;a href=&quot;https:&#x2F;&#x2F;imagemagick.org&#x2F;Magick++&#x2F;Geometry.html&quot; title=&quot;Alternative ImageMagick link to API docs.&quot;&gt;alternative link&lt;&#x2F;a&gt;).&lt;&#x2F;p&gt;
+&lt;p&gt;If you want to perform this in bulk, there seems to be built-in wildcard support or wildcard shell handling for it:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;$&lt;&#x2F;span&gt;&lt;span&gt; magick *.jpg&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; -resize&lt;&#x2F;span&gt;&lt;span&gt; x768 image.jpg
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;$&lt;&#x2F;span&gt;&lt;span&gt; ls
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;picture.jpg
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;another.jpg
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;onemore.jpg
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;image-0.jpg
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;image-1.jpg
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;image-2.jpg
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Editing YAML front matter in bulk</title>
+        <published>2025-12-28T00:00:00+00:00</published>
+        <updated>2025-12-30T17:04:53-05:00</updated>
+        
+        <author>
+          <name>
+            
+              Jonathan Almeida
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/til/yq-editing-frontmatter/"/>
+        <id>https://jonalmeida.com/til/yq-editing-frontmatter/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/til/yq-editing-frontmatter/">&lt;p&gt;When you want to edit YAML front matter in bulk on markdown files or similar, the tool &lt;code&gt;yq&lt;&#x2F;code&gt; works for this with similar syntax to &lt;code&gt;jq&lt;&#x2F;code&gt; for JSON query&#x2F;transformation.&lt;&#x2F;p&gt;
+&lt;p&gt;First, try out the queries without writing them to the files:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;find&lt;&#x2F;span&gt;&lt;span&gt; .&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; -name  &lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;*.md&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; -exec&lt;&#x2F;span&gt;&lt;span&gt; yq&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; --front-matter&lt;&#x2F;span&gt;&lt;span&gt;=&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;extract&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot; &amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;.taxonomies.categories[]&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39; {} &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;\;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;blockquote&gt;
+&lt;p&gt;[!NOTE] This pipes only the extracted YAML properties output to the terminal. Keep reading below for writing it to the file.&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;p&gt;To append to the categories with new entries:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;find&lt;&#x2F;span&gt;&lt;span&gt; .&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; -name  &lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;*.md&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; -exec&lt;&#x2F;span&gt;&lt;span&gt; yq&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; --front-matter&lt;&#x2F;span&gt;&lt;span&gt;=&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;extract&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot; &amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;.taxonomies.categories[] += &amp;quot;archive&amp;quot;&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39; {} &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;\;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;When we&#x27;re ready to write our changes to the file, we use &lt;code&gt;--front-matter=&quot;process&quot;&lt;&#x2F;code&gt; and the in-place flag &lt;code&gt;-I&lt;&#x2F;code&gt; (using the example above):&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;find&lt;&#x2F;span&gt;&lt;span&gt; .&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; -name  &lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;*.md&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; -exec&lt;&#x2F;span&gt;&lt;span&gt; yq&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; --front-matter&lt;&#x2F;span&gt;&lt;span&gt;=&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;process&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot; &amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;.taxonomies.categories[] += &amp;quot;archive&amp;quot;&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; -i &lt;&#x2F;span&gt;&lt;span&gt;{} &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;\;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Rebase all WIPs to the latest upstream head</title>
+        <published>2025-10-07T00:00:00+00:00</published>
+        <updated>2026-04-28T14:00:00-04:00</updated>
+        
+        <author>
+          <name>
+            
+              Jonathan Almeida
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/til/jj-rebase-all/"/>
+        <id>https://jonalmeida.com/til/jj-rebase-all/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/til/jj-rebase-all/">&lt;p&gt;A small pet-peeve with fetching the latest main on jujutsu is that I like to move all my WIP patches to the new one. That&#x27;s also nice because jj doesn&#x27;t make me fix the conflicts immediately!&lt;&#x2F;p&gt;
+&lt;p&gt;The solution from a co-worker (kudos to skippyhammond!) is to query all immediate decendants of the &lt;em&gt;previous&lt;&#x2F;em&gt; main after the fetch.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;jj&lt;&#x2F;span&gt;&lt;span&gt; git fetch
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;# assuming &amp;#39;z&amp;#39; is the rev-id of the previous main.
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;jj&lt;&#x2F;span&gt;&lt;span&gt; rebase&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; -s &lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;mutable()&amp;amp;z+&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; -d&lt;&#x2F;span&gt;&lt;span&gt; main
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;&lt;del&gt;I haven&#x27;t learnt how to make aliases accept params with it yet, so this will have to do for now.&lt;&#x2F;del&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;Update&lt;&#x2F;strong&gt;: After a bit of searching, it seems that today this is only possible by &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;jj-vcs&#x2F;jj&#x2F;discussions&#x2F;7129#discussioncomment-13933358&quot;&gt;wrapping it in a shell script&lt;&#x2F;a&gt;. Based on the examples in &lt;a href=&quot;https:&#x2F;&#x2F;docs.jj-vcs.dev&#x2F;latest&#x2F;config&#x2F;#aliases&quot;&gt;the jj documentation&lt;&#x2F;a&gt; an alias would look like this:&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;Update 2&lt;&#x2F;strong&gt;: After some months of usage across multiple repositories, I&#x27;ve found it better to be clear with the destination since &lt;code&gt;main&lt;&#x2F;code&gt;, &lt;code&gt;trunk&lt;&#x2F;code&gt; or others can be tracked with a combination of repository aliases too.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;toml&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-toml &quot;&gt;&lt;code class=&quot;language-toml&quot; data-lang=&quot;toml&quot;&gt;&lt;span&gt;[aliases]
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;# Update all revs to the latest main; point to the previous one.
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;hoist &lt;&#x2F;span&gt;&lt;span&gt;= [&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;util&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;, &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;exec&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;, &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;--&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;, &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;bash&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;, &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;-c&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;, &amp;quot;&amp;quot;&amp;quot;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;set -euo pipefail
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;jj rebase -s &amp;quot;mutable()&amp;amp;$1+&amp;quot; -d &amp;quot;$2&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&amp;quot;&amp;quot;, &amp;quot;&amp;quot;]
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;You can use this to rebase all your WIPs like so:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;$&lt;&#x2F;span&gt;&lt;span&gt; jj hoist &amp;lt;prev_main&amp;gt; &amp;lt;current_main&amp;gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;If my previous &lt;code&gt;main&lt;&#x2F;code&gt; revision was &lt;code&gt;kz&lt;&#x2F;code&gt;, this is what I would end up doing:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;$&lt;&#x2F;span&gt;&lt;span&gt; jj fetch origin
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;$&lt;&#x2F;span&gt;&lt;span&gt; jj hoist kz main@origin
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Hello, world!</title>
+        <published>2025-10-05T00:00:00+00:00</published>
+        <updated>2025-10-05T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Jonathan Almeida
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/til/hello-world/"/>
+        <id>https://jonalmeida.com/til/hello-world/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/til/hello-world/">&lt;p&gt;Like other blogs, this section is also inspired by Simon Willison’s &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;simonw&#x2F;til&quot;&gt;til&lt;&#x2F;a&gt;. The desire is that small snippets of code or helper tools end up here as a record with relevant tags for future-me to be able to sort through.&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+</feed>
