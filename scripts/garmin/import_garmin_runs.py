@@ -167,7 +167,7 @@ def activity_to_markdown(activity: dict) -> str:
     #title = f"{run_date.day} {run_date.strftime('%B')}, {run_date.year}: {activity_name}"
     title = f"{activity_name}"
 
-    description = activity["description"]
+    description = activity.get("description", "")
     mermaid_chart = hr_zones_mermaid(activity)
     chart_section = f"\n## Heart Rate Zones\n\n{mermaid_chart}\n" if mermaid_chart else ""
     mermaid_flag = "\n  mermaid: true" if mermaid_chart else ""
