@@ -1,7 +1,7 @@
 ---
 title: "My Firefox for Android local build environment"
 draft: false
-updated: 2026-04-24T14:00:00-04:00
+updated: 2026-05-19T12:21:23.554-04:00
 taxonomies:
   tags: ["mozilla", "workflow"]
   categories: ["blog"]
@@ -82,6 +82,8 @@ export JAVA_HOME="$(ls -1dr -- $HOME/.mozbuild/jdk/jdk-* | head -n 1)/Contents/H
 ```
 
 ### Android Studio
+
+**UPDATE:** With [D286123](https://phabricator.services.mozilla.com/D286123) landed, this should no longer be necessary! 🎉
 
 Similarly for Android Studio, let's do the same so that environment is identical. Head to, Settings | Build, Execution, Deployment | Build Tools | Gradle, and ensure that "Gradle JDK" path is set to `JAVA_HOME`.
 
