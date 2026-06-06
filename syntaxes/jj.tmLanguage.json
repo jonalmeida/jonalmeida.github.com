@@ -1,0 +1,51 @@
+{
+  "name": "jj",
+  "scopeName": "source.jj",
+  "fileTypes": ["jj"],
+  "patterns": [
+    {
+      "match": "^[○●◉◌│├┤┬┴┼╭╮╯╰─\\s]+",
+      "name": "comment.line.jj"
+    },
+    {
+      "match": "\\b(conflict)\\b",
+      "name": "invalid.illegal.conflict.jj"
+    },
+    {
+      "match": "\\b[a-f0-9]{6,40}\\b",
+      "name": "constant.numeric.hash.jj"
+    },
+    {
+      "match": "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}",
+      "name": "string.unquoted.email.jj"
+    },
+    {
+      "match": "\\d{4}-\\d{2}-\\d{2}",
+      "name": "comment.line.date.jj"
+    },
+    {
+      "match": "\\d{2}:\\d{2}:\\d{2}",
+      "name": "comment.line.time.jj"
+    },
+    {
+      "match": "\\b(Bug|bug)\\s+\\d+",
+      "name": "keyword.control.bug.jj"
+    },
+    {
+      "match": "\\b(WIP)\\b",
+      "name": "keyword.control.wip.jj"
+    },
+    {
+      "match": "r=[a-zA-Z0-9,_-]+",
+      "name": "entity.name.function.reviewer.jj"
+    },
+    {
+      "match": "[a-zA-Z0-9_-]+@|git_head\\(\\)",
+      "name": "entity.name.tag.branch.jj"
+    },
+    {
+      "match": "\\((empty|no description set)\\)",
+      "name": "comment.line.empty.jj"
+    }
+  ]
+}

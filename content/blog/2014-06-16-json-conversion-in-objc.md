@@ -30,7 +30,7 @@ Using the category class is trivial. Simply drop the `JsonEncoder.h` and `JsonEn
 ### Converting NSString
 A string that is correctly escaped and in the right syntax:
 
-~~~ m
+~~~ objc
 // A string that we want to convert to a dictionary
 NSString * json_str = @"{\"Key\":\"Value\"}";
 // Using the extended class..
@@ -42,7 +42,7 @@ NSData * data = [NSData dataWithString:json_str];
 ### Converting NSDictionary
 We can take a dictionary and convert that easily:
 
-~~~ m
+~~~ objc
 // A simple initialized dictionary
 NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
 							@"Value",@"Key", nil];
@@ -55,7 +55,7 @@ NSData * data = [NSData dataFromDictionary:dict];
 ### Converting NSData
 NSData also works:
 
-~~~ m
+~~~ objc
 // Let's assume we already have an NSData object!
 // We can convert it using the extended class..
 NSDictionary * dict = [NSDictionary dictionaryFromData:data];
