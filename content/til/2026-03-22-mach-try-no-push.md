@@ -4,7 +4,7 @@ draft: false
 #updated: 2026-01-19T16:08:32-05:00
 taxonomies:
   tags: ["workflow", "mozilla"]
-  categories: ["til"]
+  categories: ["TIL"]
 extra:
   hide_table_of_contents: true
 ---
