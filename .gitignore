@@ -22,3 +22,9 @@ static/processed_images/
 
 # Garmin OAuth token cache
 **/.garmin_tokens/
+
+# Python
+__pycache__/
+
+# Overpass response cache
+**/.overpass_cache/
