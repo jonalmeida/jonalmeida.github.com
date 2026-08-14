@@ -108,8 +108,20 @@ DARK_SPAN = (0.42, 1.00)
 # vector. Overpass is free, anonymous and rate-limited per IP; there is no API
 # key. So: query only the tags we draw, cache every response, try mirrors when
 # one endpoint fails, and fall back to a plain map only as a last resort.
+# Tried in order. Probed 2026-08-14 with a small Toronto query; the times are
+# that probe's round trip, and every one of these returned the same 484 ways.
+#   overpass-api.de           0.6 s
+#   overpass.private.coffee   3.0 s
+#   overpass.kumi.systems     3.7 s
+#   maps.mail.ru              9.7 s
+# Deliberately absent: overpass.osm.ch answers 200 with ZERO elements outside
+# Switzerland, and other regional instances behave the same way. A silent empty
+# answer is worse than a failure, because it would cache an empty basemap. See
+# the element check in fetch_basemap. Unreachable at probe time: overpass.osm.jp,
+# overpass.openstreetmap.ru, overpass.osm.vin, overpass.nchc.org.tw.
 OVERPASS_URLS = (
     "https://overpass-api.de/api/interpreter",
+    "https://overpass.private.coffee/api/interpreter",
     "https://overpass.kumi.systems/api/interpreter",
     "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
 )
@@ -974,19 +986,32 @@ def fetch_basemap(track: Track, use_cache: bool = True) -> dict | None:
             wait_for_overpass_slot()
         else:
             print(f"  trying {urllib.parse.urlparse(url).netloc}")
+        host = urllib.parse.urlparse(url).netloc
         raw = _overpass_request(url, query)
         if raw is None:
             continue
-        print(f"  basemap: {len(raw) / 1024:.0f} KB from {urllib.parse.urlparse(url).netloc}")
+
+        try:
+            data = json.loads(raw)
+        except Exception as exc:  # noqa: BLE001
+            print(f"  {host} returned something unreadable ({exc})")
+            continue
+
+        # A regional instance answers 200 with an empty element list for a bbox
+        # outside its extract. Treat that as a failure: caching it would leave a
+        # map with a credit line and no basemap. (A genuinely empty answer is
+        # possible far from any road, and then every endpoint agrees and we draw
+        # the plain route.)
+        if not data.get("elements"):
+            print(f"  {host} returned no elements for this area; trying the next endpoint")
+            continue
+
+        print(f"  basemap: {len(raw) / 1024:.0f} KB from {host}")
         _cache_write(path, raw)
         # Ease off the penalty once queries succeed again.
         _overpass_penalty = max(0.0, _overpass_penalty / 2 - 1.0)
         time.sleep(OVERPASS_DELAY_S + _overpass_penalty)
-        try:
-            return json.loads(raw)
-        except Exception as exc:  # noqa: BLE001
-            print(f"  unreadable Overpass response: {exc}")
-            return None
+        return data
 
     print("  WARNING: no basemap from any endpoint; drawing the route alone")
     return None
