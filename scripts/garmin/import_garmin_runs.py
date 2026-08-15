@@ -139,7 +139,7 @@ BASEMAP_MIN_STEP_PX = 1.2     # thin dense node runs
 MIN_GREEN_AREA_PX = 40.0      # drop tiny pitches and playgrounds
 
 # Detail levels, tried in order until the file fits MAX_SVG_WARN_BYTES:
-# (draw minor roads, thinning step px, min green area px2, min way extent px).
+# (draw tertiary roads, thinning step px, min green area px2, min way extent px).
 # Thinning drops vertices that sit close together and leaves the rest where they
 # are. Do NOT snap coordinates to a coarse grid instead: snapping moves every
 # vertex off its true position, and straight roads come out visibly wobbly for
@@ -150,15 +150,14 @@ BASEMAP_DETAIL_LEVELS = (
     (False, 2.5, 200.0, 3.0),
 )
 
-# Road classes we draw, and their stroke width. Footways, cycleways, tracks,
-# service roads and driveways are left out on purpose: in a city they are most
-# of the ways, and they cost both clutter and bytes.
+# Road classes we draw, and their stroke width: the major street network only.
+# Residential, unclassified, living streets, pedestrian ways, footways,
+# cycleways, tracks, service roads and driveways are all left out on purpose:
+# in a city they are most of the ways, and they cost both clutter and bytes.
 ROAD_WIDTHS: dict[str, float] = {
     "motorway": 2.6, "motorway_link": 1.8, "trunk": 2.6, "trunk_link": 1.8,
     "primary": 2.4, "primary_link": 1.6, "secondary": 2.0, "secondary_link": 1.4,
     "tertiary": 1.7, "tertiary_link": 1.2,
-    "residential": 1.2, "unclassified": 1.2, "living_street": 1.1,
-    "pedestrian": 1.0,
 }
 BIG_ROADS = {
     "motorway", "motorway_link", "trunk", "trunk_link",
@@ -1107,16 +1106,16 @@ def _basemap_path(
 def basemap_layers(
     track: Track,
     data: dict,
-    minor_roads: bool = True,
+    tertiary_roads: bool = True,
     min_step: float = BASEMAP_MIN_STEP_PX,
     min_green: float = MIN_GREEN_AREA_PX,
     min_extent: float = 2.0,
 ) -> str:
     """Return the SVG for the green, water and road layers, in draw order.
 
-    With minor_roads off, only the arterials are drawn. A long run covers a much
-    wider area, where every residential street is both too much detail and too
-    many bytes.
+    Only major streets are drawn. With tertiary_roads off, that narrows further
+    to the arterials: a long run covers a much wider area, where even the
+    tertiary network is both too much detail and too many bytes.
     """
     greens: list[list[dict]] = []
     waters: list[list[dict]] = []
@@ -1169,7 +1168,7 @@ def basemap_layers(
     ]
     # Widest roads first, so the small ones draw on top of the big ones.
     for name, width in sorted(ROAD_WIDTHS.items(), key=lambda kv: -kv[1]):
-        if not minor_roads and name not in BIG_ROADS:
+        if not tertiary_roads and name not in BIG_ROADS:
             continue
         group = [g for cls, g in roads if cls == name]
         body = shapes(group, "rd" if name in BIG_ROADS else "rn", False) if group else ""
@@ -1297,11 +1296,11 @@ def render_route_svg(track: Track, label: str = "", basemap: dict | None = None)
         return compose("")
 
     # Drop detail until the file fits the budget. Wide-area maps lose their
-    # minor roads first, which is what a map at that scale should do anyway.
+    # tertiary roads first, which is what a map at that scale should do anyway.
     svg = ""
-    for level, (minor, step, green, extent) in enumerate(BASEMAP_DETAIL_LEVELS):
+    for level, (tertiary, step, green, extent) in enumerate(BASEMAP_DETAIL_LEVELS):
         svg = compose(
-            basemap_layers(track, basemap, minor, step, green, extent) + "\n"
+            basemap_layers(track, basemap, tertiary, step, green, extent) + "\n"
         )
         size = len(svg.encode())
         if size <= MAX_SVG_WARN_BYTES:
