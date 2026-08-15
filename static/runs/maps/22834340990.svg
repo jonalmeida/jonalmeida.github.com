@@ -703,7 +703,7 @@
 <polyline class="rd" points="234,320 236,325"/>
 <polyline class="rd" points="529,488 530,492"/>
 <polyline class="rd" points="446,536 448,540 449,543 450,547"/>
-<polyline class="rd" points="564,486 570,485 576,483 580,482"/>
+<polyline class="rd" points="564,486 570,485 576,483"/>
 <polyline class="rd" points="511,492 514,491"/>
 <polyline class="rd" points="132,354 135,363 137,371 139,378 141,384"/>
 <polyline class="rd" points="172,251 169,252 163,254 156,256"/>
@@ -1626,6 +1626,7 @@
 <polyline class="rd" points="395,479 392,479 389,480 386,481"/>
 <polyline class="rd" points="384,129 385,132"/>
 <polyline class="rd" points="385,132 387,139"/>
+<polyline class="rd" points="576,483 580,482"/>
 </g>
 <g stroke-width="1.8">
 <polyline class="rd" points="439,278 442,276 445,275 447,278 447,284 447,288"/>

@@ -68,49 +68,6 @@
 <g stroke-width="1.4">
 <polyline class="rd" points="547,201 541,208 538,213 539,218"/>
 </g>
-<g stroke-width="1.2">
-<polyline class="rn" points="479,470 469,473 450,478 446,479 436,482 423,486 413,488 355,504 349,506"/>
-<polyline class="rn" points="244,588 232,544 231,540"/>
-<polyline class="rn" points="640,562 630,528 605,440 603,435"/>
-<polyline class="rn" points="591,208 572,198 561,193"/>
-<polyline class="rn" points="567,309 571,307 640,289"/>
-<polyline class="rn" points="640,91 574,109 571,110 562,112"/>
-<polyline class="rn" points="625,0 550,21 547,22 538,24"/>
-<polyline class="rn" points="0,145 99,120 105,118"/>
-<polyline class="rn" points="114,588 111,577 110,573"/>
-<polyline class="rn" points="591,208 597,206 640,194"/>
-<polyline class="rn" points="591,208 590,197 586,181"/>
-<polyline class="rn" points="231,540 229,534 170,330 169,325"/>
-<polyline class="rn" points="110,573 103,575 58,588"/>
-<polyline class="rn" points="193,0 217,78 219,85"/>
-<polyline class="rn" points="219,85 223,96 263,226 271,250 280,283 287,292"/>
-<polyline class="rn" points="9,229 0,199"/>
-<polyline class="rn" points="49,359 42,361 1,373 0,373"/>
-<polyline class="rn" points="105,118 104,112 83,46 69,0"/>
-<polyline class="rn" points="110,573 109,569 50,364 49,359"/>
-<polyline class="rn" points="169,325 161,327 56,357 49,359"/>
-<polyline class="rn" points="105,118 112,116 116,115 212,86 219,85"/>
-<polyline class="rn" points="169,325 167,320 108,125 105,118"/>
-<polyline class="rn" points="287,292 277,295 175,323 169,325"/>
-<polyline class="rn" points="349,506 351,511 376,588"/>
-<polyline class="rn" points="349,506 348,500 294,316 290,302 291,297 287,292"/>
-<polyline class="rn" points="349,506 344,507 237,539 231,540"/>
-<polyline class="rn" points="231,540 223,543 117,571 110,573"/>
-<polyline class="rn" points="603,435 601,428 568,314 567,309"/>
-<polyline class="rn" points="603,435 598,436 538,453 501,464 490,467"/>
-<polyline class="rn" points="640,425 608,434 603,435"/>
-<polyline class="rn" points="567,309 565,304 545,232 544,230"/>
-<polyline class="rn" points="539,218 553,220 591,208"/>
-<polyline class="rn" points="586,181 583,170 581,163 576,151 569,141"/>
-<polyline class="rn" points="423,254 406,258 371,266 353,270 334,275"/>
-<polyline class="rn" points="49,359 48,355 44,342 38,323 31,300 20,263 9,229"/>
-<polyline class="rn" points="544,230 539,218"/>
-<polyline class="rn" points="490,467 479,470"/>
-<polyline class="rn" points="334,275 306,282 293,289 287,292"/>
-</g>
-<g stroke-width="1.0">
-<polyline class="rn" points="331,0 332,4 320,7 318,0"/>
-</g>
 <g class="rt">
 <polyline class="s15" stroke="#011D6D" points="114.2,574 124.1,567.2 134.2,562.5 145.9,559.3 156.9,555.8 167.9,552.6 177.5,547.7 187.9,545.1"/>
 <polyline class="s14" stroke="#02237A" points="187.9,545.1 197.9,541.9"/>
