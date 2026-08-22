@@ -1,7 +1,7 @@
 name: Deploy Zola site to Pages
 
 env:
-  ZOLA_VERSION: 0.21.0
+  ZOLA_VERSION: 0.23.2
 
 on:
   # Runs on pushes targeting the default branch
@@ -22,7 +22,7 @@ jobs:
       - name: Install CI prerequisites
         run: |
           apk upgrade -Ua
-          apk add nodejs git 'zola=~${{ env.ZOLA_VERSION }}'
+          apk add nodejs git "zola=~${ZOLA_VERSION%.*}"
       - name: Clone the repository
         uses: https://code.forgejo.org/actions/checkout@v5
         with:

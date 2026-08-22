@@ -14,7 +14,7 @@ variables:
   # For example: "0.17.2" or "0.18.0".
   ZOLA_VERSION:
     description: "The version of Zola used to build the site."
-    value: "0.21.0"
+    value: "0.23.2"
 
 pages:
   stage: deploy
