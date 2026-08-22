@@ -1,0 +1,19 @@
+{#
+  A component for a centered single image. Includes optional `width`
+  and `height` parameters.
+
+  Examples:
+  {{ <image path="image-01.jpg" /> }}
+
+  {{ <image path="image-02.jpg" width={240} /> }}
+
+  {{ <image path="image-02.jpg" width={240} height={360} /> }}
+
+  The markup is emitted on a single line: a blank line or an indented
+  line would end the HTML block and hand the rest to the markdown parser.
+#}
+{% component image(path: string, width: integer = 0, height: integer = 0) -%}
+<div><img src="{{ path }}" style="display: block; margin-left: auto; margin-right: auto;"
+  {%- if width %} width="{{ width }}"{% endif %}
+  {%- if height %} height="{{ height }}"{% endif %} /></div>
+{%- endcomponent image %}
