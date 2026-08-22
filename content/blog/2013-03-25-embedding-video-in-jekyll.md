@@ -6,7 +6,7 @@ aliases: ['/posts/2013/03/25/embedding-video-in-jekyll']
 extra:
   hide_table_of_contents: true
 taxonomies:
-  tags: ['blog']
+  tags: ['meta']
   categories:
     - blog
 ---

@@ -3,7 +3,7 @@ title: "Restarting this blog & migrating to Zola"
 time: 2025-10-05
 draft: false
 taxonomies:
-  tags: ["blog"]
+  tags: ["meta"]
   categories: [blog]
 extra:
   hide_table_of_contents: false
