@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test sites for browser developers | Jonathan Almeida</title>
+  <meta name="title" content="Test sites for browser developers">
+<meta name="description" content="Scribblings and nonsense">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+  
+  <link rel="alternate" type="application/atom+xml" title="Jonathan Almeida" href="https://jonalmeida.com/atom.xml"><style>
+    :root {
+    --width: 800px;
+    --font-main: Verdana, sans-serif;
+    --font-secondary: Verdana, sans-serif;
+    --font-scale: 1em;
+    --background-color: #fff;
+    --heading-color: #222;
+    --text-color: #444;
+    --link-color: #3273dc;
+    --visited-color: #8b6fcb;
+    --code-background-color: #f2f2f2;
+    --code-color: #222;
+    --blockquote-color: #222;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --background-color: #01242e;
+      --heading-color: #eee;
+      --text-color: #ddd;
+      --link-color: #8cc2dd;
+      --visited-color: #8b6fcb;
+      --code-background-color: #000;
+      --code-color: #ddd;
+      --blockquote-color: #ccc;
+    }
+  }
+
+  body {
+    font-family: var(--font-secondary);
+    font-size: var(--font-scale);
+    margin: auto;
+    padding: 20px;
+    max-width: var(--width);
+    text-align: left;
+    background-color: var(--background-color);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.5;
+    color: var(--text-color);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-main);
+    color: var(--heading-color);
+  }
+
+  a {
+    color: var(--link-color);
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  nav a {
+    margin-right: 8px;
+  }
+
+  nav span.active {
+    font-weight: bold;
+    margin-right: 10px;
+  }
+  strong,
+  b {
+    color: var(--heading-color);
+  }
+
+  button {
+    margin: 0;
+    cursor: pointer;
+  }
+
+  main {
+    line-height: 1.6;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  hr {
+    border: 0;
+    border-top: 1px dashed;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  pre code {
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    display: block;
+    padding: 20px;
+    white-space: pre-wrap;
+    font-size: 0.875rem;
+    overflow-x: auto;
+  }
+
+  code {
+    font-family: monospace;
+    padding: 2px;
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    border-radius: 3px;
+  }
+
+  blockquote {
+    border-left: 1px solid #999;
+    color: var(--code-color);
+    padding-left: 20px;
+    font-style: italic;
+  }
+
+  footer {
+    padding: 25px 0;
+    text-align: center;
+  }
+
+  .title:hover {
+    text-decoration: none;
+  }
+
+  .title h1 {
+    font-size: 1.5em;
+  }
+
+  .inline {
+    width: auto !important;
+  }
+
+  .highlight,
+  .code {
+    padding: 1px 15px;
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    border-radius: 3px;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    overflow-x: auto;
+  }
+
+  /* blog post list */
+  ul.blog-posts {
+    list-style-type: none;
+    padding: unset;
+  }
+
+  ul.blog-posts li {
+    display: flex;
+  }
+
+  ul.blog-posts li span {
+    flex: 0 0 130px;
+  }
+
+  ul.blog-posts li a:visited {
+    color: var(--visited-color);
+  }
+
+  .tags {
+    font-size: smaller;
+  }
+
+  .footnote-definition {
+    display: flex;
+    margin-top: 1em;
+  }
+  .footnote-definition-label {
+    margin-left: 1rem;
+    margin-right: 0.5rem;
+    vertical-align: baseline;
+  }
+  .footnote-definition-label::after {
+    content: "."
+  }
+  .footnote-definition > p {
+    margin: 0;
+  }
+
+  </style><style>
+
+section#comments {
+  p {
+    font-size: 0.8em;
+  }
+}
+
+
+pre mark {
+  color: var(--code-color);
+}
+
+
+pre {
+  background-color: transparent !important;
+}
+</style>
+
+
+
+</head>
+<body><header>
+  <a href="https://jonalmeida.com/" class="title">
+    <h1>Jonathan Almeida</h1>
+  </a>
+  <nav aria-label="site">
+      <a href="https://jonalmeida.com/">Home</a>
+      <a href="https://jonalmeida.com/blog/">Blog</a>
+      <a href="https://jonalmeida.com/til/">TIL</a>
+  </nav>
+</header>
+
+  <h1>Test sites for browser developers</h1>
+      <p>
+        <i>
+          <time datetime="2026-01-19" pubdate>2026-01-19</time>
+        </i>
+      </p>
+  <main>
+    <p>Working on the mobile Firefox team gives you the opportunity to touch on many different parts of the browser space. You often need to test the interaction between web content and the application integration's to another component, say for example, a site registering for a WebPush subscription and Firefox using Firebase Cloud Messaging to deliver the encrypted message to the end-user. Hunting around for an example to validate everything fine and dandy takes time.</p>
+<p>Sometimes a simple test site for your use case is helpful for initial validation or comparison against other browsers.</p>
+<p>Below is a list of tests that I've used in the past (in no particular order):</p>
+<ul>
+<li><a rel="external" href="https://webauthn-passkeys-prf-demo.explore.corbado.com/">WebAuthn / Passkeys &amp; PRF Demo</a>
+<ul>
+<li>For <a rel="external" href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Authentication_API">WebAuthn</a> login/registration, but also includes PRF extension support.</li>
+</ul>
+</li>
+<li><a rel="external" href="https://mozilla-services.github.io/WebPushDataTestPage/">Web Push: Data Encryption Test Page</a>
+<ul>
+<li>Push notifications requires a server to send a notification to the client (not the same as a WebNotification), so you can use this WebPush test site for validating just that.</li>
+</ul>
+</li>
+<li><a rel="external" href="https://simple-push-demo.vercel.app/">Simple Push Demo</a>
+<ul>
+<li>Similar to the above, but prettier.</li>
+</ul>
+</li>
+<li><a rel="external" href="http://www.sharonminsuk.com/code/storage-test.html">Test of HTML5 localStorage and sessionStorage persistence - sharonminsuk.com</a>
+<ul>
+<li>When you have to verify that <a rel="external" href="https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage"><code>localStorage</code></a> is truly gone. This is especially helpful for Firefox Focus where private browsing is the primary feature.</li>
+</ul>
+</li>
+<li><a rel="external" href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input"><code>&lt;input&gt;</code>: The HTML Input element - MDN</a>
+<ul>
+<li>There are Too Many™ different prompt and input element types. The MDN docs have the best collection of all of them.</li>
+</ul>
+</li>
+</ul>
+<h3 id="browsing-privacy-and-tracking-protection">Browsing privacy and Tracking Protection</h3>
+<ul>
+<li><a rel="external" href="https://badssl.com">badssl.com</a>
+<ul>
+<li>Great for testing out the various error pages that a browser can show.</li>
+</ul>
+</li>
+<li><a rel="external" href="https://testsafebrowsing.appspot.com/">(Safe) Safe Browsing Testing Links </a>
+<ul>
+<li>For making sure we are still using the <a rel="external" href="https://safebrowsing.google.com/">Safe Browsing</a> list correctly.</li>
+</ul>
+</li>
+<li><a rel="external" href="https://senglehardt.com/test/trackingprotection/test_pages/tracking_protection">senglehardt.com/test/trackingprotection</a>
+<ul>
+<li>Tracking Protection test page. Somewhat ancient so cookie blocking might not work.</li>
+</ul>
+</li>
+</ul>
+<h3 id="forms-and-autocomplete">Forms and Autocomplete</h3>
+<p>There are various form types and various heuristics to trigger completion options, so they deserve their own section. The more (test sites) the merrier!</p>
+<ul>
+<li><a rel="external" href="https://bugs.mattn.ca/pwmgr/login_and_change_form.html">Registration, Login and Change Forms - MattN</a>
+<ul>
+<li>Web forms come in all shapes and sizes. Some simple forms to see if we can detect a login/registration form and fill a login entry into them.</li>
+</ul>
+</li>
+<li><a rel="external" href="https://fill.dev/form/login-simple">fill.dev</a>
+<ul>
+<li>More forms, but also includes credit card and address form filling.</li>
+</ul>
+</li>
+<li><a rel="external" href="https://daleharvey.github.io/testapp/">daleharvey.github.io/testapp</a>
+<ul>
+<li>Good for sanity testing simple forms, links that have same/different origins, or (location) permission prompts.</li>
+</ul>
+</li>
+<li><a rel="external" href="https://dimidl.github.io/signup/test.html">Sign-Up &amp; Login Forms - Dimi</a>
+<ul>
+<li>Sign-up and login forms behave differently, so they are handy to test separately. For example, autofilling a generated password is useful on a registration form but not on a login one.</li>
+</ul>
+</li>
+</ul>
+<h3 id="make-your-own">Make your own</h3>
+<p>If you need to make your own, try to write out the code yourself so you can understand the reduced test case. If it's not straight-forward, try using the <a rel="external" href="https://addons.mozilla.org/en-CA/firefox/addon/testcase-reducer/">Testcase Reducer by Thomas Wisniewski</a>.</p>
+<section id="comments" class="article-content">
+  <h3>Comments</h3>
+  <p>With an account on the Fediverse or Mastodon, you can respond to this <a href="https://mindly.social/@jonalmeida/115937256635328128">post</a>. Since Mastodon is decentralized, you can use your existing account hosted by another Mastodon server or compatible platform if you don't have an account on this one. Known non-private replies are displayed below.</p>
+  <p>Learn how this was implemented from the original source <a class="link" href="/2020/12/29/adding-comments-to-your-static-blog-with-mastodon/">here.</a></p>
+  <p id="mastodon-comments-list">
+  <button id="load-comment">Load comments</button></p>
+  <div id="comments-wrapper">
+    <noscript><p>Loading comments relies on JavaScript. Try enabling JavaScript and reloading, or visit <a href="https://mindly.social/@jonalmeida/115937256635328128">the original post</a> on Mastodon.</p></noscript>
+  </div>
+  <noscript>You need JavaScript to view the comments.</noscript>
+  <script type="text/javascript">
+    function escapeHtml(unsafe) {
+      return unsafe
+           .replace(/&/g, "&amp;")
+           .replace(/</g, "&lt;")
+           .replace(/>/g, "&gt;")
+           .replace(/"/g, "&quot;")
+           .replace(/'/g, "&#039;");
+    }
+    function emojify(input, emojis) {
+      let output = input;
+<pre class="giallo" style="color-scheme: light dark; color: light-dark(#24292E, #E1E4E8); background-color: light-dark(#FFFFFF, #24292E);" ><code data-lang="plain"><span class="giallo-l"><span>  emojis.forEach(emoji =&gt; {</span></span>
+<span class="giallo-l"><span>    let picture = document.createElement(&quot;picture&quot;);</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>    let source = document.createElement(&quot;source&quot;);</span></span>
+<span class="giallo-l"><span>    source.setAttribute(&quot;srcset&quot;, escapeHtml(emoji.url));</span></span>
+<span class="giallo-l"><span>    source.setAttribute(&quot;media&quot;, &quot;(prefers-reduced-motion: no-preference)&quot;);</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>    let img = document.createElement(&quot;img&quot;);</span></span>
+<span class="giallo-l"><span>    img.className = &quot;emoji&quot;;</span></span>
+<span class="giallo-l"><span>    img.setAttribute(&quot;src&quot;, escapeHtml(emoji.static_url));</span></span>
+<span class="giallo-l"><span>    img.setAttribute(&quot;alt&quot;, `:${ emoji.shortcode }:`);</span></span>
+<span class="giallo-l"><span>    img.setAttribute(&quot;title&quot;, `:${ emoji.shortcode }:`);</span></span>
+<span class="giallo-l"><span>    img.setAttribute(&quot;width&quot;, &quot;20&quot;);</span></span>
+<span class="giallo-l"><span>    img.setAttribute(&quot;height&quot;, &quot;20&quot;);</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>    picture.appendChild(source);</span></span>
+<span class="giallo-l"><span>    picture.appendChild(img);</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>    output = output.replace(`:${ emoji.shortcode }:`, picture.outerHTML);</span></span>
+<span class="giallo-l"><span>  });</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>  return output;</span></span>
+<span class="giallo-l"><span>}</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>function loadCssFile(path) {</span></span>
+<span class="giallo-l"><span>  const link = document.createElement(&#39;link&#39;);</span></span>
+<span class="giallo-l"><span>  link.rel = &#39;stylesheet&#39;;</span></span>
+<span class="giallo-l"><span>  link.type = &#39;text/css&#39;;</span></span>
+<span class="giallo-l"><span>  link.href = path; // relative path to your CSS file</span></span>
+<span class="giallo-l"><span>  document.head.appendChild(link);</span></span>
+<span class="giallo-l"><span>}</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>function loadComments() {</span></span>
+<span class="giallo-l"><span>  let purifyPromise = import(&quot;/assets/js/purify.min.js&quot;);</span></span>
+<span class="giallo-l"><span>  let cssPromise = loadCssFile(&quot;/comments.css&quot;);</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>  let commentsWrapper = document.getElementById(&quot;comments-wrapper&quot;);</span></span>
+<span class="giallo-l"><span>  document.getElementById(&quot;load-comment&quot;).innerHTML = &quot;Loading&quot;;</span></span>
+<span class="giallo-l"><span>  fetch(&quot;https://mindly.social/api/v1/statuses/115937256635328128/context&quot;)</span></span>
+<span class="giallo-l"><span>    .then(function(response) {</span></span>
+<span class="giallo-l"><span>      return response.json();</span></span>
+<span class="giallo-l"><span>    })</span></span>
+<span class="giallo-l"><span>    .then(function(data) {</span></span>
+<span class="giallo-l"><span>      let descendants = data[&#39;descendants&#39;];</span></span>
+<span class="giallo-l"><span>      if(</span></span>
+<span class="giallo-l"><span>        descendants &amp;&amp;</span></span>
+<span class="giallo-l"><span>        Array.isArray(descendants) &amp;&amp;</span></span>
+<span class="giallo-l"><span>        descendants.length &gt; 0</span></span>
+<span class="giallo-l"><span>      ) {</span></span>
+<span class="giallo-l"><span>        commentsWrapper.innerHTML = &quot;&quot;;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>        descendants.forEach(function(status) {</span></span>
+<span class="giallo-l"><span>          /* For debugging */</span></span>
+<span class="giallo-l"><span>          /* console.log(descendants) */</span></span>
+<span class="giallo-l"><span>          if( status.account.display_name.length &gt; 0 ) {</span></span>
+<span class="giallo-l"><span>            status.account.display_name = escapeHtml(status.account.display_name);</span></span>
+<span class="giallo-l"><span>            status.account.display_name = emojify(status.account.display_name, status.account.emojis);</span></span>
+<span class="giallo-l"><span>          } else {</span></span>
+<span class="giallo-l"><span>            status.account.display_name = status.account.username;</span></span>
+<span class="giallo-l"><span>          };</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>          let instance = &quot;&quot;;</span></span>
+<span class="giallo-l"><span>          if( status.account.acct.includes(&quot;@&quot;) ) {</span></span>
+<span class="giallo-l"><span>            instance = status.account.acct.split(&quot;@&quot;)[1];</span></span>
+<span class="giallo-l"><span>          } else {</span></span>
+<span class="giallo-l"><span>            instance = &quot;mindly.social&quot;;</span></span>
+<span class="giallo-l"><span>          }</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>          const isReply = status.in_reply_to_id !== &quot;115937256635328128&quot;;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>          let op = false;</span></span>
+<span class="giallo-l"><span>          if( status.account.acct == &quot;jonalmeida&quot; ) {</span></span>
+<span class="giallo-l"><span>            op = true;</span></span>
+<span class="giallo-l"><span>          }</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>          status.content = emojify(status.content, status.emojis);</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>          let avatarSource = document.createElement(&quot;source&quot;);</span></span>
+<span class="giallo-l"><span>          avatarSource.setAttribute(&quot;srcset&quot;, escapeHtml(status.account.avatar));</span></span>
+<span class="giallo-l"><span>          avatarSource.setAttribute(&quot;media&quot;, &quot;(prefers-reduced-motion: no-preference)&quot;);</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>          let avatarImg = document.createElement(&quot;img&quot;);</span></span>
+<span class="giallo-l"><span>          avatarImg.className = &quot;avatar&quot;;</span></span>
+<span class="giallo-l"><span>          avatarImg.setAttribute(&quot;src&quot;, escapeHtml(status.account.avatar_static));</span></span>
+<span class="giallo-l"><span>          avatarImg.setAttribute(&quot;alt&quot;, `@${ status.account.username }@${ instance } avatar`);</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>          let avatarPicture = document.createElement(&quot;picture&quot;);</span></span>
+<span class="giallo-l"><span>          avatarPicture.appendChild(avatarSource);</span></span>
+<span class="giallo-l"><span>          avatarPicture.appendChild(avatarImg);</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>          let avatar = document.createElement(&quot;a&quot;);</span></span>
+<span class="giallo-l"><span>          avatar.className = &quot;avatar-link&quot;;</span></span>
+<span class="giallo-l"><span>          avatar.setAttribute(&quot;href&quot;, status.account.url);</span></span>
+<span class="giallo-l"><span>          avatar.setAttribute(&quot;rel&quot;, &quot;external nofollow&quot;);</span></span>
+<span class="giallo-l"><span>          avatar.setAttribute(&quot;title&quot;, `View profile at @${ status.account.username }@${ instance }`);</span></span>
+<span class="giallo-l"><span>          avatar.appendChild(avatarPicture);</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>          let instanceBadge = document.createElement(&quot;a&quot;);</span></span>
+<span class="giallo-l"><span>          instanceBadge.className = &quot;instance&quot;;</span></span>
+<span class="giallo-l"><span>          instanceBadge.setAttribute(&quot;href&quot;, status.account.url);</span></span>
+<span class="giallo-l"><span>          instanceBadge.setAttribute(&quot;title&quot;, `@${ status.account.username }@${ instance }`);</span></span>
+<span class="giallo-l"><span>          instanceBadge.setAttribute(&quot;rel&quot;, &quot;external nofollow&quot;);</span></span>
+<span class="giallo-l"><span>          instanceBadge.textContent = instance;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>          let display = document.createElement(&quot;span&quot;);</span></span>
+<span class="giallo-l"><span>          display.className = &quot;display&quot;;</span></span>
+<span class="giallo-l"><span>          display.setAttribute(&quot;itemprop&quot;, &quot;author&quot;);</span></span>
+<span class="giallo-l"><span>          display.setAttribute(&quot;itemtype&quot;, &quot;http://schema.org/Person&quot;);</span></span>
+<span class="giallo-l"><span>          display.innerHTML = status.account.display_name;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>          let header = document.createElement(&quot;header&quot;);</span></span>
+<span class="giallo-l"><span>          header.className = &quot;author&quot;;</span></span>
+<span class="giallo-l"><span>          header.appendChild(display);</span></span>
+<span class="giallo-l"><span>          header.appendChild(instanceBadge);</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>          let permalink = document.createElement(&quot;a&quot;);</span></span>
+<span class="giallo-l"><span>          permalink.setAttribute(&quot;href&quot;, status.url);</span></span>
+<span class="giallo-l"><span>          permalink.setAttribute(&quot;itemprop&quot;, &quot;url&quot;);</span></span>
+<span class="giallo-l"><span>          permalink.setAttribute(&quot;title&quot;, `View comment at ${ instance }`);</span></span>
+<span class="giallo-l"><span>          permalink.setAttribute(&quot;rel&quot;, &quot;external nofollow&quot;);</span></span>
+<span class="giallo-l"><span>          permalink.textContent = new Date( status.created_at ).toLocaleString(&#39;en-US&#39;, {</span></span>
+<span class="giallo-l"><span>            dateStyle: &quot;long&quot;,</span></span>
+<span class="giallo-l"><span>            timeStyle: &quot;short&quot;,</span></span>
+<span class="giallo-l"><span>          });</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>          let timestamp = document.createElement(&quot;time&quot;);</span></span>
+<span class="giallo-l"><span>          timestamp.setAttribute(&quot;datetime&quot;, status.created_at);</span></span>
+<span class="giallo-l"><span>          timestamp.appendChild(permalink);</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>          let main = document.createElement(&quot;main&quot;);</span></span>
+<span class="giallo-l"><span>          main.setAttribute(&quot;itemprop&quot;, &quot;text&quot;);</span></span>
+<span class="giallo-l"><span>          main.innerHTML = status.content;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>          let interactions = document.createElement(&quot;footer&quot;);</span></span>
+<span class="giallo-l"><span>          if(status.favourites_count &gt; 0) {</span></span>
+<span class="giallo-l"><span>            let faves = document.createElement(&quot;a&quot;);</span></span>
+<span class="giallo-l"><span>            faves.className = &quot;faves&quot;;</span></span>
+<span class="giallo-l"><span>            faves.setAttribute(&quot;href&quot;, `${ status.url }/favourites`);</span></span>
+<span class="giallo-l"><span>            faves.setAttribute(&quot;title&quot;, `Favorites from ${ instance }`);</span></span>
+<span class="giallo-l"><span>            faves.textContent = status.favourites_count;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>            interactions.appendChild(faves);</span></span>
+<span class="giallo-l"><span>          }</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>          let comment = document.createElement(&quot;article&quot;);</span></span>
+<span class="giallo-l"><span>          comment.id = `comment-${ status.id }`;</span></span>
+<span class="giallo-l"><span>          comment.className = isReply ? &quot;comment comment-reply&quot; : &quot;comment&quot;;</span></span>
+<span class="giallo-l"><span>          comment.setAttribute(&quot;itemprop&quot;, &quot;comment&quot;);</span></span>
+<span class="giallo-l"><span>          comment.setAttribute(&quot;itemtype&quot;, &quot;http://schema.org/Comment&quot;);</span></span>
+<span class="giallo-l"><span>          comment.appendChild(avatar);</span></span>
+<span class="giallo-l"><span>          comment.appendChild(header);</span></span>
+<span class="giallo-l"><span>          comment.appendChild(timestamp);</span></span>
+<span class="giallo-l"><span>          comment.appendChild(main);</span></span>
+<span class="giallo-l"><span>          comment.appendChild(interactions);</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>          if(op === true) {</span></span>
+<span class="giallo-l"><span>            comment.classList.add(&quot;op&quot;);</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>            avatar.classList.add(&quot;op&quot;);</span></span>
+<span class="giallo-l"><span>            avatar.setAttribute(</span></span>
+<span class="giallo-l"><span>              &quot;title&quot;,</span></span>
+<span class="giallo-l"><span>              &quot;Blog post author; &quot; + avatar.getAttribute(&quot;title&quot;)</span></span>
+<span class="giallo-l"><span>            );</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>            instanceBadge.classList.add(&quot;op&quot;);</span></span>
+<span class="giallo-l"><span>            instanceBadge.setAttribute(</span></span>
+<span class="giallo-l"><span>              &quot;title&quot;,</span></span>
+<span class="giallo-l"><span>              &quot;Blog post author: &quot; + instanceBadge.getAttribute(&quot;title&quot;)</span></span>
+<span class="giallo-l"><span>            );</span></span>
+<span class="giallo-l"><span>          }</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>          Promise.all([purifyPromise, cssPromise]).then(() =&gt; {</span></span>
+<span class="giallo-l"><span>            commentsWrapper.innerHTML += DOMPurify.sanitize(comment.outerHTML);</span></span>
+<span class="giallo-l"><span>          });</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>        });</span></span>
+<span class="giallo-l"><span>      } else {</span></span>
+<span class="giallo-l"><span>        commentsWrapper.innerHTML = &quot;&lt;p&gt;No comments.&lt;/p&gt;&quot;;</span></span>
+<span class="giallo-l"><span>      }</span></span>
+<span class="giallo-l"><span>      // Makes the button update more user-perceivable.</span></span>
+<span class="giallo-l"><span>      setTimeout(() =&gt; {</span></span>
+<span class="giallo-l"><span>        document.getElementById(&quot;load-comment&quot;).innerHTML = &quot;Reload comments&quot;;</span></span>
+<span class="giallo-l"><span>      }, 300);</span></span>
+<span class="giallo-l"><span>    });</span></span>
+<span class="giallo-l"><span>  }</span></span>
+<span class="giallo-l"><span>  document.getElementById(&quot;load-comment&quot;).addEventListener(&quot;click&quot;, loadComments);</span></span></code></pre>  </script>
+</section>
+
+  </main>
+  <p>
+        Categories:
+          <a href="https://jonalmeida.com/categories/blog/">#blog</a>
+        Tags:
+          <a href="https://jonalmeida.com/tags/workflow/">#workflow</a>
+          <a href="https://jonalmeida.com/tags/mozilla/">#mozilla</a>
+  </p>
+  <!-- Add temporary footnote back-links support -->
+  <script src="/footnotes.js"></script>
+<footer>
+</footer>
+<!-- custom_body -->
+</body>
+</html>

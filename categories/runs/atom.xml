@@ -1,0 +1,1326 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>Jonathan Almeida - runs</title>
+    <subtitle>Scribblings and nonsense</subtitle>
+    <link rel="self" type="application/atom+xml" href="https://jonalmeida.com/categories/runs/atom.xml"/>
+    <link rel="alternate" type="text/html" href="https://jonalmeida.com"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2026-08-21T00:00:00+00:00</updated>
+    <id>https://jonalmeida.com/categories/runs/atom.xml</id>
+    <entry xml:lang="en">
+        <title>Toronto - Easy Run</title>
+        <published>2026-08-21T00:00:00+00:00</published>
+        <updated>2026-08-21T00:00:00+00:00</updated>
+        
+        <author>
+          <name>Jonathan Almeida</name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/runs/run-2026-08-21/"/>
+        <id>https://jonalmeida.com/runs/run-2026-08-21/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/runs/run-2026-08-21/">&lt;p&gt;Late lunch makes me feel heavy and tired.&lt;/p&gt;
+&lt;p&gt;Got free drinks for some event long the way, so ran back with two 500ml bottles in each hand. 😅&lt;/p&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Stat&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;Distance&lt;/td&gt;&lt;td&gt;7.15 km&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Duration&lt;/td&gt;&lt;td&gt;40:05&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Pace&lt;/td&gt;&lt;td&gt;5:36 /km&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Elevation Gain&lt;/td&gt;&lt;td&gt;32 m&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;h2 id=&quot;route&quot;&gt;Route&lt;/h2&gt;
+&lt;div&gt;&lt;img src=&quot;/runs/maps/24066072237.svg&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; width=&quot;640&quot; /&gt;&lt;/div&gt;
+&lt;h2 id=&quot;heart-rate-zones&quot;&gt;Heart Rate Zones&lt;/h2&gt;
+&lt;pre class=&quot;mermaid&quot;&gt;
+---
+config:
+  themeVariables:
+    xyChart:
+      plotColorPalette: &quot;#555555,#FF8200,#56CC3C,#4090D4,#AAAAAA&quot;
+      backgroundColor: &quot;transparent&quot;
+---
+        
+xychart horizontal
+    title &quot;Time in Heart Rate Zones (%)&quot;
+    x-axis [&quot;Zone 5 Maximum&quot;, &quot;Zone 4 Threshold&quot;, &quot;Zone 3 Aerobic&quot;, &quot;Zone 2 Easy&quot;, &quot;Zone 1 Warm Up&quot;]
+    y-axis &quot;%&quot; 2 --&gt; 100
+    bar [0.0, 0.0, 0.0, 0.0, 0.0]
+    bar [0.0, 0.0, 0.0, 0.0, 0.0]
+    bar [0.0, 0.0, 0.0, 0.0, 0.0]
+    bar [0.0, 0.0, 0.0, 0.0, 0.0]
+    bar [0.0, 0.0, 0.0, 0.0, 100.0]
+&lt;/pre&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Toronto - 4x1600</title>
+        <published>2026-08-20T00:00:00+00:00</published>
+        <updated>2026-08-20T00:00:00+00:00</updated>
+        
+        <author>
+          <name>Jonathan Almeida</name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/runs/run-2026-08-20/"/>
+        <id>https://jonalmeida.com/runs/run-2026-08-20/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/runs/run-2026-08-20/">&lt;p&gt;Yeahhh, boiiii! What a good fucking run!&lt;/p&gt;
+&lt;p&gt;Perfect weather, perfect shade, and the Tokyo Sky are so damn good. They&#39;re going back in the box for next time I want to feel this fast and fresh. I want to buy more pairs of them. 🥲&lt;/p&gt;
+&lt;p&gt;Woodkid kicked in on the headphones at the right time on the first rep, so kept the music going for the whole session. Fun times!&lt;/p&gt;
+&lt;div&gt;&lt;img src=&quot;/runs/2026-08-20_1.jpg&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; width=&quot;640&quot; /&gt;&lt;/div&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Stat&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;Distance&lt;/td&gt;&lt;td&gt;12.22 km&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Duration&lt;/td&gt;&lt;td&gt;1:00:02&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Pace&lt;/td&gt;&lt;td&gt;4:55 /km&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Elevation Gain&lt;/td&gt;&lt;td&gt;51 m&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;h2 id=&quot;route&quot;&gt;Route&lt;/h2&gt;
+&lt;div&gt;&lt;img src=&quot;/runs/maps/24048177886.svg&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; width=&quot;640&quot; /&gt;&lt;/div&gt;
+&lt;h2 id=&quot;heart-rate-zones&quot;&gt;Heart Rate Zones&lt;/h2&gt;
+&lt;pre class=&quot;mermaid&quot;&gt;
+---
+config:
+  themeVariables:
+    xyChart:
+      plotColorPalette: &quot;#555555,#FF8200,#56CC3C,#4090D4,#AAAAAA&quot;
+      backgroundColor: &quot;transparent&quot;
+---
+
+xychart horizontal
+    title &quot;Time in Heart Rate Zones (%)&quot;
+    x-axis [&quot;Zone 5 Maximum&quot;, &quot;Zone 4 Threshold&quot;, &quot;Zone 3 Aerobic&quot;, &quot;Zone 2 Easy&quot;, &quot;Zone 1 Warm Up&quot;]
+    y-axis &quot;%&quot; 2 --&gt; 100
+    bar [0.0, 0.0, 0.0, 0.0, 0.0]
+    bar [0.0, 4.9, 0.0, 0.0, 0.0]
+    bar [0.0, 0.0, 32.0, 0.0, 0.0]
+    bar [0.0, 0.0, 0.0, 30.7, 0.0]
+    bar [0.0, 0.0, 0.0, 0.0, 32.4]
+&lt;/pre&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Toronto - Easy Run</title>
+        <published>2026-08-18T00:00:00+00:00</published>
+        <updated>2026-08-18T00:00:00+00:00</updated>
+        
+        <author>
+          <name>Jonathan Almeida</name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/runs/run-2026-08-18/"/>
+        <id>https://jonalmeida.com/runs/run-2026-08-18/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/runs/run-2026-08-18/">&lt;p&gt;Another nice thing about the new shoes are that they aren&#39;t loud and splashy, like I&#39;m running around in puddles.&lt;/p&gt;
+&lt;p&gt;Feeling strong again, almost like last season. 👌&lt;/p&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Stat&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;Distance&lt;/td&gt;&lt;td&gt;8.01 km&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Duration&lt;/td&gt;&lt;td&gt;45:08&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Pace&lt;/td&gt;&lt;td&gt;5:38 /km&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Elevation Gain&lt;/td&gt;&lt;td&gt;26 m&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;h2 id=&quot;route&quot;&gt;Route&lt;/h2&gt;
+&lt;div&gt;&lt;img src=&quot;/runs/maps/24029935327.svg&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; width=&quot;640&quot; /&gt;&lt;/div&gt;
+&lt;h2 id=&quot;heart-rate-zones&quot;&gt;Heart Rate Zones&lt;/h2&gt;
+&lt;pre class=&quot;mermaid&quot;&gt;
+---
+config:
+  themeVariables:
+    xyChart:
+      plotColorPalette: &quot;#555555,#FF8200,#56CC3C,#4090D4,#AAAAAA&quot;
+      backgroundColor: &quot;transparent&quot;
+---
+        
+xychart horizontal
+    title &quot;Time in Heart Rate Zones (%)&quot;
+    x-axis [&quot;Zone 5 Maximum&quot;, &quot;Zone 4 Threshold&quot;, &quot;Zone 3 Aerobic&quot;, &quot;Zone 2 Easy&quot;, &quot;Zone 1 Warm Up&quot;]
+    y-axis &quot;%&quot; 2 --&gt; 100
+    bar [0.0, 0.0, 0.0, 0.0, 0.0]
+    bar [0.0, 0.0, 0.0, 0.0, 0.0]
+    bar [0.0, 0.0, 0.0, 0.0, 0.0]
+    bar [0.0, 0.0, 0.0, 3.4, 0.0]
+    bar [0.0, 0.0, 0.0, 0.0, 96.6]
+&lt;/pre&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Easy Run - New shoe day!</title>
+        <published>2026-08-16T00:00:00+00:00</published>
+        <updated>2026-08-16T00:00:00+00:00</updated>
+        
+        <author>
+          <name>Jonathan Almeida</name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/runs/run-2026-08-16/"/>
+        <id>https://jonalmeida.com/runs/run-2026-08-16/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/runs/run-2026-08-16/">&lt;p&gt;Comfy but also not too spongy! Excellent fit and size (9.5). The &quot;woven&quot; upper is quite decent, but I have nothing to compare it against to know what it&#39;s like to the OG version. These can definitely double as a daily runner and walker.&lt;/p&gt;
+&lt;p&gt;Here is to the next 1000km in these shoes! 👟&lt;/p&gt;
+&lt;div style=&quot;display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;&quot;&gt;&lt;a href=&quot;image-0.jpg&quot; target=&quot;_blank&quot;&gt;&lt;img src=&quot;https://jonalmeida.com/processed_images/image-0.b397f55f377ace94.jpg&quot; /&gt;&lt;/a&gt;&lt;a href=&quot;image-1.jpg&quot; target=&quot;_blank&quot;&gt;&lt;img src=&quot;https://jonalmeida.com/processed_images/image-1.ab095161ac7dd73c.jpg&quot; /&gt;&lt;/a&gt;&lt;a href=&quot;image-2.jpg&quot; target=&quot;_blank&quot;&gt;&lt;img src=&quot;https://jonalmeida.com/processed_images/image-2.dd1c2da43890224f.jpg&quot; /&gt;&lt;/a&gt;&lt;/div&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Stat&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;Distance&lt;/td&gt;&lt;td&gt;7.5 km&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Duration&lt;/td&gt;&lt;td&gt;40:02&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Pace&lt;/td&gt;&lt;td&gt;5:20 /km&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Elevation Gain&lt;/td&gt;&lt;td&gt;35 m&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;h2 id=&quot;route&quot;&gt;Route&lt;/h2&gt;
+&lt;div&gt;&lt;img src=&quot;/runs/maps/24004837231.svg&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; width=&quot;640&quot; /&gt;&lt;/div&gt;
+&lt;h2 id=&quot;heart-rate-zones&quot;&gt;Heart Rate Zones&lt;/h2&gt;
+&lt;pre class=&quot;mermaid&quot;&gt;
+---
+config:
+  themeVariables:
+    xyChart:
+      plotColorPalette: &quot;#555555,#FF8200,#56CC3C,#4090D4,#AAAAAA&quot;
+      backgroundColor: &quot;transparent&quot;
+---
+
+xychart horizontal
+    title &quot;Time in Heart Rate Zones (%)&quot;
+    x-axis [&quot;Zone 5 Maximum&quot;, &quot;Zone 4 Threshold&quot;, &quot;Zone 3 Aerobic&quot;, &quot;Zone 2 Easy&quot;, &quot;Zone 1 Warm Up&quot;]
+    y-axis &quot;%&quot; 2 --&gt; 100
+    bar [0.0, 0.0, 0.0, 0.0, 0.0]
+    bar [0.0, 0.0, 0.0, 0.0, 0.0]
+    bar [0.0, 0.0, 0.0, 0.0, 0.0]
+    bar [0.0, 0.0, 0.0, 1.5, 0.0]
+    bar [0.0, 0.0, 0.0, 0.0, 98.5]
+&lt;/pre&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Toronto - Easy Run</title>
+        <published>2026-08-14T00:00:00+00:00</published>
+        <updated>2026-08-14T00:00:00+00:00</updated>
+        
+        <author>
+          <name>Jonathan Almeida</name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/runs/run-2026-08-14/"/>
+        <id>https://jonalmeida.com/runs/run-2026-08-14/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/runs/run-2026-08-14/">&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Stat&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;Distance&lt;/td&gt;&lt;td&gt;5.02 km&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Duration&lt;/td&gt;&lt;td&gt;27:46&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Pace&lt;/td&gt;&lt;td&gt;5:32 /km&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Elevation Gain&lt;/td&gt;&lt;td&gt;80 m&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;h2 id=&quot;route&quot;&gt;Route&lt;/h2&gt;
+&lt;div&gt;&lt;img src=&quot;/runs/maps/23974962279.svg&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; width=&quot;640&quot; /&gt;&lt;/div&gt;
+&lt;h2 id=&quot;heart-rate-zones&quot;&gt;Heart Rate Zones&lt;/h2&gt;
+&lt;pre class=&quot;mermaid&quot;&gt;
+---
+config:
+  themeVariables:
+    xyChart:
+      plotColorPalette: &quot;#555555,#FF8200,#56CC3C,#4090D4,#AAAAAA&quot;
+      backgroundColor: &quot;transparent&quot;
+---
+        
+xychart horizontal
+    title &quot;Time in Heart Rate Zones (%)&quot;
+    x-axis [&quot;Zone 5 Maximum&quot;, &quot;Zone 4 Threshold&quot;, &quot;Zone 3 Aerobic&quot;, &quot;Zone 2 Easy&quot;, &quot;Zone 1 Warm Up&quot;]
+    y-axis &quot;%&quot; 2 --&gt; 100
+    bar [0.0, 0.0, 0.0, 0.0, 0.0]
+    bar [0.0, 0.0, 0.0, 0.0, 0.0]
+    bar [0.0, 0.0, 0.0, 0.0, 0.0]
+    bar [0.0, 0.0, 0.0, 0.0, 0.0]
+    bar [0.0, 0.0, 0.0, 0.0, 100.0]
+&lt;/pre&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>800s, 400s, 200s, 100s</title>
+        <published>2026-08-12T00:00:00+00:00</published>
+        <updated>2026-08-12T00:00:00+00:00</updated>
+        
+        <author>
+          <name>Jonathan Almeida</name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/runs/run-2026-08-12/"/>
+        <id>https://jonalmeida.com/runs/run-2026-08-12/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/runs/run-2026-08-12/">&lt;p&gt;Didn&#39;t hydrate well enough the night before, so my mouth was dry the whole time.&lt;/p&gt;
+&lt;p&gt;Also didn&#39;t reduce the load, so that was a nice confident booster, but messed up the workout with longer recoveries than I should have had.&lt;/p&gt;
+&lt;p&gt;Poor sleep. 👌&lt;/p&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Stat&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;Distance&lt;/td&gt;&lt;td&gt;8.04 km&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Duration&lt;/td&gt;&lt;td&gt;45:01&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Pace&lt;/td&gt;&lt;td&gt;5:36 /km&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Elevation Gain&lt;/td&gt;&lt;td&gt;22 m&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;h2 id=&quot;route&quot;&gt;Route&lt;/h2&gt;
+&lt;div&gt;&lt;img src=&quot;/runs/maps/23949095342.svg&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; width=&quot;640&quot; /&gt;&lt;/div&gt;
+&lt;h2 id=&quot;heart-rate-zones&quot;&gt;Heart Rate Zones&lt;/h2&gt;
+&lt;pre class=&quot;mermaid&quot;&gt;
+---
+config:
+  themeVariables:
+    xyChart:
+      plotColorPalette: &quot;#555555,#FF8200,#56CC3C,#4090D4,#AAAAAA&quot;
+      backgroundColor: &quot;transparent&quot;
+---
+        
+xychart horizontal
+    title &quot;Time in Heart Rate Zones (%)&quot;
+    x-axis [&quot;Zone 5 Maximum&quot;, &quot;Zone 4 Threshold&quot;, &quot;Zone 3 Aerobic&quot;, &quot;Zone 2 Easy&quot;, &quot;Zone 1 Warm Up&quot;]
+    y-axis &quot;%&quot; 2 --&gt; 100
+    bar [2.4, 0.0, 0.0, 0.0, 0.0]
+    bar [0.0, 26.7, 0.0, 0.0, 0.0]
+    bar [0.0, 0.0, 44.1, 0.0, 0.0]
+    bar [0.0, 0.0, 0.0, 20.6, 0.0]
+    bar [0.0, 0.0, 0.0, 0.0, 6.2]
+&lt;/pre&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>6x800 - A test of willpower</title>
+        <published>2026-08-06T00:00:00+00:00</published>
+        <updated>2026-08-06T00:00:00+00:00</updated>
+        
+        <author>
+          <name>Jonathan Almeida</name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/runs/run-2026-08-06/"/>
+        <id>https://jonalmeida.com/runs/run-2026-08-06/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/runs/run-2026-08-06/">&lt;p&gt;First session of the year! Was ready to give up after the third. Ran slower than planned for all except the second last.&lt;/p&gt;
+&lt;p&gt;88% humidity - would not recommend, one star.&lt;/p&gt;
+&lt;div&gt;&lt;img src=&quot;/runs/2026-08-06_1.jpg&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; width=&quot;480&quot; /&gt;&lt;/div&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Stat&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;Distance&lt;/td&gt;&lt;td&gt;10.1 km&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Duration&lt;/td&gt;&lt;td&gt;1:04:07&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Pace&lt;/td&gt;&lt;td&gt;6:21 /km&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Elevation Gain&lt;/td&gt;&lt;td&gt;39 m&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;h2 id=&quot;route&quot;&gt;Route&lt;/h2&gt;
+&lt;div&gt;&lt;img src=&quot;/runs/maps/23874623097.svg&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; width=&quot;640&quot; /&gt;&lt;/div&gt;
+&lt;h2 id=&quot;heart-rate-zones&quot;&gt;Heart Rate Zones&lt;/h2&gt;
+&lt;pre class=&quot;mermaid&quot;&gt;
+---
+config:
+  themeVariables:
+    xyChart:
+      plotColorPalette: &quot;#555555,#FF8200,#56CC3C,#4090D4,#AAAAAA&quot;
+      backgroundColor: &quot;transparent&quot;
+---
+
+xychart horizontal
+    title &quot;Time in Heart Rate Zones (%)&quot;
+    x-axis [&quot;Zone 5 Maximum&quot;, &quot;Zone 4 Threshold&quot;, &quot;Zone 3 Aerobic&quot;, &quot;Zone 2 Easy&quot;, &quot;Zone 1 Warm Up&quot;]
+    y-axis &quot;%&quot; 2 --&gt; 100
+    bar [5.0, 0.0, 0.0, 0.0, 0.0]
+    bar [0.0, 24.0, 0.0, 0.0, 0.0]
+    bar [0.0, 0.0, 37.3, 0.0, 0.0]
+    bar [0.0, 0.0, 0.0, 14.0, 0.0]
+    bar [0.0, 0.0, 0.0, 0.0, 19.7]
+&lt;/pre&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Toronto - Easy Run</title>
+        <published>2026-08-03T00:00:00+00:00</published>
+        <updated>2026-08-03T00:00:00+00:00</updated>
+        
+        <author>
+          <name>Jonathan Almeida</name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/runs/run-2026-08-03/"/>
+        <id>https://jonalmeida.com/runs/run-2026-08-03/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/runs/run-2026-08-03/">&lt;p&gt;Getting better at holding a 40 minute easy run.&lt;/p&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Stat&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;Distance&lt;/td&gt;&lt;td&gt;7.05 km&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Duration&lt;/td&gt;&lt;td&gt;40:02&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Pace&lt;/td&gt;&lt;td&gt;5:41 /km&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Elevation Gain&lt;/td&gt;&lt;td&gt;17 m&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;h2 id=&quot;route&quot;&gt;Route&lt;/h2&gt;
+&lt;div&gt;&lt;img src=&quot;/runs/maps/23842987760.svg&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; width=&quot;640&quot; /&gt;&lt;/div&gt;
+&lt;h2 id=&quot;heart-rate-zones&quot;&gt;Heart Rate Zones&lt;/h2&gt;
+&lt;pre class=&quot;mermaid&quot;&gt;
+---
+config:
+  themeVariables:
+    xyChart:
+      plotColorPalette: &quot;#555555,#FF8200,#56CC3C,#4090D4,#AAAAAA&quot;
+      backgroundColor: &quot;transparent&quot;
+---
+        
+xychart horizontal
+    title &quot;Time in Heart Rate Zones (%)&quot;
+    x-axis [&quot;Zone 5 Maximum&quot;, &quot;Zone 4 Threshold&quot;, &quot;Zone 3 Aerobic&quot;, &quot;Zone 2 Easy&quot;, &quot;Zone 1 Warm Up&quot;]
+    y-axis &quot;%&quot; 2 --&gt; 100
+    bar [0.0, 0.0, 0.0, 0.0, 0.0]
+    bar [0.0, 0.0, 0.0, 0.0, 0.0]
+    bar [0.0, 0.0, 0.8, 0.0, 0.0]
+    bar [0.0, 0.0, 0.0, 51.8, 0.0]
+    bar [0.0, 0.0, 0.0, 0.0, 47.4]
+&lt;/pre&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Toronto - Easy Run</title>
+        <published>2026-07-28T00:00:00+00:00</published>
+        <updated>2026-07-28T00:00:00+00:00</updated>
+        
+        <author>
+          <name>Jonathan Almeida</name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/runs/run-2026-07-28/"/>
+        <id>https://jonalmeida.com/runs/run-2026-07-28/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/runs/run-2026-07-28/">&lt;p&gt;35 mins easy, 400m + 50 m sprints.&lt;/p&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Stat&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;Distance&lt;/td&gt;&lt;td&gt;7.09 km&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Duration&lt;/td&gt;&lt;td&gt;40:03&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Pace&lt;/td&gt;&lt;td&gt;5:39 /km&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Elevation Gain&lt;/td&gt;&lt;td&gt;26 m&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;h2 id=&quot;route&quot;&gt;Route&lt;/h2&gt;
+&lt;div&gt;&lt;img src=&quot;/runs/maps/23770210878.svg&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; width=&quot;640&quot; /&gt;&lt;/div&gt;
+&lt;h2 id=&quot;heart-rate-zones&quot;&gt;Heart Rate Zones&lt;/h2&gt;
+&lt;pre class=&quot;mermaid&quot;&gt;
+---
+config:
+  themeVariables:
+    xyChart:
+      plotColorPalette: &quot;#555555,#FF8200,#56CC3C,#4090D4,#AAAAAA&quot;
+      backgroundColor: &quot;transparent&quot;
+---
+        
+xychart horizontal
+    title &quot;Time in Heart Rate Zones (%)&quot;
+    x-axis [&quot;Zone 5 Maximum&quot;, &quot;Zone 4 Threshold&quot;, &quot;Zone 3 Aerobic&quot;, &quot;Zone 2 Easy&quot;, &quot;Zone 1 Warm Up&quot;]
+    y-axis &quot;%&quot; 2 --&gt; 100
+    bar [5.6, 0.0, 0.0, 0.0, 0.0]
+    bar [0.0, 2.7, 0.0, 0.0, 0.0]
+    bar [0.0, 0.0, 15.4, 0.0, 0.0]
+    bar [0.0, 0.0, 0.0, 33.9, 0.0]
+    bar [0.0, 0.0, 0.0, 0.0, 42.4]
+&lt;/pre&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>5K easy + 400m sprint</title>
+        <published>2026-07-26T00:00:00+00:00</published>
+        <updated>2026-07-26T00:00:00+00:00</updated>
+        
+        <author>
+          <name>Jonathan Almeida</name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/runs/run-2026-07-26/"/>
+        <id>https://jonalmeida.com/runs/run-2026-07-26/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/runs/run-2026-07-26/">&lt;p&gt;Have a muscle catch for two days so far and I&#39;ve been lying on the ground to relax it. Hoping this run will help relax the muscle.&lt;/p&gt;
+&lt;p&gt;Super hot too despite the cloudy cover so did some 400m reps on the track with 100m cooldowns for the 5K.&lt;/p&gt;
+&lt;div&gt;&lt;img src=&quot;/runs/2026-07-26_1.jpg&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; width=&quot;480&quot; /&gt;&lt;/div&gt;
+&lt;br&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Stat&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;Distance&lt;/td&gt;&lt;td&gt;5.81 km&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Duration&lt;/td&gt;&lt;td&gt;33:22&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Pace&lt;/td&gt;&lt;td&gt;5:45 /km&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Elevation Gain&lt;/td&gt;&lt;td&gt;20 m&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;h2 id=&quot;route&quot;&gt;Route&lt;/h2&gt;
+&lt;div&gt;&lt;img src=&quot;/runs/maps/23743528783.svg&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; width=&quot;640&quot; /&gt;&lt;/div&gt;
+&lt;h2 id=&quot;heart-rate-zones&quot;&gt;Heart Rate Zones&lt;/h2&gt;
+&lt;pre class=&quot;mermaid&quot;&gt;
+---
+config:
+  themeVariables:
+    xyChart:
+      plotColorPalette: &quot;#555555,#FF8200,#56CC3C,#4090D4,#AAAAAA&quot;
+      backgroundColor: &quot;transparent&quot;
+---
+
+xychart horizontal
+    title &quot;Time in Heart Rate Zones (%)&quot;
+    x-axis [&quot;Zone 5 Maximum&quot;, &quot;Zone 4 Threshold&quot;, &quot;Zone 3 Aerobic&quot;, &quot;Zone 2 Easy&quot;, &quot;Zone 1 Warm Up&quot;]
+    y-axis &quot;%&quot; 2 --&gt; 100
+    bar [3.6, 0.0, 0.0, 0.0, 0.0]
+    bar [0.0, 4.7, 0.0, 0.0, 0.0]
+    bar [0.0, 0.0, 30.3, 0.0, 0.0]
+    bar [0.0, 0.0, 0.0, 16.3, 0.0]
+    bar [0.0, 0.0, 0.0, 0.0, 45.1]
+&lt;/pre&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Patagonia Social Run</title>
+        <published>2026-07-21T00:00:00+00:00</published>
+        <updated>2026-07-21T00:00:00+00:00</updated>
+        
+        <author>
+          <name>Jonathan Almeida</name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/runs/run-2026-07-21/"/>
+        <id>https://jonalmeida.com/runs/run-2026-07-21/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/runs/run-2026-07-21/">&lt;p&gt;How you doing legs? You still there?&lt;/p&gt;
+&lt;p&gt;The rain stopped right before we started, so it was a bit humid and pleasant. Humidity wasn&#39;t too severe either.&lt;/p&gt;
+&lt;p&gt;If I&#39;m consistent enough, maybe I&#39;ll do the Waterfront Half to keep some fitness in there before the deep winter.&lt;/p&gt;
+&lt;p&gt;Met some familiars from Blacktoe Midtown over here too!&lt;/p&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Stat&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;Distance&lt;/td&gt;&lt;td&gt;5.1 km&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Duration&lt;/td&gt;&lt;td&gt;31:11&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Pace&lt;/td&gt;&lt;td&gt;6:07 /km&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Elevation Gain&lt;/td&gt;&lt;td&gt;26 m&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;h2 id=&quot;route&quot;&gt;Route&lt;/h2&gt;
+&lt;div&gt;&lt;img src=&quot;/runs/maps/23684602787.svg&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; width=&quot;640&quot; /&gt;&lt;/div&gt;
+&lt;h2 id=&quot;heart-rate-zones&quot;&gt;Heart Rate Zones&lt;/h2&gt;
+&lt;pre class=&quot;mermaid&quot;&gt;
+---
+config:
+  themeVariables:
+    xyChart:
+      plotColorPalette: &quot;#555555,#FF8200,#56CC3C,#4090D4,#AAAAAA&quot;
+      backgroundColor: &quot;transparent&quot;
+---
+        
+xychart horizontal
+    title &quot;Time in Heart Rate Zones (%)&quot;
+    x-axis [&quot;Zone 5 Maximum&quot;, &quot;Zone 4 Threshold&quot;, &quot;Zone 3 Aerobic&quot;, &quot;Zone 2 Easy&quot;, &quot;Zone 1 Warm Up&quot;]
+    y-axis &quot;%&quot; 2 --&gt; 100
+    bar [0.0, 0.0, 0.0, 0.0, 0.0]
+    bar [0.0, 0.0, 0.0, 0.0, 0.0]
+    bar [0.0, 0.0, 25.9, 0.0, 0.0]
+    bar [0.0, 0.0, 0.0, 19.1, 0.0]
+    bar [0.0, 0.0, 0.0, 0.0, 55.0]
+&lt;/pre&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Toronto - Easy Run</title>
+        <published>2026-07-04T00:00:00+00:00</published>
+        <updated>2026-07-04T00:00:00+00:00</updated>
+        
+        <author>
+          <name>Jonathan Almeida</name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/runs/run-2026-07-04/"/>
+        <id>https://jonalmeida.com/runs/run-2026-07-04/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/runs/run-2026-07-04/">&lt;p&gt;Eh.&lt;/p&gt;
+&lt;p&gt;Officially passed 1000 km in the Superblast 2s and the shoes still pop.&lt;/p&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Stat&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;Distance&lt;/td&gt;&lt;td&gt;5.02 km&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Duration&lt;/td&gt;&lt;td&gt;28:08&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Pace&lt;/td&gt;&lt;td&gt;5:36 /km&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Elevation Gain&lt;/td&gt;&lt;td&gt;26 m&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;h2 id=&quot;route&quot;&gt;Route&lt;/h2&gt;
+&lt;div&gt;&lt;img src=&quot;/runs/maps/23482271818.svg&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; width=&quot;640&quot; /&gt;&lt;/div&gt;
+&lt;h2 id=&quot;heart-rate-zones&quot;&gt;Heart Rate Zones&lt;/h2&gt;
+&lt;pre class=&quot;mermaid&quot;&gt;
+---
+config:
+  themeVariables:
+    xyChart:
+      plotColorPalette: &quot;#555555,#FF8200,#56CC3C,#4090D4,#AAAAAA&quot;
+      backgroundColor: &quot;transparent&quot;
+---
+        
+xychart horizontal
+    title &quot;Time in Heart Rate Zones (%)&quot;
+    x-axis [&quot;Zone 5 Maximum&quot;, &quot;Zone 4 Threshold&quot;, &quot;Zone 3 Aerobic&quot;, &quot;Zone 2 Easy&quot;, &quot;Zone 1 Warm Up&quot;]
+    y-axis &quot;%&quot; 2 --&gt; 100
+    bar [0.0, 0.0, 0.0, 0.0, 0.0]
+    bar [0.0, 0.0, 0.0, 0.0, 0.0]
+    bar [0.0, 0.0, 13.8, 0.0, 0.0]
+    bar [0.0, 0.0, 0.0, 8.6, 0.0]
+    bar [0.0, 0.0, 0.0, 0.0, 77.6]
+&lt;/pre&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Toronto - Easy Run</title>
+        <published>2026-06-27T00:00:00+00:00</published>
+        <updated>2026-06-27T00:00:00+00:00</updated>
+        
+        <author>
+          <name>Jonathan Almeida</name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/runs/run-2026-06-27/"/>
+        <id>https://jonalmeida.com/runs/run-2026-06-27/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/runs/run-2026-06-27/">&lt;p&gt;Work took over social life and running took a massive hit too. Cutting it thin here by not starting a training regime anyway.&lt;/p&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Stat&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;Distance&lt;/td&gt;&lt;td&gt;5.27 km&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Duration&lt;/td&gt;&lt;td&gt;29:02&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Pace&lt;/td&gt;&lt;td&gt;5:30 /km&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Elevation Gain&lt;/td&gt;&lt;td&gt;30 m&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;h2 id=&quot;route&quot;&gt;Route&lt;/h2&gt;
+&lt;div&gt;&lt;img src=&quot;/runs/maps/23401432137.svg&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; width=&quot;640&quot; /&gt;&lt;/div&gt;
+&lt;h2 id=&quot;heart-rate-zones&quot;&gt;Heart Rate Zones&lt;/h2&gt;
+&lt;pre class=&quot;mermaid&quot;&gt;
+---
+config:
+  themeVariables:
+    xyChart:
+      plotColorPalette: &quot;#555555,#FF8200,#56CC3C,#4090D4,#AAAAAA&quot;
+      backgroundColor: &quot;transparent&quot;
+---
+        
+xychart horizontal
+    title &quot;Time in Heart Rate Zones (%)&quot;
+    x-axis [&quot;Zone 5 Maximum&quot;, &quot;Zone 4 Threshold&quot;, &quot;Zone 3 Aerobic&quot;, &quot;Zone 2 Easy&quot;, &quot;Zone 1 Warm Up&quot;]
+    y-axis &quot;%&quot; 2 --&gt; 100
+    bar [0.0, 0.0, 0.0, 0.0, 0.0]
+    bar [0.0, 0.2, 0.0, 0.0, 0.0]
+    bar [0.0, 0.0, 55.0, 0.0, 0.0]
+    bar [0.0, 0.0, 0.0, 11.5, 0.0]
+    bar [0.0, 0.0, 0.0, 0.0, 33.3]
+&lt;/pre&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>5x400s</title>
+        <published>2026-06-08T00:00:00+00:00</published>
+        <updated>2026-06-08T00:00:00+00:00</updated>
+        
+        <author>
+          <name>Jonathan Almeida</name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/runs/run-2026-06-08-2/"/>
+        <id>https://jonalmeida.com/runs/run-2026-06-08-2/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/runs/run-2026-06-08-2/">&lt;p&gt;As fit as a cow.&lt;/p&gt;
+&lt;p&gt;Third rep had a stitch that I could only walk off; came back during the fourth. Finished with a little pride on the final fifth.&lt;/p&gt;
+&lt;p&gt;Need better hydration. Didn&#39;t eat well today to cover this effort, but it&#39;s a good measure of where I am.&lt;/p&gt;
+&lt;p&gt;Body aches from some HITT weekend house cleaning.&lt;/p&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Stat&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;Distance&lt;/td&gt;&lt;td&gt;4.02 km&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Duration&lt;/td&gt;&lt;td&gt;23:25&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Pace&lt;/td&gt;&lt;td&gt;5:49 /km&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Elevation Gain&lt;/td&gt;&lt;td&gt;13 m&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;h2 id=&quot;route&quot;&gt;Route&lt;/h2&gt;
+&lt;div&gt;&lt;img src=&quot;/runs/maps/23182259431.svg&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; width=&quot;640&quot; /&gt;&lt;/div&gt;
+&lt;h2 id=&quot;heart-rate-zones&quot;&gt;Heart Rate Zones&lt;/h2&gt;
+&lt;pre class=&quot;mermaid&quot;&gt;
+---
+config:
+  themeVariables:
+    xyChart:
+      plotColorPalette: &quot;#555555,#FF8200,#56CC3C,#4090D4,#AAAAAA&quot;
+      backgroundColor: &quot;transparent&quot;
+---
+        
+xychart horizontal
+    title &quot;Time in Heart Rate Zones (%)&quot;
+    x-axis [&quot;Zone 5 Maximum&quot;, &quot;Zone 4 Threshold&quot;, &quot;Zone 3 Aerobic&quot;, &quot;Zone 2 Easy&quot;, &quot;Zone 1 Warm Up&quot;]
+    y-axis &quot;%&quot; 2 --&gt; 100
+    bar [6.8, 0.0, 0.0, 0.0, 0.0]
+    bar [0.0, 27.2, 0.0, 0.0, 0.0]
+    bar [0.0, 0.0, 31.9, 0.0, 0.0]
+    bar [0.0, 0.0, 0.0, 3.9, 0.0]
+    bar [0.0, 0.0, 0.0, 0.0, 30.3]
+&lt;/pre&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Toronto - Easy Run</title>
+        <published>2026-06-08T00:00:00+00:00</published>
+        <updated>2026-06-08T00:00:00+00:00</updated>
+        
+        <author>
+          <name>Jonathan Almeida</name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/runs/run-2026-06-08/"/>
+        <id>https://jonalmeida.com/runs/run-2026-06-08/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/runs/run-2026-06-08/">&lt;p&gt;Warm-up prior to intervals.&lt;/p&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Stat&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;Distance&lt;/td&gt;&lt;td&gt;1.27 km&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Duration&lt;/td&gt;&lt;td&gt;7:50&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Pace&lt;/td&gt;&lt;td&gt;6:10 /km&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Elevation Gain&lt;/td&gt;&lt;td&gt;11 m&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;h2 id=&quot;route&quot;&gt;Route&lt;/h2&gt;
+&lt;div&gt;&lt;img src=&quot;/runs/maps/23182147115.svg&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; width=&quot;640&quot; /&gt;&lt;/div&gt;
+&lt;h2 id=&quot;heart-rate-zones&quot;&gt;Heart Rate Zones&lt;/h2&gt;
+&lt;pre class=&quot;mermaid&quot;&gt;
+---
+config:
+  themeVariables:
+    xyChart:
+      plotColorPalette: &quot;#555555,#FF8200,#56CC3C,#4090D4,#AAAAAA&quot;
+      backgroundColor: &quot;transparent&quot;
+---
+        
+xychart horizontal
+    title &quot;Time in Heart Rate Zones (%)&quot;
+    x-axis [&quot;Zone 5 Maximum&quot;, &quot;Zone 4 Threshold&quot;, &quot;Zone 3 Aerobic&quot;, &quot;Zone 2 Easy&quot;, &quot;Zone 1 Warm Up&quot;]
+    y-axis &quot;%&quot; 2 --&gt; 100
+    bar [0.0, 0.0, 0.0, 0.0, 0.0]
+    bar [0.0, 0.0, 0.0, 0.0, 0.0]
+    bar [0.0, 0.0, 9.4, 0.0, 0.0]
+    bar [0.0, 0.0, 0.0, 11.4, 0.0]
+    bar [0.0, 0.0, 0.0, 0.0, 79.2]
+&lt;/pre&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Toronto - Easy Run</title>
+        <published>2026-06-01T00:00:00+00:00</published>
+        <updated>2026-06-01T00:00:00+00:00</updated>
+        
+        <author>
+          <name>Jonathan Almeida</name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/runs/run-2026-06-01/"/>
+        <id>https://jonalmeida.com/runs/run-2026-06-01/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/runs/run-2026-06-01/">&lt;p&gt;Encountered a very loud dog that looked like it was going to attack me while the leash was a bit too slack, and I had to jump onto the road. Shouty driver was shouty before he realized my predicament. Took a bit to get back into the run and relax. 🤷‍♂️&lt;/p&gt;
+&lt;p&gt;Good weather, but didn&#39;t stretch. Right leg was hyper extending because the back of the knee was paining a bit - nothing new that I haven&#39;t experienced before.&lt;/p&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Stat&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;Distance&lt;/td&gt;&lt;td&gt;7.49 km&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Duration&lt;/td&gt;&lt;td&gt;40:02&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Pace&lt;/td&gt;&lt;td&gt;5:21 /km&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Elevation Gain&lt;/td&gt;&lt;td&gt;50 m&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;h2 id=&quot;route&quot;&gt;Route&lt;/h2&gt;
+&lt;div&gt;&lt;img src=&quot;/runs/maps/23097761023.svg&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; width=&quot;640&quot; /&gt;&lt;/div&gt;
+&lt;h2 id=&quot;heart-rate-zones&quot;&gt;Heart Rate Zones&lt;/h2&gt;
+&lt;pre class=&quot;mermaid&quot;&gt;
+---
+config:
+  themeVariables:
+    xyChart:
+      plotColorPalette: &quot;#555555,#FF8200,#56CC3C,#4090D4,#AAAAAA&quot;
+      backgroundColor: &quot;transparent&quot;
+---
+        
+xychart horizontal
+    title &quot;Time in Heart Rate Zones (%)&quot;
+    x-axis [&quot;Zone 5 Maximum&quot;, &quot;Zone 4 Threshold&quot;, &quot;Zone 3 Aerobic&quot;, &quot;Zone 2 Easy&quot;, &quot;Zone 1 Warm Up&quot;]
+    y-axis &quot;%&quot; 2 --&gt; 100
+    bar [0.0, 0.0, 0.0, 0.0, 0.0]
+    bar [0.0, 3.6, 0.0, 0.0, 0.0]
+    bar [0.0, 0.0, 29.0, 0.0, 0.0]
+    bar [0.0, 0.0, 0.0, 17.4, 0.0]
+    bar [0.0, 0.0, 0.0, 0.0, 49.9]
+&lt;/pre&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Toronto - Easy Run</title>
+        <published>2026-05-31T00:00:00+00:00</published>
+        <updated>2026-05-31T00:00:00+00:00</updated>
+        
+        <author>
+          <name>Jonathan Almeida</name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/runs/run-2026-05-31/"/>
+        <id>https://jonalmeida.com/runs/run-2026-05-31/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/runs/run-2026-05-31/">&lt;p&gt;Felt very unfit despite a looong warmup and stretch. Need to make that training plan and build up fatigue in the legs again.&lt;/p&gt;
+&lt;p&gt;Ice cream for a job well done at the end.&lt;/p&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Stat&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;Distance&lt;/td&gt;&lt;td&gt;7.82 km&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Duration&lt;/td&gt;&lt;td&gt;43:02&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Pace&lt;/td&gt;&lt;td&gt;5:30 /km&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Elevation Gain&lt;/td&gt;&lt;td&gt;56 m&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;h2 id=&quot;route&quot;&gt;Route&lt;/h2&gt;
+&lt;div&gt;&lt;img src=&quot;/runs/maps/23085753805.svg&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; width=&quot;640&quot; /&gt;&lt;/div&gt;
+&lt;h2 id=&quot;heart-rate-zones&quot;&gt;Heart Rate Zones&lt;/h2&gt;
+&lt;pre class=&quot;mermaid&quot;&gt;
+---
+config:
+  themeVariables:
+    xyChart:
+      plotColorPalette: &quot;#555555,#FF8200,#56CC3C,#4090D4,#AAAAAA&quot;
+      backgroundColor: &quot;transparent&quot;
+---
+        
+xychart horizontal
+    title &quot;Time in Heart Rate Zones (%)&quot;
+    x-axis [&quot;Zone 5 Maximum&quot;, &quot;Zone 4 Threshold&quot;, &quot;Zone 3 Aerobic&quot;, &quot;Zone 2 Easy&quot;, &quot;Zone 1 Warm Up&quot;]
+    y-axis &quot;%&quot; 2 --&gt; 100
+    bar [0.0, 0.0, 0.0, 0.0, 0.0]
+    bar [0.0, 0.0, 0.0, 0.0, 0.0]
+    bar [0.0, 0.0, 8.8, 0.0, 0.0]
+    bar [0.0, 0.0, 0.0, 18.1, 0.0]
+    bar [0.0, 0.0, 0.0, 0.0, 73.2]
+&lt;/pre&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Fun Running</title>
+        <published>2026-05-25T00:00:00+00:00</published>
+        <updated>2026-05-25T00:00:00+00:00</updated>
+        
+        <author>
+          <name>Jonathan Almeida</name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/runs/run-2026-05-25/"/>
+        <id>https://jonalmeida.com/runs/run-2026-05-25/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/runs/run-2026-05-25/">&lt;p&gt;Went harder for fun, I guess. Didn&#39;t feel like it, but wanted to see what was in the engine.&lt;/p&gt;
+&lt;p&gt;Shoes were tightened a bit much and the t-shirt I wore isn&#39;t as breathable.&lt;/p&gt;
+&lt;p&gt;Felt good, all things considered.&lt;/p&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Stat&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;Distance&lt;/td&gt;&lt;td&gt;5.01 km&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Duration&lt;/td&gt;&lt;td&gt;26:23&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Pace&lt;/td&gt;&lt;td&gt;5:16 /km&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Elevation Gain&lt;/td&gt;&lt;td&gt;40 m&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;h2 id=&quot;route&quot;&gt;Route&lt;/h2&gt;
+&lt;div&gt;&lt;img src=&quot;/runs/maps/23013600635.svg&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; width=&quot;640&quot; /&gt;&lt;/div&gt;
+&lt;h2 id=&quot;heart-rate-zones&quot;&gt;Heart Rate Zones&lt;/h2&gt;
+&lt;pre class=&quot;mermaid&quot;&gt;
+---
+config:
+  themeVariables:
+    xyChart:
+      plotColorPalette: &quot;#555555,#FF8200,#56CC3C,#4090D4,#AAAAAA&quot;
+      backgroundColor: &quot;transparent&quot;
+---
+        
+xychart horizontal
+    title &quot;Time in Heart Rate Zones (%)&quot;
+    x-axis [&quot;Zone 5 Maximum&quot;, &quot;Zone 4 Threshold&quot;, &quot;Zone 3 Aerobic&quot;, &quot;Zone 2 Easy&quot;, &quot;Zone 1 Warm Up&quot;]
+    y-axis &quot;%&quot; 2 --&gt; 100
+    bar [0.0, 0.0, 0.0, 0.0, 0.0]
+    bar [0.0, 8.8, 0.0, 0.0, 0.0]
+    bar [0.0, 0.0, 74.6, 0.0, 0.0]
+    bar [0.0, 0.0, 0.0, 4.2, 0.0]
+    bar [0.0, 0.0, 0.0, 0.0, 12.4]
+&lt;/pre&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Toronto - Easy Run</title>
+        <published>2026-05-17T00:00:00+00:00</published>
+        <updated>2026-05-17T00:00:00+00:00</updated>
+        
+        <author>
+          <name>Jonathan Almeida</name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/runs/run-2026-05-17/"/>
+        <id>https://jonalmeida.com/runs/run-2026-05-17/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/runs/run-2026-05-17/">&lt;p&gt;So many excuses to use!&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Muscle pain from bowling (with style) during the week. Used the massage gun to get a warmup started, but it&#39;s still a bit touchy.&lt;/li&gt;
+&lt;li&gt;Poor sleep from growing heat overnight.&lt;/li&gt;
+&lt;li&gt;Stupidly hot outside right now with a heatwave in-progress.&lt;/li&gt;
+&lt;li&gt;Made a few wrong turns trying to find the most shaded route.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;I miss the cold already.&lt;/p&gt;
+&lt;div&gt;&lt;img src=&quot;/runs/2026-05-17_1.jpg&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; width=&quot;480&quot; /&gt;&lt;/div&gt;
+&lt;br&gt;
+&lt;div&gt;&lt;img src=&quot;/runs/2026-05-17_2.jpg&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; width=&quot;480&quot; /&gt;&lt;/div&gt;
+&lt;br&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Stat&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;Distance&lt;/td&gt;&lt;td&gt;3.47 km&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Duration&lt;/td&gt;&lt;td&gt;21:00&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Pace&lt;/td&gt;&lt;td&gt;6:03 /km&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Elevation Gain&lt;/td&gt;&lt;td&gt;17 m&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;h2 id=&quot;route&quot;&gt;Route&lt;/h2&gt;
+&lt;div&gt;&lt;img src=&quot;/runs/maps/22916321347.svg&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; width=&quot;640&quot; /&gt;&lt;/div&gt;
+&lt;h2 id=&quot;heart-rate-zones&quot;&gt;Heart Rate Zones&lt;/h2&gt;
+&lt;pre class=&quot;mermaid&quot;&gt;
+---
+config:
+  themeVariables:
+    xyChart:
+      plotColorPalette: &quot;#555555,#FF8200,#56CC3C,#4090D4,#AAAAAA&quot;
+      backgroundColor: &quot;transparent&quot;
+---
+
+xychart horizontal
+    title &quot;Time in Heart Rate Zones (%)&quot;
+    x-axis [&quot;Zone 5 Maximum&quot;, &quot;Zone 4 Threshold&quot;, &quot;Zone 3 Aerobic&quot;, &quot;Zone 2 Easy&quot;, &quot;Zone 1 Warm Up&quot;]
+    y-axis &quot;%&quot; 2 --&gt; 100
+    bar [0.0, 0.0, 0.0, 0.0, 0.0]
+    bar [0.0, 0.0, 0.0, 0.0, 0.0]
+    bar [0.0, 0.0, 24.3, 0.0, 0.0]
+    bar [0.0, 0.0, 0.0, 22.7, 0.0]
+    bar [0.0, 0.0, 0.0, 0.0, 53.0]
+&lt;/pre&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Sporting Life 10K 2026</title>
+        <published>2026-05-10T00:00:00+00:00</published>
+        <updated>2026-05-10T00:00:00+00:00</updated>
+        
+        <author>
+          <name>Jonathan Almeida</name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/runs/run-2026-05-10/"/>
+        <id>https://jonalmeida.com/runs/run-2026-05-10/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/runs/run-2026-05-10/">&lt;p&gt;Better route, colder day, worse roads.&lt;/p&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Stat&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;Distance&lt;/td&gt;&lt;td&gt;10.14 km&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Duration&lt;/td&gt;&lt;td&gt;1:33:42&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Pace&lt;/td&gt;&lt;td&gt;9:14 /km&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Elevation Gain&lt;/td&gt;&lt;td&gt;43 m&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;h2 id=&quot;route&quot;&gt;Route&lt;/h2&gt;
+&lt;div&gt;&lt;img src=&quot;/runs/maps/22834340990.svg&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; width=&quot;640&quot; /&gt;&lt;/div&gt;
+&lt;h2 id=&quot;heart-rate-zones&quot;&gt;Heart Rate Zones&lt;/h2&gt;
+&lt;pre class=&quot;mermaid&quot;&gt;
+---
+config:
+  themeVariables:
+    xyChart:
+      plotColorPalette: &quot;#555555,#FF8200,#56CC3C,#4090D4,#AAAAAA&quot;
+      backgroundColor: &quot;transparent&quot;
+---
+        
+xychart horizontal
+    title &quot;Time in Heart Rate Zones (%)&quot;
+    x-axis [&quot;Zone 5 Maximum&quot;, &quot;Zone 4 Threshold&quot;, &quot;Zone 3 Aerobic&quot;, &quot;Zone 2 Easy&quot;, &quot;Zone 1 Warm Up&quot;]
+    y-axis &quot;%&quot; 2 --&gt; 100
+    bar [0.0, 0.0, 0.0, 0.0, 0.0]
+    bar [0.0, 0.0, 0.0, 0.0, 0.0]
+    bar [0.0, 0.0, 0.9, 0.0, 0.0]
+    bar [0.0, 0.0, 0.0, 5.0, 0.0]
+    bar [0.0, 0.0, 0.0, 0.0, 94.1]
+&lt;/pre&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Toronto - Easy Run</title>
+        <published>2026-05-06T00:00:00+00:00</published>
+        <updated>2026-05-06T00:00:00+00:00</updated>
+        
+        <author>
+          <name>Jonathan Almeida</name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/runs/run-2026-05-06/"/>
+        <id>https://jonalmeida.com/runs/run-2026-05-06/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/runs/run-2026-05-06/">&lt;p&gt;More of a fun run. Better than two days ago with the massage gun to help with the warmup.&lt;/p&gt;
+&lt;p&gt;Cooler weather and didn&#39;t wait too late before I depleted my energy stores.&lt;/p&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Stat&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;Distance&lt;/td&gt;&lt;td&gt;7.62 km&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Duration&lt;/td&gt;&lt;td&gt;40:56&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Pace&lt;/td&gt;&lt;td&gt;5:22 /km&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Elevation Gain&lt;/td&gt;&lt;td&gt;50 m&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;h2 id=&quot;route&quot;&gt;Route&lt;/h2&gt;
+&lt;div&gt;&lt;img src=&quot;/runs/maps/22791600056.svg&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; width=&quot;640&quot; /&gt;&lt;/div&gt;
+&lt;h2 id=&quot;heart-rate-zones&quot;&gt;Heart Rate Zones&lt;/h2&gt;
+&lt;pre class=&quot;mermaid&quot;&gt;
+---
+config:
+  themeVariables:
+    xyChart:
+      plotColorPalette: &quot;#555555,#FF8200,#56CC3C,#4090D4,#AAAAAA&quot;
+      backgroundColor: &quot;transparent&quot;
+---
+        
+xychart horizontal
+    title &quot;Time in Heart Rate Zones (%)&quot;
+    x-axis [&quot;Zone 5 Maximum&quot;, &quot;Zone 4 Threshold&quot;, &quot;Zone 3 Aerobic&quot;, &quot;Zone 2 Easy&quot;, &quot;Zone 1 Warm Up&quot;]
+    y-axis &quot;%&quot; 2 --&gt; 100
+    bar [0.0, 0.0, 0.0, 0.0, 0.0]
+    bar [0.0, 0.0, 0.0, 0.0, 0.0]
+    bar [0.0, 0.0, 15.8, 0.0, 0.0]
+    bar [0.0, 0.0, 0.0, 29.4, 0.0]
+    bar [0.0, 0.0, 0.0, 0.0, 54.8]
+&lt;/pre&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Toronto - Easy Run</title>
+        <published>2026-05-04T00:00:00+00:00</published>
+        <updated>2026-05-04T00:00:00+00:00</updated>
+        
+        <author>
+          <name>Jonathan Almeida</name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/runs/run-2026-05-04/"/>
+        <id>https://jonalmeida.com/runs/run-2026-05-04/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/runs/run-2026-05-04/">&lt;p&gt;Tired run. Toe is still prickly.&lt;/p&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Stat&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;Distance&lt;/td&gt;&lt;td&gt;5.55 km&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Duration&lt;/td&gt;&lt;td&gt;30:02&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Pace&lt;/td&gt;&lt;td&gt;5:25 /km&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Elevation Gain&lt;/td&gt;&lt;td&gt;41 m&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;h2 id=&quot;route&quot;&gt;Route&lt;/h2&gt;
+&lt;div&gt;&lt;img src=&quot;/runs/maps/22767375202.svg&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; width=&quot;640&quot; /&gt;&lt;/div&gt;
+&lt;h2 id=&quot;heart-rate-zones&quot;&gt;Heart Rate Zones&lt;/h2&gt;
+&lt;pre class=&quot;mermaid&quot;&gt;
+---
+config:
+  themeVariables:
+    xyChart:
+      plotColorPalette: &quot;#555555,#FF8200,#56CC3C,#4090D4,#AAAAAA&quot;
+      backgroundColor: &quot;transparent&quot;
+---
+        
+xychart horizontal
+    title &quot;Time in Heart Rate Zones (%)&quot;
+    x-axis [&quot;Zone 5 Maximum&quot;, &quot;Zone 4 Threshold&quot;, &quot;Zone 3 Aerobic&quot;, &quot;Zone 2 Easy&quot;, &quot;Zone 1 Warm Up&quot;]
+    y-axis &quot;%&quot; 2 --&gt; 100
+    bar [0.0, 0.0, 0.0, 0.0, 0.0]
+    bar [0.0, 0.0, 0.0, 0.0, 0.0]
+    bar [0.0, 0.0, 28.1, 0.0, 0.0]
+    bar [0.0, 0.0, 0.0, 20.1, 0.0]
+    bar [0.0, 0.0, 0.0, 0.0, 51.8]
+&lt;/pre&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Toronto - Base</title>
+        <published>2026-04-30T00:00:00+00:00</published>
+        <updated>2026-04-30T00:00:00+00:00</updated>
+        
+        <author>
+          <name>Jonathan Almeida</name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/runs/run-2026-04-30/"/>
+        <id>https://jonalmeida.com/runs/run-2026-04-30/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/runs/run-2026-04-30/">&lt;p&gt;Prickly without half a toenail. Kept it short as I&#39;ve failed to be consistent again.&lt;/p&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Stat&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;Distance&lt;/td&gt;&lt;td&gt;5.48 km&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Duration&lt;/td&gt;&lt;td&gt;30:01&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Pace&lt;/td&gt;&lt;td&gt;5:29 /km&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Elevation Gain&lt;/td&gt;&lt;td&gt;37 m&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;h2 id=&quot;route&quot;&gt;Route&lt;/h2&gt;
+&lt;div&gt;&lt;img src=&quot;/runs/maps/22719985618.svg&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; width=&quot;640&quot; /&gt;&lt;/div&gt;
+&lt;h2 id=&quot;heart-rate-zones&quot;&gt;Heart Rate Zones&lt;/h2&gt;
+&lt;pre class=&quot;mermaid&quot;&gt;
+---
+config:
+  themeVariables:
+    xyChart:
+      plotColorPalette: &quot;#555555,#FF8200,#56CC3C,#4090D4,#AAAAAA&quot;
+      backgroundColor: &quot;transparent&quot;
+---
+        
+xychart horizontal
+    title &quot;Time in Heart Rate Zones (%)&quot;
+    x-axis [&quot;Zone 5 Maximum&quot;, &quot;Zone 4 Threshold&quot;, &quot;Zone 3 Aerobic&quot;, &quot;Zone 2 Easy&quot;, &quot;Zone 1 Warm Up&quot;]
+    y-axis &quot;%&quot; 2 --&gt; 100
+    bar [0.0, 0.0, 0.0, 0.0, 0.0]
+    bar [0.0, 0.0, 0.0, 0.0, 0.0]
+    bar [0.0, 0.0, 34.1, 0.0, 0.0]
+    bar [0.0, 0.0, 0.0, 28.7, 0.0]
+    bar [0.0, 0.0, 0.0, 0.0, 37.2]
+&lt;/pre&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Toronto Running</title>
+        <published>2026-04-19T00:00:00+00:00</published>
+        <updated>2026-04-19T00:00:00+00:00</updated>
+        
+        <author>
+          <name>Jonathan Almeida</name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/runs/run-2026-04-19-2/"/>
+        <id>https://jonalmeida.com/runs/run-2026-04-19-2/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/runs/run-2026-04-19-2/">&lt;p&gt;Arrived too late for the group run, and made my way to the bakery right after the bit of the trail I wanted to do.&lt;/p&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Stat&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;Distance&lt;/td&gt;&lt;td&gt;5.01 km&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Duration&lt;/td&gt;&lt;td&gt;25:52&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Pace&lt;/td&gt;&lt;td&gt;5:10 /km&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Elevation Gain&lt;/td&gt;&lt;td&gt;29 m&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;h2 id=&quot;route&quot;&gt;Route&lt;/h2&gt;
+&lt;div&gt;&lt;img src=&quot;/runs/maps/22583024602.svg&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; width=&quot;640&quot; /&gt;&lt;/div&gt;
+&lt;h2 id=&quot;heart-rate-zones&quot;&gt;Heart Rate Zones&lt;/h2&gt;
+&lt;pre class=&quot;mermaid&quot;&gt;
+---
+config:
+  themeVariables:
+    xyChart:
+      plotColorPalette: &quot;#555555,#FF8200,#56CC3C,#4090D4,#AAAAAA&quot;
+      backgroundColor: &quot;transparent&quot;
+---
+
+xychart horizontal
+    title &quot;Time in Heart Rate Zones (%)&quot;
+    x-axis [&quot;Zone 5 Maximum&quot;, &quot;Zone 4 Threshold&quot;, &quot;Zone 3 Aerobic&quot;, &quot;Zone 2 Easy&quot;, &quot;Zone 1 Warm Up&quot;]
+    y-axis &quot;%&quot; 2 --&gt; 100
+    bar [0.0, 0.0, 0.0, 0.0, 0.0]
+    bar [0.0, 0.0, 0.0, 0.0, 0.0]
+    bar [0.0, 0.0, 40.4, 0.0, 0.0]
+    bar [0.0, 0.0, 0.0, 25.7, 0.0]
+    bar [0.0, 0.0, 0.0, 0.0, 33.9]
+&lt;/pre&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Toronto Running</title>
+        <published>2026-04-19T00:00:00+00:00</published>
+        <updated>2026-04-19T00:00:00+00:00</updated>
+        
+        <author>
+          <name>Jonathan Almeida</name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/runs/run-2026-04-19/"/>
+        <id>https://jonalmeida.com/runs/run-2026-04-19/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/runs/run-2026-04-19/">&lt;p&gt;Warm-up run without a stretch because I&#39;m lazy today morning.&lt;/p&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Stat&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;Distance&lt;/td&gt;&lt;td&gt;2.5 km&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Duration&lt;/td&gt;&lt;td&gt;12:22&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Pace&lt;/td&gt;&lt;td&gt;4:57 /km&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Elevation Gain&lt;/td&gt;&lt;td&gt;19 m&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;h2 id=&quot;route&quot;&gt;Route&lt;/h2&gt;
+&lt;div&gt;&lt;img src=&quot;/runs/maps/22582618895.svg&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; width=&quot;640&quot; /&gt;&lt;/div&gt;
+&lt;h2 id=&quot;heart-rate-zones&quot;&gt;Heart Rate Zones&lt;/h2&gt;
+&lt;pre class=&quot;mermaid&quot;&gt;
+---
+config:
+  themeVariables:
+    xyChart:
+      plotColorPalette: &quot;#555555,#FF8200,#56CC3C,#4090D4,#AAAAAA&quot;
+      backgroundColor: &quot;transparent&quot;
+---
+
+xychart horizontal
+    title &quot;Time in Heart Rate Zones (%)&quot;
+    x-axis [&quot;Zone 5 Maximum&quot;, &quot;Zone 4 Threshold&quot;, &quot;Zone 3 Aerobic&quot;, &quot;Zone 2 Easy&quot;, &quot;Zone 1 Warm Up&quot;]
+    y-axis &quot;%&quot; 2 --&gt; 100
+    bar [0.0, 0.0, 0.0, 0.0, 0.0]
+    bar [0.0, 0.4, 0.0, 0.0, 0.0]
+    bar [0.0, 0.0, 49.3, 0.0, 0.0]
+    bar [0.0, 0.0, 0.0, 25.7, 0.0]
+    bar [0.0, 0.0, 0.0, 0.0, 24.6]
+&lt;/pre&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Toronto - Easy Run</title>
+        <published>2026-04-18T00:00:00+00:00</published>
+        <updated>2026-04-18T00:00:00+00:00</updated>
+        
+        <author>
+          <name>Jonathan Almeida</name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/runs/run-2026-04-18/"/>
+        <id>https://jonalmeida.com/runs/run-2026-04-18/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/runs/run-2026-04-18/">&lt;p&gt;Unfit and kept it short. Legs are fine, but my upper body is tight.&lt;/p&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Stat&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;Distance&lt;/td&gt;&lt;td&gt;3.81 km&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Duration&lt;/td&gt;&lt;td&gt;20:00&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Pace&lt;/td&gt;&lt;td&gt;5:15 /km&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Elevation Gain&lt;/td&gt;&lt;td&gt;35 m&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;h2 id=&quot;route&quot;&gt;Route&lt;/h2&gt;
+&lt;div&gt;&lt;img src=&quot;/runs/maps/22571725386.svg&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; width=&quot;640&quot; /&gt;&lt;/div&gt;
+&lt;h2 id=&quot;heart-rate-zones&quot;&gt;Heart Rate Zones&lt;/h2&gt;
+&lt;pre class=&quot;mermaid&quot;&gt;
+---
+config:
+  themeVariables:
+    xyChart:
+      plotColorPalette: &quot;#555555,#FF8200,#56CC3C,#4090D4,#AAAAAA&quot;
+      backgroundColor: &quot;transparent&quot;
+---
+
+xychart horizontal
+    title &quot;Time in Heart Rate Zones (%)&quot;
+    x-axis [&quot;Zone 5 Maximum&quot;, &quot;Zone 4 Threshold&quot;, &quot;Zone 3 Aerobic&quot;, &quot;Zone 2 Easy&quot;, &quot;Zone 1 Warm Up&quot;]
+    y-axis &quot;%&quot; 2 --&gt; 100
+    bar [0.0, 0.0, 0.0, 0.0, 0.0]
+    bar [0.0, 1.4, 0.0, 0.0, 0.0]
+    bar [0.0, 0.0, 34.3, 0.0, 0.0]
+    bar [0.0, 0.0, 0.0, 18.9, 0.0]
+    bar [0.0, 0.0, 0.0, 0.0, 45.4]
+&lt;/pre&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Toronto - Easy Run</title>
+        <published>2026-03-20T00:00:00+00:00</published>
+        <updated>2026-03-20T00:00:00+00:00</updated>
+        
+        <author>
+          <name>Jonathan Almeida</name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/runs/run-2026-03-20/"/>
+        <id>https://jonalmeida.com/runs/run-2026-03-20/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/runs/run-2026-03-20/">&lt;p&gt;Burpy run, felt some sloshing inside of me for the first few kms.&lt;/p&gt;
+&lt;p&gt;Quite happy that the legs are walking up. Did a slow 2K warmup around the block and didn&#39;t feel any early tightness. Should include this is my pre-run workout during training season.&lt;/p&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Stat&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;Distance&lt;/td&gt;&lt;td&gt;8.16 km&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Duration&lt;/td&gt;&lt;td&gt;45:08&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Pace&lt;/td&gt;&lt;td&gt;5:32 /km&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Elevation Gain&lt;/td&gt;&lt;td&gt;44 m&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;h2 id=&quot;route&quot;&gt;Route&lt;/h2&gt;
+&lt;div&gt;&lt;img src=&quot;/runs/maps/22243257604.svg&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; width=&quot;640&quot; /&gt;&lt;/div&gt;
+&lt;h2 id=&quot;heart-rate-zones&quot;&gt;Heart Rate Zones&lt;/h2&gt;
+&lt;pre class=&quot;mermaid&quot;&gt;
+---
+config:
+  themeVariables:
+    xyChart:
+      plotColorPalette: &quot;#555555,#FF8200,#56CC3C,#4090D4,#AAAAAA&quot;
+      backgroundColor: &quot;transparent&quot;
+---
+
+xychart horizontal
+    title &quot;Time in Heart Rate Zones (%)&quot;
+    x-axis [&quot;Zone 5 Maximum&quot;, &quot;Zone 4 Threshold&quot;, &quot;Zone 3 Aerobic&quot;, &quot;Zone 2 Easy&quot;, &quot;Zone 1 Warm Up&quot;]
+    y-axis &quot;%&quot; 2 --&gt; 100
+    bar [0.0, 0.0, 0.0, 0.0, 0.0]
+    bar [0.0, 0.0, 0.0, 0.0, 0.0]
+    bar [0.0, 0.0, 8.5, 0.0, 0.0]
+    bar [0.0, 0.0, 0.0, 22.4, 0.0]
+    bar [0.0, 0.0, 0.0, 0.0, 69.0]
+&lt;/pre&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Toronto - Easy Run</title>
+        <published>2026-03-12T00:00:00+00:00</published>
+        <updated>2026-03-12T00:00:00+00:00</updated>
+        
+        <author>
+          <name>Jonathan Almeida</name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/runs/run-2026-03-12/"/>
+        <id>https://jonalmeida.com/runs/run-2026-03-12/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/runs/run-2026-03-12/">&lt;p&gt;Chilly. Ran fast to stay warm.&lt;/p&gt;
+&lt;p&gt;New baseball park construction almost done.&lt;/p&gt;
+&lt;div&gt;&lt;img src=&quot;/runs/2026-03-12_1.jpg&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; width=&quot;480&quot; /&gt;&lt;/div&gt;
+&lt;br&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Stat&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;Distance&lt;/td&gt;&lt;td&gt;8.18 km&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Duration&lt;/td&gt;&lt;td&gt;45:00&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Pace&lt;/td&gt;&lt;td&gt;5:30 /km&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Elevation Gain&lt;/td&gt;&lt;td&gt;53 m&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;h2 id=&quot;route&quot;&gt;Route&lt;/h2&gt;
+&lt;div&gt;&lt;img src=&quot;/runs/maps/22154893974.svg&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; width=&quot;640&quot; /&gt;&lt;/div&gt;
+&lt;h2 id=&quot;heart-rate-zones&quot;&gt;Heart Rate Zones&lt;/h2&gt;
+&lt;pre class=&quot;mermaid&quot;&gt;
+---
+config:
+  themeVariables:
+    xyChart:
+      plotColorPalette: &quot;#555555,#FF8200,#56CC3C,#4090D4,#AAAAAA&quot;
+      backgroundColor: &quot;transparent&quot;
+---
+
+xychart horizontal
+    title &quot;Time in Heart Rate Zones (%)&quot;
+    x-axis [&quot;Zone 5 Maximum&quot;, &quot;Zone 4 Threshold&quot;, &quot;Zone 3 Aerobic&quot;, &quot;Zone 2 Easy&quot;, &quot;Zone 1 Warm Up&quot;]
+    y-axis &quot;%&quot; 2 --&gt; 100
+    bar [0.0, 0.0, 0.0, 0.0, 0.0]
+    bar [0.0, 1.8, 0.0, 0.0, 0.0]
+    bar [0.0, 0.0, 26.1, 0.0, 0.0]
+    bar [0.0, 0.0, 0.0, 24.1, 0.0]
+    bar [0.0, 0.0, 0.0, 0.0, 48.1]
+&lt;/pre&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Toronto - Easy Run</title>
+        <published>2026-03-08T00:00:00+00:00</published>
+        <updated>2026-03-08T00:00:00+00:00</updated>
+        
+        <author>
+          <name>Jonathan Almeida</name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/runs/run-2026-03-08/"/>
+        <id>https://jonalmeida.com/runs/run-2026-03-08/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/runs/run-2026-03-08/">&lt;p&gt;Body is a bit stiff and didn&#39;t feel fluid, but managed to get through it. Overdressed a little, though it wasn&#39;t a problem.&lt;/p&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Stat&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;Distance&lt;/td&gt;&lt;td&gt;8.06 km&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Duration&lt;/td&gt;&lt;td&gt;45:01&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Pace&lt;/td&gt;&lt;td&gt;5:35 /km&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Elevation Gain&lt;/td&gt;&lt;td&gt;54 m&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;h2 id=&quot;route&quot;&gt;Route&lt;/h2&gt;
+&lt;div&gt;&lt;img src=&quot;/runs/maps/22109234050.svg&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; width=&quot;640&quot; /&gt;&lt;/div&gt;
+&lt;h2 id=&quot;heart-rate-zones&quot;&gt;Heart Rate Zones&lt;/h2&gt;
+&lt;pre class=&quot;mermaid&quot;&gt;
+---
+config:
+  themeVariables:
+    xyChart:
+      plotColorPalette: &quot;#555555,#FF8200,#56CC3C,#4090D4,#AAAAAA&quot;
+      backgroundColor: &quot;transparent&quot;
+---
+
+xychart horizontal
+    title &quot;Time in Heart Rate Zones (%)&quot;
+    x-axis [&quot;Zone 5 Maximum&quot;, &quot;Zone 4 Threshold&quot;, &quot;Zone 3 Aerobic&quot;, &quot;Zone 2 Easy&quot;, &quot;Zone 1 Warm Up&quot;]
+    y-axis &quot;%&quot; 2 --&gt; 100
+    bar [0.0, 0.0, 0.0, 0.0, 0.0]
+    bar [0.0, 0.0, 0.0, 0.0, 0.0]
+    bar [0.0, 0.0, 15.7, 0.0, 0.0]
+    bar [0.0, 0.0, 0.0, 28.7, 0.0]
+    bar [0.0, 0.0, 0.0, 0.0, 55.6]
+&lt;/pre&gt;
+</content>
+        
+    </entry>
+</feed>

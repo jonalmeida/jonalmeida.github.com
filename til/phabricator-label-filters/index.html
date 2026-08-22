@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gmail filters based on X-Phabricator-Stamps header | Jonathan Almeida</title>
+  <meta name="title" content="Gmail filters based on X-Phabricator-Stamps header">
+<meta name="description" content="Scribblings and nonsense">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+  
+  <link rel="alternate" type="application/atom+xml" title="Jonathan Almeida" href="https://jonalmeida.com/atom.xml"><style>
+    :root {
+    --width: 800px;
+    --font-main: Verdana, sans-serif;
+    --font-secondary: Verdana, sans-serif;
+    --font-scale: 1em;
+    --background-color: #fff;
+    --heading-color: #222;
+    --text-color: #444;
+    --link-color: #3273dc;
+    --visited-color: #8b6fcb;
+    --code-background-color: #f2f2f2;
+    --code-color: #222;
+    --blockquote-color: #222;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --background-color: #01242e;
+      --heading-color: #eee;
+      --text-color: #ddd;
+      --link-color: #8cc2dd;
+      --visited-color: #8b6fcb;
+      --code-background-color: #000;
+      --code-color: #ddd;
+      --blockquote-color: #ccc;
+    }
+  }
+
+  body {
+    font-family: var(--font-secondary);
+    font-size: var(--font-scale);
+    margin: auto;
+    padding: 20px;
+    max-width: var(--width);
+    text-align: left;
+    background-color: var(--background-color);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.5;
+    color: var(--text-color);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-main);
+    color: var(--heading-color);
+  }
+
+  a {
+    color: var(--link-color);
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  nav a {
+    margin-right: 8px;
+  }
+
+  nav span.active {
+    font-weight: bold;
+    margin-right: 10px;
+  }
+  strong,
+  b {
+    color: var(--heading-color);
+  }
+
+  button {
+    margin: 0;
+    cursor: pointer;
+  }
+
+  main {
+    line-height: 1.6;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  hr {
+    border: 0;
+    border-top: 1px dashed;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  pre code {
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    display: block;
+    padding: 20px;
+    white-space: pre-wrap;
+    font-size: 0.875rem;
+    overflow-x: auto;
+  }
+
+  code {
+    font-family: monospace;
+    padding: 2px;
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    border-radius: 3px;
+  }
+
+  blockquote {
+    border-left: 1px solid #999;
+    color: var(--code-color);
+    padding-left: 20px;
+    font-style: italic;
+  }
+
+  footer {
+    padding: 25px 0;
+    text-align: center;
+  }
+
+  .title:hover {
+    text-decoration: none;
+  }
+
+  .title h1 {
+    font-size: 1.5em;
+  }
+
+  .inline {
+    width: auto !important;
+  }
+
+  .highlight,
+  .code {
+    padding: 1px 15px;
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    border-radius: 3px;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    overflow-x: auto;
+  }
+
+  /* blog post list */
+  ul.blog-posts {
+    list-style-type: none;
+    padding: unset;
+  }
+
+  ul.blog-posts li {
+    display: flex;
+  }
+
+  ul.blog-posts li span {
+    flex: 0 0 130px;
+  }
+
+  ul.blog-posts li a:visited {
+    color: var(--visited-color);
+  }
+
+  .tags {
+    font-size: smaller;
+  }
+
+  .footnote-definition {
+    display: flex;
+    margin-top: 1em;
+  }
+  .footnote-definition-label {
+    margin-left: 1rem;
+    margin-right: 0.5rem;
+    vertical-align: baseline;
+  }
+  .footnote-definition-label::after {
+    content: "."
+  }
+  .footnote-definition > p {
+    margin: 0;
+  }
+
+  </style><style>
+
+section#comments {
+  p {
+    font-size: 0.8em;
+  }
+}
+
+
+pre mark {
+  color: var(--code-color);
+}
+
+
+pre {
+  background-color: transparent !important;
+}
+</style>
+
+
+
+</head>
+<body><header>
+  <a href="https://jonalmeida.com/" class="title">
+    <h1>Jonathan Almeida</h1>
+  </a>
+  <nav aria-label="site">
+      <a href="https://jonalmeida.com/">Home</a>
+      <a href="https://jonalmeida.com/blog/">Blog</a>
+      <a href="https://jonalmeida.com/til/">TIL</a>
+  </nav>
+</header>
+
+  <h1>Gmail filters based on X-Phabricator-Stamps header</h1>
+      <p>
+        <i>
+          <time datetime="2026-04-23" pubdate>2026-04-23</time>
+        </i>
+      </p>
+  <main>
+    <p>I want Phabricator emails to have a Gmail label so I can know which patches had me as a reviewer that then had follow-up comments from other folks.</p>
+<p>This is useful for me when I review a patch and then I need to respond back to discussions in a more timely manner in comment threads that I've created.</p>
+<p>It's difficult to do this today similar to <a rel="external" href="http://blog.margaretleibovic.com/post/32008790345/how-i-manage-my-bugmail-with-gmail">Bugzilla Gmail filters</a> because there are fewer identifiers that the more simplistic Gmail filter parameters can help with.</p>
+<p>Today I learnt that there is an <code>X-Phabricator-Stamps</code> header in those Phabricator emails that let's you identify you as a the reviewer in a patch. So using that information, I wrote the <a rel="external" href="https://script.google.com/">Google script</a> below to run every minute and avoid re-processing the same email twice.</p>
+<p>A couple variables were added to the top and some console.logs are sprinkled around for my own debugging.</p>
+<details>
+<summary>Code</summary>
+<pre class="giallo" style="color-scheme: light dark; color: light-dark(#24292E, #E1E4E8); background-color: light-dark(#FFFFFF, #24292E);" ><code data-lang="javascript"><span class="giallo-l"><span style="color: light-dark(#D73A49, #F97583);">var</span><span style="color: light-dark(#005CC5, #79B8FF);"> REVIEWER</span><span style="color: light-dark(#D73A49, #F97583);"> =</span><span style="color: light-dark(#032F62, #9ECBFF);"> &quot;</span><span style="color: light-dark(#032F62, #9ECBFF);">jonalmeida</span><span style="color: light-dark(#032F62, #9ECBFF);">&quot;</span><span>;</span></span>
+<span class="giallo-l"><span style="color: light-dark(#D73A49, #F97583);">var</span><span style="color: light-dark(#005CC5, #79B8FF);"> LABEL_NAME</span><span style="color: light-dark(#D73A49, #F97583);"> =</span><span style="color: light-dark(#032F62, #9ECBFF);"> &quot;</span><span style="color: light-dark(#032F62, #9ECBFF);">Phabricator/Comments</span><span style="color: light-dark(#032F62, #9ECBFF);">&quot;</span><span>;</span></span>
+<span class="giallo-l"><span style="color: light-dark(#D73A49, #F97583);">var</span><span style="color: light-dark(#005CC5, #79B8FF);"> BODY_MATCH</span><span style="color: light-dark(#D73A49, #F97583);"> =</span><span style="color: light-dark(#032F62, #9ECBFF);"> &quot;</span><span style="color: light-dark(#032F62, #9ECBFF);">commented on this revision.</span><span style="color: light-dark(#032F62, #9ECBFF);">&quot;</span><span>;</span></span>
+<span class="giallo-l"><span style="color: light-dark(#D73A49, #F97583);">var</span><span style="color: light-dark(#005CC5, #79B8FF);"> SENDER</span><span style="color: light-dark(#D73A49, #F97583);"> =</span><span style="color: light-dark(#032F62, #9ECBFF);"> &quot;</span><span style="color: light-dark(#032F62, #9ECBFF);">phabricator@mozilla.com</span><span style="color: light-dark(#032F62, #9ECBFF);">&quot;</span><span>;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: light-dark(#6A737D, #6A737D);">/**</span></span>
+<span class="giallo-l"><span style="color: light-dark(#6A737D, #6A737D);"> * Run once manually to install the per-minute trigger.</span></span>
+<span class="giallo-l"><span style="color: light-dark(#6A737D, #6A737D);"> */</span></span>
+<span class="giallo-l"><span style="color: light-dark(#D73A49, #F97583);">function</span><span style="color: light-dark(#6F42C1, #B392F0);"> install</span><span>(</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span style="color: light-dark(#6F42C1, #B392F0);">  uninstall</span><span>(</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span>  ScriptApp</span><span>.</span><span style="color: light-dark(#6F42C1, #B392F0);">newTrigger</span><span>(</span><span style="color: light-dark(#032F62, #9ECBFF);">&#39;</span><span style="color: light-dark(#032F62, #9ECBFF);">processInbox</span><span style="color: light-dark(#032F62, #9ECBFF);">&#39;</span><span>)</span></span>
+<span class="giallo-l"><span>  .</span><span style="color: light-dark(#6F42C1, #B392F0);">timeBased</span><span>(</span><span>)</span></span>
+<span class="giallo-l"><span>  .</span><span style="color: light-dark(#6F42C1, #B392F0);">everyMinutes</span><span>(</span><span style="color: light-dark(#005CC5, #79B8FF);">1</span><span>)</span></span>
+<span class="giallo-l"><span>  .</span><span style="color: light-dark(#6F42C1, #B392F0);">create</span><span>(</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span>}</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: light-dark(#6A737D, #6A737D);">/**</span></span>
+<span class="giallo-l"><span style="color: light-dark(#6A737D, #6A737D);"> * Run once manually to remove the trigger.</span></span>
+<span class="giallo-l"><span style="color: light-dark(#6A737D, #6A737D);"> */</span></span>
+<span class="giallo-l"><span style="color: light-dark(#D73A49, #F97583);">function</span><span style="color: light-dark(#6F42C1, #B392F0);"> uninstall</span><span>(</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span>  ScriptApp</span><span>.</span><span style="color: light-dark(#6F42C1, #B392F0);">getProjectTriggers</span><span>(</span><span>)</span><span>.</span><span style="color: light-dark(#6F42C1, #B392F0);">forEach</span><span>(</span><span style="color: light-dark(#D73A49, #F97583);">function</span><span>(</span><span style="color: light-dark(#E36209, #FFAB70);">t</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span>    ScriptApp</span><span>.</span><span style="color: light-dark(#6F42C1, #B392F0);">deleteTrigger</span><span>(</span><span>t</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span>  }</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span>  PropertiesService</span><span>.</span><span style="color: light-dark(#6F42C1, #B392F0);">getScriptProperties</span><span>(</span><span>)</span><span>.</span><span style="color: light-dark(#6F42C1, #B392F0);">deleteProperty</span><span>(</span><span style="color: light-dark(#032F62, #9ECBFF);">&#39;</span><span style="color: light-dark(#032F62, #9ECBFF);">lastRun</span><span style="color: light-dark(#032F62, #9ECBFF);">&#39;</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span>}</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: light-dark(#6A737D, #6A737D);">/**</span></span>
+<span class="giallo-l"><span style="color: light-dark(#6A737D, #6A737D);"> * Every run, we try to avoid processing the same email twice because</span></span>
+<span class="giallo-l"><span style="color: light-dark(#6A737D, #6A737D);"> * there is no API trigger to run a script on every new email received.</span></span>
+<span class="giallo-l"><span style="color: light-dark(#6A737D, #6A737D);"> */</span></span>
+<span class="giallo-l"><span style="color: light-dark(#D73A49, #F97583);">function</span><span style="color: light-dark(#6F42C1, #B392F0);"> processInbox</span><span>(</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span style="color: light-dark(#D73A49, #F97583);">  var</span><span> props</span><span style="color: light-dark(#D73A49, #F97583);"> =</span><span> PropertiesService</span><span>.</span><span style="color: light-dark(#6F42C1, #B392F0);">getScriptProperties</span><span>(</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span style="color: light-dark(#D73A49, #F97583);">  var</span><span> lastRun</span><span style="color: light-dark(#D73A49, #F97583);"> =</span><span style="color: light-dark(#6F42C1, #B392F0);"> parseInt</span><span>(</span><span>props</span><span>.</span><span style="color: light-dark(#6F42C1, #B392F0);">getProperty</span><span>(</span><span style="color: light-dark(#032F62, #9ECBFF);">&#39;</span><span style="color: light-dark(#032F62, #9ECBFF);">lastRun</span><span style="color: light-dark(#032F62, #9ECBFF);">&#39;</span><span>)</span><span style="color: light-dark(#D73A49, #F97583);"> ||</span><span style="color: light-dark(#032F62, #9ECBFF);"> &#39;</span><span style="color: light-dark(#032F62, #9ECBFF);">0</span><span style="color: light-dark(#032F62, #9ECBFF);">&#39;</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span style="color: light-dark(#D73A49, #F97583);">  var</span><span> now</span><span style="color: light-dark(#D73A49, #F97583);"> =</span><span> Math</span><span>.</span><span style="color: light-dark(#6F42C1, #B392F0);">floor</span><span>(</span><span>Date</span><span>.</span><span style="color: light-dark(#6F42C1, #B392F0);">now</span><span>(</span><span>)</span><span style="color: light-dark(#D73A49, #F97583);"> /</span><span style="color: light-dark(#005CC5, #79B8FF);"> 1000</span><span>)</span><span>;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: light-dark(#6A737D, #6A737D);">  //</span><span style="color: light-dark(#6A737D, #6A737D);"> On first run, look back 2 minutes</span></span>
+<span class="giallo-l"><span style="color: light-dark(#D73A49, #F97583);">  if</span><span> (</span><span>lastRun</span><span style="color: light-dark(#D73A49, #F97583);"> ===</span><span style="color: light-dark(#005CC5, #79B8FF);"> 0</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span>    lastRun</span><span style="color: light-dark(#D73A49, #F97583);"> =</span><span> now</span><span style="color: light-dark(#D73A49, #F97583);"> -</span><span style="color: light-dark(#005CC5, #79B8FF);"> 120</span><span>;</span></span>
+<span class="giallo-l"><span>  }</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: light-dark(#D73A49, #F97583);">  var</span><span> label</span><span style="color: light-dark(#D73A49, #F97583);"> =</span><span> GmailApp</span><span>.</span><span style="color: light-dark(#6F42C1, #B392F0);">getUserLabelByName</span><span>(</span><span style="color: light-dark(#005CC5, #79B8FF);">LABEL_NAME</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span style="color: light-dark(#D73A49, #F97583);">  if</span><span> (</span><span style="color: light-dark(#D73A49, #F97583);">!</span><span>label</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span>    label</span><span style="color: light-dark(#D73A49, #F97583);"> =</span><span> GmailApp</span><span>.</span><span style="color: light-dark(#6F42C1, #B392F0);">createLabel</span><span>(</span><span style="color: light-dark(#005CC5, #79B8FF);">LABEL_NAME</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span>  }</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>  console</span><span>.</span><span style="color: light-dark(#6F42C1, #B392F0);">log</span><span>(</span><span style="color: light-dark(#032F62, #9ECBFF);">&quot;</span><span style="color: light-dark(#032F62, #9ECBFF);">last run: </span><span style="color: light-dark(#032F62, #9ECBFF);">&quot;</span><span style="color: light-dark(#D73A49, #F97583);"> +</span><span> lastRun</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span style="color: light-dark(#D73A49, #F97583);">  var</span><span> threads</span><span style="color: light-dark(#D73A49, #F97583);"> =</span><span> GmailApp</span><span>.</span><span style="color: light-dark(#6F42C1, #B392F0);">search</span><span>(</span><span style="color: light-dark(#032F62, #9ECBFF);">&quot;</span><span style="color: light-dark(#032F62, #9ECBFF);">from:</span><span style="color: light-dark(#032F62, #9ECBFF);">&quot;</span><span style="color: light-dark(#D73A49, #F97583);"> +</span><span style="color: light-dark(#005CC5, #79B8FF);"> SENDER</span><span style="color: light-dark(#D73A49, #F97583);"> +</span><span style="color: light-dark(#032F62, #9ECBFF);"> &quot;</span><span style="color: light-dark(#032F62, #9ECBFF);"> after:</span><span style="color: light-dark(#032F62, #9ECBFF);">&quot;</span><span style="color: light-dark(#D73A49, #F97583);"> +</span><span> lastRun</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span>  console</span><span>.</span><span style="color: light-dark(#6F42C1, #B392F0);">log</span><span>(</span><span style="color: light-dark(#032F62, #9ECBFF);">&quot;</span><span style="color: light-dark(#032F62, #9ECBFF);">threads to process: </span><span style="color: light-dark(#032F62, #9ECBFF);">&quot;</span><span style="color: light-dark(#D73A49, #F97583);"> +</span><span> threads</span><span>.</span><span style="color: light-dark(#005CC5, #79B8FF);">length</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span style="color: light-dark(#D73A49, #F97583);">  for</span><span> (</span><span style="color: light-dark(#D73A49, #F97583);">var</span><span> i</span><span style="color: light-dark(#D73A49, #F97583);"> =</span><span style="color: light-dark(#005CC5, #79B8FF);"> 0</span><span>;</span><span> i</span><span style="color: light-dark(#D73A49, #F97583);"> &lt;</span><span> threads</span><span>.</span><span style="color: light-dark(#005CC5, #79B8FF);">length</span><span>;</span><span> i</span><span style="color: light-dark(#D73A49, #F97583);">++</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span style="color: light-dark(#D73A49, #F97583);">    var</span><span> thread</span><span style="color: light-dark(#D73A49, #F97583);"> =</span><span> threads</span><span>[</span><span>i</span><span>]</span><span>;</span></span>
+<span class="giallo-l"><span style="color: light-dark(#D73A49, #F97583);">    var</span><span> messages</span><span style="color: light-dark(#D73A49, #F97583);"> =</span><span> thread</span><span>.</span><span style="color: light-dark(#6F42C1, #B392F0);">getMessages</span><span>(</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span>    console</span><span>.</span><span style="color: light-dark(#6F42C1, #B392F0);">log</span><span>(</span><span style="color: light-dark(#032F62, #9ECBFF);">&quot;</span><span style="color: light-dark(#032F62, #9ECBFF);">messages to process: </span><span style="color: light-dark(#032F62, #9ECBFF);">&quot;</span><span style="color: light-dark(#D73A49, #F97583);"> +</span><span> messages</span><span>.</span><span style="color: light-dark(#005CC5, #79B8FF);">length</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span style="color: light-dark(#D73A49, #F97583);">    for</span><span> (</span><span style="color: light-dark(#D73A49, #F97583);">var</span><span> j</span><span style="color: light-dark(#D73A49, #F97583);"> =</span><span style="color: light-dark(#005CC5, #79B8FF);"> 0</span><span>;</span><span> j</span><span style="color: light-dark(#D73A49, #F97583);"> &lt;</span><span> messages</span><span>.</span><span style="color: light-dark(#005CC5, #79B8FF);">length</span><span>;</span><span> j</span><span style="color: light-dark(#D73A49, #F97583);">++</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span style="color: light-dark(#D73A49, #F97583);">      if</span><span> (</span><span style="color: light-dark(#6F42C1, #B392F0);">hasReviewerStamp</span><span>(</span><span>messages</span><span>[</span><span>j</span><span>]</span><span>)</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span>        thread</span><span>.</span><span style="color: light-dark(#6F42C1, #B392F0);">addLabel</span><span>(</span><span>label</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span>        console</span><span>.</span><span style="color: light-dark(#6F42C1, #B392F0);">log</span><span>(</span><span>thread</span><span>.</span><span style="color: light-dark(#6F42C1, #B392F0);">getFirstMessageSubject</span><span>(</span><span>)</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span style="color: light-dark(#D73A49, #F97583);">        break</span><span>;</span></span>
+<span class="giallo-l"><span>      }</span></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"><span>  }</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>  props</span><span>.</span><span style="color: light-dark(#6F42C1, #B392F0);">setProperty</span><span>(</span><span style="color: light-dark(#032F62, #9ECBFF);">&#39;</span><span style="color: light-dark(#032F62, #9ECBFF);">lastRun</span><span style="color: light-dark(#032F62, #9ECBFF);">&#39;</span><span>,</span><span style="color: light-dark(#6F42C1, #B392F0);"> String</span><span>(</span><span>now</span><span>)</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span>}</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: light-dark(#D73A49, #F97583);">function</span><span style="color: light-dark(#6F42C1, #B392F0);"> hasReviewerStamp</span><span>(</span><span style="color: light-dark(#E36209, #FFAB70);">message</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span style="color: light-dark(#D73A49, #F97583);">  var</span><span> raw</span><span style="color: light-dark(#D73A49, #F97583);"> =</span><span> message</span><span>.</span><span style="color: light-dark(#6F42C1, #B392F0);">getRawContent</span><span>(</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span style="color: light-dark(#D73A49, #F97583);">  var</span><span> match</span><span style="color: light-dark(#D73A49, #F97583);"> =</span><span> raw</span><span>.</span><span style="color: light-dark(#6F42C1, #B392F0);">match</span><span>(</span><span style="color: light-dark(#032F62, #9ECBFF);">/</span><span style="color: light-dark(#D73A49, #F97583);">^</span><span style="color: light-dark(#032F62, #DBEDFF);">X-Phabricator-Stamps:</span><span style="color: light-dark(#005CC5, #79B8FF);">\s</span><span style="color: light-dark(#D73A49, #F97583);">*</span><span style="color: light-dark(#032F62, #DBEDFF);">(</span><span style="color: light-dark(#005CC5, #79B8FF);">.</span><span style="color: light-dark(#D73A49, #F97583);">+</span><span style="color: light-dark(#032F62, #DBEDFF);">)</span><span style="color: light-dark(#D73A49, #F97583);">$</span><span style="color: light-dark(#032F62, #9ECBFF);">/</span><span style="color: light-dark(#D73A49, #F97583);">m</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span style="color: light-dark(#D73A49, #F97583);">  if</span><span> (</span><span style="color: light-dark(#D73A49, #F97583);">!</span><span>match</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span style="color: light-dark(#D73A49, #F97583);">    return</span><span style="color: light-dark(#005CC5, #79B8FF);"> false</span><span>;</span></span>
+<span class="giallo-l"><span>  }</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: light-dark(#D73A49, #F97583);">  var</span><span> stamps</span><span style="color: light-dark(#D73A49, #F97583);"> =</span><span> match</span><span>[</span><span style="color: light-dark(#005CC5, #79B8FF);">1</span><span>]</span><span>.</span><span style="color: light-dark(#6F42C1, #B392F0);">trim</span><span>(</span><span>)</span><span>.</span><span style="color: light-dark(#6F42C1, #B392F0);">split</span><span>(</span><span style="color: light-dark(#032F62, #9ECBFF);">/</span><span style="color: light-dark(#005CC5, #79B8FF);">\s</span><span style="color: light-dark(#D73A49, #F97583);">+</span><span style="color: light-dark(#032F62, #9ECBFF);">/</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span style="color: light-dark(#D73A49, #F97583);">  return</span><span> (</span><span>stamps</span><span>.</span><span style="color: light-dark(#6F42C1, #B392F0);">indexOf</span><span>(</span><span style="color: light-dark(#032F62, #9ECBFF);">&quot;</span><span style="color: light-dark(#032F62, #9ECBFF);">reviewer(@</span><span style="color: light-dark(#032F62, #9ECBFF);">&quot;</span><span style="color: light-dark(#D73A49, #F97583);"> +</span><span style="color: light-dark(#005CC5, #79B8FF);"> REVIEWER</span><span style="color: light-dark(#D73A49, #F97583);"> +</span><span style="color: light-dark(#032F62, #9ECBFF);"> &quot;</span><span style="color: light-dark(#032F62, #9ECBFF);">)</span><span style="color: light-dark(#032F62, #9ECBFF);">&quot;</span><span>)</span><span style="color: light-dark(#D73A49, #F97583);"> &gt;</span><span style="color: light-dark(#D73A49, #F97583);"> -</span><span style="color: light-dark(#005CC5, #79B8FF);">1</span><span>)</span><span style="color: light-dark(#D73A49, #F97583);"> &amp;&amp;</span><span> raw</span><span>.</span><span style="color: light-dark(#6F42C1, #B392F0);">indexOf</span><span>(</span><span style="color: light-dark(#005CC5, #79B8FF);">BODY_MATCH</span><span>)</span><span style="color: light-dark(#D73A49, #F97583);"> &gt;</span><span style="color: light-dark(#D73A49, #F97583);"> -</span><span style="color: light-dark(#005CC5, #79B8FF);">1</span><span>;</span></span>
+<span class="giallo-l"><span>}</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: light-dark(#6A737D, #6A737D);">/**</span></span>
+<span class="giallo-l"><span style="color: light-dark(#6A737D, #6A737D);"> * For debugging - see the list of labels you can search which</span></span>
+<span class="giallo-l"><span style="color: light-dark(#6A737D, #6A737D);"> * differs from what is used in the Gmail UI filter.</span></span>
+<span class="giallo-l"><span style="color: light-dark(#6A737D, #6A737D);"> */</span></span>
+<span class="giallo-l"><span style="color: light-dark(#D73A49, #F97583);">function</span><span style="color: light-dark(#6F42C1, #B392F0);"> listAllLabels</span><span>(</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span>  console</span><span>.</span><span style="color: light-dark(#6F42C1, #B392F0);">log</span><span>(</span><span style="color: light-dark(#032F62, #9ECBFF);">&quot;</span><span style="color: light-dark(#032F62, #9ECBFF);">All labels</span><span style="color: light-dark(#032F62, #9ECBFF);">&quot;</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span style="color: light-dark(#D73A49, #F97583);">  var</span><span> labels</span><span style="color: light-dark(#D73A49, #F97583);"> =</span><span> GmailApp</span><span>.</span><span style="color: light-dark(#6F42C1, #B392F0);">getUserLabels</span><span>(</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span style="color: light-dark(#D73A49, #F97583);">  for</span><span> (</span><span style="color: light-dark(#D73A49, #F97583);">var</span><span> i</span><span style="color: light-dark(#D73A49, #F97583);"> =</span><span style="color: light-dark(#005CC5, #79B8FF);"> 0</span><span>;</span><span> i</span><span style="color: light-dark(#D73A49, #F97583);"> &lt;</span><span> labels</span><span>.</span><span style="color: light-dark(#005CC5, #79B8FF);">length</span><span>;</span><span> i</span><span style="color: light-dark(#D73A49, #F97583);">++</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span>    console</span><span>.</span><span style="color: light-dark(#6F42C1, #B392F0);">log</span><span>(</span><span>labels</span><span>[</span><span>i</span><span>]</span><span>.</span><span style="color: light-dark(#6F42C1, #B392F0);">getName</span><span>(</span><span>)</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span>  }</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre></details>
+
+  </main>
+  <p>
+        Categories:
+          <a href="https://jonalmeida.com/categories/til/">#TIL</a>
+        Tags:
+          <a href="https://jonalmeida.com/tags/workflow/">#workflow</a>
+          <a href="https://jonalmeida.com/tags/mozilla/">#mozilla</a>
+  </p>
+  <!-- Add temporary footnote back-links support -->
+  <script src="/footnotes.js"></script>
+<footer>
+</footer>
+<!-- custom_body -->
+</body>
+</html>

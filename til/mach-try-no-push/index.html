@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Use |mach try --no-push| for a configuration dry run | Jonathan Almeida</title>
+  <meta name="title" content="Use |mach try --no-push| for a configuration dry run">
+<meta name="description" content="Scribblings and nonsense">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+  
+  <link rel="alternate" type="application/atom+xml" title="Jonathan Almeida" href="https://jonalmeida.com/atom.xml"><style>
+    :root {
+    --width: 800px;
+    --font-main: Verdana, sans-serif;
+    --font-secondary: Verdana, sans-serif;
+    --font-scale: 1em;
+    --background-color: #fff;
+    --heading-color: #222;
+    --text-color: #444;
+    --link-color: #3273dc;
+    --visited-color: #8b6fcb;
+    --code-background-color: #f2f2f2;
+    --code-color: #222;
+    --blockquote-color: #222;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --background-color: #01242e;
+      --heading-color: #eee;
+      --text-color: #ddd;
+      --link-color: #8cc2dd;
+      --visited-color: #8b6fcb;
+      --code-background-color: #000;
+      --code-color: #ddd;
+      --blockquote-color: #ccc;
+    }
+  }
+
+  body {
+    font-family: var(--font-secondary);
+    font-size: var(--font-scale);
+    margin: auto;
+    padding: 20px;
+    max-width: var(--width);
+    text-align: left;
+    background-color: var(--background-color);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.5;
+    color: var(--text-color);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-main);
+    color: var(--heading-color);
+  }
+
+  a {
+    color: var(--link-color);
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  nav a {
+    margin-right: 8px;
+  }
+
+  nav span.active {
+    font-weight: bold;
+    margin-right: 10px;
+  }
+  strong,
+  b {
+    color: var(--heading-color);
+  }
+
+  button {
+    margin: 0;
+    cursor: pointer;
+  }
+
+  main {
+    line-height: 1.6;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  hr {
+    border: 0;
+    border-top: 1px dashed;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  pre code {
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    display: block;
+    padding: 20px;
+    white-space: pre-wrap;
+    font-size: 0.875rem;
+    overflow-x: auto;
+  }
+
+  code {
+    font-family: monospace;
+    padding: 2px;
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    border-radius: 3px;
+  }
+
+  blockquote {
+    border-left: 1px solid #999;
+    color: var(--code-color);
+    padding-left: 20px;
+    font-style: italic;
+  }
+
+  footer {
+    padding: 25px 0;
+    text-align: center;
+  }
+
+  .title:hover {
+    text-decoration: none;
+  }
+
+  .title h1 {
+    font-size: 1.5em;
+  }
+
+  .inline {
+    width: auto !important;
+  }
+
+  .highlight,
+  .code {
+    padding: 1px 15px;
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    border-radius: 3px;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    overflow-x: auto;
+  }
+
+  /* blog post list */
+  ul.blog-posts {
+    list-style-type: none;
+    padding: unset;
+  }
+
+  ul.blog-posts li {
+    display: flex;
+  }
+
+  ul.blog-posts li span {
+    flex: 0 0 130px;
+  }
+
+  ul.blog-posts li a:visited {
+    color: var(--visited-color);
+  }
+
+  .tags {
+    font-size: smaller;
+  }
+
+  .footnote-definition {
+    display: flex;
+    margin-top: 1em;
+  }
+  .footnote-definition-label {
+    margin-left: 1rem;
+    margin-right: 0.5rem;
+    vertical-align: baseline;
+  }
+  .footnote-definition-label::after {
+    content: "."
+  }
+  .footnote-definition > p {
+    margin: 0;
+  }
+
+  </style><style>
+
+section#comments {
+  p {
+    font-size: 0.8em;
+  }
+}
+
+
+pre mark {
+  color: var(--code-color);
+}
+
+
+pre {
+  background-color: transparent !important;
+}
+</style>
+
+
+
+</head>
+<body><header>
+  <a href="https://jonalmeida.com/" class="title">
+    <h1>Jonathan Almeida</h1>
+  </a>
+  <nav aria-label="site">
+      <a href="https://jonalmeida.com/">Home</a>
+      <a href="https://jonalmeida.com/blog/">Blog</a>
+      <a href="https://jonalmeida.com/til/">TIL</a>
+  </nav>
+</header>
+
+  <h1>Use |mach try --no-push| for a configuration dry run</h1>
+      <p>
+        <i>
+          <time datetime="2026-03-22" pubdate>2026-03-22</time>
+        </i>
+      </p>
+  <main>
+    <p>I wanted to see what the generated try configuration would be for a new preset I made and did this by submitting real try pushes (with <code>empty</code> so they don't execute resources). What I was looking for was "dry run" in the help files, but I recently discovered it to be <code>--no-push</code>.</p>
+<pre class="giallo" style="color-scheme: light dark; color: light-dark(#24292E, #E1E4E8); background-color: light-dark(#FFFFFF, #24292E);" ><code data-lang="shellscript"><span class="giallo-l"><span style="color: light-dark(#6F42C1, #B392F0);">$</span><span style="color: light-dark(#032F62, #9ECBFF);"> jj</span><span style="color: light-dark(#032F62, #9ECBFF);"> try-push</span><span style="color: light-dark(#005CC5, #79B8FF);"> -</span><span style="color: light-dark(#005CC5, #79B8FF);">-preset</span><span style="color: light-dark(#032F62, #9ECBFF);"> fenix</span><span style="color: light-dark(#005CC5, #79B8FF);"> -</span><span style="color: light-dark(#005CC5, #79B8FF);">-no-push</span><span style="color: light-dark(#6A737D, #6A737D);"> #</span><span style="color: light-dark(#6A737D, #6A737D);"> &#39;fenix&#39; as an example preset</span></span>
+<span class="giallo-l"><span style="color: light-dark(#6F42C1, #B392F0);">Artifact</span><span style="color: light-dark(#032F62, #9ECBFF);"> builds</span><span style="color: light-dark(#032F62, #9ECBFF);"> enabled,</span><span style="color: light-dark(#032F62, #9ECBFF);"> pass</span><span style="color: light-dark(#005CC5, #79B8FF);"> -</span><span style="color: light-dark(#005CC5, #79B8FF);">-no-artifact</span><span style="color: light-dark(#032F62, #9ECBFF);"> to</span><span style="color: light-dark(#032F62, #9ECBFF);"> disable</span></span>
+<span class="giallo-l"><span style="color: light-dark(#6F42C1, #B392F0);">Commit</span><span style="color: light-dark(#032F62, #9ECBFF);"> message:</span></span>
+<span class="giallo-l"><span style="color: light-dark(#6F42C1, #B392F0);">Fuzzy</span><span> (preset:</span><span style="color: light-dark(#032F62, #9ECBFF);"> fenix</span><span>)</span><span> query</span><span style="color: light-dark(#D73A49, #F97583);">=</span><span style="color: light-dark(#032F62, #9ECBFF);">&#39;</span><span style="color: light-dark(#032F62, #9ECBFF);">build-apk-fenix-debug&amp;query=</span><span style="color: light-dark(#032F62, #9ECBFF);">&#39;</span><span style="color: light-dark(#032F62, #9ECBFF);">s</span><span style="color: light-dark(#032F62, #9ECBFF);">i</span><span style="color: light-dark(#032F62, #9ECBFF);">g</span><span style="color: light-dark(#032F62, #9ECBFF);">n</span><span style="color: light-dark(#032F62, #9ECBFF);">i</span><span style="color: light-dark(#032F62, #9ECBFF);">n</span><span style="color: light-dark(#032F62, #9ECBFF);">g</span><span style="color: light-dark(#032F62, #9ECBFF);">-</span><span style="color: light-dark(#032F62, #9ECBFF);">a</span><span style="color: light-dark(#032F62, #9ECBFF);">p</span><span style="color: light-dark(#032F62, #9ECBFF);">k</span><span style="color: light-dark(#032F62, #9ECBFF);">-</span><span style="color: light-dark(#032F62, #9ECBFF);">f</span><span style="color: light-dark(#032F62, #9ECBFF);">e</span><span style="color: light-dark(#032F62, #9ECBFF);">n</span><span style="color: light-dark(#032F62, #9ECBFF);">i</span><span style="color: light-dark(#032F62, #9ECBFF);">x</span><span style="color: light-dark(#032F62, #9ECBFF);">-</span><span style="color: light-dark(#032F62, #9ECBFF);">d</span><span style="color: light-dark(#032F62, #9ECBFF);">e</span><span style="color: light-dark(#032F62, #9ECBFF);">b</span><span style="color: light-dark(#032F62, #9ECBFF);">u</span><span style="color: light-dark(#032F62, #9ECBFF);">g</span><span>&amp;</span><span>query</span><span style="color: light-dark(#D73A49, #F97583);">=</span><span style="color: light-dark(#032F62, #9ECBFF);">&#39;</span><span style="color: light-dark(#032F62, #9ECBFF);">build-apk-fenix-android-test-debug&amp;query=</span><span style="color: light-dark(#032F62, #9ECBFF);">&#39;</span><span style="color: light-dark(#032F62, #9ECBFF);">s</span><span style="color: light-dark(#032F62, #9ECBFF);">i</span><span style="color: light-dark(#032F62, #9ECBFF);">g</span><span style="color: light-dark(#032F62, #9ECBFF);">n</span><span style="color: light-dark(#032F62, #9ECBFF);">i</span><span style="color: light-dark(#032F62, #9ECBFF);">n</span><span style="color: light-dark(#032F62, #9ECBFF);">g</span><span style="color: light-dark(#032F62, #9ECBFF);">-</span><span style="color: light-dark(#032F62, #9ECBFF);">a</span><span style="color: light-dark(#032F62, #9ECBFF);">p</span><span style="color: light-dark(#032F62, #9ECBFF);">k</span><span style="color: light-dark(#032F62, #9ECBFF);">-</span><span style="color: light-dark(#032F62, #9ECBFF);">f</span><span style="color: light-dark(#032F62, #9ECBFF);">e</span><span style="color: light-dark(#032F62, #9ECBFF);">n</span><span style="color: light-dark(#032F62, #9ECBFF);">i</span><span style="color: light-dark(#032F62, #9ECBFF);">x</span><span style="color: light-dark(#032F62, #9ECBFF);">-</span><span style="color: light-dark(#032F62, #9ECBFF);">a</span><span style="color: light-dark(#032F62, #9ECBFF);">n</span><span style="color: light-dark(#032F62, #9ECBFF);">d</span><span style="color: light-dark(#032F62, #9ECBFF);">r</span><span style="color: light-dark(#032F62, #9ECBFF);">o</span><span style="color: light-dark(#032F62, #9ECBFF);">i</span><span style="color: light-dark(#032F62, #9ECBFF);">d</span><span style="color: light-dark(#032F62, #9ECBFF);">-</span><span style="color: light-dark(#032F62, #9ECBFF);">t</span><span style="color: light-dark(#032F62, #9ECBFF);">e</span><span style="color: light-dark(#032F62, #9ECBFF);">s</span><span style="color: light-dark(#032F62, #9ECBFF);">t</span><span style="color: light-dark(#032F62, #9ECBFF);">-</span><span style="color: light-dark(#032F62, #9ECBFF);">d</span><span style="color: light-dark(#032F62, #9ECBFF);">e</span><span style="color: light-dark(#032F62, #9ECBFF);">b</span><span style="color: light-dark(#032F62, #9ECBFF);">u</span><span style="color: light-dark(#032F62, #9ECBFF);">g</span><span>&amp;</span><span>query</span><span style="color: light-dark(#D73A49, #F97583);">=</span><span style="color: light-dark(#032F62, #9ECBFF);">&#39;</span><span style="color: light-dark(#032F62, #9ECBFF);">test-apk-fenix-debug&amp;query=</span><span style="color: light-dark(#032F62, #9ECBFF);">&#39;</span><span style="color: light-dark(#032F62, #9ECBFF);">u</span><span style="color: light-dark(#032F62, #9ECBFF);">i</span><span style="color: light-dark(#032F62, #9ECBFF);">-</span><span style="color: light-dark(#032F62, #9ECBFF);">t</span><span style="color: light-dark(#032F62, #9ECBFF);">e</span><span style="color: light-dark(#032F62, #9ECBFF);">s</span><span style="color: light-dark(#032F62, #9ECBFF);">t</span><span style="color: light-dark(#032F62, #9ECBFF);">-</span><span style="color: light-dark(#032F62, #9ECBFF);">a</span><span style="color: light-dark(#032F62, #9ECBFF);">p</span><span style="color: light-dark(#032F62, #9ECBFF);">k</span><span style="color: light-dark(#032F62, #9ECBFF);">-</span><span style="color: light-dark(#032F62, #9ECBFF);">f</span><span style="color: light-dark(#032F62, #9ECBFF);">e</span><span style="color: light-dark(#032F62, #9ECBFF);">n</span><span style="color: light-dark(#032F62, #9ECBFF);">i</span><span style="color: light-dark(#032F62, #9ECBFF);">x</span><span style="color: light-dark(#032F62, #9ECBFF);">-</span><span style="color: light-dark(#032F62, #9ECBFF);">a</span><span style="color: light-dark(#032F62, #9ECBFF);">r</span><span style="color: light-dark(#032F62, #9ECBFF);">m</span><span style="color: light-dark(#032F62, #9ECBFF);">-</span><span style="color: light-dark(#032F62, #9ECBFF);">d</span><span style="color: light-dark(#032F62, #9ECBFF);">e</span><span style="color: light-dark(#032F62, #9ECBFF);">b</span><span style="color: light-dark(#032F62, #9ECBFF);">u</span><span style="color: light-dark(#032F62, #9ECBFF);">g</span><span>&amp;</span><span>query</span><span style="color: light-dark(#D73A49, #F97583);">=</span><span style="color: light-dark(#032F62, #9ECBFF);">^</span><span style="color: light-dark(#032F62, #9ECBFF);">s</span><span style="color: light-dark(#032F62, #9ECBFF);">o</span><span style="color: light-dark(#032F62, #9ECBFF);">u</span><span style="color: light-dark(#032F62, #9ECBFF);">r</span><span style="color: light-dark(#032F62, #9ECBFF);">c</span><span style="color: light-dark(#032F62, #9ECBFF);">e</span><span style="color: light-dark(#032F62, #9ECBFF);">-</span><span style="color: light-dark(#032F62, #9ECBFF);">t</span><span style="color: light-dark(#032F62, #9ECBFF);">e</span><span style="color: light-dark(#032F62, #9ECBFF);">s</span><span style="color: light-dark(#032F62, #9ECBFF);">t</span><span style="color: light-dark(#032F62, #9ECBFF);"> &#39;</span><span style="color: light-dark(#032F62, #9ECBFF);">fenix&amp;query=</span><span style="color: light-dark(#032F62, #9ECBFF);">&#39;</span><span style="color: light-dark(#032F62, #9ECBFF);">g</span><span style="color: light-dark(#032F62, #9ECBFF);">e</span><span style="color: light-dark(#032F62, #9ECBFF);">n</span><span style="color: light-dark(#032F62, #9ECBFF);">e</span><span style="color: light-dark(#032F62, #9ECBFF);">r</span><span style="color: light-dark(#032F62, #9ECBFF);">a</span><span style="color: light-dark(#032F62, #9ECBFF);">t</span><span style="color: light-dark(#032F62, #9ECBFF);">e</span><span style="color: light-dark(#032F62, #9ECBFF);">-</span><span style="color: light-dark(#032F62, #9ECBFF);">b</span><span style="color: light-dark(#032F62, #9ECBFF);">a</span><span style="color: light-dark(#032F62, #9ECBFF);">s</span><span style="color: light-dark(#032F62, #9ECBFF);">e</span><span style="color: light-dark(#032F62, #9ECBFF);">l</span><span style="color: light-dark(#032F62, #9ECBFF);">i</span><span style="color: light-dark(#032F62, #9ECBFF);">n</span><span style="color: light-dark(#032F62, #9ECBFF);">e</span><span style="color: light-dark(#032F62, #9ECBFF);">-</span><span style="color: light-dark(#032F62, #9ECBFF);">p</span><span style="color: light-dark(#032F62, #9ECBFF);">r</span><span style="color: light-dark(#032F62, #9ECBFF);">o</span><span style="color: light-dark(#032F62, #9ECBFF);">f</span><span style="color: light-dark(#032F62, #9ECBFF);">i</span><span style="color: light-dark(#032F62, #9ECBFF);">l</span><span style="color: light-dark(#032F62, #9ECBFF);">e</span><span style="color: light-dark(#032F62, #9ECBFF);">-</span><span style="color: light-dark(#032F62, #9ECBFF);">f</span><span style="color: light-dark(#032F62, #9ECBFF);">i</span><span style="color: light-dark(#032F62, #9ECBFF);">r</span><span style="color: light-dark(#032F62, #9ECBFF);">e</span><span style="color: light-dark(#032F62, #9ECBFF);">b</span><span style="color: light-dark(#032F62, #9ECBFF);">a</span><span style="color: light-dark(#032F62, #9ECBFF);">s</span><span style="color: light-dark(#032F62, #9ECBFF);">e</span><span style="color: light-dark(#032F62, #9ECBFF);">-</span><span style="color: light-dark(#032F62, #9ECBFF);">f</span><span style="color: light-dark(#032F62, #9ECBFF);">e</span><span style="color: light-dark(#032F62, #9ECBFF);">n</span><span style="color: light-dark(#032F62, #9ECBFF);">i</span><span style="color: light-dark(#032F62, #9ECBFF);">x</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: light-dark(#6F42C1, #B392F0);">mach</span><span style="color: light-dark(#032F62, #9ECBFF);"> try</span><span style="color: light-dark(#032F62, #9ECBFF);"> command:</span><span style="color: light-dark(#032F62, #9ECBFF);"> `</span><span style="color: light-dark(#6F42C1, #B392F0);">./mach</span><span style="color: light-dark(#032F62, #9ECBFF);"> try</span><span style="color: light-dark(#005CC5, #79B8FF);"> -</span><span style="color: light-dark(#005CC5, #79B8FF);">-preset</span><span style="color: light-dark(#032F62, #9ECBFF);"> fenix</span><span style="color: light-dark(#005CC5, #79B8FF);"> -</span><span style="color: light-dark(#005CC5, #79B8FF);">-no-push</span><span style="color: light-dark(#032F62, #9ECBFF);">`</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: light-dark(#6F42C1, #B392F0);">Pushed</span><span style="color: light-dark(#032F62, #9ECBFF);"> via</span><span style="color: light-dark(#032F62, #9ECBFF);"> `</span><span style="color: light-dark(#6F42C1, #B392F0);">mach</span><span style="color: light-dark(#032F62, #9ECBFF);"> try</span><span style="color: light-dark(#032F62, #9ECBFF);"> fuzzy</span><span style="color: light-dark(#032F62, #9ECBFF);">`</span></span>
+<span class="giallo-l"><span style="color: light-dark(#6F42C1, #B392F0);">Calculated</span><span style="color: light-dark(#032F62, #9ECBFF);"> try_task_config.json:</span></span>
+<span class="giallo-l"><span>{</span></span>
+<span class="giallo-l"><span style="color: light-dark(#6F42C1, #B392F0);">    &quot;</span><span style="color: light-dark(#6F42C1, #B392F0);">parameters</span><span style="color: light-dark(#6F42C1, #B392F0);">&quot;</span><span style="color: light-dark(#005CC5, #79B8FF);">:</span><span style="color: light-dark(#032F62, #9ECBFF);"> {</span></span>
+<span class="giallo-l"><span style="color: light-dark(#6F42C1, #B392F0);">        &quot;</span><span style="color: light-dark(#6F42C1, #B392F0);">optimize_target_tasks</span><span style="color: light-dark(#6F42C1, #B392F0);">&quot;</span><span style="color: light-dark(#005CC5, #79B8FF);">:</span><span style="color: light-dark(#005CC5, #79B8FF);"> false</span><span style="color: light-dark(#032F62, #9ECBFF);">,</span></span>
+<span class="giallo-l"><span style="color: light-dark(#6F42C1, #B392F0);">        &quot;</span><span style="color: light-dark(#6F42C1, #B392F0);">try_task_config</span><span style="color: light-dark(#6F42C1, #B392F0);">&quot;</span><span style="color: light-dark(#005CC5, #79B8FF);">:</span><span style="color: light-dark(#032F62, #9ECBFF);"> {</span></span>
+<span class="giallo-l"><span style="color: light-dark(#6F42C1, #B392F0);">            &quot;</span><span style="color: light-dark(#6F42C1, #B392F0);">disable-pgo</span><span style="color: light-dark(#6F42C1, #B392F0);">&quot;</span><span style="color: light-dark(#005CC5, #79B8FF);">:</span><span style="color: light-dark(#005CC5, #79B8FF);"> true</span><span style="color: light-dark(#032F62, #9ECBFF);">,</span></span>
+<span class="giallo-l"><span style="color: light-dark(#6F42C1, #B392F0);">            &quot;</span><span style="color: light-dark(#6F42C1, #B392F0);">env</span><span style="color: light-dark(#6F42C1, #B392F0);">&quot;</span><span style="color: light-dark(#005CC5, #79B8FF);">:</span><span style="color: light-dark(#032F62, #9ECBFF);"> {</span></span>
+<span class="giallo-l"><span style="color: light-dark(#6F42C1, #B392F0);">                &quot;</span><span style="color: light-dark(#6F42C1, #B392F0);">TRY_SELECTOR</span><span style="color: light-dark(#6F42C1, #B392F0);">&quot;</span><span style="color: light-dark(#005CC5, #79B8FF);">:</span><span style="color: light-dark(#032F62, #9ECBFF);"> &quot;</span><span style="color: light-dark(#032F62, #9ECBFF);">fuzzy</span><span style="color: light-dark(#032F62, #9ECBFF);">&quot;</span></span>
+<span class="giallo-l"><span>            }</span><span>,</span></span>
+<span class="giallo-l"><span style="color: light-dark(#6F42C1, #B392F0);">            &quot;</span><span style="color: light-dark(#6F42C1, #B392F0);">tasks</span><span style="color: light-dark(#6F42C1, #B392F0);">&quot;</span><span style="color: light-dark(#005CC5, #79B8FF);">:</span><span> [</span></span>
+<span class="giallo-l"><span style="color: light-dark(#6F42C1, #B392F0);">                &quot;</span><span style="color: light-dark(#6F42C1, #B392F0);">build-apk-fenix-android-test-debug</span><span style="color: light-dark(#6F42C1, #B392F0);">&quot;</span><span style="color: light-dark(#6F42C1, #B392F0);">,</span></span>
+<span class="giallo-l"><span style="color: light-dark(#6F42C1, #B392F0);">                &quot;</span><span style="color: light-dark(#6F42C1, #B392F0);">build-apk-fenix-debug</span><span style="color: light-dark(#6F42C1, #B392F0);">&quot;</span><span style="color: light-dark(#6F42C1, #B392F0);">,</span></span>
+<span class="giallo-l"><span style="color: light-dark(#6F42C1, #B392F0);">                &quot;</span><span style="color: light-dark(#6F42C1, #B392F0);">generate-baseline-profile-firebase-fenix</span><span style="color: light-dark(#6F42C1, #B392F0);">&quot;</span><span style="color: light-dark(#6F42C1, #B392F0);">,</span></span>
+<span class="giallo-l"><span style="color: light-dark(#6F42C1, #B392F0);">                &quot;</span><span style="color: light-dark(#6F42C1, #B392F0);">source-test-android-detekt-detekt-fenix</span><span style="color: light-dark(#6F42C1, #B392F0);">&quot;</span><span style="color: light-dark(#6F42C1, #B392F0);">,</span></span>
+<span class="giallo-l"><span style="color: light-dark(#6F42C1, #B392F0);">                &quot;</span><span style="color: light-dark(#6F42C1, #B392F0);">source-test-android-l10n-lint-l10n-lint-fenix</span><span style="color: light-dark(#6F42C1, #B392F0);">&quot;</span><span style="color: light-dark(#6F42C1, #B392F0);">,</span></span>
+<span class="giallo-l"><span style="color: light-dark(#6F42C1, #B392F0);">                &quot;</span><span style="color: light-dark(#6F42C1, #B392F0);">source-test-android-lint-fenix</span><span style="color: light-dark(#6F42C1, #B392F0);">&quot;</span><span style="color: light-dark(#6F42C1, #B392F0);">,</span></span>
+<span class="giallo-l"><span style="color: light-dark(#6F42C1, #B392F0);">                &quot;</span><span style="color: light-dark(#6F42C1, #B392F0);">source-test-buildconfig-buildconfig-fenix</span><span style="color: light-dark(#6F42C1, #B392F0);">&quot;</span><span style="color: light-dark(#6F42C1, #B392F0);">,</span></span>
+<span class="giallo-l"><span style="color: light-dark(#6F42C1, #B392F0);">                &quot;</span><span style="color: light-dark(#6F42C1, #B392F0);">source-test-ktlint-fenix</span><span style="color: light-dark(#6F42C1, #B392F0);">&quot;</span><span style="color: light-dark(#6F42C1, #B392F0);">,</span></span>
+<span class="giallo-l"><span style="color: light-dark(#6F42C1, #B392F0);">                &quot;</span><span style="color: light-dark(#6F42C1, #B392F0);">source-test-mozlint-android-fenix</span><span style="color: light-dark(#6F42C1, #B392F0);">&quot;</span><span style="color: light-dark(#6F42C1, #B392F0);">,</span></span>
+<span class="giallo-l"><span style="color: light-dark(#6F42C1, #B392F0);">                &quot;</span><span style="color: light-dark(#6F42C1, #B392F0);">test-apk-fenix-debug</span><span style="color: light-dark(#6F42C1, #B392F0);">&quot;</span><span style="color: light-dark(#6F42C1, #B392F0);">,</span></span>
+<span class="giallo-l"><span style="color: light-dark(#6F42C1, #B392F0);">                &quot;</span><span style="color: light-dark(#6F42C1, #B392F0);">ui-test-apk-fenix-arm-debug</span><span style="color: light-dark(#6F42C1, #B392F0);">&quot;</span><span style="color: light-dark(#6F42C1, #B392F0);">,</span></span>
+<span class="giallo-l"><span style="color: light-dark(#6F42C1, #B392F0);">                &quot;</span><span style="color: light-dark(#6F42C1, #B392F0);">ui-test-apk-fenix-arm-debug-smoke</span><span style="color: light-dark(#6F42C1, #B392F0);">&quot;</span></span>
+<span class="giallo-l"><span>            ],</span></span>
+<span class="giallo-l"><span style="color: light-dark(#6F42C1, #B392F0);">            &quot;</span><span style="color: light-dark(#6F42C1, #B392F0);">use-artifact-builds</span><span style="color: light-dark(#6F42C1, #B392F0);">&quot;</span><span style="color: light-dark(#005CC5, #79B8FF);">:</span><span style="color: light-dark(#005CC5, #79B8FF);"> true</span></span>
+<span class="giallo-l"><span>        }</span></span>
+<span class="giallo-l"><span>    },</span></span>
+<span class="giallo-l"><span style="color: light-dark(#6F42C1, #B392F0);">    &quot;</span><span style="color: light-dark(#6F42C1, #B392F0);">version</span><span style="color: light-dark(#6F42C1, #B392F0);">&quot;</span><span style="color: light-dark(#005CC5, #79B8FF);">:</span><span style="color: light-dark(#005CC5, #79B8FF);"> 2</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre>
+<p>Here, <code>jj try-push</code> is my quick alias around <code>./mach try</code> for personal simplicity with my workflow.</p>
+
+  </main>
+  <p>
+        Categories:
+          <a href="https://jonalmeida.com/categories/til/">#TIL</a>
+        Tags:
+          <a href="https://jonalmeida.com/tags/workflow/">#workflow</a>
+          <a href="https://jonalmeida.com/tags/mozilla/">#mozilla</a>
+  </p>
+  <!-- Add temporary footnote back-links support -->
+  <script src="/footnotes.js"></script>
+<footer>
+</footer>
+<!-- custom_body -->
+</body>
+</html>

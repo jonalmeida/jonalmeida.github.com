@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>jj presentation - cheat sheet | Jonathan Almeida</title>
+  <meta name="title" content="jj presentation - cheat sheet">
+<meta name="description" content="Scribblings and nonsense">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+  
+  <link rel="alternate" type="application/atom+xml" title="Jonathan Almeida" href="https://jonalmeida.com/atom.xml"><style>
+    :root {
+    --width: 800px;
+    --font-main: Verdana, sans-serif;
+    --font-secondary: Verdana, sans-serif;
+    --font-scale: 1em;
+    --background-color: #fff;
+    --heading-color: #222;
+    --text-color: #444;
+    --link-color: #3273dc;
+    --visited-color: #8b6fcb;
+    --code-background-color: #f2f2f2;
+    --code-color: #222;
+    --blockquote-color: #222;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --background-color: #01242e;
+      --heading-color: #eee;
+      --text-color: #ddd;
+      --link-color: #8cc2dd;
+      --visited-color: #8b6fcb;
+      --code-background-color: #000;
+      --code-color: #ddd;
+      --blockquote-color: #ccc;
+    }
+  }
+
+  body {
+    font-family: var(--font-secondary);
+    font-size: var(--font-scale);
+    margin: auto;
+    padding: 20px;
+    max-width: var(--width);
+    text-align: left;
+    background-color: var(--background-color);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.5;
+    color: var(--text-color);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-main);
+    color: var(--heading-color);
+  }
+
+  a {
+    color: var(--link-color);
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  nav a {
+    margin-right: 8px;
+  }
+
+  nav span.active {
+    font-weight: bold;
+    margin-right: 10px;
+  }
+  strong,
+  b {
+    color: var(--heading-color);
+  }
+
+  button {
+    margin: 0;
+    cursor: pointer;
+  }
+
+  main {
+    line-height: 1.6;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  hr {
+    border: 0;
+    border-top: 1px dashed;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  pre code {
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    display: block;
+    padding: 20px;
+    white-space: pre-wrap;
+    font-size: 0.875rem;
+    overflow-x: auto;
+  }
+
+  code {
+    font-family: monospace;
+    padding: 2px;
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    border-radius: 3px;
+  }
+
+  blockquote {
+    border-left: 1px solid #999;
+    color: var(--code-color);
+    padding-left: 20px;
+    font-style: italic;
+  }
+
+  footer {
+    padding: 25px 0;
+    text-align: center;
+  }
+
+  .title:hover {
+    text-decoration: none;
+  }
+
+  .title h1 {
+    font-size: 1.5em;
+  }
+
+  .inline {
+    width: auto !important;
+  }
+
+  .highlight,
+  .code {
+    padding: 1px 15px;
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    border-radius: 3px;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    overflow-x: auto;
+  }
+
+  /* blog post list */
+  ul.blog-posts {
+    list-style-type: none;
+    padding: unset;
+  }
+
+  ul.blog-posts li {
+    display: flex;
+  }
+
+  ul.blog-posts li span {
+    flex: 0 0 130px;
+  }
+
+  ul.blog-posts li a:visited {
+    color: var(--visited-color);
+  }
+
+  .tags {
+    font-size: smaller;
+  }
+
+  .footnote-definition {
+    display: flex;
+    margin-top: 1em;
+  }
+  .footnote-definition-label {
+    margin-left: 1rem;
+    margin-right: 0.5rem;
+    vertical-align: baseline;
+  }
+  .footnote-definition-label::after {
+    content: "."
+  }
+  .footnote-definition > p {
+    margin: 0;
+  }
+
+  </style><style>
+
+section#comments {
+  p {
+    font-size: 0.8em;
+  }
+}
+
+
+pre mark {
+  color: var(--code-color);
+}
+
+
+pre {
+  background-color: transparent !important;
+}
+</style>
+
+
+
+</head>
+<body><header>
+  <a href="https://jonalmeida.com/" class="title">
+    <h1>Jonathan Almeida</h1>
+  </a>
+  <nav aria-label="site">
+      <a href="https://jonalmeida.com/">Home</a>
+      <a href="https://jonalmeida.com/blog/">Blog</a>
+      <a href="https://jonalmeida.com/til/">TIL</a>
+  </nav>
+</header>
+
+  <h1>jj presentation - cheat sheet</h1>
+      <p>
+        <i>
+          <time datetime="2026-05-08" pubdate>2026-05-08</time>
+        </i>
+      </p>
+    <details >
+      <summary>Table of contents</summary>
+      
+<ul>
+    <li>
+      <a href="https://jonalmeida.com/blog/2026-05-08-jujutsu-for-git-users/demo-presenter-notes/#jj-presentation-cheat-sheet">jj presentation - cheat sheet</a>
+          
+<ul>
+    <li>
+      <a href="https://jonalmeida.com/blog/2026-05-08-jujutsu-for-git-users/demo-presenter-notes/#the-starting-stack">The starting stack</a>
+    </li>
+    <li>
+      <a href="https://jonalmeida.com/blog/2026-05-08-jujutsu-for-git-users/demo-presenter-notes/#demo-1-jj-split">Demo 1 - jj split</a>
+    </li>
+    <li>
+      <a href="https://jonalmeida.com/blog/2026-05-08-jujutsu-for-git-users/demo-presenter-notes/#demo-2-jj-absorb">Demo 2 - jj absorb</a>
+    </li>
+    <li>
+      <a href="https://jonalmeida.com/blog/2026-05-08-jujutsu-for-git-users/demo-presenter-notes/#demo-3-jj-rebase">Demo 3 - jj rebase</a>
+    </li>
+    <li>
+      <a href="https://jonalmeida.com/blog/2026-05-08-jujutsu-for-git-users/demo-presenter-notes/#demo-4-conflicts-via-rebase">Demo 4 - Conflicts via rebase</a>
+    </li>
+    <li>
+      <a href="https://jonalmeida.com/blog/2026-05-08-jujutsu-for-git-users/demo-presenter-notes/#useful-surrounding-commands">Useful surrounding commands</a>
+    </li>
+</ul>
+
+    </li>
+</ul>
+
+    </details>
+  <main>
+    <h1 id="jj-presentation-cheat-sheet">jj presentation - cheat sheet</h1>
+<p>A throwaway Calculator app in <code>mobile/android/fenix/.../calculator/</code> provides the demo material. Re-run between demos to reset:</p>
+<pre class="giallo" style="color-scheme: light dark; color: light-dark(#24292E, #E1E4E8); background-color: light-dark(#FFFFFF, #24292E);" ><code data-lang="plain"><span class="giallo-l"><span>bash artifacts/jj-demo-setup.sh</span></span></code></pre><h2 id="the-starting-stack">The starting stack</h2>
+<pre class="giallo" style="color-scheme: light dark; color: light-dark(#24292E, #E1E4E8); background-color: light-dark(#FFFFFF, #24292E);" ><code data-lang="plain"><span class="giallo-l"><span>@  wip small fixes (absorb me)    ← uncommitted: two 1-line fixes</span></span>
+<span class="giallo-l"><span>○  E: Add equals and clear logic</span></span>
+<span class="giallo-l"><span>○  D: Add operator buttons and tighten outer padding   ← split target</span></span>
+<span class="giallo-l"><span>○  C: Add digit buttons                                ← absorb target #2</span></span>
+<span class="giallo-l"><span>○  B: Add CalculatorViewModel with display state       ← absorb target #1</span></span>
+<span class="giallo-l"><span>○  A: Add CalculatorScreen scaffold</span></span>
+<span class="giallo-l"><span>◆  main</span></span></code></pre>
+<p>The wip change contains two unrelated 1-line edits:</p>
+<ul>
+<li><code>CalculatorViewModel.kt</code>: <code>MutableStateFlow("")</code> → <code>MutableStateFlow("0")</code></li>
+<li><code>CalculatorScreen.kt</code>: <code>Arrangement.spacedBy(4.dp)</code> → <code>8.dp</code> in <code>DigitRow</code></li>
+</ul>
+<p>Each line was last touched in a different commit, so absorb can route them.</p>
+<hr />
+<h2 id="demo-1-jj-split">Demo 1 - <code>jj split</code></h2>
+<p>Commit D bundles two unrelated changes: an operator-row feature (across both .kt files) and a one-line outer-padding tweak. Split them apart.</p>
+<pre class="giallo" style="color-scheme: light dark; color: light-dark(#24292E, #E1E4E8); background-color: light-dark(#FFFFFF, #24292E);" ><code data-lang="plain"><span class="giallo-l"><span>jj edit  &lt;D&#39;s change id&gt;     # or: jj edit @--   if wip is on top of E</span></span>
+<span class="giallo-l"><span>jj split</span></span></code></pre>
+<p>The diff editor opens with all of D's hunks. Keep just the operator-row hunks in the first commit, leave the padding tweak for the second. Save -&gt; two commits. Re-describe the second:</p>
+<pre class="giallo" style="color-scheme: light dark; color: light-dark(#24292E, #E1E4E8); background-color: light-dark(#FFFFFF, #24292E);" ><code data-lang="plain"><span class="giallo-l"><span>jj describe -m &quot;DEMO: Tighten outer padding&quot;</span></span></code></pre>
+<p><code>jj log -r main..</code> shows D replaced by two narrowly-scoped commits.</p>
+<h2 id="demo-2-jj-absorb">Demo 2 - <code>jj absorb</code></h2>
+<p>Back to top of stack, with the wip fixes uncommitted:</p>
+<pre class="giallo" style="color-scheme: light dark; color: light-dark(#24292E, #E1E4E8); background-color: light-dark(#FFFFFF, #24292E);" ><code data-lang="plain"><span class="giallo-l"><span>jj edit @         # if you&#39;re not already there</span></span>
+<span class="giallo-l"><span>jj diff           # show the two tiny hunks</span></span>
+<span class="giallo-l"><span>jj absorb</span></span></code></pre>
+<p>Output:</p>
+<pre class="giallo" style="color-scheme: light dark; color: light-dark(#24292E, #E1E4E8); background-color: light-dark(#FFFFFF, #24292E);" ><code data-lang="plain"><span class="giallo-l"><span>Absorbed changes into 2 revisions:</span></span>
+<span class="giallo-l"><span>  &lt;C&gt;  DEMO: Add digit buttons</span></span>
+<span class="giallo-l"><span>  &lt;B&gt;  DEMO: Add CalculatorViewModel with display state</span></span></code></pre>
+<p><code>jj log</code> to show the wip change is gone, its hunks now live in B and C where they belong. No interactive picking, no commit reordering.</p>
+<h2 id="demo-3-jj-rebase">Demo 3 - <code>jj rebase</code></h2>
+<p>Show the "pull a commit out of the middle of the stack" superpower. Without conflicts first, move D after E:</p>
+<pre class="giallo" style="color-scheme: light dark; color: light-dark(#24292E, #E1E4E8); background-color: light-dark(#FFFFFF, #24292E);" ><code data-lang="plain"><span class="giallo-l"><span>jj rebase -r &lt;D&gt; --insert-after &lt;E&gt;</span></span></code></pre>
+<p>D pops up to the top of the stack, E sinks below it, descendants auto-rebase. No conflict because D and E touch disjoint lines.</p>
+<p>(Reset before the next demo if you want a clean log.)</p>
+<h2 id="demo-4-conflicts-via-rebase">Demo 4 - Conflicts via rebase</h2>
+<p>Try the rebase that <em>can't</em> clean up automatically: move E (which adds
+<code>OperatorRow(...)</code>-adjacent equals/clear UI) to before C (which adds the
+digit buttons that E's diff context relies on).</p>
+<pre class="giallo" style="color-scheme: light dark; color: light-dark(#24292E, #E1E4E8); background-color: light-dark(#FFFFFF, #24292E);" ><code data-lang="plain"><span class="giallo-l"><span>jj rebase -r &lt;E&gt; --insert-before &lt;C&gt;</span></span></code></pre>
+<p>jj reports:</p>
+<pre class="giallo" style="color-scheme: light dark; color: light-dark(#24292E, #E1E4E8); background-color: light-dark(#FFFFFF, #24292E);" ><code data-lang="plain"><span class="giallo-l"><span>New conflicts appeared in 2 commits:</span></span>
+<span class="giallo-l"><span>  &lt;C&gt; (conflict) DEMO: Add digit buttons</span></span>
+<span class="giallo-l"><span>  &lt;E&gt; (conflict) DEMO: Add equals and clear logic</span></span></code></pre>
+<p><code>jj log</code> shows the two affected commits marked <code>×</code>. The stack stays in place - this is the killer property: <strong>conflicts are first-class state, not a mode you have to escape from</strong>. You can keep working, look at sibling commits, run <code>jj diff</code>, etc.</p>
+<p>To resolve:</p>
+<pre class="giallo" style="color-scheme: light dark; color: light-dark(#24292E, #E1E4E8); background-color: light-dark(#FFFFFF, #24292E);" ><code data-lang="plain"><span class="giallo-l"><span>jj new &lt;E&gt;                 # step onto a child of the first conflicted commit</span></span>
+<span class="giallo-l"><span>jj resolve --list          # see the conflicted paths</span></span>
+<span class="giallo-l"><span>jj resolve                 # opens the configured merge tool</span></span>
+<span class="giallo-l"><span>                           # or edit conflict markers in place, then `jj squash`</span></span></code></pre>
+<p>After resolving E, the second conflict (in C) often resolves automatically
+because jj re-propagates the resolution down the stack.</p>
+<hr />
+<h2 id="useful-surrounding-commands">Useful surrounding commands</h2>
+<ul>
+<li><code>jj log -r 'main..@'</code> - just the demo stack</li>
+<li><code>jj op log</code> - every operation you've run; <code>jj op restore &lt;id&gt;</code> to undo anything</li>
+<li><code>jj diff -r &lt;change&gt;</code> - show one commit's diff</li>
+<li><code>jj evolog -r &lt;change&gt;</code> - history of one logical change as you've reshaped it</li>
+</ul>
+
+  </main>
+  <p>
+        Categories:
+          <a href="https://jonalmeida.com/categories/blog/">#blog</a>
+        Tags:
+          <a href="https://jonalmeida.com/tags/workflow/">#workflow</a>
+  </p>
+  <!-- Add temporary footnote back-links support -->
+  <script src="/footnotes.js"></script>
+<footer>
+</footer>
+<!-- custom_body -->
+</body>
+</html>

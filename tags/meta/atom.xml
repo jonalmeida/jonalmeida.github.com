@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>Jonathan Almeida - meta</title>
+    <subtitle>Scribblings and nonsense</subtitle>
+    <link rel="self" type="application/atom+xml" href="https://jonalmeida.com/tags/meta/atom.xml"/>
+    <link rel="alternate" type="text/html" href="https://jonalmeida.com"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2026-08-22T00:00:00+00:00</updated>
+    <id>https://jonalmeida.com/tags/meta/atom.xml</id>
+    <entry xml:lang="en">
+        <title>Serving Zola over Tailscale</title>
+        <published>2026-08-22T00:00:00+00:00</published>
+        <updated>2026-08-22T00:00:00+00:00</updated>
+        
+        <author>
+          <name>Jonathan Almeida</name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/til/zola-localhost-over-tailscale/"/>
+        <id>https://jonalmeida.com/til/zola-localhost-over-tailscale/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/til/zola-localhost-over-tailscale/">&lt;p&gt;When I&#39;m traveling and I need to remote into personal or build machine I would have to do some wacky port-forwarding over SSH to expose a host port to my local port.&lt;/p&gt;
+&lt;p&gt;With Tailscale this is much easier to do when working with this Zola blog!&lt;/p&gt;
+&lt;p&gt;In one terminal, you need &lt;code&gt;tailscale serve&lt;/code&gt; (ensure your Tailnet has it enabled):&lt;/p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color-scheme: light dark; color: light-dark(#24292E, #E1E4E8); background-color: light-dark(#FFFFFF, #24292E);&quot; &gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;tailscale serve 1111&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This should give you a tunnel that forwards all traffic from your &lt;code&gt;localhost:1111&lt;/code&gt; to a public DNS record, however you need to be on a machine connected to your tailnet for the address to resolve.&lt;/p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color-scheme: light dark; color: light-dark(#24292E, #E1E4E8); background-color: light-dark(#FFFFFF, #24292E);&quot; &gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;Available on the internet:&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;https://my-machine.tailmetothemoon.ts.net/&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;|-- proxy http://127.0.0.1:1111&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;Press Ctrl-C to exit.&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;With that setup, you now need to serve Zola to that endpoint and make sure that hostname is used for links to work:&lt;/p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color-scheme: light dark; color: light-dark(#24292E, #E1E4E8); background-color: light-dark(#FFFFFF, #24292E);&quot; &gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;zola serve --base-url https://my-machine.tailmetothemoon.ts.net --no-port-append&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;A couple of notes for the command above:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;--base-url&lt;/code&gt; - To make all the links on the site work. If you don&#39;t add this, Zola would point to &lt;code&gt;localhost:1111&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;--no-port-needed&lt;/code&gt; - For similar reasons, you don&#39;t need the port if you have the base URL corrected. I&#39;ve also found that the port can trip up some mobile browsers too that have poor URL validation. 🙃&lt;/li&gt;
+&lt;li&gt;The &lt;code&gt;https://&lt;/code&gt; at the beginning of the URL is important. This tells Zola to use HTTPS for the base url, otherwise it defaults to HTTP, and the Tailscale funnel only runs over HTTPS.&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Preserve image scale with ImageMagick</title>
+        <published>2025-12-30T00:00:00+00:00</published>
+        <updated>2025-12-30T00:00:00+00:00</updated>
+        
+        <author>
+          <name>Jonathan Almeida</name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/til/imagemagick-resize/"/>
+        <id>https://jonalmeida.com/til/imagemagick-resize/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/til/imagemagick-resize/">&lt;p&gt;Resizing images with &lt;code&gt;imagemagick&lt;/code&gt; is straightforward even if the tool comes off intimidating.&lt;/p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color-scheme: light dark; color: light-dark(#24292E, #E1E4E8); background-color: light-dark(#FFFFFF, #24292E);&quot; &gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: light-dark(#6F42C1, #B392F0);&quot;&gt;magick&lt;/span&gt;&lt;span style=&quot;color: light-dark(#032F62, #9ECBFF);&quot;&gt; input.jpg&lt;/span&gt;&lt;span style=&quot;color: light-dark(#005CC5, #79B8FF);&quot;&gt; -&lt;/span&gt;&lt;span style=&quot;color: light-dark(#005CC5, #79B8FF);&quot;&gt;resize&lt;/span&gt;&lt;span style=&quot;color: light-dark(#032F62, #9ECBFF);&quot;&gt; 1024x&lt;/span&gt;&lt;span style=&quot;color: light-dark(#032F62, #9ECBFF);&quot;&gt; output.jpg&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The &lt;code&gt;1024x&lt;/code&gt; is a &quot;geometry&quot; argument that says, &quot;make the image 1024 pixels width for any height&quot;. This preserves the scale for the image without needing to compute it yourself.&lt;/p&gt;
+&lt;p&gt;You can also do the same for the height as well.&lt;/p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color-scheme: light dark; color: light-dark(#24292E, #E1E4E8); background-color: light-dark(#FFFFFF, #24292E);&quot; &gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: light-dark(#6F42C1, #B392F0);&quot;&gt;magick&lt;/span&gt;&lt;span style=&quot;color: light-dark(#032F62, #9ECBFF);&quot;&gt; input.jpg&lt;/span&gt;&lt;span style=&quot;color: light-dark(#005CC5, #79B8FF);&quot;&gt; -&lt;/span&gt;&lt;span style=&quot;color: light-dark(#005CC5, #79B8FF);&quot;&gt;resize&lt;/span&gt;&lt;span style=&quot;color: light-dark(#032F62, #9ECBFF);&quot;&gt; x768&lt;/span&gt;&lt;span style=&quot;color: light-dark(#032F62, #9ECBFF);&quot;&gt; output.jpg&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;There are more details on the full geometry argument at &lt;a rel=&quot;external&quot; href=&quot;https://imagemagick.org/script/command-line-processing.php#geometry&quot;&gt;the ImageMagick documentation site&lt;/a&gt; (&lt;a rel=&quot;external&quot; title=&quot;Alternative ImageMagick link to API docs.&quot; href=&quot;https://imagemagick.org/Magick++/Geometry.html&quot;&gt;alternative link&lt;/a&gt;).&lt;/p&gt;
+&lt;p&gt;If you want to perform this in bulk, there seems to be built-in wildcard support or wildcard shell handling for it:&lt;/p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color-scheme: light dark; color: light-dark(#24292E, #E1E4E8); background-color: light-dark(#FFFFFF, #24292E);&quot; &gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: light-dark(#6F42C1, #B392F0);&quot;&gt;$&lt;/span&gt;&lt;span style=&quot;color: light-dark(#032F62, #9ECBFF);&quot;&gt; magick&lt;/span&gt;&lt;span style=&quot;color: light-dark(#005CC5, #79B8FF);&quot;&gt; *&lt;/span&gt;&lt;span style=&quot;color: light-dark(#032F62, #9ECBFF);&quot;&gt;.jpg&lt;/span&gt;&lt;span style=&quot;color: light-dark(#005CC5, #79B8FF);&quot;&gt; -&lt;/span&gt;&lt;span style=&quot;color: light-dark(#005CC5, #79B8FF);&quot;&gt;resize&lt;/span&gt;&lt;span style=&quot;color: light-dark(#032F62, #9ECBFF);&quot;&gt; x768&lt;/span&gt;&lt;span style=&quot;color: light-dark(#032F62, #9ECBFF);&quot;&gt; image.jpg&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: light-dark(#6F42C1, #B392F0);&quot;&gt;$&lt;/span&gt;&lt;span style=&quot;color: light-dark(#032F62, #9ECBFF);&quot;&gt; ls&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: light-dark(#6F42C1, #B392F0);&quot;&gt;picture.jpg&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: light-dark(#6F42C1, #B392F0);&quot;&gt;another.jpg&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: light-dark(#6F42C1, #B392F0);&quot;&gt;onemore.jpg&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: light-dark(#6F42C1, #B392F0);&quot;&gt;image-0.jpg&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: light-dark(#6F42C1, #B392F0);&quot;&gt;image-1.jpg&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: light-dark(#6F42C1, #B392F0);&quot;&gt;image-2.jpg&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Editing YAML front matter in bulk</title>
+        <published>2025-12-28T00:00:00+00:00</published>
+        <updated>2025-12-30T17:04:53-05:00</updated>
+        
+        <author>
+          <name>Jonathan Almeida</name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/til/yq-editing-frontmatter/"/>
+        <id>https://jonalmeida.com/til/yq-editing-frontmatter/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/til/yq-editing-frontmatter/">&lt;p&gt;When you want to edit YAML front matter in bulk on markdown files or similar, the tool &lt;code&gt;yq&lt;/code&gt; works for this with similar syntax to &lt;code&gt;jq&lt;/code&gt; for JSON query/transformation.&lt;/p&gt;
+&lt;p&gt;First, try out the queries without writing them to the files:&lt;/p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color-scheme: light dark; color: light-dark(#24292E, #E1E4E8); background-color: light-dark(#FFFFFF, #24292E);&quot; &gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: light-dark(#6F42C1, #B392F0);&quot;&gt;find&lt;/span&gt;&lt;span style=&quot;color: light-dark(#032F62, #9ECBFF);&quot;&gt; .&lt;/span&gt;&lt;span style=&quot;color: light-dark(#005CC5, #79B8FF);&quot;&gt; -&lt;/span&gt;&lt;span style=&quot;color: light-dark(#005CC5, #79B8FF);&quot;&gt;name&lt;/span&gt;&lt;span style=&quot;color: light-dark(#032F62, #9ECBFF);&quot;&gt;  &amp;quot;&lt;/span&gt;&lt;span style=&quot;color: light-dark(#032F62, #9ECBFF);&quot;&gt;*.md&lt;/span&gt;&lt;span style=&quot;color: light-dark(#032F62, #9ECBFF);&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span style=&quot;color: light-dark(#005CC5, #79B8FF);&quot;&gt; -&lt;/span&gt;&lt;span style=&quot;color: light-dark(#005CC5, #79B8FF);&quot;&gt;exec&lt;/span&gt;&lt;span style=&quot;color: light-dark(#032F62, #9ECBFF);&quot;&gt; yq&lt;/span&gt;&lt;span style=&quot;color: light-dark(#005CC5, #79B8FF);&quot;&gt; -&lt;/span&gt;&lt;span style=&quot;color: light-dark(#005CC5, #79B8FF);&quot;&gt;-front-matter=&lt;/span&gt;&lt;span style=&quot;color: light-dark(#032F62, #9ECBFF);&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span style=&quot;color: light-dark(#032F62, #9ECBFF);&quot;&gt;extract&lt;/span&gt;&lt;span style=&quot;color: light-dark(#032F62, #9ECBFF);&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span style=&quot;color: light-dark(#032F62, #9ECBFF);&quot;&gt; &amp;#39;&lt;/span&gt;&lt;span style=&quot;color: light-dark(#032F62, #9ECBFF);&quot;&gt;.taxonomies.categories[]&lt;/span&gt;&lt;span style=&quot;color: light-dark(#032F62, #9ECBFF);&quot;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&quot;color: light-dark(#032F62, #9ECBFF);&quot;&gt; {}&lt;/span&gt;&lt;span style=&quot;color: light-dark(#005CC5, #79B8FF);&quot;&gt; \;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;blockquote&gt;
+&lt;p&gt;[!NOTE] This pipes only the extracted YAML properties output to the terminal. Keep reading below for writing it to the file.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;To append to the categories with new entries:&lt;/p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color-scheme: light dark; color: light-dark(#24292E, #E1E4E8); background-color: light-dark(#FFFFFF, #24292E);&quot; &gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: light-dark(#6F42C1, #B392F0);&quot;&gt;find&lt;/span&gt;&lt;span style=&quot;color: light-dark(#032F62, #9ECBFF);&quot;&gt; .&lt;/span&gt;&lt;span style=&quot;color: light-dark(#005CC5, #79B8FF);&quot;&gt; -&lt;/span&gt;&lt;span style=&quot;color: light-dark(#005CC5, #79B8FF);&quot;&gt;name&lt;/span&gt;&lt;span style=&quot;color: light-dark(#032F62, #9ECBFF);&quot;&gt;  &amp;quot;&lt;/span&gt;&lt;span style=&quot;color: light-dark(#032F62, #9ECBFF);&quot;&gt;*.md&lt;/span&gt;&lt;span style=&quot;color: light-dark(#032F62, #9ECBFF);&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span style=&quot;color: light-dark(#005CC5, #79B8FF);&quot;&gt; -&lt;/span&gt;&lt;span style=&quot;color: light-dark(#005CC5, #79B8FF);&quot;&gt;exec&lt;/span&gt;&lt;span style=&quot;color: light-dark(#032F62, #9ECBFF);&quot;&gt; yq&lt;/span&gt;&lt;span style=&quot;color: light-dark(#005CC5, #79B8FF);&quot;&gt; -&lt;/span&gt;&lt;span style=&quot;color: light-dark(#005CC5, #79B8FF);&quot;&gt;-front-matter=&lt;/span&gt;&lt;span style=&quot;color: light-dark(#032F62, #9ECBFF);&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span style=&quot;color: light-dark(#032F62, #9ECBFF);&quot;&gt;extract&lt;/span&gt;&lt;span style=&quot;color: light-dark(#032F62, #9ECBFF);&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span style=&quot;color: light-dark(#032F62, #9ECBFF);&quot;&gt; &amp;#39;&lt;/span&gt;&lt;span style=&quot;color: light-dark(#032F62, #9ECBFF);&quot;&gt;.taxonomies.categories[] += &amp;quot;archive&amp;quot;&lt;/span&gt;&lt;span style=&quot;color: light-dark(#032F62, #9ECBFF);&quot;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&quot;color: light-dark(#032F62, #9ECBFF);&quot;&gt; {}&lt;/span&gt;&lt;span style=&quot;color: light-dark(#005CC5, #79B8FF);&quot;&gt; \;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;When we&#39;re ready to write our changes to the file, we use &lt;code&gt;--front-matter=&quot;process&quot;&lt;/code&gt; and the in-place flag &lt;code&gt;-I&lt;/code&gt; (using the example above):&lt;/p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color-scheme: light dark; color: light-dark(#24292E, #E1E4E8); background-color: light-dark(#FFFFFF, #24292E);&quot; &gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: light-dark(#6F42C1, #B392F0);&quot;&gt;find&lt;/span&gt;&lt;span style=&quot;color: light-dark(#032F62, #9ECBFF);&quot;&gt; .&lt;/span&gt;&lt;span style=&quot;color: light-dark(#005CC5, #79B8FF);&quot;&gt; -&lt;/span&gt;&lt;span style=&quot;color: light-dark(#005CC5, #79B8FF);&quot;&gt;name&lt;/span&gt;&lt;span style=&quot;color: light-dark(#032F62, #9ECBFF);&quot;&gt;  &amp;quot;&lt;/span&gt;&lt;span style=&quot;color: light-dark(#032F62, #9ECBFF);&quot;&gt;*.md&lt;/span&gt;&lt;span style=&quot;color: light-dark(#032F62, #9ECBFF);&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span style=&quot;color: light-dark(#005CC5, #79B8FF);&quot;&gt; -&lt;/span&gt;&lt;span style=&quot;color: light-dark(#005CC5, #79B8FF);&quot;&gt;exec&lt;/span&gt;&lt;span style=&quot;color: light-dark(#032F62, #9ECBFF);&quot;&gt; yq&lt;/span&gt;&lt;span style=&quot;color: light-dark(#005CC5, #79B8FF);&quot;&gt; -&lt;/span&gt;&lt;span style=&quot;color: light-dark(#005CC5, #79B8FF);&quot;&gt;-front-matter=&lt;/span&gt;&lt;span style=&quot;color: light-dark(#032F62, #9ECBFF);&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span style=&quot;color: light-dark(#032F62, #9ECBFF);&quot;&gt;process&lt;/span&gt;&lt;span style=&quot;color: light-dark(#032F62, #9ECBFF);&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span style=&quot;color: light-dark(#032F62, #9ECBFF);&quot;&gt; &amp;#39;&lt;/span&gt;&lt;span style=&quot;color: light-dark(#032F62, #9ECBFF);&quot;&gt;.taxonomies.categories[] += &amp;quot;archive&amp;quot;&lt;/span&gt;&lt;span style=&quot;color: light-dark(#032F62, #9ECBFF);&quot;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&quot;color: light-dark(#005CC5, #79B8FF);&quot;&gt; -&lt;/span&gt;&lt;span style=&quot;color: light-dark(#005CC5, #79B8FF);&quot;&gt;i&lt;/span&gt;&lt;span style=&quot;color: light-dark(#032F62, #9ECBFF);&quot;&gt; {}&lt;/span&gt;&lt;span style=&quot;color: light-dark(#005CC5, #79B8FF);&quot;&gt; \;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Restarting this blog &amp; migrating to Zola</title>
+        <published>2025-10-05T00:00:00+00:00</published>
+        <updated>2025-10-05T00:00:00+00:00</updated>
+        
+        <author>
+          <name>Jonathan Almeida</name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/blog/migrating-to-zola/"/>
+        <id>https://jonalmeida.com/blog/migrating-to-zola/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/blog/migrating-to-zola/">&lt;p&gt;I did it - finally restarted this blog! 🙌&lt;/p&gt;
+&lt;h2 id=&quot;why&quot;&gt;Why&lt;/h2&gt;
+&lt;p&gt;I&#39;ll keep this short - there are others who are more expressive and have &lt;a rel=&quot;external&quot; href=&quot;https://simeon.staneks.de/en/posts/zola-the-holy-grail-of-ssg/&quot;&gt;shared&lt;/a&gt; &lt;a rel=&quot;external&quot; href=&quot;https://daudix.one/blog/zola-vs-jekyll/&quot;&gt;their&lt;/a&gt; &lt;a rel=&quot;external&quot; href=&quot;https://www.kytta.dev/blog/one-week-with-zola/&quot;&gt;opinion&lt;/a&gt; on everything Zola does for them - go read those instead. Here is the shortform for me.&lt;/p&gt;
+&lt;p&gt;I found it tedious to maintain a Jekyll site and the various plugins that you needed for what I believe should be the built-in behaviour.&lt;/p&gt;
+&lt;p&gt;On every new machine I used, I found myself using a &lt;a rel=&quot;external&quot; href=&quot;https://github.com/BretFisher/jekyll-serve&quot;&gt;Docker image&lt;/a&gt; for building the Jekyll site locally so I could get the magic combination correct to have it always working, until it eventually didn&#39;t work anymore.&lt;/p&gt;
+&lt;h2 id=&quot;preserving-hard-links&quot;&gt;Preserving hard-links&lt;/h2&gt;
+&lt;p&gt;I started with trying to look out for a way to migrate my existing Jekyll posts while also preserving the hard-links to them. I came across &lt;a rel=&quot;external&quot; href=&quot;https://eugene-babichenko.github.io/blog/jekyll-to-zola/&quot;&gt;Eugene Baichenko&#39;s writings and script&lt;/a&gt; which I used and got myself up and running in no time.&lt;/p&gt;
+&lt;p&gt;After some more research, I learnt that Zola supports &lt;a rel=&quot;external&quot; href=&quot;https://www.getzola.org/documentation/content/page/&quot;&gt;&lt;code&gt;aliases&lt;/code&gt;&lt;/a&gt; which lets you preserve your hard-links without needing to build the directory structure required to keep those links. Those links just redirect to the new Zola ones, which was good enough for my needs.&lt;/p&gt;
+&lt;h2 id=&quot;preserving-page-highlighting&quot;&gt;Preserving page highlighting&lt;/h2&gt;
+&lt;p&gt;Zola happily seems to support YAML as a frontmatter, so for legacy posts, I didn&#39;t need to update the format and instead just include the new properties where needed (e.g. disabling table of contents on certain posts). Along the way, I also learnt that &lt;a rel=&quot;external&quot; href=&quot;https://quickref.me/yaml.html&quot;&gt;YAML supports references and inheritance&lt;/a&gt; - wild stuff.&lt;/p&gt;
+&lt;p&gt;Existing syntax highlighting is also preserved and at most, I needed to update the language shortcodes to match Zola&#39;s (e.g. &lt;code&gt;objc&lt;/code&gt; to &lt;code&gt;m&lt;/code&gt;). In miscellaneous posts I seemed to have used Liquid templating, but that too wasn&#39;t hard to search-and-replace.&lt;/p&gt;
+&lt;h2 id=&quot;incremental-migration-from-jekyll&quot;&gt;Incremental migration from Jekyll&lt;/h2&gt;
+&lt;p&gt;Doing the actual migration required slowly changing things over in my spare time. Starting off the blog in a sub-directory &lt;code&gt;/jonalmeida&lt;/code&gt; first to get everything working there. Finally, removing the existing blog from the root directory and moving the contents of &lt;code&gt;/jonalmeida&lt;/code&gt; into the root.&lt;/p&gt;
+&lt;h2 id=&quot;final-thoughts&quot;&gt;Final thoughts&lt;/h2&gt;
+&lt;p&gt;It seems like most of the audience for Zola are coming from other Static Site Generators.&lt;/p&gt;
+&lt;p&gt;I haven&#39;t found the Zola documentation to be spectacular so it took me a bit to understand what aliases were and how to use them - I came across &lt;a rel=&quot;external&quot; href=&quot;https://github.com/getzola/zola/issues/86&quot;&gt;the original issue to support aliases&lt;/a&gt; which linked to the Hugo docs that eventually told me what I needed to know.&lt;/p&gt;
+&lt;p&gt;In another case, I moved to Zola because I wanted separate feeds for each tag and I couldn&#39;t figure out to get this to work even though I had already enabled it with this block:&lt;/p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color-scheme: light dark; color: light-dark(#24292E, #E1E4E8); background-color: light-dark(#FFFFFF, #24292E);&quot; &gt;&lt;code data-lang=&quot;toml&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;taxonomies&lt;/span&gt;&lt;span&gt; =&lt;/span&gt;&lt;span&gt; [&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;    {&lt;/span&gt;&lt;span&gt;name&lt;/span&gt;&lt;span&gt; =&lt;/span&gt;&lt;span style=&quot;color: light-dark(#032F62, #9ECBFF);&quot;&gt; &amp;quot;&lt;/span&gt;&lt;span style=&quot;color: light-dark(#032F62, #9ECBFF);&quot;&gt;categories&lt;/span&gt;&lt;span style=&quot;color: light-dark(#032F62, #9ECBFF);&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span&gt;,&lt;/span&gt;&lt;span&gt; feed&lt;/span&gt;&lt;span&gt; =&lt;/span&gt;&lt;span style=&quot;color: light-dark(#005CC5, #79B8FF);&quot;&gt; false&lt;/span&gt;&lt;span&gt;}&lt;/span&gt;&lt;span&gt;,&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;    {&lt;/span&gt;&lt;span&gt;name&lt;/span&gt;&lt;span&gt; =&lt;/span&gt;&lt;span style=&quot;color: light-dark(#032F62, #9ECBFF);&quot;&gt; &amp;quot;&lt;/span&gt;&lt;span style=&quot;color: light-dark(#032F62, #9ECBFF);&quot;&gt;tags&lt;/span&gt;&lt;span style=&quot;color: light-dark(#032F62, #9ECBFF);&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span&gt;,&lt;/span&gt;&lt;span&gt; feed&lt;/span&gt;&lt;span&gt; =&lt;/span&gt;&lt;span style=&quot;color: light-dark(#005CC5, #79B8FF);&quot;&gt; true&lt;/span&gt;&lt;span&gt;}&lt;/span&gt;&lt;span&gt;,&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;]&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This must be my own shortsightedness though, because it seems &lt;a rel=&quot;external&quot; href=&quot;https://tilde.club/~passthejoe/zola/blog/zola-tag-category-feeds/index.html&quot;&gt;obvious to others&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;I&#39;m also not complaining too much since this is a community-driven project; happy to see it being used by sites like &lt;a rel=&quot;external&quot; href=&quot;https://zola.discourse.group/t/allow-html-instead-of-md-for-pages-and-sections/149&quot;&gt;Fastmail&lt;/a&gt; too. All in all though, I&#39;m quite happy with where I&#39;ve gotten to and I find the Zola and Tera templating combination far less intimidating.&lt;/p&gt;
+&lt;p&gt;Let&#39;s see where this takes me.&lt;/p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Embedding video in Jekyll</title>
+        <published>2013-03-25T00:00:00+00:00</published>
+        <updated>2013-03-25T00:00:00+00:00</updated>
+        
+        <author>
+          <name>Jonathan Almeida</name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/blog/embedding-video-in-jekyll/"/>
+        <id>https://jonalmeida.com/blog/embedding-video-in-jekyll/</id>
+        
+        <content type="html" xml:base="https://jonalmeida.com/blog/embedding-video-in-jekyll/">&lt;h3 id=&quot;the-code&quot;&gt;The code:&lt;/h3&gt;
+&lt;p&gt;Youtube embedded code works just as fine in Markdown.&lt;br&gt;&lt;/p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color-scheme: light dark; color: light-dark(#24292E, #E1E4E8); background-color: light-dark(#FFFFFF, #24292E);&quot; &gt;&lt;code data-lang=&quot;html&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;&amp;lt;&lt;/span&gt;&lt;span style=&quot;color: light-dark(#22863A, #85E89D);&quot;&gt;iframe&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: light-dark(#6F42C1, #B392F0);&quot;&gt;  width&lt;/span&gt;&lt;span&gt;=&lt;/span&gt;&lt;span style=&quot;color: light-dark(#032F62, #9ECBFF);&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span style=&quot;color: light-dark(#032F62, #9ECBFF);&quot;&gt;560&lt;/span&gt;&lt;span style=&quot;color: light-dark(#032F62, #9ECBFF);&quot;&gt;&amp;quot;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: light-dark(#6F42C1, #B392F0);&quot;&gt;  height&lt;/span&gt;&lt;span&gt;=&lt;/span&gt;&lt;span style=&quot;color: light-dark(#032F62, #9ECBFF);&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span style=&quot;color: light-dark(#032F62, #9ECBFF);&quot;&gt;315&lt;/span&gt;&lt;span style=&quot;color: light-dark(#032F62, #9ECBFF);&quot;&gt;&amp;quot;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: light-dark(#6F42C1, #B392F0);&quot;&gt;  src&lt;/span&gt;&lt;span&gt;=&lt;/span&gt;&lt;span style=&quot;color: light-dark(#032F62, #9ECBFF);&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span style=&quot;color: light-dark(#032F62, #9ECBFF);&quot;&gt;http://www.youtube.com/embed/prX3--rtqXk&lt;/span&gt;&lt;span style=&quot;color: light-dark(#032F62, #9ECBFF);&quot;&gt;&amp;quot;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: light-dark(#6F42C1, #B392F0);&quot;&gt;  frameborder&lt;/span&gt;&lt;span&gt;=&lt;/span&gt;&lt;span style=&quot;color: light-dark(#032F62, #9ECBFF);&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span style=&quot;color: light-dark(#032F62, #9ECBFF);&quot;&gt;0&lt;/span&gt;&lt;span style=&quot;color: light-dark(#032F62, #9ECBFF);&quot;&gt;&amp;quot;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: light-dark(#6F42C1, #B392F0);&quot;&gt;  allowfullscreen&lt;/span&gt;&lt;span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;&amp;lt;/&lt;/span&gt;&lt;span style=&quot;color: light-dark(#22863A, #85E89D);&quot;&gt;iframe&lt;/span&gt;&lt;span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;br&gt;
+&lt;iframe
+  width=&quot;560&quot;
+  height=&quot;315&quot;
+  src=&quot;http://www.youtube.com/embed/prX3--rtqXk&quot;
+  frameborder=&quot;0&quot;
+  allowfullscreen&gt;
+&lt;/iframe&gt;&lt;br&gt;
+</content>
+        
+    </entry>
+</feed>

@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Firefox for Android local build environment | Jonathan Almeida</title>
+  <meta name="title" content="My Firefox for Android local build environment">
+<meta name="description" content="Scribblings and nonsense">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+  
+  <link rel="alternate" type="application/atom+xml" title="Jonathan Almeida" href="https://jonalmeida.com/atom.xml"><style>
+    :root {
+    --width: 800px;
+    --font-main: Verdana, sans-serif;
+    --font-secondary: Verdana, sans-serif;
+    --font-scale: 1em;
+    --background-color: #fff;
+    --heading-color: #222;
+    --text-color: #444;
+    --link-color: #3273dc;
+    --visited-color: #8b6fcb;
+    --code-background-color: #f2f2f2;
+    --code-color: #222;
+    --blockquote-color: #222;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --background-color: #01242e;
+      --heading-color: #eee;
+      --text-color: #ddd;
+      --link-color: #8cc2dd;
+      --visited-color: #8b6fcb;
+      --code-background-color: #000;
+      --code-color: #ddd;
+      --blockquote-color: #ccc;
+    }
+  }
+
+  body {
+    font-family: var(--font-secondary);
+    font-size: var(--font-scale);
+    margin: auto;
+    padding: 20px;
+    max-width: var(--width);
+    text-align: left;
+    background-color: var(--background-color);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.5;
+    color: var(--text-color);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-main);
+    color: var(--heading-color);
+  }
+
+  a {
+    color: var(--link-color);
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  nav a {
+    margin-right: 8px;
+  }
+
+  nav span.active {
+    font-weight: bold;
+    margin-right: 10px;
+  }
+  strong,
+  b {
+    color: var(--heading-color);
+  }
+
+  button {
+    margin: 0;
+    cursor: pointer;
+  }
+
+  main {
+    line-height: 1.6;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  hr {
+    border: 0;
+    border-top: 1px dashed;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  pre code {
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    display: block;
+    padding: 20px;
+    white-space: pre-wrap;
+    font-size: 0.875rem;
+    overflow-x: auto;
+  }
+
+  code {
+    font-family: monospace;
+    padding: 2px;
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    border-radius: 3px;
+  }
+
+  blockquote {
+    border-left: 1px solid #999;
+    color: var(--code-color);
+    padding-left: 20px;
+    font-style: italic;
+  }
+
+  footer {
+    padding: 25px 0;
+    text-align: center;
+  }
+
+  .title:hover {
+    text-decoration: none;
+  }
+
+  .title h1 {
+    font-size: 1.5em;
+  }
+
+  .inline {
+    width: auto !important;
+  }
+
+  .highlight,
+  .code {
+    padding: 1px 15px;
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    border-radius: 3px;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    overflow-x: auto;
+  }
+
+  /* blog post list */
+  ul.blog-posts {
+    list-style-type: none;
+    padding: unset;
+  }
+
+  ul.blog-posts li {
+    display: flex;
+  }
+
+  ul.blog-posts li span {
+    flex: 0 0 130px;
+  }
+
+  ul.blog-posts li a:visited {
+    color: var(--visited-color);
+  }
+
+  .tags {
+    font-size: smaller;
+  }
+
+  .footnote-definition {
+    display: flex;
+    margin-top: 1em;
+  }
+  .footnote-definition-label {
+    margin-left: 1rem;
+    margin-right: 0.5rem;
+    vertical-align: baseline;
+  }
+  .footnote-definition-label::after {
+    content: "."
+  }
+  .footnote-definition > p {
+    margin: 0;
+  }
+
+  </style><style>
+
+section#comments {
+  p {
+    font-size: 0.8em;
+  }
+}
+
+
+pre mark {
+  color: var(--code-color);
+}
+
+
+pre {
+  background-color: transparent !important;
+}
+</style>
+
+
+
+</head>
+<body><header>
+  <a href="https://jonalmeida.com/" class="title">
+    <h1>Jonathan Almeida</h1>
+  </a>
+  <nav aria-label="site">
+      <a href="https://jonalmeida.com/">Home</a>
+      <a href="https://jonalmeida.com/blog/">Blog</a>
+      <a href="https://jonalmeida.com/til/">TIL</a>
+  </nav>
+</header>
+
+  <h1>My Firefox for Android local build environment</h1>
+      <p>
+        <i>
+          <time datetime="2026-03-05" pubdate>2026-03-05</time>
+        </i>
+      </p>
+  <main>
+    <p>The Firefox for Android app has always had a complicated build process - we're cramping a complex cross-platform browser engine and all the related components that make it work on Android into one package. In its current form, it lives in the Firefox mono-repo at <code>mozilla-central</code> (now <code>mozilla-firefox</code> using the git repository).</p>
+<p>I wanted to document my "artifact-mode" environment here since it's worked quite successfully for me for many years with minor changes.</p>
+<blockquote>
+<p><strong>NOTE:</strong> After a fresh clone of the mono-repo, don't forget to first run and follow the prompts of <code>./mach bootstrap</code> .</p>
+</blockquote>
+<h2 id="mozconfig">mozconfig</h2>
+<p>My <code>mozconfig</code> below is enabled for artifact mode, but occasionally I switch between various configurations. You can see those commented out, with these few extra notes:</p>
+<ul>
+<li>I like to separate out my objdirs to avoid cache pollution between the different build types. I think you can get away without needing to specify this and an objdir for your build type and arch will be generated.</li>
+<li><code>sccache</code> speeds up the native portion of full builds after the first slow one, but it's a hit or miss if you fetch from the remote repository but don't need to rebuild as often.</li>
+<li>I don't care to manually run the clobber step, and I don't truly appreciate why that isn't always automatically done.</li>
+<li><a rel="external" href="https://github.com/emilio/mozconfigs">Emilio's mozconfig manager</a> looks like a better solution, however my needs are very simple.</li>
+</ul>
+<pre class="giallo" style="color-scheme: light dark; color: light-dark(#24292E, #E1E4E8); background-color: light-dark(#FFFFFF, #24292E);" ><code data-lang="shellscript"><span class="giallo-l"><span style="color: light-dark(#6A737D, #6A737D);">#</span><span style="color: light-dark(#6A737D, #6A737D);"> Build GeckoView/Firefox for Android:</span></span>
+<span class="giallo-l"><span style="color: light-dark(#6F42C1, #B392F0);">ac_add_options</span><span style="color: light-dark(#005CC5, #79B8FF);"> -</span><span style="color: light-dark(#005CC5, #79B8FF);">-enable-application=mobile/android</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: light-dark(#6A737D, #6A737D);">#</span><span style="color: light-dark(#6A737D, #6A737D);"> Targeting the following architecture.</span></span>
+<span class="giallo-l"><span style="color: light-dark(#6A737D, #6A737D);">#</span><span style="color: light-dark(#6A737D, #6A737D);"> For regular phones, no --target is needed.</span></span>
+<span class="giallo-l"><span style="color: light-dark(#6A737D, #6A737D);">#</span><span style="color: light-dark(#6A737D, #6A737D);"> For x86 emulators (and x86 devices, which are uncommon):</span></span>
+<span class="giallo-l"><span style="color: light-dark(#6A737D, #6A737D);">#</span><span style="color: light-dark(#6A737D, #6A737D);"> ac_add_options --target=i686</span></span>
+<span class="giallo-l"><span style="color: light-dark(#6A737D, #6A737D);">#</span><span style="color: light-dark(#6A737D, #6A737D);"> For newer phones or Apple silicon</span></span>
+<span class="giallo-l"><span style="color: light-dark(#6F42C1, #B392F0);">ac_add_options</span><span style="color: light-dark(#005CC5, #79B8FF);"> -</span><span style="color: light-dark(#005CC5, #79B8FF);">-target=aarch64</span></span>
+<span class="giallo-l"><span style="color: light-dark(#6A737D, #6A737D);">#</span><span style="color: light-dark(#6A737D, #6A737D);"> For x86_64 emulators (and x86_64 devices, which are even less common):</span></span>
+<span class="giallo-l"><span style="color: light-dark(#6A737D, #6A737D);">#</span><span style="color: light-dark(#6A737D, #6A737D);"> ac_add_options --target=x86_64</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: light-dark(#6A737D, #6A737D);">#</span><span style="color: light-dark(#6A737D, #6A737D);"> sccache will significantly speed up your builds by caching</span></span>
+<span class="giallo-l"><span style="color: light-dark(#6A737D, #6A737D);">#</span><span style="color: light-dark(#6A737D, #6A737D);"> compilation results. The Firefox build system will download</span></span>
+<span class="giallo-l"><span style="color: light-dark(#6A737D, #6A737D);">#</span><span style="color: light-dark(#6A737D, #6A737D);"> sccache automatically.</span></span>
+<span class="giallo-l"><span style="color: light-dark(#6A737D, #6A737D);">#</span><span style="color: light-dark(#6A737D, #6A737D);"> This only works for non-artifact builds.</span></span>
+<span class="giallo-l"><span style="color: light-dark(#6A737D, #6A737D);">#</span><span style="color: light-dark(#6A737D, #6A737D);">ac_add_options --with-ccache=sccache</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: light-dark(#6A737D, #6A737D);">#</span><span style="color: light-dark(#6A737D, #6A737D);"> Enable artifact builds; manager-mode.</span></span>
+<span class="giallo-l"><span style="color: light-dark(#6F42C1, #B392F0);">ac_add_options</span><span style="color: light-dark(#005CC5, #79B8FF);"> -</span><span style="color: light-dark(#005CC5, #79B8FF);">-enable-artifact-builds</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: light-dark(#6A737D, #6A737D);">#</span><span style="color: light-dark(#6A737D, #6A737D);"> Write build artifacts to..</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: light-dark(#6A737D, #6A737D);">#</span><span style="color: light-dark(#6A737D, #6A737D);"># Full build dir</span></span>
+<span class="giallo-l"><span style="color: light-dark(#6A737D, #6A737D);">#</span><span style="color: light-dark(#6A737D, #6A737D);">mk_add_options MOZ_OBJDIR=./objdir-droid</span></span>
+<span class="giallo-l"><span style="color: light-dark(#6A737D, #6A737D);">#</span><span style="color: light-dark(#6A737D, #6A737D);">mk_add_options MOZ_OBJDIR=./objdir-desktop</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: light-dark(#6A737D, #6A737D);">#</span><span style="color: light-dark(#6A737D, #6A737D);"># Artifact builds</span></span>
+<span class="giallo-l"><span style="color: light-dark(#6F42C1, #B392F0);">mk_add_options</span><span style="color: light-dark(#032F62, #9ECBFF);"> MOZ_OBJDIR=./objdir-frontend</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: light-dark(#6A737D, #6A737D);">#</span><span style="color: light-dark(#6A737D, #6A737D);"> Automatic clobbering; don&#39;t ask me.</span></span>
+<span class="giallo-l"><span style="color: light-dark(#6F42C1, #B392F0);">mk_add_options</span><span style="color: light-dark(#032F62, #9ECBFF);"> AUTOCLOBBER=</span><span style="color: light-dark(#005CC5, #79B8FF);">1</span></span></code></pre><h2 id="java-home">JAVA_HOME</h2>
+<p>Sometimes you might find yourself needing to run a (non-mach) command in the terminal. Those typically will need to invoke some parts of gradle for an Android build, so it's best to make sure those are using the same JDK as the bootstrapped one in the mono-repo. This avoids weird build errors where something that compiles in one place isn't working in another (like Android Studio).</p>
+<p>The location for the JDKs are typically in <code>~/.mozbuild/jdk/</code>, and if you've between around for ~6 months you end up with multiple versions after every JDK bump:</p>
+<pre class="giallo" style="color-scheme: light dark; color: light-dark(#24292E, #E1E4E8); background-color: light-dark(#FFFFFF, #24292E);" ><code data-lang="shellscript"><span class="giallo-l"><span style="color: light-dark(#6F42C1, #B392F0);">$</span><span style="color: light-dark(#032F62, #9ECBFF);"> ls</span><span style="color: light-dark(#005CC5, #79B8FF);"> -</span><span style="color: light-dark(#005CC5, #79B8FF);">l</span><span style="color: light-dark(#032F62, #9ECBFF);"> ~/.mozbuild/jdk/</span></span>
+<span class="giallo-l"><span style="color: light-dark(#6F42C1, #B392F0);">drwxr-xr-x@</span><span style="color: light-dark(#032F62, #9ECBFF);"> -</span><span style="color: light-dark(#032F62, #9ECBFF);"> jalmeida</span><span style="color: light-dark(#005CC5, #79B8FF);"> 15</span><span style="color: light-dark(#032F62, #9ECBFF);"> Apr</span><span style="color: light-dark(#005CC5, #79B8FF);">  2025</span><span style="color: light-dark(#032F62, #9ECBFF);"> jdk-17.0.15+6</span></span>
+<span class="giallo-l"><span style="color: light-dark(#6F42C1, #B392F0);">drwxr-xr-x@</span><span style="color: light-dark(#032F62, #9ECBFF);"> -</span><span style="color: light-dark(#032F62, #9ECBFF);"> jalmeida</span><span style="color: light-dark(#005CC5, #79B8FF);"> 15</span><span style="color: light-dark(#032F62, #9ECBFF);"> Jul</span><span style="color: light-dark(#005CC5, #79B8FF);">  2025</span><span style="color: light-dark(#032F62, #9ECBFF);"> jdk-17.0.16+8</span></span>
+<span class="giallo-l"><span style="color: light-dark(#6F42C1, #B392F0);">drwxr-xr-x@</span><span style="color: light-dark(#032F62, #9ECBFF);"> -</span><span style="color: light-dark(#032F62, #9ECBFF);"> jalmeida</span><span style="color: light-dark(#005CC5, #79B8FF);"> 21</span><span style="color: light-dark(#032F62, #9ECBFF);"> Oct</span><span style="color: light-dark(#005CC5, #79B8FF);">  2025</span><span style="color: light-dark(#032F62, #9ECBFF);"> jdk-17.0.17+10</span></span>
+<span class="giallo-l"><span style="color: light-dark(#6F42C1, #B392F0);">drwxr-xr-x@</span><span style="color: light-dark(#032F62, #9ECBFF);"> -</span><span style="color: light-dark(#032F62, #9ECBFF);"> jalmeida</span><span style="color: light-dark(#005CC5, #79B8FF);"> 20</span><span style="color: light-dark(#032F62, #9ECBFF);"> Jan</span><span style="color: light-dark(#032F62, #9ECBFF);"> 09:00</span><span style="color: light-dark(#032F62, #9ECBFF);"> jdk-17.0.18+8</span></span>
+<span class="giallo-l"><span style="color: light-dark(#6F42C1, #B392F0);">drwxr-xr-x@</span><span style="color: light-dark(#032F62, #9ECBFF);"> -</span><span style="color: light-dark(#032F62, #9ECBFF);"> jalmeida</span><span style="color: light-dark(#005CC5, #79B8FF);"> 26</span><span style="color: light-dark(#032F62, #9ECBFF);"> Feb</span><span style="color: light-dark(#032F62, #9ECBFF);"> 15:04</span><span style="color: light-dark(#032F62, #9ECBFF);"> mozboot</span></span>
+<span class="giallo-l"></span></code></pre>
+<p>You can find some way to point your latest JDK to one location or you can be lazy like me and pick the latest version to assign as your <code>JAVA_HOME</code> property by adding this to your shell's RC file:</p>
+<pre class="giallo" style="color-scheme: light dark; color: light-dark(#24292E, #E1E4E8); background-color: light-dark(#FFFFFF, #24292E);" ><code data-lang="shellscript"><span class="giallo-l"><span style="color: light-dark(#D73A49, #F97583);">export</span><span> JAVA_HOME</span><span style="color: light-dark(#D73A49, #F97583);">=</span><span style="color: light-dark(#032F62, #9ECBFF);">&quot;</span><span style="color: light-dark(#032F62, #9ECBFF);">$(</span><span style="color: light-dark(#6F42C1, #B392F0);">ls</span><span style="color: light-dark(#005CC5, #79B8FF);"> -</span><span style="color: light-dark(#005CC5, #79B8FF);">1dr</span><span style="color: light-dark(#005CC5, #79B8FF);"> -</span><span style="color: light-dark(#005CC5, #79B8FF);">-</span><span> $</span><span>HOME</span><span style="color: light-dark(#032F62, #9ECBFF);">/.mozbuild/jdk/jdk-</span><span style="color: light-dark(#005CC5, #79B8FF);">*</span><span style="color: light-dark(#D73A49, #F97583);"> |</span><span style="color: light-dark(#6F42C1, #B392F0);"> head</span><span style="color: light-dark(#005CC5, #79B8FF);"> -</span><span style="color: light-dark(#005CC5, #79B8FF);">n</span><span style="color: light-dark(#005CC5, #79B8FF);"> 1</span><span style="color: light-dark(#032F62, #9ECBFF);">)</span><span style="color: light-dark(#032F62, #9ECBFF);">/Contents/Home</span><span style="color: light-dark(#032F62, #9ECBFF);">&quot;</span></span></code></pre><h3 id="android-studio">Android Studio</h3>
+<p><strong>UPDATE:</strong> With <a rel="external" href="https://phabricator.services.mozilla.com/D286123">D286123</a> landed, this should no longer be necessary! 🎉</p>
+<p>Similarly for Android Studio, let's do the same so that environment is identical. Head to, Settings | Build, Execution, Deployment | Build Tools | Gradle, and ensure that "Gradle JDK" path is set to <code>JAVA_HOME</code>.</p>
+<p>Lately, the default seems to be for it to follow <code>GRADLE_LOCAL_JAVA_HOME</code> which is a property we can't easily override, so we have to manually set this ourselves.</p>
+<div><img src="android-studio-build-tools-gradle.png" style="display: block; margin-left: auto; margin-right: auto;" /></div>
+<p>Using the same Android SDK also helps speed things up and avoids source confusion. You can typically find it in <code>~/.mozbuild/android-sdk-macosx</code> and update it at Settings | Languages &amp; Frameworks | Android SDK.</p>
+<div><img src="android-studio-android-sdk.png" style="display: block; margin-left: auto; margin-right: auto;" /></div>
+<h2 id="debugging">Debugging</h2>
+<p>This section is for miscellaneous build error situations that come-up, but assuming <code>mach build</code> work and there are no known Android build changes, my solution has typically always been the same.</p>
+<p>For example, the other day I fetched another engineers patch to test out locally<sup class="footnote-reference"><a href="#1">1</a></sup> as part of reviewing it where I faced the error message below:</p>
+<details>
+<summary>Execution failed for task ':components:feature-pwa:compileDebugKotlin'.</summary>
+<pre class="giallo" style="color-scheme: light dark; color: light-dark(#24292E, #E1E4E8); background-color: light-dark(#FFFFFF, #24292E);" ><code data-lang="plain"><span class="giallo-l"><span>FAILURE: Build failed with an exception.</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>* What went wrong:</span></span>
+<span class="giallo-l"><span>Execution failed for task &#39;:components:feature-pwa:compileDebugKotlin&#39;.</span></span>
+<span class="giallo-l"><span>&gt; A failure occurred while executing org.jetbrains.kotlin.compilerRunner.GradleCompilerRunnerWithWorkers$GradleKotlinCompilerWorkAction</span></span>
+<span class="giallo-l"><span>   &gt; Internal compiler error. See log for more details</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>* Try:</span></span>
+<span class="giallo-l"><span>&gt; Run with --info or --debug option to get more log output.</span></span>
+<span class="giallo-l"><span>&gt; Run with --scan to generate a Build Scan (powered by Develocity).</span></span>
+<span class="giallo-l"><span>&gt; Get more help at https://help.gradle.org.</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>* Exception is:</span></span>
+<span class="giallo-l"><span>org.gradle.api.tasks.TaskExecutionException: Execution failed for task &#39;:components:feature-pwa:compileDebugKotlin&#39;.</span></span>
+<span class="giallo-l"><span>	at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.lambda$executeIfValid$1(ExecuteActionsTaskExecuter.java:135)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.Try$Failure.ifSuccessfulOrElse(Try.java:288)</span></span>
+<span class="giallo-l"><span>	at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.executeIfValid(ExecuteActionsTaskExecuter.java:133)</span></span>
+<span class="giallo-l"><span>	at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.execute(ExecuteActionsTaskExecuter.java:121)</span></span>
+<span class="giallo-l"><span>	at org.gradle.api.internal.tasks.execution.ProblemsTaskPathTrackingTaskExecuter.execute(ProblemsTaskPathTrackingTaskExecuter.java:41)</span></span>
+<span class="giallo-l"><span>	at org.gradle.api.internal.tasks.execution.FinalizePropertiesTaskExecuter.execute(FinalizePropertiesTaskExecuter.java:46)</span></span>
+<span class="giallo-l"><span>	at org.gradle.api.internal.tasks.execution.ResolveTaskExecutionModeExecuter.execute(ResolveTaskExecutionModeExecuter.java:51)</span></span>
+<span class="giallo-l"><span>	at org.gradle.api.internal.tasks.execution.SkipTaskWithNoActionsExecuter.execute(SkipTaskWithNoActionsExecuter.java:57)</span></span>
+<span class="giallo-l"><span>	at org.gradle.api.internal.tasks.execution.SkipOnlyIfTaskExecuter.execute(SkipOnlyIfTaskExecuter.java:74)</span></span>
+<span class="giallo-l"><span>	at org.gradle.api.internal.tasks.execution.CatchExceptionTaskExecuter.execute(CatchExceptionTaskExecuter.java:36)</span></span>
+<span class="giallo-l"><span>	at org.gradle.api.internal.tasks.execution.EventFiringTaskExecuter$1.executeTask(EventFiringTaskExecuter.java:77)</span></span>
+<span class="giallo-l"><span>	at org.gradle.api.internal.tasks.execution.EventFiringTaskExecuter$1.call(EventFiringTaskExecuter.java:55)</span></span>
+<span class="giallo-l"><span>	at org.gradle.api.internal.tasks.execution.EventFiringTaskExecuter$1.call(EventFiringTaskExecuter.java:52)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:209)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:204)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:66)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:59)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:166)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:59)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.operations.DefaultBuildOperationRunner.call(DefaultBuildOperationRunner.java:53)</span></span>
+<span class="giallo-l"><span>	at org.gradle.api.internal.tasks.execution.EventFiringTaskExecuter.execute(EventFiringTaskExecuter.java:52)</span></span>
+<span class="giallo-l"><span>	at org.gradle.execution.plan.DefaultNodeExecutor.executeLocalTaskNode(DefaultNodeExecutor.java:55)</span></span>
+<span class="giallo-l"><span>	at org.gradle.execution.plan.DefaultNodeExecutor.execute(DefaultNodeExecutor.java:34)</span></span>
+<span class="giallo-l"><span>	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$InvokeNodeExecutorsAction.execute(DefaultTaskExecutionGraph.java:355)</span></span>
+<span class="giallo-l"><span>	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$InvokeNodeExecutorsAction.execute(DefaultTaskExecutionGraph.java:343)</span></span>
+<span class="giallo-l"><span>	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$BuildOperationAwareExecutionAction.lambda$execute$0(DefaultTaskExecutionGraph.java:339)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.operations.CurrentBuildOperationRef.with(CurrentBuildOperationRef.java:84)</span></span>
+<span class="giallo-l"><span>	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$BuildOperationAwareExecutionAction.execute(DefaultTaskExecutionGraph.java:339)</span></span>
+<span class="giallo-l"><span>	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$BuildOperationAwareExecutionAction.execute(DefaultTaskExecutionGraph.java:328)</span></span>
+<span class="giallo-l"><span>	at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.execute(DefaultPlanExecutor.java:459)</span></span>
+<span class="giallo-l"><span>	at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.run(DefaultPlanExecutor.java:376)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.concurrent.AbstractManagedExecutor$1.run(AbstractManagedExecutor.java:47)</span></span>
+<span class="giallo-l"><span>Caused by: org.gradle.workers.internal.DefaultWorkerExecutor$WorkExecutionException: A failure occurred while executing org.jetbrains.kotlin.compilerRunner.GradleCompilerRunnerWithWorkers$GradleKotlinCompilerWorkAction</span></span>
+<span class="giallo-l"><span>	at org.gradle.workers.internal.DefaultWorkerExecutor$WorkItemExecution.waitForCompletion(DefaultWorkerExecutor.java:289)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.work.DefaultAsyncWorkTracker.lambda$waitForItemsAndGatherFailures$2(DefaultAsyncWorkTracker.java:130)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.Factories$1.create(Factories.java:33)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.work.DefaultWorkerLeaseService.lambda$withoutLocks$2(DefaultWorkerLeaseService.java:344)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.work.ResourceLockStatistics$1.measure(ResourceLockStatistics.java:42)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.work.DefaultWorkerLeaseService.withoutLocks(DefaultWorkerLeaseService.java:342)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.work.DefaultWorkerLeaseService.withoutLocks(DefaultWorkerLeaseService.java:326)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.work.DefaultWorkerLeaseService.withoutLock(DefaultWorkerLeaseService.java:331)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.work.DefaultAsyncWorkTracker.waitForItemsAndGatherFailures(DefaultAsyncWorkTracker.java:126)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.work.DefaultAsyncWorkTracker.waitForItemsAndGatherFailures(DefaultAsyncWorkTracker.java:92)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.work.DefaultAsyncWorkTracker.waitForAll(DefaultAsyncWorkTracker.java:78)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.work.DefaultAsyncWorkTracker.waitForCompletion(DefaultAsyncWorkTracker.java:66)</span></span>
+<span class="giallo-l"><span>	at org.gradle.api.internal.tasks.execution.TaskExecution$3.run(TaskExecution.java:260)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.operations.DefaultBuildOperationRunner$1.execute(DefaultBuildOperationRunner.java:29)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.operations.DefaultBuildOperationRunner$1.execute(DefaultBuildOperationRunner.java:26)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:66)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:59)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:166)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:59)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.operations.DefaultBuildOperationRunner.run(DefaultBuildOperationRunner.java:47)</span></span>
+<span class="giallo-l"><span>	at org.gradle.api.internal.tasks.execution.TaskExecution.executeAction(TaskExecution.java:237)</span></span>
+<span class="giallo-l"><span>	at org.gradle.api.internal.tasks.execution.TaskExecution.executeActions(TaskExecution.java:220)</span></span>
+<span class="giallo-l"><span>	at org.gradle.api.internal.tasks.execution.TaskExecution.executeWithPreviousOutputFiles(TaskExecution.java:203)</span></span>
+<span class="giallo-l"><span>	at org.gradle.api.internal.tasks.execution.TaskExecution.execute(TaskExecution.java:170)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.execution.steps.ExecuteStep.executeInternal(ExecuteStep.java:105)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.execution.steps.ExecuteStep.access$000(ExecuteStep.java:44)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.execution.steps.ExecuteStep$1.call(ExecuteStep.java:59)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.execution.steps.ExecuteStep$1.call(ExecuteStep.java:56)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:209)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:204)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:66)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:59)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:166)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:59)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.operations.DefaultBuildOperationRunner.call(DefaultBuildOperationRunner.java:53)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.execution.steps.ExecuteStep.execute(ExecuteStep.java:56)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.execution.steps.ExecuteStep.execute(ExecuteStep.java:44)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.execution.steps.CancelExecutionStep.execute(CancelExecutionStep.java:42)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.execution.steps.TimeoutStep.executeWithoutTimeout(TimeoutStep.java:75)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.execution.steps.TimeoutStep.execute(TimeoutStep.java:55)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.execution.steps.PreCreateOutputParentsStep.execute(PreCreateOutputParentsStep.java:50)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.execution.steps.PreCreateOutputParentsStep.execute(PreCreateOutputParentsStep.java:28)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.execution.steps.RemovePreviousOutputsStep.execute(RemovePreviousOutputsStep.java:68)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.execution.steps.RemovePreviousOutputsStep.execute(RemovePreviousOutputsStep.java:38)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.execution.steps.BroadcastChangingOutputsStep.execute(BroadcastChangingOutputsStep.java:61)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.execution.steps.BroadcastChangingOutputsStep.execute(BroadcastChangingOutputsStep.java:26)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.execution.steps.CaptureOutputsAfterExecutionStep.execute(CaptureOutputsAfterExecutionStep.java:69)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.execution.steps.CaptureOutputsAfterExecutionStep.execute(CaptureOutputsAfterExecutionStep.java:46)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.execution.steps.ResolveInputChangesStep.execute(ResolveInputChangesStep.java:39)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.execution.steps.ResolveInputChangesStep.execute(ResolveInputChangesStep.java:28)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.execution.steps.BuildCacheStep.executeWithoutCache(BuildCacheStep.java:189)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.execution.steps.BuildCacheStep.lambda$execute$1(BuildCacheStep.java:75)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.Either$Right.fold(Either.java:176)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.execution.caching.CachingState.fold(CachingState.java:62)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.execution.steps.BuildCacheStep.execute(BuildCacheStep.java:73)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.execution.steps.BuildCacheStep.execute(BuildCacheStep.java:48)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.execution.steps.StoreExecutionStateStep.execute(StoreExecutionStateStep.java:46)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.execution.steps.StoreExecutionStateStep.execute(StoreExecutionStateStep.java:35)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.execution.steps.SkipUpToDateStep.executeBecause(SkipUpToDateStep.java:75)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.execution.steps.SkipUpToDateStep.lambda$execute$2(SkipUpToDateStep.java:53)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.execution.steps.SkipUpToDateStep.execute(SkipUpToDateStep.java:53)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.execution.steps.SkipUpToDateStep.execute(SkipUpToDateStep.java:35)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.execution.steps.legacy.MarkSnapshottingInputsFinishedStep.execute(MarkSnapshottingInputsFinishedStep.java:37)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.execution.steps.legacy.MarkSnapshottingInputsFinishedStep.execute(MarkSnapshottingInputsFinishedStep.java:27)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.execution.steps.ResolveIncrementalCachingStateStep.executeDelegate(ResolveIncrementalCachingStateStep.java:49)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.execution.steps.ResolveIncrementalCachingStateStep.executeDelegate(ResolveIncrementalCachingStateStep.java:27)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.execution.steps.AbstractResolveCachingStateStep.execute(AbstractResolveCachingStateStep.java:71)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.execution.steps.AbstractResolveCachingStateStep.execute(AbstractResolveCachingStateStep.java:39)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.execution.steps.ResolveChangesStep.execute(ResolveChangesStep.java:64)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.execution.steps.ResolveChangesStep.execute(ResolveChangesStep.java:35)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.execution.steps.ValidateStep.execute(ValidateStep.java:62)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.execution.steps.ValidateStep.execute(ValidateStep.java:40)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.execution.steps.AbstractCaptureStateBeforeExecutionStep.execute(AbstractCaptureStateBeforeExecutionStep.java:76)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.execution.steps.AbstractCaptureStateBeforeExecutionStep.execute(AbstractCaptureStateBeforeExecutionStep.java:45)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.execution.steps.AbstractSkipEmptyWorkStep.executeWithNonEmptySources(AbstractSkipEmptyWorkStep.java:136)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.execution.steps.AbstractSkipEmptyWorkStep.execute(AbstractSkipEmptyWorkStep.java:66)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.execution.steps.AbstractSkipEmptyWorkStep.execute(AbstractSkipEmptyWorkStep.java:38)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.execution.steps.legacy.MarkSnapshottingInputsStartedStep.execute(MarkSnapshottingInputsStartedStep.java:38)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.execution.steps.LoadPreviousExecutionStateStep.execute(LoadPreviousExecutionStateStep.java:36)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.execution.steps.LoadPreviousExecutionStateStep.execute(LoadPreviousExecutionStateStep.java:23)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.execution.steps.HandleStaleOutputsStep.execute(HandleStaleOutputsStep.java:75)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.execution.steps.HandleStaleOutputsStep.execute(HandleStaleOutputsStep.java:41)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.execution.steps.AssignMutableWorkspaceStep.lambda$execute$0(AssignMutableWorkspaceStep.java:35)</span></span>
+<span class="giallo-l"><span>	at org.gradle.api.internal.tasks.execution.TaskExecution$4.withWorkspace(TaskExecution.java:297)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.execution.steps.AssignMutableWorkspaceStep.execute(AssignMutableWorkspaceStep.java:31)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.execution.steps.AssignMutableWorkspaceStep.execute(AssignMutableWorkspaceStep.java:22)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.execution.steps.ChoosePipelineStep.execute(ChoosePipelineStep.java:40)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.execution.steps.ChoosePipelineStep.execute(ChoosePipelineStep.java:23)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.execution.steps.ExecuteWorkBuildOperationFiringStep.lambda$execute$2(ExecuteWorkBuildOperationFiringStep.java:67)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.execution.steps.ExecuteWorkBuildOperationFiringStep.execute(ExecuteWorkBuildOperationFiringStep.java:67)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.execution.steps.ExecuteWorkBuildOperationFiringStep.execute(ExecuteWorkBuildOperationFiringStep.java:39)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.execution.steps.IdentityCacheStep.execute(IdentityCacheStep.java:46)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.execution.steps.IdentityCacheStep.execute(IdentityCacheStep.java:34)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.execution.steps.IdentifyStep.execute(IdentifyStep.java:44)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.execution.steps.IdentifyStep.execute(IdentifyStep.java:31)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.execution.impl.DefaultExecutionEngine$1.execute(DefaultExecutionEngine.java:64)</span></span>
+<span class="giallo-l"><span>	at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.executeIfValid(ExecuteActionsTaskExecuter.java:132)</span></span>
+<span class="giallo-l"><span>	... 30 more</span></span>
+<span class="giallo-l"><span>Caused by: org.jetbrains.kotlin.gradle.tasks.FailedCompilationException: Internal compiler error. See log for more details</span></span>
+<span class="giallo-l"><span>	at org.jetbrains.kotlin.gradle.tasks.TasksUtilsKt.throwExceptionIfCompilationFailed(tasksUtils.kt:22)</span></span>
+<span class="giallo-l"><span>	at org.jetbrains.kotlin.compilerRunner.GradleKotlinCompilerWork.run(GradleKotlinCompilerWork.kt:112)</span></span>
+<span class="giallo-l"><span>	at org.jetbrains.kotlin.compilerRunner.GradleCompilerRunnerWithWorkers$GradleKotlinCompilerWorkAction.execute(GradleCompilerRunnerWithWorkers.kt:75)</span></span>
+<span class="giallo-l"><span>	at org.gradle.workers.internal.DefaultWorkerServer.execute(DefaultWorkerServer.java:68)</span></span>
+<span class="giallo-l"><span>	at org.gradle.workers.internal.NoIsolationWorkerFactory$1$1.create(NoIsolationWorkerFactory.java:64)</span></span>
+<span class="giallo-l"><span>	at org.gradle.workers.internal.NoIsolationWorkerFactory$1$1.create(NoIsolationWorkerFactory.java:61)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.classloader.ClassLoaderUtils.executeInClassloader(ClassLoaderUtils.java:100)</span></span>
+<span class="giallo-l"><span>	at org.gradle.workers.internal.NoIsolationWorkerFactory$1.lambda$execute$0(NoIsolationWorkerFactory.java:61)</span></span>
+<span class="giallo-l"><span>	at org.gradle.workers.internal.AbstractWorker$1.call(AbstractWorker.java:44)</span></span>
+<span class="giallo-l"><span>	at org.gradle.workers.internal.AbstractWorker$1.call(AbstractWorker.java:41)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:209)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:204)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:66)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:59)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:166)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:59)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.operations.DefaultBuildOperationRunner.call(DefaultBuildOperationRunner.java:53)</span></span>
+<span class="giallo-l"><span>	at org.gradle.workers.internal.AbstractWorker.executeWrappedInBuildOperation(AbstractWorker.java:41)</span></span>
+<span class="giallo-l"><span>	at org.gradle.workers.internal.NoIsolationWorkerFactory$1.execute(NoIsolationWorkerFactory.java:58)</span></span>
+<span class="giallo-l"><span>	at org.gradle.workers.internal.DefaultWorkerExecutor.lambda$submitWork$0(DefaultWorkerExecutor.java:176)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.work.DefaultConditionalExecutionQueue$ExecutionRunner.runExecution(DefaultConditionalExecutionQueue.java:194)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.work.DefaultConditionalExecutionQueue$ExecutionRunner.access$700(DefaultConditionalExecutionQueue.java:127)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.work.DefaultConditionalExecutionQueue$ExecutionRunner$1.run(DefaultConditionalExecutionQueue.java:169)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.Factories$1.create(Factories.java:33)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.work.DefaultWorkerLeaseService.lambda$withLocksAcquired$0(DefaultWorkerLeaseService.java:269)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.work.ResourceLockStatistics$1.measure(ResourceLockStatistics.java:42)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.work.DefaultWorkerLeaseService.withLocksAcquired(DefaultWorkerLeaseService.java:267)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.work.DefaultWorkerLeaseService.withLocks(DefaultWorkerLeaseService.java:259)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.work.DefaultWorkerLeaseService.runAsWorkerThread(DefaultWorkerLeaseService.java:127)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.work.DefaultWorkerLeaseService.runAsWorkerThread(DefaultWorkerLeaseService.java:132)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.work.DefaultConditionalExecutionQueue$ExecutionRunner.runBatch(DefaultConditionalExecutionQueue.java:164)</span></span>
+<span class="giallo-l"><span>	at org.gradle.internal.work.DefaultConditionalExecutionQueue$ExecutionRunner.run(DefaultConditionalExecutionQueue.java:133)</span></span>
+<span class="giallo-l"><span>	... 2 more</span></span>
+<span class="giallo-l"></span></code></pre></details>
+<p>The full trace was long and didn't seem related to a code failure in the module itself. So I employed the solution, which is always the same:</p>
+<ol>
+<li><code>./mach build</code></li>
+<li>In Android Studio, File &gt; Sync Project with Gradle Files.</li>
+</ol>
+<p>Yup, that's all. Very simple and boring.</p>
+<hr />
+<div class="footnote-definition" id="1"><sup class="footnote-definition-label">1</sup>
+<p>With Jujutsu, this is the moz-phab command I use which has made it easier to manage review patches: <code>moz-phab patch &lt;patch-id&gt; --no-branch --apply-to main@origin</code></p>
+</div>
+<section id="comments" class="article-content">
+  <h3>Comments</h3>
+  <p>With an account on the Fediverse or Mastodon, you can respond to this <a href="https://mindly.social/@jonalmeida/116197244320129422">post</a>. Since Mastodon is decentralized, you can use your existing account hosted by another Mastodon server or compatible platform if you don't have an account on this one. Known non-private replies are displayed below.</p>
+  <p>Learn how this was implemented from the original source <a class="link" href="/2020/12/29/adding-comments-to-your-static-blog-with-mastodon/">here.</a></p>
+  <p id="mastodon-comments-list">
+  <button id="load-comment">Load comments</button></p>
+  <div id="comments-wrapper">
+    <noscript><p>Loading comments relies on JavaScript. Try enabling JavaScript and reloading, or visit <a href="https://mindly.social/@jonalmeida/116197244320129422">the original post</a> on Mastodon.</p></noscript>
+  </div>
+  <noscript>You need JavaScript to view the comments.</noscript>
+  <script type="text/javascript">
+    function escapeHtml(unsafe) {
+      return unsafe
+           .replace(/&/g, "&amp;")
+           .replace(/</g, "&lt;")
+           .replace(/>/g, "&gt;")
+           .replace(/"/g, "&quot;")
+           .replace(/'/g, "&#039;");
+    }
+    function emojify(input, emojis) {
+      let output = input;
+<pre class="giallo" style="color-scheme: light dark; color: light-dark(#24292E, #E1E4E8); background-color: light-dark(#FFFFFF, #24292E);" ><code data-lang="plain"><span class="giallo-l"><span>  emojis.forEach(emoji =&gt; {</span></span>
+<span class="giallo-l"><span>    let picture = document.createElement(&quot;picture&quot;);</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>    let source = document.createElement(&quot;source&quot;);</span></span>
+<span class="giallo-l"><span>    source.setAttribute(&quot;srcset&quot;, escapeHtml(emoji.url));</span></span>
+<span class="giallo-l"><span>    source.setAttribute(&quot;media&quot;, &quot;(prefers-reduced-motion: no-preference)&quot;);</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>    let img = document.createElement(&quot;img&quot;);</span></span>
+<span class="giallo-l"><span>    img.className = &quot;emoji&quot;;</span></span>
+<span class="giallo-l"><span>    img.setAttribute(&quot;src&quot;, escapeHtml(emoji.static_url));</span></span>
+<span class="giallo-l"><span>    img.setAttribute(&quot;alt&quot;, `:${ emoji.shortcode }:`);</span></span>
+<span class="giallo-l"><span>    img.setAttribute(&quot;title&quot;, `:${ emoji.shortcode }:`);</span></span>
+<span class="giallo-l"><span>    img.setAttribute(&quot;width&quot;, &quot;20&quot;);</span></span>
+<span class="giallo-l"><span>    img.setAttribute(&quot;height&quot;, &quot;20&quot;);</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>    picture.appendChild(source);</span></span>
+<span class="giallo-l"><span>    picture.appendChild(img);</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>    output = output.replace(`:${ emoji.shortcode }:`, picture.outerHTML);</span></span>
+<span class="giallo-l"><span>  });</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>  return output;</span></span>
+<span class="giallo-l"><span>}</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>function loadCssFile(path) {</span></span>
+<span class="giallo-l"><span>  const link = document.createElement(&#39;link&#39;);</span></span>
+<span class="giallo-l"><span>  link.rel = &#39;stylesheet&#39;;</span></span>
+<span class="giallo-l"><span>  link.type = &#39;text/css&#39;;</span></span>
+<span class="giallo-l"><span>  link.href = path; // relative path to your CSS file</span></span>
+<span class="giallo-l"><span>  document.head.appendChild(link);</span></span>
+<span class="giallo-l"><span>}</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>function loadComments() {</span></span>
+<span class="giallo-l"><span>  let purifyPromise = import(&quot;/assets/js/purify.min.js&quot;);</span></span>
+<span class="giallo-l"><span>  let cssPromise = loadCssFile(&quot;/comments.css&quot;);</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>  let commentsWrapper = document.getElementById(&quot;comments-wrapper&quot;);</span></span>
+<span class="giallo-l"><span>  document.getElementById(&quot;load-comment&quot;).innerHTML = &quot;Loading&quot;;</span></span>
+<span class="giallo-l"><span>  fetch(&quot;https://mindly.social/api/v1/statuses/116197244320129422/context&quot;)</span></span>
+<span class="giallo-l"><span>    .then(function(response) {</span></span>
+<span class="giallo-l"><span>      return response.json();</span></span>
+<span class="giallo-l"><span>    })</span></span>
+<span class="giallo-l"><span>    .then(function(data) {</span></span>
+<span class="giallo-l"><span>      let descendants = data[&#39;descendants&#39;];</span></span>
+<span class="giallo-l"><span>      if(</span></span>
+<span class="giallo-l"><span>        descendants &amp;&amp;</span></span>
+<span class="giallo-l"><span>        Array.isArray(descendants) &amp;&amp;</span></span>
+<span class="giallo-l"><span>        descendants.length &gt; 0</span></span>
+<span class="giallo-l"><span>      ) {</span></span>
+<span class="giallo-l"><span>        commentsWrapper.innerHTML = &quot;&quot;;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>        descendants.forEach(function(status) {</span></span>
+<span class="giallo-l"><span>          /* For debugging */</span></span>
+<span class="giallo-l"><span>          /* console.log(descendants) */</span></span>
+<span class="giallo-l"><span>          if( status.account.display_name.length &gt; 0 ) {</span></span>
+<span class="giallo-l"><span>            status.account.display_name = escapeHtml(status.account.display_name);</span></span>
+<span class="giallo-l"><span>            status.account.display_name = emojify(status.account.display_name, status.account.emojis);</span></span>
+<span class="giallo-l"><span>          } else {</span></span>
+<span class="giallo-l"><span>            status.account.display_name = status.account.username;</span></span>
+<span class="giallo-l"><span>          };</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>          let instance = &quot;&quot;;</span></span>
+<span class="giallo-l"><span>          if( status.account.acct.includes(&quot;@&quot;) ) {</span></span>
+<span class="giallo-l"><span>            instance = status.account.acct.split(&quot;@&quot;)[1];</span></span>
+<span class="giallo-l"><span>          } else {</span></span>
+<span class="giallo-l"><span>            instance = &quot;mindly.social&quot;;</span></span>
+<span class="giallo-l"><span>          }</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>          const isReply = status.in_reply_to_id !== &quot;116197244320129422&quot;;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>          let op = false;</span></span>
+<span class="giallo-l"><span>          if( status.account.acct == &quot;jonalmeida&quot; ) {</span></span>
+<span class="giallo-l"><span>            op = true;</span></span>
+<span class="giallo-l"><span>          }</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>          status.content = emojify(status.content, status.emojis);</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>          let avatarSource = document.createElement(&quot;source&quot;);</span></span>
+<span class="giallo-l"><span>          avatarSource.setAttribute(&quot;srcset&quot;, escapeHtml(status.account.avatar));</span></span>
+<span class="giallo-l"><span>          avatarSource.setAttribute(&quot;media&quot;, &quot;(prefers-reduced-motion: no-preference)&quot;);</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>          let avatarImg = document.createElement(&quot;img&quot;);</span></span>
+<span class="giallo-l"><span>          avatarImg.className = &quot;avatar&quot;;</span></span>
+<span class="giallo-l"><span>          avatarImg.setAttribute(&quot;src&quot;, escapeHtml(status.account.avatar_static));</span></span>
+<span class="giallo-l"><span>          avatarImg.setAttribute(&quot;alt&quot;, `@${ status.account.username }@${ instance } avatar`);</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>          let avatarPicture = document.createElement(&quot;picture&quot;);</span></span>
+<span class="giallo-l"><span>          avatarPicture.appendChild(avatarSource);</span></span>
+<span class="giallo-l"><span>          avatarPicture.appendChild(avatarImg);</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>          let avatar = document.createElement(&quot;a&quot;);</span></span>
+<span class="giallo-l"><span>          avatar.className = &quot;avatar-link&quot;;</span></span>
+<span class="giallo-l"><span>          avatar.setAttribute(&quot;href&quot;, status.account.url);</span></span>
+<span class="giallo-l"><span>          avatar.setAttribute(&quot;rel&quot;, &quot;external nofollow&quot;);</span></span>
+<span class="giallo-l"><span>          avatar.setAttribute(&quot;title&quot;, `View profile at @${ status.account.username }@${ instance }`);</span></span>
+<span class="giallo-l"><span>          avatar.appendChild(avatarPicture);</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>          let instanceBadge = document.createElement(&quot;a&quot;);</span></span>
+<span class="giallo-l"><span>          instanceBadge.className = &quot;instance&quot;;</span></span>
+<span class="giallo-l"><span>          instanceBadge.setAttribute(&quot;href&quot;, status.account.url);</span></span>
+<span class="giallo-l"><span>          instanceBadge.setAttribute(&quot;title&quot;, `@${ status.account.username }@${ instance }`);</span></span>
+<span class="giallo-l"><span>          instanceBadge.setAttribute(&quot;rel&quot;, &quot;external nofollow&quot;);</span></span>
+<span class="giallo-l"><span>          instanceBadge.textContent = instance;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>          let display = document.createElement(&quot;span&quot;);</span></span>
+<span class="giallo-l"><span>          display.className = &quot;display&quot;;</span></span>
+<span class="giallo-l"><span>          display.setAttribute(&quot;itemprop&quot;, &quot;author&quot;);</span></span>
+<span class="giallo-l"><span>          display.setAttribute(&quot;itemtype&quot;, &quot;http://schema.org/Person&quot;);</span></span>
+<span class="giallo-l"><span>          display.innerHTML = status.account.display_name;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>          let header = document.createElement(&quot;header&quot;);</span></span>
+<span class="giallo-l"><span>          header.className = &quot;author&quot;;</span></span>
+<span class="giallo-l"><span>          header.appendChild(display);</span></span>
+<span class="giallo-l"><span>          header.appendChild(instanceBadge);</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>          let permalink = document.createElement(&quot;a&quot;);</span></span>
+<span class="giallo-l"><span>          permalink.setAttribute(&quot;href&quot;, status.url);</span></span>
+<span class="giallo-l"><span>          permalink.setAttribute(&quot;itemprop&quot;, &quot;url&quot;);</span></span>
+<span class="giallo-l"><span>          permalink.setAttribute(&quot;title&quot;, `View comment at ${ instance }`);</span></span>
+<span class="giallo-l"><span>          permalink.setAttribute(&quot;rel&quot;, &quot;external nofollow&quot;);</span></span>
+<span class="giallo-l"><span>          permalink.textContent = new Date( status.created_at ).toLocaleString(&#39;en-US&#39;, {</span></span>
+<span class="giallo-l"><span>            dateStyle: &quot;long&quot;,</span></span>
+<span class="giallo-l"><span>            timeStyle: &quot;short&quot;,</span></span>
+<span class="giallo-l"><span>          });</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>          let timestamp = document.createElement(&quot;time&quot;);</span></span>
+<span class="giallo-l"><span>          timestamp.setAttribute(&quot;datetime&quot;, status.created_at);</span></span>
+<span class="giallo-l"><span>          timestamp.appendChild(permalink);</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>          let main = document.createElement(&quot;main&quot;);</span></span>
+<span class="giallo-l"><span>          main.setAttribute(&quot;itemprop&quot;, &quot;text&quot;);</span></span>
+<span class="giallo-l"><span>          main.innerHTML = status.content;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>          let interactions = document.createElement(&quot;footer&quot;);</span></span>
+<span class="giallo-l"><span>          if(status.favourites_count &gt; 0) {</span></span>
+<span class="giallo-l"><span>            let faves = document.createElement(&quot;a&quot;);</span></span>
+<span class="giallo-l"><span>            faves.className = &quot;faves&quot;;</span></span>
+<span class="giallo-l"><span>            faves.setAttribute(&quot;href&quot;, `${ status.url }/favourites`);</span></span>
+<span class="giallo-l"><span>            faves.setAttribute(&quot;title&quot;, `Favorites from ${ instance }`);</span></span>
+<span class="giallo-l"><span>            faves.textContent = status.favourites_count;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>            interactions.appendChild(faves);</span></span>
+<span class="giallo-l"><span>          }</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>          let comment = document.createElement(&quot;article&quot;);</span></span>
+<span class="giallo-l"><span>          comment.id = `comment-${ status.id }`;</span></span>
+<span class="giallo-l"><span>          comment.className = isReply ? &quot;comment comment-reply&quot; : &quot;comment&quot;;</span></span>
+<span class="giallo-l"><span>          comment.setAttribute(&quot;itemprop&quot;, &quot;comment&quot;);</span></span>
+<span class="giallo-l"><span>          comment.setAttribute(&quot;itemtype&quot;, &quot;http://schema.org/Comment&quot;);</span></span>
+<span class="giallo-l"><span>          comment.appendChild(avatar);</span></span>
+<span class="giallo-l"><span>          comment.appendChild(header);</span></span>
+<span class="giallo-l"><span>          comment.appendChild(timestamp);</span></span>
+<span class="giallo-l"><span>          comment.appendChild(main);</span></span>
+<span class="giallo-l"><span>          comment.appendChild(interactions);</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>          if(op === true) {</span></span>
+<span class="giallo-l"><span>            comment.classList.add(&quot;op&quot;);</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>            avatar.classList.add(&quot;op&quot;);</span></span>
+<span class="giallo-l"><span>            avatar.setAttribute(</span></span>
+<span class="giallo-l"><span>              &quot;title&quot;,</span></span>
+<span class="giallo-l"><span>              &quot;Blog post author; &quot; + avatar.getAttribute(&quot;title&quot;)</span></span>
+<span class="giallo-l"><span>            );</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>            instanceBadge.classList.add(&quot;op&quot;);</span></span>
+<span class="giallo-l"><span>            instanceBadge.setAttribute(</span></span>
+<span class="giallo-l"><span>              &quot;title&quot;,</span></span>
+<span class="giallo-l"><span>              &quot;Blog post author: &quot; + instanceBadge.getAttribute(&quot;title&quot;)</span></span>
+<span class="giallo-l"><span>            );</span></span>
+<span class="giallo-l"><span>          }</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>          Promise.all([purifyPromise, cssPromise]).then(() =&gt; {</span></span>
+<span class="giallo-l"><span>            commentsWrapper.innerHTML += DOMPurify.sanitize(comment.outerHTML);</span></span>
+<span class="giallo-l"><span>          });</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>        });</span></span>
+<span class="giallo-l"><span>      } else {</span></span>
+<span class="giallo-l"><span>        commentsWrapper.innerHTML = &quot;&lt;p&gt;No comments.&lt;/p&gt;&quot;;</span></span>
+<span class="giallo-l"><span>      }</span></span>
+<span class="giallo-l"><span>      // Makes the button update more user-perceivable.</span></span>
+<span class="giallo-l"><span>      setTimeout(() =&gt; {</span></span>
+<span class="giallo-l"><span>        document.getElementById(&quot;load-comment&quot;).innerHTML = &quot;Reload comments&quot;;</span></span>
+<span class="giallo-l"><span>      }, 300);</span></span>
+<span class="giallo-l"><span>    });</span></span>
+<span class="giallo-l"><span>  }</span></span>
+<span class="giallo-l"><span>  document.getElementById(&quot;load-comment&quot;).addEventListener(&quot;click&quot;, loadComments);</span></span></code></pre>  </script>
+</section>
+
+  </main>
+  <p>
+        Categories:
+          <a href="https://jonalmeida.com/categories/blog/">#blog</a>
+        Tags:
+          <a href="https://jonalmeida.com/tags/mozilla/">#mozilla</a>
+          <a href="https://jonalmeida.com/tags/workflow/">#workflow</a>
+  </p>
+  <!-- Add temporary footnote back-links support -->
+  <script src="/footnotes.js"></script>
+<footer>
+</footer>
+<!-- custom_body -->
+</body>
+</html>
