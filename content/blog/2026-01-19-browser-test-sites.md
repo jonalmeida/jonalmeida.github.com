@@ -50,4 +50,4 @@ There are various form types and various heuristics to trigger completion option
 
 If you need to make your own, try to write out the code yourself so you can understand the reduced test case. If it's not straight-forward, try using the [Testcase Reducer by Thomas Wisniewski](https://addons.mozilla.org/en-CA/firefox/addon/testcase-reducer/).
 
-{{ comments(host="mindly.social", username="jonalmeida", id=115937256635328128) }}
+{{ <comments host="mindly.social" username="jonalmeida" id={115937256635328128} /> }}

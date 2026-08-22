@@ -10,7 +10,7 @@ extra:
 
 We travelled to Colombo, Sri Lanka for the first time this year and it felt like a lost opportunity that we didn't do that more often when we lived closer in that region. It was a quick trip to explore but also catch up with friends who moved there years ago.
 
-{{ gallery() }}
+{{ <gallery page={page} /> }}
 
 Some notable observations:
  - So much greenery! My inner pessimist expected a city of this size to have removed it all for urban growth, but I was happy it wasn't so.

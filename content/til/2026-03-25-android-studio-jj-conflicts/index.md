@@ -24,7 +24,7 @@ program = "/Users/jalmeida/Applications/Android Studio Nightly.app/Contents/MacO
 
 Presto!
 
-{{ image(path="2026-03-25_1.png") }}
+{{ <image path="2026-03-25_1.png" /> }}
 
 [0]: https://meldmerge.org/
 [1]: https://www.linkedin.com/in/andreyzinovyev

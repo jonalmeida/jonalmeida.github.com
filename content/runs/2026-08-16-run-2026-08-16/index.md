@@ -11,14 +11,13 @@ extra:
   duration: "40:02"
   pace_per_km: "5:20"
   elevation_gain_m: 35
-  mermaid:
   mermaid: true
 ---
 Comfy but also not too spongy! Excellent fit and size (9.5). The "woven" upper is quite decent, but I have nothing to compare it against to know what it's like to the OG version. These can definitely double as a daily runner and walker.
 
 Here is to the next 1000km in these shoes! 👟
 
-{{ gallery() }}
+{{ <gallery page={page} /> }}
 
 | Stat | Value |
 |------|-------|
@@ -29,11 +28,11 @@ Here is to the next 1000km in these shoes! 👟
 
 ## Route
 
-{{ image(path="/runs/maps/24004837231.svg", width=640) }}
+{{ <image path="/runs/maps/24004837231.svg" width={640} /> }}
 
 ## Heart Rate Zones
 
-{% mermaid() %}
+{% <mermaid> %}
 ---
 config:
   themeVariables:
@@ -51,4 +50,4 @@ xychart horizontal
     bar [0.0, 0.0, 0.0, 0.0, 0.0]
     bar [0.0, 0.0, 0.0, 1.5, 0.0]
     bar [0.0, 0.0, 0.0, 0.0, 98.5]
-{% end %}
+{% </mermaid> %}

@@ -12,7 +12,7 @@ This has apparently existed since the dawn of time in all browsers (except Safar
 
 Entering a word into the address bar, and then using Cmd + Enter[^1] wraps the word with 'www.' in the front and '.com' and the end of it.
 
-{{ image(path="search-word.png") }}
+{{ <image path="search-word.png" /> }}
 
 Pretty neat! I tried this with `nautil.us` but it didn't work and went straight to `https://nautil.us` in Firefox. There might be some logic to respect known TLDs.
 

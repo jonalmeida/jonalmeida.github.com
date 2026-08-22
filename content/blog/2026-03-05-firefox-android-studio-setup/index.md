@@ -89,11 +89,11 @@ Similarly for Android Studio, let's do the same so that environment is identical
 
 Lately, the default seems to be for it to follow `GRADLE_LOCAL_JAVA_HOME` which is a property we can't easily override, so we have to manually set this ourselves.
 
-{{ image(path="android-studio-build-tools-gradle.png") }}
+{{ <image path="android-studio-build-tools-gradle.png" /> }}
 
 Using the same Android SDK also helps speed things up and avoids source confusion. You can typically find it in `~/.mozbuild/android-sdk-macosx` and update it at Settings | Languages & Frameworks | Android SDK.
 
-{{ image(path="android-studio-android-sdk.png") }}
+{{ <image path="android-studio-android-sdk.png" /> }}
 
 ## Debugging
 
@@ -303,4 +303,4 @@ Yup, that's all. Very simple and boring.
 [^1]: With Jujutsu, this is the moz-phab command I use which has made it easier to manage review patches: `moz-phab patch <patch-id> --no-branch --apply-to main@origin`
 
 
-{{ comments(host="mindly.social", username="jonalmeida", id=116197244320129422) }}
+{{ <comments host="mindly.social" username="jonalmeida" id={116197244320129422} /> }}
