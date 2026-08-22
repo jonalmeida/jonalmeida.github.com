@@ -248,7 +248,7 @@ Ignored: `.env`, `.garmin_tokens/`, `.overpass_cache/`.
 
 Written elsewhere in the repo: `content/runs/*.md` and
 `static/runs/maps/<activity_id>.svg`, embedded with
-`{{ image(path="/runs/maps/<id>.svg", width=640) }}`.
+`{{ <image path="/runs/maps/<id>.svg" width={640} /> }}`.
 
 ## All options
 

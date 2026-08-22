@@ -226,7 +226,7 @@ ZONE_NAMES = {1: "Warm Up", 2: "Easy", 3: "Aerobic", 4: "Threshold", 5: "Maximum
 
 
 def hr_zones_mermaid(activity: dict) -> str:
-    """Return a mermaid xychart shortcode for time in HR zones, or empty string."""
+    """Return a mermaid xychart component for time in HR zones, or empty string."""
     # Collect all hrTimeInZone_N keys (e.g. hrTimeInZone_1 … hrTimeInZone_5)
     zone_data: list[tuple[int, int]] = []
     for key, value in activity.items():
@@ -254,7 +254,7 @@ def hr_zones_mermaid(activity: dict) -> str:
         bar_lines.append(f"    bar [{', '.join(values)}]")
 
     lines = [
-        "{% mermaid() %}",
+        "{% <mermaid> %}",
         """---
 config:
   themeVariables:
@@ -270,7 +270,7 @@ config:
         # a bar even for zero values.
         '    y-axis "%" 2 --> 100',
         *bar_lines,
-        "{% end %}",
+        "{% </mermaid> %}",
     ]
     return "\n".join(lines)
 
@@ -321,8 +321,7 @@ extra:
   distance_km: {distance_km}
   duration: "{duration_str}"
   pace_per_km: "{pace_str}"
-  elevation_gain_m: {elevation_str}
-  mermaid: {mermaid_flag}
+  elevation_gain_m: {elevation_str}{mermaid_flag}
 ---"""
 
     table = f"""
@@ -391,7 +390,7 @@ def insert_route_shortcode(path: Path, shortcode: str) -> bool:
 
 def route_shortcode(map_url: str) -> str:
     """Return the image() shortcode line for a map URL."""
-    return f'{{{{ image(path="{map_url}", width={MAP_EMBED_WIDTH}) }}}}'
+    return f'{{{{ <image path="{map_url}" width={{{MAP_EMBED_WIDTH}}} /> }}}}'
 
 
 # ---------------------------------------------------------------------------
