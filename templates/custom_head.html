@@ -17,7 +17,7 @@ pre {
 }
 </style>
 
-{% if page is defined and page.extra.mermaid %}
+{% if page?.extra?.mermaid %}
 <script src="{{ get_url(path='js/mermaid.min.js') }}"></script>
 <script>
   const mermaidTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'default';
