@@ -2,7 +2,7 @@
 
 {%- block main -%}
   <main>
-    {%- if term %}
+    {%- if term?.name %}
       <h3 class="filter">{{ trans(key="filtering_for", lang=lang) }} "{{ term.name }}"</h3>
       <small>
         <a href="{{ get_url(path="@/blog/_index.md", lang=lang) }}">{{ trans(key="remove_filter", lang=lang) }}</a>
@@ -13,8 +13,8 @@
         <li>
           <span>
             <i>
-              <time datetime="{{ page.date | date(format='%+') }}" pubdate>
-                {{ page.date | date(format=config.extra.date_format) }}
+              <time datetime="{{ page.date | date(format='%Y-%m-%d') }}" pubdate>
+                {{ page.date | date(format=config.extra?.date_format or "%Y-%m-%d") }}
               </time>
             </i>
           </span>
@@ -27,4 +27,4 @@
       {%- endfor %}
     </ul>
   </main>
-{%- endblock -%}
+{%- endblock main -%}

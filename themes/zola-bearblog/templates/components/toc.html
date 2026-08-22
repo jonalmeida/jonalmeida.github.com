@@ -1,0 +1,12 @@
+{% component table_of_contents(toc: array, max_level: integer = 6, ...rest) {"doc": "Renders table of contents recursively"} %}
+<ul>
+  {%- for header in toc %}
+    <li>
+      <a href="{{ header.permalink | safe }}">{{ header.title }}</a>
+        {%- if header.children and header.level < max_level %}
+          {{ <table_of_contents toc={header.children} max_level={max_level} /> }}
+        {%- endif %}
+    </li>
+  {%- endfor %}
+</ul>
+{% endcomponent table_of_contents %}

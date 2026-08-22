@@ -44,10 +44,11 @@ table_of_contents = "Inhaltsverzeichnis"
 language = "Sprache"
 site = "Site"
 
-[markdown]
-# Whether to do syntax highlighting
-# Theme can be customised by setting the `highlight_theme` variable to a theme supported by Zola
-highlight_code = false
+
+# syntax highlighting is disabled by default 
+# as of Zola 0.23. uncomment the block below to enable
+# [markdown.highlighting]
+# theme = "gruvbox-dark"
 
 [extra]
 date_format = "%Y-%m-%d"

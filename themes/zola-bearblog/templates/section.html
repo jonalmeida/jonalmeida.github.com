@@ -2,7 +2,7 @@
 
 {%- block main -%}
   <main>
-    {%- if taxonomy.term %}
+    {%- if taxonomy?.term %}
       <h3 class="filter">{{ trans(key="filtering_for",lang=lang)}} "{{ section.title }}"</h3>
       <small>
         <a href="{{ get_url(path="@/blog/_index.md", lang=lang) }}">{{ trans(key="remove_filter", lang=lang) }}</a>
@@ -13,8 +13,8 @@
         <li>
           <span>
             <i>
-              <time datetime="{{ page.date | date(format='%+') }}" pubdate>
-                {{ page.date | date(format=config.extra.date_format) }}
+              <time datetime="{{ page.date | date(format='%Y-%m-%d') }}" pubdate>
+                {{ page.date | date(format=config.extra?.date_format or "%Y-%m-%d") }}
               </time>
             </i>
           </span>
@@ -25,11 +25,11 @@
       {%- endfor -%}
     </ul>
     <div class="tags">
-      {%- set taxonomy_group = section.extra.taxonomy_group | default(value="tags") %}
+      {%- set taxonomy_group = section.extra?.taxonomy_group or "tags" %}
       {%- set tags = get_taxonomy(kind=taxonomy_group, lang=lang) %}
-      {%- for post in tags.items %}
+      {%- for post in tags?.items or [] %}
         <a href="{{ post.permalink }}">#{{ post.name }}</a>&nbsp;
       {%- endfor %}
     </div>
   </main>
-{% endblock %}
+{%- endblock main -%}
