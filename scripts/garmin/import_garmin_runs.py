@@ -225,8 +225,11 @@ def format_pace_from_speed(mps: float) -> str:
 ZONE_NAMES = {1: "Warm Up", 2: "Easy", 3: "Aerobic", 4: "Threshold", 5: "Maximum"}
 
 
-def hr_zones_mermaid(activity: dict) -> str:
-    """Return a mermaid xychart component for time in HR zones, or empty string."""
+def hr_zone_percentages(activity: dict) -> list[tuple[int, float]]:
+    """Return [(zone, percent of the time)] for the HR zones, zone 5 first.
+
+    The list is empty when the activity has no zone data.
+    """
     # Collect all hrTimeInZone_N keys (e.g. hrTimeInZone_1 … hrTimeInZone_5)
     zone_data: list[tuple[int, int]] = []
     for key, value in activity.items():
@@ -236,21 +239,48 @@ def hr_zones_mermaid(activity: dict) -> str:
                 zone_data.append((int(suffix), int(value or 0)))
 
     if not zone_data:
-        return ""
+        return []
 
     # Display zone 5 → 1 (top to bottom, matching Garmin UI)
     zone_data.sort(key=lambda x: -x[0])
 
     total = sum(s for _, s in zone_data) or 1
-    n = len(zone_data)
-    labels = ", ".join(f'"Zone {z} {ZONE_NAMES.get(z, "")}"' for z, _ in zone_data)
+    return [(zone, round(secs / total * 100, 1)) for zone, secs in zone_data]
+
+
+def hr_zones_front_matter(activity: dict) -> str:
+    """Return an `hr_zones` front matter block, or empty string.
+
+    A feed reader removes JavaScript, so it cannot draw the mermaid chart.
+    The feed template (templates/atom.xml) makes a plain table from this
+    data instead. The page itself still shows the chart.
+    """
+    zones = hr_zone_percentages(activity)
+    if not zones:
+        return ""
+
+    lines = ["\n  hr_zones:"]
+    for zone, pct in zones:
+        name = ZONE_NAMES.get(zone, "")
+        lines.append(f'    - {{ zone: {zone}, name: "{name}", pct: {pct} }}')
+    return "\n".join(lines)
+
+
+def hr_zones_mermaid(activity: dict) -> str:
+    """Return a mermaid xychart component for time in HR zones, or empty string."""
+    zones = hr_zone_percentages(activity)
+    if not zones:
+        return ""
+
+    n = len(zones)
+    labels = ", ".join(f'"Zone {z} {ZONE_NAMES.get(z, "")}"' for z, _ in zones)
 
     # One bar series per zone so each picks up its own palette color from the
     # plotColorPalette defined in mermaid.html (gray, orange, green, blue, lightgray).
     bar_lines = []
-    for i, (_, secs) in enumerate(zone_data):
+    for i, (_, pct) in enumerate(zones):
         values = ["0.0"] * n
-        values[i] = f"{secs / total * 100:.1f}"
+        values[i] = f"{pct:.1f}"
         bar_lines.append(f"    bar [{', '.join(values)}]")
 
     lines = [
@@ -307,6 +337,7 @@ def activity_to_markdown(activity: dict, map_url: str | None = None) -> str:
     mermaid_chart = hr_zones_mermaid(activity)
     chart_section = f"\n## Heart Rate Zones\n\n{mermaid_chart}\n" if mermaid_chart else ""
     mermaid_flag = "\n  mermaid: true" if mermaid_chart else ""
+    zones_block = hr_zones_front_matter(activity)
     route_section = f"\n## Route\n\n{route_shortcode(map_url)}\n" if map_url else ""
 
     frontmatter = f"""---
@@ -321,7 +352,7 @@ extra:
   distance_km: {distance_km}
   duration: "{duration_str}"
   pace_per_km: "{pace_str}"
-  elevation_gain_m: {elevation_str}{mermaid_flag}
+  elevation_gain_m: {elevation_str}{mermaid_flag}{zones_block}
 ---"""
 
     table = f"""

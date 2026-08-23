@@ -1,0 +1,81 @@
+{#-
+  A copy of Zola's built-in atom.xml (v0.23.4), with one change: the
+  heart rate zone chart becomes a plain table.
+
+  A feed reader removes JavaScript, so the mermaid chart in a run post is
+  only raw source text there. When a page gives its zone data in
+  `extra.hr_zones`, this template cuts the chart section off the content
+  and puts a table in its place. The page itself keeps the chart.
+
+  Keep the rest of this file the same as the built-in template, so that a
+  Zola update is easy to compare.
+
+  Source: components/templates/src/builtins/atom.xml in the Zola repository.
+-#}
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="{{ lang }}">
+    <title>{{ config.title }}
+    {%- if term %} - {{ term.name }}
+    {%- elif section and section.title %} - {{ section.title }}
+    {%- endif -%}
+    </title>
+    {%- if config.description %}
+    <subtitle>{{ config.description }}</subtitle>
+    {%- endif %}
+    <link rel="self" type="application/atom+xml" href="{{ feed_url | safe }}"/>
+    <link rel="alternate" type="text/html" href="
+      {%- if section -%}
+        {{ section.permalink | escape_xml | safe }}
+      {%- else -%}
+        {{ config.base_url | escape_xml | safe }}
+      {%- endif -%}
+    "/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    {% if last_updated is defined %}<updated>{{ last_updated | date(format="%Y-%m-%dT%H:%M:%S%:z") }}</updated>{% endif %}
+    <id>{{ feed_url | safe }}</id>
+    {%- for page in pages %}
+    <entry xml:lang="{{ page.lang }}">
+        <title>{{ page.title }}</title>
+        {% if page.date %}<published>{{ page.date | date(format="%Y-%m-%dT%H:%M:%S%:z") }}</published>{% endif %}
+        {% if page.updated %}<updated>{{ page.updated | date(format="%Y-%m-%dT%H:%M:%S%:z") }}</updated>{% elif page.date %}<updated>{{ page.date | date(format="%Y-%m-%dT%H:%M:%S%:z") }}</updated>{% endif %}
+        {% for author in page.authors %}
+        <author>
+          <name>
+            {{ author }}
+          </name>
+        </author>
+        {% else %}
+        <author>
+          <name>
+            {%- if config.author -%}
+              {{ config.author }}
+            {%- else -%}
+              Unknown
+            {%- endif -%}
+          </name>
+        </author>
+        {% endfor %}
+        <link rel="alternate" type="text/html" href="{{ page.permalink | safe }}"/>
+        <id>{{ page.permalink | safe }}</id>
+        {% if page.summary %}
+        <summary type="html">{{ page.summary }}</summary>
+        {% else %}
+        {#- The zone table is built as text, so that the template engine
+            escapes it in the same way as the page content. -#}
+        <content type="html" xml:base="{{ page.permalink | escape_xml | safe }}">
+        {%- if page?.extra?.hr_zones -%}
+{{- page.content | split(pat='<h2 id="heart-rate-zones">') | first -}}
+{{- '<h2>Heart Rate Zones</h2>' }}
+{{ '<table><thead><tr><th>Zone</th><th>Time</th></tr></thead><tbody>' }}
+{%- for zone in page.extra.hr_zones %}
+{{ '<tr><td>Zone ' ~ zone.zone ~ ' ' ~ zone.name ~ '</td><td>' ~ zone.pct ~ '%</td></tr>' }}
+{%- endfor %}
+{{ '</tbody></table>' -}}
+        {%- else -%}
+{{- page.content -}}
+        {%- endif -%}
+        </content>
+        {% endif %}
+    </entry>
+    {%- endfor %}
+</feed>

@@ -130,6 +130,22 @@ uv run scripts/garmin/import_garmin_runs.py --backfill-maps --delay 3
 `--delay` (default 0.75 s) is the pause between activity-details calls. Raise it
 if Garmin starts returning 429s.
 
+## Heart rate zones in feeds
+
+Each post gets the zone data two times:
+
+- A mermaid `xychart` in the body. A browser draws it with JavaScript.
+- An `hr_zones` list in the front matter, for example
+  `- { zone: 5, name: "Maximum", pct: 0.0 }`.
+
+A feed reader removes JavaScript, so it cannot draw the chart. The feed
+template `templates/atom.xml` therefore cuts the `## Heart Rate Zones`
+section off the content and makes a plain table from `hr_zones` instead. A
+post without `hr_zones` keeps its content as it is.
+
+Keep the two in agreement: `hr_zone_percentages()` is the one source for
+both.
+
 ## Caching
 
 Two caches, both git-ignored:
