@@ -12,6 +12,12 @@ extra:
   pace_per_km: "5:20"
   elevation_gain_m: 35
   mermaid: true
+  hr_zones:
+    - { zone: 5, name: "Maximum", pct: 0.0 }
+    - { zone: 4, name: "Threshold", pct: 0.0 }
+    - { zone: 3, name: "Aerobic", pct: 0.0 }
+    - { zone: 2, name: "Easy", pct: 1.5 }
+    - { zone: 1, name: "Warm Up", pct: 98.5 }
 ---
 Comfy but also not too spongy! Excellent fit and size (9.5). The "woven" upper is quite decent, but I have nothing to compare it against to know what it's like to the OG version. These can definitely double as a daily runner and walker.
 
