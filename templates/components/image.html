@@ -9,11 +9,20 @@
 
   {{ <image path="image-02.jpg" width={240} height={360} /> }}
 
+  A `path` that starts with `/` is a site-root path. It becomes a full
+  URL, because feed readers cannot resolve a site-root path. A `path`
+  without the first `/` is a co-located asset and stays as it is.
+
   The markup is emitted on a single line: a blank line or an indented
   line would end the HTML block and hand the rest to the markdown parser.
 #}
 {% component image(path: string, width: integer = 0, height: integer = 0) -%}
-<div><img src="{{ path }}" style="display: block; margin-left: auto; margin-right: auto;"
+{%- if path is starting_with(pat="/") -%}
+  {%- set src = get_url(path=path) -%}
+{%- else -%}
+  {%- set src = path -%}
+{%- endif -%}
+<div><img src="{{ src }}" style="display: block; margin-left: auto; margin-right: auto;"
   {%- if width %} width="{{ width }}"{% endif %}
   {%- if height %} height="{{ height }}"{% endif %} /></div>
 {%- endcomponent image %}
