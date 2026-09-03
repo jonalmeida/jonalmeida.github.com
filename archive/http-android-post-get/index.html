@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <link rel="shortcut icon" href="favicon.ico"><title>Android HTTP GET requests stored in JSON | Jonathan Almeida</title>
+  <meta name="title" content="Android HTTP GET requests stored in JSON">
+<meta name="description" content="Scribblings and nonsense">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+  
+  <link rel="alternate" type="application/atom+xml" title="Jonathan Almeida" href="https://jonalmeida.com/atom.xml"><style>
+    :root {
+    --width: 800px;
+    --font-main: Verdana, sans-serif;
+    --font-secondary: Verdana, sans-serif;
+    --font-scale: 1em;
+    --background-color: #fff;
+    --heading-color: #222;
+    --text-color: #444;
+    --link-color: #3273dc;
+    --visited-color: #8b6fcb;
+    --code-background-color: #f2f2f2;
+    --code-color: #222;
+    --blockquote-color: #222;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --background-color: #01242e;
+      --heading-color: #eee;
+      --text-color: #ddd;
+      --link-color: #8cc2dd;
+      --visited-color: #8b6fcb;
+      --code-background-color: #000;
+      --code-color: #ddd;
+      --blockquote-color: #ccc;
+    }
+  }
+
+  body {
+    font-family: var(--font-secondary);
+    font-size: var(--font-scale);
+    margin: auto;
+    padding: 20px;
+    max-width: var(--width);
+    text-align: left;
+    background-color: var(--background-color);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.5;
+    color: var(--text-color);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-main);
+    color: var(--heading-color);
+  }
+
+  a {
+    color: var(--link-color);
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  nav a {
+    margin-right: 8px;
+  }
+
+  nav span.active {
+    font-weight: bold;
+    margin-right: 10px;
+  }
+  strong,
+  b {
+    color: var(--heading-color);
+  }
+
+  button {
+    margin: 0;
+    cursor: pointer;
+  }
+
+  main {
+    line-height: 1.6;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  hr {
+    border: 0;
+    border-top: 1px dashed;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  pre code {
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    display: block;
+    padding: 20px;
+    white-space: pre-wrap;
+    font-size: 0.875rem;
+    overflow-x: auto;
+  }
+
+  code {
+    font-family: monospace;
+    padding: 2px;
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    border-radius: 3px;
+  }
+
+  blockquote {
+    border-left: 1px solid #999;
+    color: var(--code-color);
+    padding-left: 20px;
+    font-style: italic;
+  }
+
+  footer {
+    padding: 25px 0;
+    text-align: center;
+  }
+
+  .title:hover {
+    text-decoration: none;
+  }
+
+  .title h1 {
+    font-size: 1.5em;
+  }
+
+  .inline {
+    width: auto !important;
+  }
+
+  .highlight,
+  .code {
+    padding: 1px 15px;
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    border-radius: 3px;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    overflow-x: auto;
+  }
+
+  /* blog post list */
+  ul.blog-posts {
+    list-style-type: none;
+    padding: unset;
+  }
+
+  ul.blog-posts li {
+    display: flex;
+  }
+
+  ul.blog-posts li span {
+    flex: 0 0 130px;
+  }
+
+  ul.blog-posts li a:visited {
+    color: var(--visited-color);
+  }
+
+  .tags {
+    font-size: smaller;
+  }
+
+  .footnote-definition {
+    display: flex;
+    margin-top: 1em;
+  }
+  .footnote-definition-label {
+    margin-left: 1rem;
+    margin-right: 0.5rem;
+    vertical-align: baseline;
+  }
+  .footnote-definition-label::after {
+    content: "."
+  }
+  .footnote-definition > p {
+    margin: 0;
+  }
+
+  </style><style>
+
+section#comments {
+  p {
+    font-size: 0.8em;
+  }
+}
+
+
+pre mark {
+  color: var(--code-color);
+}
+
+
+pre {
+  background-color: transparent !important;
+}
+</style>
+
+
+
+</head>
+<body><header>
+  <a href="https://jonalmeida.com/" class="title">
+    <h1>Jonathan Almeida</h1>
+  </a>
+  <nav aria-label="site">
+      <a href="https://jonalmeida.com/">Home</a>
+      <a href="https://jonalmeida.com/blog/">Blog</a>
+      <a href="https://jonalmeida.com/til/">TIL</a>
+  </nav>
+</header>
+
+  <h1>Android HTTP GET requests stored in JSON</h1>
+      <p>
+        <i>
+          <time datetime="2014-03-17" pubdate>2014-03-17</time>
+        </i>
+      </p>
+  <main>
+    <p>In my current project, I'm currently working on making an Android client send simple HTTP GET requests for data to a web API. I finally managed to get it working using the <a rel="external" href="http://developer.android.com/reference/org/apache/http/package-summary.html">HTTP Apache library</a>.</p>
+<blockquote>
+<p><strong>Note:</strong> I un-indented the code so it would fit better on the page even though it looks a bit ugly. You might be better off copying it to your text editor to read it better.</p>
+</blockquote>
+<pre class="giallo" style="color-scheme: light dark; color: light-dark(#24292E, #E1E4E8); background-color: light-dark(#FFFFFF, #24292E);" ><code data-lang="java"><span class="giallo-l"></span>
+<span class="giallo-l"><span>HttpClient</span><span> httpclient</span><span style="color: light-dark(#D73A49, #F97583);"> =</span><span style="color: light-dark(#D73A49, #F97583);"> new</span><span style="color: light-dark(#6F42C1, #B392F0);"> DefaultHttpClient</span><span>(</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span>HttpPost</span><span> httppost</span><span style="color: light-dark(#D73A49, #F97583);"> =</span><span style="color: light-dark(#D73A49, #F97583);"> new</span><span style="color: light-dark(#6F42C1, #B392F0);"> HttpPost</span><span>(</span><span style="color: light-dark(#032F62, #9ECBFF);">&quot;</span><span style="color: light-dark(#032F62, #9ECBFF);">http://dogecoin.com/api</span><span style="color: light-dark(#032F62, #9ECBFF);">&quot;</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span>HttpResponse</span><span> httpresponse</span><span style="color: light-dark(#D73A49, #F97583);"> =</span><span style="color: light-dark(#005CC5, #79B8FF);"> null</span><span>;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: light-dark(#D73A49, #F97583);">final</span><span> Thread</span><span> t</span><span style="color: light-dark(#D73A49, #F97583);"> =</span><span style="color: light-dark(#D73A49, #F97583);"> new</span><span style="color: light-dark(#6F42C1, #B392F0);"> Thread</span><span>(</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span style="color: light-dark(#D73A49, #F97583);">    public</span><span style="color: light-dark(#D73A49, #F97583);"> void</span><span style="color: light-dark(#6F42C1, #B392F0);"> run</span><span>(</span><span>)</span><span> {</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>    Looper</span><span>.</span><span style="color: light-dark(#6F42C1, #B392F0);">prepare</span><span>(</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span>    ArrayList</span><span>&lt;</span><span style="color: light-dark(#D73A49, #F97583);">NameValuePair</span><span>&gt;</span><span> postParameters</span><span>;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>    postParameters </span><span style="color: light-dark(#D73A49, #F97583);">=</span><span style="color: light-dark(#D73A49, #F97583);"> new</span><span> ArrayList</span><span>&lt;</span><span style="color: light-dark(#D73A49, #F97583);">NameValuePair</span><span>&gt;</span><span>(</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span>    postParameters</span><span>.</span><span style="color: light-dark(#6F42C1, #B392F0);">add</span><span>(</span></span>
+<span class="giallo-l"><span style="color: light-dark(#D73A49, #F97583);">        new</span><span style="color: light-dark(#6F42C1, #B392F0);"> BasicNameValuePair</span><span>(</span><span style="color: light-dark(#032F62, #9ECBFF);">&quot;</span><span style="color: light-dark(#032F62, #9ECBFF);">key</span><span style="color: light-dark(#032F62, #9ECBFF);">&quot;</span><span>,</span><span style="color: light-dark(#032F62, #9ECBFF);"> &quot;</span><span style="color: light-dark(#032F62, #9ECBFF);">value</span><span style="color: light-dark(#032F62, #9ECBFF);">&quot;</span><span>)</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span>    postParameters</span><span>.</span><span style="color: light-dark(#6F42C1, #B392F0);">add</span><span>(</span></span>
+<span class="giallo-l"><span style="color: light-dark(#D73A49, #F97583);">        new</span><span style="color: light-dark(#6F42C1, #B392F0);"> BasicNameValuePair</span><span>(</span><span style="color: light-dark(#032F62, #9ECBFF);">&quot;</span><span style="color: light-dark(#032F62, #9ECBFF);">double</span><span style="color: light-dark(#032F62, #9ECBFF);">&quot;</span><span>,</span><span> Double</span><span>.</span><span style="color: light-dark(#6F42C1, #B392F0);">toString</span><span>(</span><span style="color: light-dark(#005CC5, #79B8FF);">123</span><span>)</span><span>)</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span>    postParameters</span><span>.</span><span style="color: light-dark(#6F42C1, #B392F0);">add</span><span>(</span></span>
+<span class="giallo-l"><span style="color: light-dark(#D73A49, #F97583);">        new</span><span style="color: light-dark(#6F42C1, #B392F0);"> BasicNameValuePair</span><span>(</span><span style="color: light-dark(#032F62, #9ECBFF);">&quot;</span><span style="color: light-dark(#032F62, #9ECBFF);">float</span><span style="color: light-dark(#032F62, #9ECBFF);">&quot;</span><span>,</span><span> Float</span><span>.</span><span style="color: light-dark(#6F42C1, #B392F0);">toString</span><span>(</span><span style="color: light-dark(#005CC5, #79B8FF);">123.04</span><span>)</span><span>)</span><span>)</span><span>;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: light-dark(#D73A49, #F97583);">    try</span><span> {</span></span>
+<span class="giallo-l"><span>        httppost</span><span>.</span><span style="color: light-dark(#6F42C1, #B392F0);">setEntity</span><span>(</span><span style="color: light-dark(#D73A49, #F97583);">new</span><span style="color: light-dark(#6F42C1, #B392F0);"> UrlEncodedFormEntity</span><span>(</span><span>postParameters</span><span>)</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span style="color: light-dark(#6A737D, #6A737D);">        //</span><span style="color: light-dark(#6A737D, #6A737D);"> reset to null before making a new post if it&#39;s being reused</span></span>
+<span class="giallo-l"><span>        httpresponse </span><span style="color: light-dark(#D73A49, #F97583);">=</span><span style="color: light-dark(#005CC5, #79B8FF);"> null</span><span>;</span></span>
+<span class="giallo-l"><span>        httpresponse </span><span style="color: light-dark(#D73A49, #F97583);">=</span><span> httpclient</span><span>.</span><span style="color: light-dark(#6F42C1, #B392F0);">execute</span><span>(</span><span>httppost</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span>    }</span><span style="color: light-dark(#D73A49, #F97583);"> catch</span><span> (</span><span>IOException</span><span style="color: light-dark(#E36209, #FFAB70);"> e1</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span>        e1</span><span>.</span><span style="color: light-dark(#6F42C1, #B392F0);">printStackTrace</span><span>(</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: light-dark(#6A737D, #6A737D);">    //</span><span style="color: light-dark(#6A737D, #6A737D);"> Checking response</span></span>
+<span class="giallo-l"><span style="color: light-dark(#D73A49, #F97583);">    if</span><span>(</span><span>httpresponse</span><span style="color: light-dark(#D73A49, #F97583);">!=</span><span style="color: light-dark(#005CC5, #79B8FF);">null</span><span>)</span><span>{</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: light-dark(#D73A49, #F97583);">    try</span><span> {</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: light-dark(#6A737D, #6A737D);">        //</span><span style="color: light-dark(#6A737D, #6A737D);"> Get the data in the entity</span></span>
+<span class="giallo-l"><span>        BufferedReader</span><span> reader</span><span style="color: light-dark(#D73A49, #F97583);"> =</span><span style="color: light-dark(#D73A49, #F97583);"> new</span><span style="color: light-dark(#6F42C1, #B392F0);"> BufferedReader</span><span>(</span></span>
+<span class="giallo-l"><span style="color: light-dark(#D73A49, #F97583);">            new</span><span style="color: light-dark(#6F42C1, #B392F0);"> InputStreamReader</span><span>(</span></span>
+<span class="giallo-l"><span>                httpresponse</span><span>.</span><span style="color: light-dark(#6F42C1, #B392F0);">getEntity</span><span>(</span><span>)</span><span>.</span><span style="color: light-dark(#6F42C1, #B392F0);">getContent</span><span>(</span><span>)</span><span>,</span><span style="color: light-dark(#032F62, #9ECBFF);"> &quot;</span><span style="color: light-dark(#032F62, #9ECBFF);">UTF-8</span><span style="color: light-dark(#032F62, #9ECBFF);">&quot;</span><span>)</span></span>
+<span class="giallo-l"><span>        )</span><span>;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>        StringBuilder</span><span> builder</span><span style="color: light-dark(#D73A49, #F97583);"> =</span><span style="color: light-dark(#D73A49, #F97583);"> new</span><span style="color: light-dark(#6F42C1, #B392F0);"> StringBuilder</span><span>(</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span style="color: light-dark(#D73A49, #F97583);">        for</span><span> (</span><span>String</span><span> line</span><span style="color: light-dark(#D73A49, #F97583);"> =</span><span style="color: light-dark(#005CC5, #79B8FF);"> null</span><span>;</span><span> (</span><span>line </span><span style="color: light-dark(#D73A49, #F97583);">=</span><span> reader</span><span>.</span><span style="color: light-dark(#6F42C1, #B392F0);">readLine</span><span>(</span><span>)</span><span>)</span><span style="color: light-dark(#D73A49, #F97583);"> !=</span><span style="color: light-dark(#005CC5, #79B8FF);"> null</span><span>;</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span>            builder</span><span>.</span><span style="color: light-dark(#6F42C1, #B392F0);">append</span><span>(</span><span>line</span><span>)</span><span>.</span><span style="color: light-dark(#6F42C1, #B392F0);">append</span><span>(</span><span style="color: light-dark(#032F62, #9ECBFF);">&quot;</span><span style="color: light-dark(#005CC5, #79B8FF);">\n</span><span style="color: light-dark(#032F62, #9ECBFF);">&quot;</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span>        }</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>        JSONTokener</span><span> tokener</span><span style="color: light-dark(#D73A49, #F97583);"> =</span><span style="color: light-dark(#D73A49, #F97583);"> new</span><span style="color: light-dark(#6F42C1, #B392F0);"> JSONTokener</span><span>(</span><span>builder</span><span>.</span><span style="color: light-dark(#6F42C1, #B392F0);">toString</span><span>(</span><span>)</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span>        JSONObject</span><span> finaljson</span><span style="color: light-dark(#D73A49, #F97583);"> =</span><span style="color: light-dark(#D73A49, #F97583);"> new</span><span style="color: light-dark(#6F42C1, #B392F0);"> JSONObject</span><span>(</span><span>tokener</span><span>)</span><span>;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>        Log</span><span>.</span><span style="color: light-dark(#6F42C1, #B392F0);">v</span><span>(</span><span style="color: light-dark(#032F62, #9ECBFF);">&quot;</span><span style="color: light-dark(#032F62, #9ECBFF);">JSON OUTPUT: </span><span style="color: light-dark(#032F62, #9ECBFF);">&quot;</span><span>,</span><span> finaljson</span><span>.</span><span style="color: light-dark(#6F42C1, #B392F0);">toString</span><span>(</span><span>)</span><span>)</span><span>;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>    }</span><span style="color: light-dark(#D73A49, #F97583);"> catch</span><span> (</span><span>IOException</span><span style="color: light-dark(#E36209, #FFAB70);"> e</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span>        e</span><span>.</span><span style="color: light-dark(#6F42C1, #B392F0);">printStackTrace</span><span>(</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span>    }</span><span style="color: light-dark(#D73A49, #F97583);"> catch</span><span> (</span><span>JSONException</span><span style="color: light-dark(#E36209, #FFAB70);"> e</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span>        e</span><span>.</span><span style="color: light-dark(#6F42C1, #B392F0);">printStackTrace</span><span>(</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>    Looper</span><span>.</span><span style="color: light-dark(#6F42C1, #B392F0);">loop</span><span>(</span><span>)</span><span>;</span><span style="color: light-dark(#6A737D, #6A737D);"> //</span><span style="color: light-dark(#6A737D, #6A737D);">Loop in the message queue</span></span>
+<span class="giallo-l"><span>    </span></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"><span>}</span><span>;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>t</span><span>.</span><span style="color: light-dark(#6F42C1, #B392F0);">start</span><span>(</span><span>)</span><span>;</span></span>
+<span class="giallo-l"></span></code></pre><br>
+<p>To explain some parts that might not seem obvious, we use <code>new UrlEncodedFormEntity()</code> to URL encode the name-value pairs to be <code>http://dogecoin.com/api?key=value</code>. The encoder handles the character conversion so you can enter it in it's original ASCII form.</p>
+<p>Any non-string type needs to be converted into a string in order to be encoded. This is mainly because <code>BasicNameValuePair</code> handles only strings.</p>
+<p>After executing the HttpPost, if our response is going to be JSON encoded, we can loop through the response to hold within a string, and then use the <code>JSONTokener</code> to build a <code>JSONObject</code>. You ought to output the response into the logs the first few times just to verify it is correct.</p>
+<blockquote>
+<p><strong>Side Note:</strong> To remain consistent you could always store your GET message in JSON as well and create a <code>getNameValueArrayList()</code> to easily output the object. However, that solely depends on your needs.</p>
+</blockquote>
+
+  </main>
+  <p>
+        Categories:
+          <a href="https://jonalmeida.com/categories/archive/">#archive</a>
+  </p>
+  <!-- Add temporary footnote back-links support -->
+  <script src="/footnotes.js"></script>
+<footer>
+</footer>
+<!-- custom_body -->
+</body>
+</html>
