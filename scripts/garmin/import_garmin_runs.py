@@ -553,6 +553,23 @@ def index_posts_by_activity_id() -> dict[int, Path]:
     return index
 
 
+DISTANCE_KM_RE = re.compile(r"^\s*distance_km:\s*([\d.]+)\s*$", re.MULTILINE)
+
+
+def post_distance_label(post: Path | None) -> str:
+    """The '12.22 km' label for a post, read from its own front matter.
+
+    --backfill-maps has no activity payload to take the distance from, and
+    fetching one per activity would cost an API call for a number the post
+    already carries. Reading it back gives the same bytes run_import wrote,
+    which is what keeps a forced redraw a no-op.
+    """
+    if post is None:
+        return ""
+    match = DISTANCE_KM_RE.search(post.read_text())
+    return f"{match.group(1)} km" if match else ""
+
+
 def insert_route_shortcode(path: Path, shortcode: str) -> bool:
     """Insert a '## Route' block into an existing post. Insert only, idempotent.
 
@@ -2166,6 +2183,7 @@ def run_backfill(client: Garmin, args: argparse.Namespace) -> None:
     for i, activity_id in enumerate(targets):
         destination = MAPS_DIR / f"{activity_id}.svg"
         map_url: str | None = None
+        post = posts.get(activity_id)
 
         if destination.exists() and not args.force:
             print(f"  {activity_id}: map exists (use --force to regenerate)")
@@ -2177,7 +2195,9 @@ def run_backfill(client: Garmin, args: argparse.Namespace) -> None:
                 time.sleep(args.delay)
             if len(points) >= 2:
                 map_url = write_route_map(
-                    activity_id, points, basemap=not args.no_basemap,
+                    activity_id, points,
+                    label=post_distance_label(post),
+                    basemap=not args.no_basemap,
                     privacy_trim=not args.no_privacy_trim,
                     refresh_basemap=args.refresh_basemap,
                 )
@@ -2186,7 +2206,6 @@ def run_backfill(client: Garmin, args: argparse.Namespace) -> None:
                 continue
             count_written += 1
 
-        post = posts.get(activity_id)
         if post is None:
             print(f"  {activity_id}: no post found; add manually: {route_shortcode(map_url)}")
         elif insert_route_shortcode(post, route_shortcode(map_url)):
