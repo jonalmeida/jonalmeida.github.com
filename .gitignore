@@ -32,3 +32,6 @@ __pycache__/
 
 # Overpass response cache
 **/.overpass_cache/
+
+# pytest
+.pytest_cache/
