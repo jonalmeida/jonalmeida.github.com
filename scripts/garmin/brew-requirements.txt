@@ -1,0 +1,7 @@
+uv
+git
+jj
+zola
+imagemagick
+jq
+terminal-notifier

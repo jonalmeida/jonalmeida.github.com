@@ -14,6 +14,32 @@ uv run scripts/garmin/import_garmin_runs.py
 
 Needs Python 3.11+. Every example below is run from the repository root.
 
+## Requirements
+
+`brew-requirements.txt` is a plain list, one formula per line, so it can be
+handed straight to `brew`:
+
+```sh
+brew install $(cat scripts/garmin/brew-requirements.txt)
+```
+
+| Formula | Needed for |
+|---------|------------|
+| `uv` | runs the script and fetches its inline (PEP 723) dependencies |
+| `git` | `jj` shells out to it for every network operation |
+| `jj` | the scheduled wrapper commits and pushes with it |
+| `zola` | the wrapper builds the site before pushing |
+| `imagemagick` | resizes the photos to 800 px |
+| `jq` | the wrapper reads the importer's JSON report |
+| `terminal-notifier` | tells you when a scheduled run fails |
+
+Only `uv` is needed to import by hand. The rest are for `run_import.sh`, except
+`imagemagick` — without it the resize falls back to `/usr/bin/sips`, which
+ships with macOS.
+
+Everything else the wrapper uses is already on macOS: `sips`, `shlock`, `nc`,
+`ssh` and `crontab`.
+
 ## Credentials
 
 Put these in `scripts/garmin/.env` (git-ignored) or the environment:
@@ -485,6 +511,7 @@ Tracked in git:
 |------|---------|
 | `import_garmin_runs.py` | the script |
 | `run_import.sh` | the scheduled wrapper: import, commit, push |
+| `brew-requirements.txt` | Homebrew formulae the script and wrapper need |
 | `garmin_imported.json` | activity IDs already imported |
 | `garmin_ignore.txt` | activity IDs to skip |
 
