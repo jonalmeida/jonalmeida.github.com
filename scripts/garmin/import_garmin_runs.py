@@ -44,6 +44,7 @@ import random
 import re
 import shutil
 import subprocess
+import sys
 import time
 import urllib.parse
 import urllib.request
@@ -53,7 +54,7 @@ from statistics import fmean
 from typing import NamedTuple
 
 from dotenv import load_dotenv
-from garminconnect import Garmin
+from garminconnect import Garmin, GarminConnectAuthenticationError
 
 SCRIPTS_DIR = Path(__file__).parent
 CONTENT_RUNS_DIR = SCRIPTS_DIR.parent.parent / "content" / "runs"
@@ -1578,11 +1579,20 @@ def fetch_running_activities(client: Garmin) -> list[dict]:
     limit = 100
     start = 0
     while True:
-        batch = client.get_activities_by_date(
-            START_DATE,
-            None,
-            "running",
-        )
+        try:
+            batch = client.get_activities_by_date(
+                START_DATE,
+                None,
+                "running",
+            )
+        except GarminConnectAuthenticationError as exc:
+            # client.load() only reads a file, so it succeeds even when Garmin
+            # has stopped accepting the token. The first real call is where we
+            # find out.
+            raise NeedsLogin(
+                "the cached Garmin tokens are no longer accepted. Delete "
+                "scripts/garmin/.garmin_tokens/ and run this once in a terminal."
+            ) from exc
         # get_activities_by_date returns all at once (no pagination needed for
         # most users); fall back to paginated get_activities if needed.
         all_activities = batch
@@ -1789,6 +1799,14 @@ def download_photos(
 # Main
 # ---------------------------------------------------------------------------
 
+# Exit code the wrapper looks for: Garmin wants a person at a keyboard.
+EXIT_NEEDS_LOGIN = 2
+
+
+class NeedsLogin(Exception):
+    """Garmin wants an MFA code and there is nobody to type it."""
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description="Import Garmin running activities to Zola markdown files."
@@ -1878,6 +1896,29 @@ def parse_args() -> argparse.Namespace:
         help="pause between activity-details API calls (default: %(default)s)",
     )
     parser.add_argument(
+        "--non-interactive", action="store_true",
+        help=f"never prompt; exit {EXIT_NEEDS_LOGIN} if Garmin needs an "
+             "interactive login (implied when stdin is not a terminal)",
+    )
+    parser.add_argument(
+        "--max-new", type=int, default=0, metavar="N",
+        help="import at most N new activities (0 = no limit). The scheduled "
+             "job uses 1, so every run gets its own commit",
+    )
+    parser.add_argument(
+        "--report", metavar="PATH",
+        help="write a JSON summary of this run, for the scheduled wrapper",
+    )
+    parser.add_argument(
+        "--print-crontab", action="store_true",
+        help="print a crontab entry for the scheduled importer and exit "
+             "(needs no Garmin credentials)",
+    )
+    parser.add_argument(
+        "--cron-hours", metavar="LIST", default="8,20",
+        help="with --print-crontab, the hours to run at (default: %(default)s)",
+    )
+    parser.add_argument(
         "--selftest", nargs="?", const="/tmp/route_selftest.svg", metavar="PATH",
         help="render a synthetic route and exit (no Garmin credentials needed)",
     )
@@ -1891,12 +1932,18 @@ def parse_args() -> argparse.Namespace:
     return args
 
 
-def authenticate(email: str, password: str) -> Garmin:
+def authenticate(email: str, password: str, interactive: bool = True) -> Garmin:
     client = Garmin(email, password)
     tokenstore_path = Path(TOKENSTORE)
     if (tokenstore_path / "garmin_tokens.json").exists():
         client.client.load(TOKENSTORE)
     else:
+        if not interactive:
+            raise NeedsLogin(
+                "no cached Garmin tokens in scripts/garmin/.garmin_tokens/, and "
+                "MFA needs a person at a keyboard. Run this once in a terminal:\n"
+                "  uv run scripts/garmin/import_garmin_runs.py"
+            )
         client.client.login(email, password, prompt_mfa=lambda: input("Enter MFA code: "))
         tokenstore_path.mkdir(parents=True, exist_ok=True)
         client.client.dump(TOKENSTORE)
@@ -1950,6 +1997,8 @@ def run_import(client: Garmin, args: argparse.Namespace) -> None:
     count_already = 0
     count_deferred = 0
     count_filtered = 0
+    report_imported: list[dict] = []
+    retract_candidates: list[dict] = []
 
     for activity in activities:
         activity_id = int(activity["activityId"])
@@ -1970,6 +2019,9 @@ def run_import(client: Garmin, args: argparse.Namespace) -> None:
                 post = posts_by_id.get(activity_id)
                 where = f"{post.parent.name}/{post.name}" if post else "(post not found)"
                 print(f"  RETRACT? {activity_id} is now {reason} but {where} is published")
+                retract_candidates.append(
+                    {"activity_id": activity_id, "reason": reason, "post": where}
+                )
                 if args.retract != "off" and post is not None:
                     retract_post(post, activity_id, args.retract)
             continue
@@ -2044,10 +2096,20 @@ def run_import(client: Garmin, args: argparse.Namespace) -> None:
         )
         imported_set.add(activity_id)
         count_imported += 1
+        report_imported.append({
+            "activity_id": activity_id,
+            "date": date_str,
+            "path": str(path.relative_to(CONTENT_RUNS_DIR.parent.parent)),
+            "photos": len(names),
+        })
         print(
             f"  Wrote {path.parent.name}/{path.name}  "
             f"({len(names)} photos, activity {activity_id})"
         )
+
+        if args.max_new and count_imported >= args.max_new:
+            print(f"  stopping at --max-new {args.max_new}")
+            break
 
     # Written once, only after the whole run succeeded. An activity that is not
     # in here has to be redone from scratch, which is why slug_for is
@@ -2067,6 +2129,15 @@ def run_import(client: Garmin, args: argparse.Namespace) -> None:
             f"{IGNORE_FILE.name}. To publish one, delete its line there and "
             "either edit it in Garmin or re-run with --no-content-filter."
         )
+
+    if args.report:
+        Path(args.report).write_text(json.dumps({
+            "imported_count": count_imported,
+            "imported": report_imported,
+            "filtered_count": count_filtered,
+            "deferred_count": count_deferred,
+            "retract_candidates": retract_candidates,
+        }, indent=2) + "\n")
 
 
 def run_backfill(client: Garmin, args: argparse.Namespace) -> None:
@@ -2413,12 +2484,34 @@ def run_selftest(path: Path) -> None:
     print("All self-test assertions passed.")
 
 
+def print_crontab(hours: str) -> None:
+    """Print a crontab entry for the scheduled importer.
+
+    The paths come from this file's own location, so a copy-pasted entry cannot
+    point at a repo that has moved.
+    """
+    wrapper = SCRIPTS_DIR.resolve() / "run_import.sh"
+    log = Path.home() / "Library" / "Logs" / "garmin-import.cron.log"
+    slots = ",".join(h.strip() for h in hours.split(",") if h.strip())
+
+    if not wrapper.exists():
+        print(f"# WARNING: {wrapper} does not exist yet", file=sys.stderr)
+
+    print("# Garmin run importer: import new runs, commit, push.")
+    print(f"# Log: {Path.home() / 'Library' / 'Logs' / 'garmin-import.log'}")
+    print(f"40 {slots} * * * /bin/bash {wrapper} >> {log} 2>&1")
+
+
 def main() -> None:
     args = parse_args()
 
-    # Before the credential check: the self-test never talks to Garmin.
+    # Before the credential check: neither of these talks to Garmin.
     if args.selftest:
         run_selftest(Path(args.selftest))
+        return
+
+    if args.print_crontab:
+        print_crontab(args.cron_hours)
         return
 
     load_dotenv(SCRIPTS_DIR / ".env")
@@ -2429,14 +2522,23 @@ def main() -> None:
             "GARMIN_EMAIL and GARMIN_PASSWORD must be set in environment or scripts/.env"
         )
 
-    client = authenticate(email, password)
+    # Under cron stdin is /dev/null, so input() would raise a bare EOFError.
+    # Both checks: the flag documents the intent, isatty catches a caller who
+    # forgot it.
+    interactive = sys.stdin.isatty() and not args.non_interactive
 
-    if args.backfill_maps:
-        run_backfill(client, args)
-    if args.backfill_photos:
-        run_backfill_photos(client, args)
-    if not (args.backfill_maps or args.backfill_photos):
-        run_import(client, args)
+    try:
+        client = authenticate(email, password, interactive=interactive)
+
+        if args.backfill_maps:
+            run_backfill(client, args)
+        if args.backfill_photos:
+            run_backfill_photos(client, args)
+        if not (args.backfill_maps or args.backfill_photos):
+            run_import(client, args)
+    except NeedsLogin as exc:
+        print(f"ERROR: {exc}", file=sys.stderr)
+        raise SystemExit(EXIT_NEEDS_LOGIN)
 
 
 if __name__ == "__main__":

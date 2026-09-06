@@ -23,6 +23,10 @@ static/processed_images/
 # Garmin OAuth token cache
 **/.garmin_tokens/
 
+# Garmin importer runtime state
+scripts/garmin/.needs_login
+scripts/garmin/.last_import.json
+
 # Python
 __pycache__/
 
