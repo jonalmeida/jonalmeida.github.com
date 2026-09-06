@@ -112,16 +112,38 @@ def test_no_zone_data_means_no_chart():
     assert hr_zone_percentages({"activityId": 1}) == []
 
 
-def test_a_run_with_no_heart_rate_still_reports_five_empty_zones():
-    """Current behaviour, not desired behaviour.
+def test_a_run_with_no_strap_reports_no_zones_at_all():
+    """All five keys present and all of them zero is no data, not five zeroes.
 
-    Garmin sends the hrTimeInZone_* keys as zeroes for a run recorded without
-    a strap, and `total = sum(...) or 1` then yields five 0.0 entries rather
-    than none. The post gets `mermaid: true` and an empty chart. Pinned here so
-    the split does not change it by accident; worth fixing separately.
+    Garmin sends the keys that way for a run recorded without a heart-rate
+    strap. Five 0.0 entries would put `mermaid: true` and a chart of nothing on
+    the page, a table of nothing in the feed, and load mermaid.min.js to draw
+    neither.
     """
-    zones = hr_zone_percentages({f"hrTimeInZone_{n}": 0.0 for n in range(1, 6)})
-    assert zones == [(5, 0.0), (4, 0.0), (3, 0.0), (2, 0.0), (1, 0.0)]
+    assert hr_zone_percentages({f"hrTimeInZone_{n}": 0.0 for n in range(1, 6)}) == []
+
+
+def test_one_zone_with_time_in_it_is_enough():
+    """The guard is on the total, so a single populated zone still charts."""
+    activity = {f"hrTimeInZone_{n}": 0.0 for n in range(1, 6)}
+    activity["hrTimeInZone_2"] = 600.0
+    assert hr_zone_percentages(activity) == [
+        (5, 0.0), (4, 0.0), (3, 0.0), (2, 100.0), (1, 0.0)
+    ]
+
+
+def test_missing_and_null_zone_values_count_as_zero():
+    assert hr_zone_percentages({"hrTimeInZone_1": None, "hrTimeInZone_2": 0}) == []
+
+
+def test_a_run_with_no_zones_makes_no_chart_and_sets_no_mermaid_flag():
+    """The whole point of the fix, seen from the post."""
+    text = activity_to_markdown(
+        {**LISBON, **{f"hrTimeInZone_{n}": 0.0 for n in range(1, 6)}}
+    )
+    assert "hr_zones:" not in text
+    assert "mermaid" not in text
+    assert "Heart Rate Zones" not in text
 
 
 # ---------------------------------------------------------------------------

@@ -61,10 +61,17 @@ def hr_zone_percentages(activity: dict) -> list[tuple[int, float]]:
     if not zone_data:
         return []
 
+    # A run recorded without a heart-rate strap still carries all five keys,
+    # every one of them zero. That is no data, not five empty zones: reporting
+    # it would put `mermaid: true` and a chart of nothing on the page, a table
+    # of nothing in the feed, and load mermaid.min.js to draw neither.
+    total = sum(seconds for _, seconds in zone_data)
+    if not total:
+        return []
+
     # Display zone 5 → 1 (top to bottom, matching Garmin UI)
     zone_data.sort(key=lambda x: -x[0])
 
-    total = sum(s for _, s in zone_data) or 1
     return [(zone, round(secs / total * 100, 1)) for zone, secs in zone_data]
 
 
