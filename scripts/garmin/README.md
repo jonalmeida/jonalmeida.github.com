@@ -258,23 +258,43 @@ tick **Allow write access**.
 
 Do not add it under *Settings → SSH and GPG keys* on your account: that grants
 the key write access to every repository you own, which for a passphrase-less
-key sitting on disk is much wider than this job needs. Check which one you
-created — a deploy key answers with the repo name, an account key with your
-username:
+key sitting on disk is much wider than this job needs.
+
+To check which kind you created, ask GitHub — but **isolate the key first**. A
+bare `ssh -T git@github.com` ignores `GIT_SSH_COMMAND` and silently falls back
+to a default identity such as `~/.ssh/id_rsa`, so it will happily report your
+account even when the deploy key is set up correctly:
 
 ```sh
-$ ssh -T git@github.com     # with the key, see below
-Hi jonalmeida/jonalmeida.github.com!   # deploy key, correct
+$ ssh -F /dev/null -i ~/.ssh/id_ed25519_jonalmeida_site \
+    -o IdentitiesOnly=yes -o IdentityAgent=none -T git@github.com
+Hi jonalmeida/jonalmeida.github.com!   # deploy key, correctly scoped
 Hi jonalmeida!                         # account key, too broad
 ```
 
-Check it works, from a shell with no agent:
+`-F /dev/null` ignores `~/.ssh/config` and `IdentitiesOnly=yes` stops ssh
+offering anything else, so the answer is about that key and nothing else. Add
+`-v` and look for `Offering public key:` to see exactly which file was used.
+
+Read access proves nothing about scope, because a public repository is readable
+with any key, or none. Only a write attempt does:
+
+```sh
+$ git push --dry-run git@github.com:jonalmeida/some-other-repo.git HEAD:refs/heads/probe
+ERROR: Permission to jonalmeida/some-other-repo.git denied to deploy key
+```
+
+Finally, check the push path the wrapper actually uses, from a shell with no
+agent. Here `GIT_SSH_COMMAND` is correct, because the caller is `git`:
 
 ```sh
 env -u SSH_AUTH_SOCK GIT_SSH_COMMAND="/usr/bin/ssh \
   -i ~/.ssh/id_ed25519_jonalmeida_site -o IdentitiesOnly=yes \
-  -o IdentityAgent=none -o BatchMode=yes" ssh -T git@github.com
+  -o IdentityAgent=none -o BatchMode=yes" \
+  git push --dry-run origin main
 ```
+
+`Everything up-to-date` means the key authenticated and has write access.
 
 Then install the cron entry. `--print-crontab` derives the absolute paths from
 the script's own location, so a pasted entry cannot point at a repo that moved.
