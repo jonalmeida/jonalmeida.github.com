@@ -27,19 +27,25 @@ if str(GARMIN_DIR) not in sys.path:
 # ---------------------------------------------------------------------------
 
 def _load_importer():
-    """Import ``import_garmin_runs.py`` by path.
+    """The importer's public surface, as one namespace.
 
-    The importer is a PEP 723 script, not an installed package, so there is no
-    import path to it. Loading it by path is also what keeps this file working
-    through the module split: only this function has to change.
+    Was: load import_garmin_runs.py by path, because it was a 2568-line script
+    with no import path. Now the entry point is a shim and the code lives in
+    the garminrun package, so this is a thin facade for the handful of tests
+    that assert on the CLI end of it. Everything else imports the module it
+    is actually testing.
     """
-    path = GARMIN_DIR / "import_garmin_runs.py"
-    spec = importlib.util.spec_from_file_location("import_garmin_runs", path)
-    assert spec is not None and spec.loader is not None, path
-    module = importlib.util.module_from_spec(spec)
-    sys.modules[spec.name] = module
-    spec.loader.exec_module(module)
-    return module
+    from garminrun import cli, garmin_client, maps, posts, svg
+
+    class Importer:
+        pass
+
+    surface = Importer()
+    for module in (cli, garmin_client, maps, posts, svg):
+        for name in dir(module):
+            if not name.startswith("__"):
+                setattr(surface, name, getattr(module, name))
+    return surface
 
 
 @pytest.fixture(scope="session")
@@ -141,3 +147,48 @@ def activity():
         return base
 
     return make
+
+
+@pytest.fixture
+def fake_client():
+    """A stand-in for a garminconnect Garmin, serving canned payloads.
+
+    Records what was asked for, so a test can assert on the call count - which
+    is the only way to check "used the cache, made no request".
+    """
+    class FakeClient:
+        def __init__(self):
+            self.activities: list[dict] = []
+            self.details: dict[int, dict] = {}
+            self.full: dict[int, dict] = {}
+            self.calls: list[tuple] = []
+            self.fail_with: Exception | None = None
+
+        def get_activities_by_date(self, start, end, kind):
+            self.calls.append(("list", start, end, kind))
+            if self.fail_with:
+                raise self.fail_with
+            return list(self.activities)
+
+        def get_activity_details(self, activity_id, **kwargs):
+            self.calls.append(("details", activity_id))
+            return self.details.get(int(activity_id), {})
+
+        def get_activity(self, activity_id):
+            self.calls.append(("activity", activity_id))
+            return self.full.get(int(activity_id), {})
+
+    return FakeClient()
+
+
+@pytest.fixture
+def no_sleep(monkeypatch):
+    """Make every pause instant.
+
+    The retry and backoff paths really sleep for tens of seconds otherwise,
+    which is why they had no tests before.
+    """
+    from garminrun import garmin_client, overpass, photos
+
+    for module in (overpass, photos, garmin_client):
+        monkeypatch.setattr(module, "_sleep", lambda seconds: None)

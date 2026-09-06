@@ -129,17 +129,12 @@ def test_report_keys_match_the_wrapper():
         assert key in REPORT_KEYS, f"run_import.sh reads .{key}, which is not a report key"
 
 
-def test_report_shape(importer, repo, tmp_path, monkeypatch, capsys):
+def test_report_shape(repo, tmp_path, fake_client, capsys):
     """run_import with nothing to do still writes every key the wrapper reads."""
-    monkeypatch.setattr(importer, "fetch_running_activities", lambda client: [])
+    from garminrun import cli
 
     report = tmp_path / "report.json"
-    # parse_args reads sys.argv directly today. Cutting that seam is a later
-    # step; until then, patching argv is how a test reaches it.
-    monkeypatch.setattr("sys.argv", ["import_garmin_runs.py", "--report", str(report)])
-    args = importer.parse_args()
-
-    importer.run_import(client=None, args=args)
+    cli.run_import(fake_client, cli.parse_args(["--report", str(report)]))
     capsys.readouterr()
 
     data = json.loads(report.read_text())
