@@ -2514,6 +2514,16 @@ def print_crontab(hours: str) -> None:
     print(f"# Log: {Path.home() / 'Library' / 'Logs' / 'garmin-import.log'}")
     print(f"40 {slots} * * * /bin/bash {wrapper} >> {log} 2>&1")
 
+    # This output is meant to be piped. If the reader dies first - `crontab -`
+    # refusing to write, say - Python would otherwise dump a BrokenPipeError
+    # traceback from the interpreter's final flush, on top of whatever real
+    # error the reader already printed.
+    try:
+        sys.stdout.flush()
+    except BrokenPipeError:
+        os.dup2(os.open(os.devnull, os.O_WRONLY), sys.stdout.fileno())
+        raise SystemExit(1) from None
+
 
 def main() -> None:
     args = parse_args()

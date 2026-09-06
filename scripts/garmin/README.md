@@ -263,16 +263,40 @@ env -u SSH_AUTH_SOCK GIT_SSH_COMMAND="/usr/bin/ssh \
 ```
 
 Then install the cron entry. `--print-crontab` derives the absolute paths from
-the script's own location, so a pasted entry cannot point at a repo that moved:
+the script's own location, so a pasted entry cannot point at a repo that moved.
+
+Build the new table in a file, read it, then install *from the file*. Do not
+pipe straight into `crontab -`: if the write is refused part way through you
+can be left with a truncated table, and there is nothing to inspect first.
 
 ```sh
-uv run scripts/garmin/import_garmin_runs.py --print-crontab          # look first
-( crontab -l 2>/dev/null; \
-  uv run scripts/garmin/import_garmin_runs.py --print-crontab ) | crontab -
+{ crontab -l 2>/dev/null; \
+  uv run scripts/garmin/import_garmin_runs.py --print-crontab; } > /tmp/new.cron
+cat /tmp/new.cron        # check it before it goes live
+crontab /tmp/new.cron
 crontab -l
 ```
 
 `--cron-hours 7,19` picks different times.
+
+### crontab: Operation not permitted
+
+Installing a crontab needs **Full Disk Access for the terminal application**,
+not just for cron:
+
+```
+crontab: tmp/tmp.NNNNN: Operation not permitted
+```
+
+`/usr/bin/crontab` is setuid root and its temp directory is root-only, so this
+is not a Unix permission problem — it is macOS TCC refusing the write. Grant
+Full Disk Access to the terminal app in System Settings → Privacy & Security →
+Full Disk Access, restart it, and try again. `sudo crontab -u "$USER"
+/tmp/new.cron` sometimes gets through without the grant.
+
+This is a *second* grant on top of the one cron may need to run the job. If
+neither appeals, launchd needs no Full Disk Access at all and also survives
+sleep — see below.
 
 ### What a run does
 
@@ -313,10 +337,66 @@ Two things to know about cron on macOS:
   entirely, not deferred. To survive that, switch the entry to `40 * * * *` and
   have the wrapper keep a timestamp, acting only when the last run is more than
   8 hours old.
-- **Full Disk Access.** The job only touches `~/src`, `~/.ssh` and
-  `~/Library/Logs`, none of which are protected, so it should just work. If it
-  fails silently, grant Full Disk Access to `/usr/sbin/cron`. Do not move the
-  repo under `~/Documents` or `~/Desktop`, which would make that mandatory.
+- **Full Disk Access.** Needed once to install the table, and possibly again
+  for `/usr/sbin/cron` to run the job. The job itself only touches `~/src`,
+  `~/.ssh` and `~/Library/Logs`, none of which are protected, so it may run
+  without the second grant. Do not move the repo under `~/Documents` or
+  `~/Desktop`, which would make it mandatory.
+
+### launchd instead
+
+launchd needs no Full Disk Access and re-fires a schedule that was missed while
+the Mac was asleep. `run_import.sh` works unchanged; only the schedule differs.
+
+Write this to `~/Library/LaunchAgents/com.jonalmeida.garmin-import.plist`,
+substituting the two placeholders:
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+  "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key><string>com.jonalmeida.garmin-import</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/bash</string>
+    <string>REPO/scripts/garmin/run_import.sh</string>
+  </array>
+  <key>WorkingDirectory</key><string>REPO</string>
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>PATH</key><string>/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+    <key>HOME</key><string>HOMEDIR</string>
+  </dict>
+  <key>StartCalendarInterval</key>
+  <array>
+    <dict><key>Hour</key><integer>8</integer><key>Minute</key><integer>40</integer></dict>
+    <dict><key>Hour</key><integer>20</integer><key>Minute</key><integer>40</integer></dict>
+  </array>
+  <key>RunAtLoad</key><false/>
+  <key>StandardOutPath</key><string>HOMEDIR/Library/Logs/garmin-import.launchd.log</string>
+  <key>StandardErrorPath</key><string>HOMEDIR/Library/Logs/garmin-import.launchd.log</string>
+  <key>ProcessType</key><string>Background</string>
+  <key>LowPriorityIO</key><true/>
+  <key>ThrottleInterval</key><integer>300</integer>
+</dict>
+</plist>
+```
+
+```sh
+plist=~/Library/LaunchAgents/com.jonalmeida.garmin-import.plist
+sed -i '' -e "s|REPO|$PWD|g" -e "s|HOMEDIR|$HOME|g" "$plist"
+plutil -lint "$plist"
+launchctl bootstrap gui/$(id -u) "$plist"
+launchctl kickstart -p gui/$(id -u)/com.jonalmeida.garmin-import   # run it now
+launchctl print gui/$(id -u)/com.jonalmeida.garmin-import | grep -E 'state|last exit'
+```
+
+`RunAtLoad` is false on purpose: with it true, every login and every plist edit
+fires a real import and push. Use `launchctl kickstart -p` for a manual run.
+
+To change the plist later, `launchctl bootout` it first, then bootstrap again.
 
 ## Backfilling maps
 
