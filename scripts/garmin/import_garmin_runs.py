@@ -42,6 +42,8 @@ import math
 import os
 import random
 import re
+import shutil
+import subprocess
 import time
 import urllib.parse
 import urllib.request
@@ -64,6 +66,19 @@ START_DATE = "2026-03-07"
 MAPS_DIR = SCRIPTS_DIR.parent.parent / "static" / "runs" / "maps"
 MAP_URL_PREFIX = "/runs/maps"
 MAP_EMBED_WIDTH = 640
+
+# Photos. Garmin returns them on the full activity DTO, as presigned S3 URLs
+# with no auth header and a 24 h life. Every new post is a Zola page bundle, so
+# the photos sit beside index.md and the gallery component finds them.
+GALLERY_SHORTCODE = "{{ <gallery page={page} /> }}"
+PHOTO_MAX_PER_ACTIVITY = 12
+PHOTO_TIMEOUT_S = 60
+# Photos are plain git blobs forever, and gallery.html links the committed file
+# as the full-size image, so this width is what a reader actually gets. 800 px
+# matches every photo added to content/runs by hand.
+PHOTO_TARGET_WIDTH = 800
+PHOTO_QUALITY = 82
+PHOTO_WARN_BYTES = 1_000_000
 
 # Route map tuning
 SVG_WIDTH, SVG_PAD, LEGEND_H = 640, 14, 46
@@ -292,7 +307,7 @@ config:
       plotColorPalette: "#555555,#FF8200,#56CC3C,#4090D4,#AAAAAA"
       backgroundColor: "transparent"
 ---
-        """,
+""",
         "xychart horizontal",
         '    title "Time in Heart Rate Zones (%)"',
         f"    x-axis [{labels}]",
@@ -305,7 +320,27 @@ config:
     return "\n".join(lines)
 
 
-def activity_to_markdown(activity: dict, map_url: str | None = None) -> str:
+def activity_date(activity: dict) -> str:
+    """The activity's local start date as YYYY-MM-DD."""
+    start_local = activity.get("startTimeLocal") or activity.get("startTimeGMT", "")
+    if start_local:
+        return start_local[:10]
+    return datetime.now(timezone.utc).strftime("%Y-%m-%d")
+
+
+def yaml_dq(value: str) -> str:
+    """Escape a value for a YAML double-quoted scalar.
+
+    An activity name is whatever was typed on the phone. Without this, a name
+    holding a double quote breaks the front matter, and for a page bundle that
+    leaves a directory of orphaned photos behind.
+    """
+    return value.replace("\\", "\\\\").replace('"', '\\"')
+
+
+def activity_to_markdown(
+    activity: dict, map_url: str | None = None, photos: int = 0
+) -> str:
     distance_m: float = activity.get("distance", 0) or 0
     distance_km = round(distance_m / 1000, 2)
 
@@ -322,10 +357,7 @@ def activity_to_markdown(activity: dict, map_url: str | None = None) -> str:
 
     activity_id = activity["activityId"]
 
-    # Parse start time to get date
-    start_local = activity.get("startTimeLocal") or activity.get("startTimeGMT", "")
-    date_str = start_local[:10] if start_local else datetime.now(timezone.utc).strftime("%Y-%m-%d")
-
+    date_str = activity_date(activity)
     run_date = datetime.strptime(date_str, "%Y-%m-%d")
     activity_name = activity["activityName"]
 
@@ -333,7 +365,10 @@ def activity_to_markdown(activity: dict, map_url: str | None = None) -> str:
     #title = f"{run_date.day} {run_date.strftime('%B')}, {run_date.year}: {activity_name}"
     title = f"{activity_name}"
 
-    description = activity.get("description", "")
+    # Garmin descriptions often carry trailing spaces from the phone keyboard.
+    description = "\n".join(
+        line.rstrip() for line in (activity.get("description") or "").splitlines()
+    ).strip()
     mermaid_chart = hr_zones_mermaid(activity)
     chart_section = f"\n## Heart Rate Zones\n\n{mermaid_chart}\n" if mermaid_chart else ""
     mermaid_flag = "\n  mermaid: true" if mermaid_chart else ""
@@ -341,7 +376,7 @@ def activity_to_markdown(activity: dict, map_url: str | None = None) -> str:
     route_section = f"\n## Route\n\n{route_shortcode(map_url)}\n" if map_url else ""
 
     frontmatter = f"""---
-title: "{title}"
+title: "{yaml_dq(title)}"
 date: {date_str}
 draft: false
 taxonomies:
@@ -364,21 +399,39 @@ extra:
 | Elevation Gain | {elevation_str} m |
 """
 
-    return frontmatter + "\n" + description + "\n" + table + route_section + chart_section
+    # The gallery goes between the prose and the stats table, which is where
+    # every hand-made post put it.
+    gallery_section = f"\n{GALLERY_SHORTCODE}\n" if photos else ""
+
+    return (
+        frontmatter + "\n" + description + "\n" + gallery_section
+        + table + route_section + chart_section
+    )
 
 
-def output_path(date_str: str) -> Path:
-    """Return a unique path for the given date, appending -2, -3, etc. if needed."""
+def slug_for(activity: dict, date_str: str, same_day: list[dict]) -> str:
+    """Return the directory name for an activity. The Nth run of a date always
+    gets the same answer.
+
+    The index comes from the activity's position among that date's activities,
+    not from what is already on disk. An import that died halfway through wrote
+    files but recorded nothing, so the next run has to land on the same slug
+    and overwrite it - probing the filesystem would find the partial directory
+    and create a -2 sibling beside it instead.
+    """
+    base = f"{date_str}-run-{date_str}"
+    n = [a["activityId"] for a in same_day].index(activity["activityId"])
+    return base if n == 0 else f"{base}-{n + 1}"
+
+
+def output_path(slug: str) -> Path:
+    """Return the index.md of the page bundle for a slug.
+
+    Every new post is a page bundle, so a photo uploaded to Garmin after the
+    import can be dropped in beside index.md without renaming anything.
+    """
     CONTENT_RUNS_DIR.mkdir(parents=True, exist_ok=True)
-    base = CONTENT_RUNS_DIR / f"{date_str}-run-{date_str}.md"
-    if not base.exists():
-        return base
-    n = 2
-    while True:
-        candidate = CONTENT_RUNS_DIR / f"{date_str}-run-{date_str}-{n}.md"
-        if not candidate.exists():
-            return candidate
-        n += 1
+    return CONTENT_RUNS_DIR / slug / "index.md"
 
 
 # ---------------------------------------------------------------------------
@@ -391,7 +444,10 @@ ACTIVITY_ID_RE = re.compile(r"^\s*garmin_activity_id:\s*(\d+)\s*$", re.MULTILINE
 def index_posts_by_activity_id() -> dict[int, Path]:
     """Map each post's garmin_activity_id to its path."""
     index: dict[int, Path] = {}
-    for path in sorted(CONTENT_RUNS_DIR.glob("*.md")):
+    # Flat posts and page bundles both exist. _index.md carries no activity id,
+    # so ACTIVITY_ID_RE filters it out.
+    candidates = [*CONTENT_RUNS_DIR.glob("*.md"), *CONTENT_RUNS_DIR.glob("*/index.md")]
+    for path in sorted(candidates):
         match = ACTIVITY_ID_RE.search(path.read_text())
         if match:
             index[int(match.group(1))] = path
@@ -417,6 +473,33 @@ def insert_route_shortcode(path: Path, shortcode: str) -> bool:
     else:
         path.write_text(text[:at] + block + text[at:])
     return True
+
+
+def insert_gallery_shortcode(path: Path) -> bool:
+    """Insert the gallery line into an existing post. Insert only, idempotent.
+
+    Returns True when the file changed. Same contract as
+    insert_route_shortcode: never rewrite a line, only insert a block. The
+    seam is the blank line before the stats table, which is where every
+    hand-made post put it.
+    """
+    text = path.read_text()
+    if "<gallery" in text:
+        return False
+
+    for anchor in ("\n| Stat | Value |", "\n## Route", "\n## Heart Rate Zones"):
+        at = text.find(anchor)
+        if at != -1:
+            path.write_text(text[:at] + "\n" + GALLERY_SHORTCODE + "\n" + text[at:])
+            return True
+
+    path.write_text(text.rstrip("\n") + "\n\n" + GALLERY_SHORTCODE + "\n")
+    return True
+
+
+def post_dir(post: Path) -> Path | None:
+    """The bundle directory for a post, or None when the post is a flat .md."""
+    return post.parent if post.name == "index.md" else None
 
 
 def route_shortcode(map_url: str) -> str:
@@ -1453,6 +1536,171 @@ def fetch_activity_points(client: Garmin, activity_id: int) -> list[Point]:
 
 
 # ---------------------------------------------------------------------------
+# Photos
+# ---------------------------------------------------------------------------
+
+
+class PhotoFailure(Exception):
+    """Garmin has photos for this activity but we could not get them."""
+
+
+def fetch_activity_photos(client: Garmin, activity_id: int) -> list[dict]:
+    """Return metadataDTO.activityImages for an activity.
+
+    garminconnect 0.3.2 has no photo helper; the images ride along on the full
+    activity DTO, so this costs one extra get_activity call.
+
+    An empty list and a failed call are very different here, and both look like
+    "no photos" if you are careless. An activity id in garmin_imported.json is
+    never looked at again, so swallowing a failure would publish a photoless
+    post and lose those photos for good. Hence: [] means the run really has no
+    photos, and anything else raises so the caller can skip the activity
+    without recording it.
+    """
+    for attempt in (1, 2):
+        try:
+            full = client.get_activity(activity_id)
+            break
+        except Exception as exc:  # noqa: BLE001
+            if attempt == 1:
+                print(f"  photo list failed for {activity_id} ({exc}); retrying")
+                time.sleep(5)
+            else:
+                raise PhotoFailure(f"photo list failed for {activity_id}: {exc}") from exc
+
+    images = ((full or {}).get("metadataDTO") or {}).get("activityImages") or []
+    return [i for i in images if isinstance(i, dict) and i.get("url")]
+
+
+def _http_get(url: str) -> bytes:
+    """Fetch a presigned S3 URL.
+
+    No auth header: the signature is in the query string. client.download()
+    cannot be used, because garminconnect prefixes every path with the
+    connectapi base URL and so cannot reach S3 at all.
+    """
+    request = urllib.request.Request(
+        url, headers={"User-Agent": "jonalmeida.com run importer"}
+    )
+    for attempt in (1, 2):
+        try:
+            with urllib.request.urlopen(request, timeout=PHOTO_TIMEOUT_S) as response:
+                return response.read()
+        except Exception as exc:  # noqa: BLE001
+            if attempt == 1:
+                print(f"  photo download failed ({exc}); retrying")
+                time.sleep(5)
+            else:
+                raise PhotoFailure(f"photo download failed: {exc}") from exc
+    raise PhotoFailure("unreachable")
+
+
+def _shrink(data: bytes, destination: Path, width: int) -> bool:
+    """Write data to destination, shrunk to `width` px. False if we could not.
+
+    ImageMagick first, then sips, which ships with macOS so the resize needs no
+    bootstrapping. '800x>' only ever shrinks, so a photo already narrower than
+    the target is left alone. -strip drops metadata; Garmin already strips EXIF,
+    this is belt and braces.
+    """
+    scratch = destination.with_suffix(".orig.tmp")
+    scratch.write_bytes(data)
+    try:
+        if shutil.which("magick"):
+            # 'magick', not 'magick convert': IMv7 deprecated the latter.
+            command = [
+                "magick", str(scratch), "-auto-orient", "-resize", f"{width}x>",
+                "-strip", "-quality", str(PHOTO_QUALITY), str(destination),
+            ]
+        elif shutil.which("sips"):
+            command = [
+                "sips", "--resampleWidth", str(width), str(scratch),
+                "--out", str(destination),
+            ]
+        else:
+            print("  WARNING: neither magick nor sips found; cannot resize")
+            return False
+
+        subprocess.run(command, check=True, capture_output=True, timeout=180)
+        return destination.exists() and destination.stat().st_size > 0
+    except Exception as exc:  # noqa: BLE001
+        print(f"  WARNING: resize failed ({exc})")
+        return False
+    finally:
+        scratch.unlink(missing_ok=True)
+
+
+def download_photos(
+    client: Garmin,
+    activity_id: int,
+    images: list[dict],
+    bundle: Path,
+    date_str: str,
+    variant: str = "url",
+    width: int = PHOTO_TARGET_WIDTH,
+) -> list[str]:
+    """Download an activity's photos into its bundle as <date_str>-<n>.jpg.
+
+    There is no per-photo state: an activity is either fully imported or not
+    imported at all, so this always fetches every photo and overwrites. Any
+    failure raises, and the caller then skips the activity without recording
+    it - a post with half its photos is worse than a post that arrives a
+    few hours late.
+    """
+    bundle.mkdir(parents=True, exist_ok=True)
+
+    # A retry writes the same names in the same order, but if Garmin has since
+    # lost a photo the old file would linger and the gallery would publish it.
+    for stale in bundle.glob("*.jpg"):
+        stale.unlink()
+
+    saved: list[str] = []
+    for n, image in enumerate(images[:PHOTO_MAX_PER_ACTIVITY]):
+        url = image.get(variant) or image["url"]
+
+        # The URLs are presigned with a 24 h life. We use them seconds after
+        # get_activity returned, so this only bites a caller that cached the
+        # DTO - cheap enough to guard anyway.
+        expires = image.get("expirationTimestamp")
+        if expires and expires / 1000 < time.time() + 60:
+            print(f"  photo URL for {activity_id} has expired; re-listing")
+            fresh = fetch_activity_photos(client, activity_id)
+            match = next(
+                (f for f in fresh if f.get("imageId") == image.get("imageId")), None
+            )
+            if match:
+                url = match.get(variant) or match["url"]
+
+        data = _http_get(url)
+        name = f"{date_str}-{n}.jpg"
+        destination = bundle / name
+
+        if width and _shrink(data, destination, width):
+            pass
+        elif width:
+            # No resizer. Take Garmin's medium variant rather than commit a
+            # half-megabyte original.
+            small = image.get("smallUrl") or image.get("mediumUrl")
+            if small and small != url:
+                print("  falling back to Garmin's medium variant")
+                data = _http_get(small)
+            destination.write_bytes(data)
+        else:
+            destination.write_bytes(data)
+
+        size = destination.stat().st_size
+        print(f"  Wrote photo {name} ({size / 1024:.0f} KB)")
+        if size > PHOTO_WARN_BYTES:
+            print(
+                f"  WARNING: {name} is {size / 1024:.0f} KB "
+                "and goes into git history for good"
+            )
+        saved.append(name)
+
+    return saved
+
+
+# ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
 
@@ -1486,8 +1734,35 @@ def parse_args() -> argparse.Namespace:
              f"off each end)",
     )
     parser.add_argument(
+        "--no-photos", action="store_true",
+        help="skip photo download (saves one API call per activity)",
+    )
+    parser.add_argument(
+        "--backfill-photos", action="store_true",
+        help="download photos for already-imported activities and insert a "
+             "gallery line into their posts; imports nothing new",
+    )
+    parser.add_argument(
+        "--convert-flat", action="store_true",
+        help="with --backfill-photos, turn a flat post into a page bundle",
+    )
+    parser.add_argument(
+        "--photo-variant", choices=("url", "smallUrl"), default="url",
+        help="which Garmin variant to download (default: %(default)s, the "
+             "largest, which is then resized locally)",
+    )
+    parser.add_argument(
+        "--photo-width", type=int, default=PHOTO_TARGET_WIDTH, metavar="PX",
+        help="resize photos to this width before committing (default: %(default)s)",
+    )
+    parser.add_argument(
+        "--no-photo-resize", action="store_true",
+        help="commit the downloaded bytes as they are (around 500 KB each)",
+    )
+    parser.add_argument(
         "--activity", type=int, action="append", metavar="ID",
-        help="with --backfill-maps, limit to these activity IDs (repeatable)",
+        help="with --backfill-maps or --backfill-photos, limit to these "
+             "activity IDs (repeatable)",
     )
     parser.add_argument(
         "--force", action="store_true",
@@ -1501,7 +1776,10 @@ def parse_args() -> argparse.Namespace:
         "--selftest", nargs="?", const="/tmp/route_selftest.svg", metavar="PATH",
         help="render a synthetic route and exit (no Garmin credentials needed)",
     )
-    return parser.parse_args()
+    args = parser.parse_args()
+    if args.no_photo_resize:
+        args.photo_width = 0
+    return args
 
 
 def authenticate(email: str, password: str) -> Garmin:
@@ -1525,9 +1803,15 @@ def run_import(client: Garmin, args: argparse.Namespace) -> None:
     activities = fetch_running_activities(client)
     print(f"Fetched {len(activities)} running activities since {START_DATE}.")
 
+    # slug_for needs every activity that shares a date, so group up front.
+    by_date: dict[str, list[dict]] = {}
+    for activity in activities:
+        by_date.setdefault(activity_date(activity), []).append(activity)
+
     count_imported = 0
     count_ignored = 0
     count_already = 0
+    count_deferred = 0
 
     for activity in activities:
         activity_id = int(activity["activityId"])
@@ -1540,8 +1824,21 @@ def run_import(client: Garmin, args: argparse.Namespace) -> None:
             count_already += 1
             continue
 
-        start_local = activity.get("startTimeLocal") or activity.get("startTimeGMT", "")
-        date_str = start_local[:10] if start_local else datetime.now(timezone.utc).strftime("%Y-%m-%d")
+        date_str = activity_date(activity)
+
+        # Photos first, because this is the step that can defer the activity.
+        # Doing it before the map saves an Overpass query on a deferral.
+        images: list[dict] = []
+        if not args.no_photos:
+            try:
+                images = fetch_activity_photos(client, activity_id)
+            except PhotoFailure as exc:
+                print(f"  WARNING: {exc}")
+                print(f"  deferring {activity_id}; the next run will retry it")
+                count_deferred += 1
+                continue
+            if images:
+                time.sleep(args.delay)
 
         map_url = None
         if not args.no_maps:
@@ -1558,18 +1855,49 @@ def run_import(client: Garmin, args: argparse.Namespace) -> None:
             if len(points) < 2:
                 print(f"  no GPS data for {activity_id} (treadmill?) - map skipped")
 
-        path = output_path(date_str)
-        path.write_text(activity_to_markdown(activity, map_url))
+        slug = slug_for(activity, date_str, by_date[date_str])
+        path = output_path(slug)
+
+        names: list[str] = []
+        if images:
+            try:
+                names = download_photos(
+                    client, activity_id, images, path.parent, date_str,
+                    variant=args.photo_variant, width=args.photo_width,
+                )
+            except PhotoFailure as exc:
+                print(f"  WARNING: {exc}")
+                print(f"  deferring {activity_id}; the next run will retry it")
+                count_deferred += 1
+                # A bundle with no index.md is invisible to Zola, but leave no
+                # litter behind either.
+                for partial in path.parent.glob("*.jpg"):
+                    partial.unlink()
+                if path.parent.is_dir() and not any(path.parent.iterdir()):
+                    path.parent.rmdir()
+                continue
+
+        # index.md last. A directory of photos with no index.md is invisible to
+        # Zola, so a run that dies here leaves nothing published.
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(activity_to_markdown(activity, map_url, photos=len(names)))
         imported_set.add(activity_id)
         count_imported += 1
-        print(f"  Wrote {path.name}  (activity {activity_id})")
+        print(
+            f"  Wrote {path.parent.name}/{path.name}  "
+            f"({len(names)} photos, activity {activity_id})"
+        )
 
+    # Written once, only after the whole run succeeded. An activity that is not
+    # in here has to be redone from scratch, which is why slug_for is
+    # deterministic and download_photos overwrites.
     save_imported_set(imported_set)
 
+    deferred = f", deferred: {count_deferred}" if count_deferred else ""
     print(
         f"\nDone. Imported: {count_imported}, "
         f"skipped (ignored): {count_ignored}, "
-        f"skipped (already imported): {count_already}."
+        f"skipped (already imported): {count_already}{deferred}."
     )
 
 
@@ -1623,6 +1951,76 @@ def run_backfill(client: Garmin, args: argparse.Namespace) -> None:
     )
 
 
+def run_backfill_photos(client: Garmin, args: argparse.Namespace) -> None:
+    """Download photos for activities that were imported before the photos
+    were uploaded to Garmin, and insert a gallery line into their posts."""
+    targets = sorted(args.activity or load_imported_set())
+    posts = index_posts_by_activity_id()
+    print(f"Backfilling photos for {len(targets)} activities.")
+
+    count_photos = 0
+    count_none = 0
+    count_inserted = 0
+    count_failed = 0
+
+    for i, activity_id in enumerate(targets):
+        post = posts.get(activity_id)
+        if post is None:
+            print(f"  {activity_id}: no post found; skipping")
+            continue
+
+        bundle = post_dir(post)
+        if bundle is None:
+            # Renaming a post changes nothing about its URL, but it is still a
+            # destructive move. Refuse by default and hand over the command.
+            if not args.convert_flat:
+                print(f"  {activity_id}: {post.name} is a flat post. Convert it with:")
+                print(f"      mkdir content/runs/{post.stem} && \\")
+                print(f"        mv content/runs/{post.name} content/runs/{post.stem}/index.md")
+                print("    or re-run with --convert-flat")
+                continue
+            bundle = post.with_suffix("")
+            bundle.mkdir(parents=True, exist_ok=True)
+            post = post.rename(bundle / "index.md")
+            print(f"  {activity_id}: converted to a page bundle {bundle.name}/")
+
+        try:
+            images = fetch_activity_photos(client, activity_id)
+        except PhotoFailure as exc:
+            print(f"  WARNING: {exc}")
+            count_failed += 1
+            continue
+        if i < len(targets) - 1:
+            time.sleep(args.delay)
+
+        if not images:
+            print(f"  {activity_id}: no photos on Garmin")
+            count_none += 1
+            continue
+
+        try:
+            names = download_photos(
+                client, activity_id, images, bundle, bundle.name[:10],
+                variant=args.photo_variant, width=args.photo_width,
+            )
+        except PhotoFailure as exc:
+            print(f"  WARNING: {exc}")
+            count_failed += 1
+            continue
+
+        count_photos += len(names)
+        if insert_gallery_shortcode(post):
+            print(f"  {activity_id}: inserted the gallery into {bundle.name}/index.md")
+            count_inserted += 1
+
+    print(
+        f"\nDone. Photos written: {count_photos}, "
+        f"no photos: {count_none}, "
+        f"posts updated: {count_inserted}, "
+        f"failed: {count_failed}."
+    )
+
+
 def synthetic_points() -> list[Point]:
     """A figure-eight with a known speed profile, a spike, and a gap."""
     points: list[Point] = []
@@ -1637,6 +2035,60 @@ def synthetic_points() -> list[Point]:
             speed = None          # gap: must be filled
         points.append((lat, lon, speed))
     return points
+
+
+def selftest_posts() -> None:
+    """Check the post shape, the slug maths and the gallery insert."""
+    assert yaml_dq('a "b" c') == 'a \\"b\\" c', yaml_dq('a "b" c')
+    assert yaml_dq("back\\slash") == "back\\\\slash"
+
+    # slug_for must be a pure function of the activity list, because a run that
+    # died halfway through has to land on the same slug and overwrite.
+    same_day = [{"activityId": 11}, {"activityId": 22}, {"activityId": 33}]
+    slugs = [slug_for(a, "2026-09-06", same_day) for a in same_day]
+    assert slugs == [
+        "2026-09-06-run-2026-09-06",
+        "2026-09-06-run-2026-09-06-2",
+        "2026-09-06-run-2026-09-06-3",
+    ], slugs
+    assert [slug_for(a, "2026-09-06", same_day) for a in same_day] == slugs, (
+        "slug_for is not deterministic"
+    )
+
+    activity = {
+        "activityId": 24206823662,
+        "activityName": 'Lisbon "Running"',
+        "startTimeLocal": "2026-09-02 08:31:00",
+        "distance": 6030.0,
+        "duration": 1949.0,
+        "elevationGain": 7.0,
+        "description": "Burning off yesterday's wining and dining.",
+    }
+    assert activity_date(activity) == "2026-09-02"
+
+    without = activity_to_markdown(activity, "/runs/maps/1.svg", photos=0)
+    assert GALLERY_SHORTCODE not in without, "a photoless post must have no gallery"
+    assert 'title: "Lisbon \\"Running\\""' in without, "the title is not escaped"
+
+    with_photos = activity_to_markdown(activity, "/runs/maps/1.svg", photos=3)
+    seam = f"\n\n{GALLERY_SHORTCODE}\n\n| Stat | Value |"
+    assert seam in with_photos, "the gallery is not on the seam before the table"
+
+    # insert_gallery_shortcode must be insert-only and idempotent.
+    scratch = Path("/tmp/garmin_selftest_post.md")
+    scratch.write_text(without)
+    assert insert_gallery_shortcode(scratch), "the gallery was not inserted"
+    assert seam in scratch.read_text(), "the insert landed on the wrong seam"
+    assert not insert_gallery_shortcode(scratch), "the insert is not idempotent"
+    before = scratch.read_text()
+    insert_gallery_shortcode(scratch)
+    assert scratch.read_text() == before, "a second insert changed the file"
+    scratch.unlink()
+
+    assert post_dir(Path("content/runs/x/index.md")) == Path("content/runs/x")
+    assert post_dir(Path("content/runs/x.md")) is None
+
+    print("  post shape, slugs and gallery insert: ok")
 
 
 def run_selftest(path: Path) -> None:
@@ -1702,6 +2154,8 @@ def run_selftest(path: Path) -> None:
     assert svg is not None
     path.write_text(svg)
 
+    selftest_posts()
+
     print(f"Wrote {path} ({len(svg.encode()) / 1024:.1f} KB)")
     print(f"  points after decimation: {len(px)}")
     print(f"  polylines: {svg.count('<polyline')}")
@@ -1730,7 +2184,9 @@ def main() -> None:
 
     if args.backfill_maps:
         run_backfill(client, args)
-    else:
+    if args.backfill_photos:
+        run_backfill_photos(client, args)
+    if not (args.backfill_maps or args.backfill_photos):
         run_import(client, args)
 
 
