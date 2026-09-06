@@ -253,8 +253,22 @@ chmod 600 ~/.ssh/id_ed25519_jonalmeida_site
 pbcopy < ~/.ssh/id_ed25519_jonalmeida_site.pub
 ```
 
-Paste it at *Settings → Deploy keys → Add deploy key* on the GitHub repo and
-tick **Allow write access**. Check it works, from a shell with no agent:
+Paste it at *Settings → Deploy keys → Add deploy key* **on the repository**, and
+tick **Allow write access**.
+
+Do not add it under *Settings → SSH and GPG keys* on your account: that grants
+the key write access to every repository you own, which for a passphrase-less
+key sitting on disk is much wider than this job needs. Check which one you
+created — a deploy key answers with the repo name, an account key with your
+username:
+
+```sh
+$ ssh -T git@github.com     # with the key, see below
+Hi jonalmeida/jonalmeida.github.com!   # deploy key, correct
+Hi jonalmeida!                         # account key, too broad
+```
+
+Check it works, from a shell with no agent:
 
 ```sh
 env -u SSH_AUTH_SOCK GIT_SSH_COMMAND="/usr/bin/ssh \
@@ -394,9 +408,23 @@ launchctl print gui/$(id -u)/com.jonalmeida.garmin-import | grep -E 'state|last 
 ```
 
 `RunAtLoad` is false on purpose: with it true, every login and every plist edit
-fires a real import and push. Use `launchctl kickstart -p` for a manual run.
+fires a real import and push.
 
 To change the plist later, `launchctl bootout` it first, then bootstrap again.
+
+**`kickstart` looks like it hangs.** `ThrottleInterval` stops launchd running
+the job more than once per 300 s, and that applies to a manual kickstart too.
+If the job ran less than five minutes ago, `launchctl kickstart` blocks and
+`launchctl print` shows `state = spawn scheduled` until the window clears —
+then it runs normally. Nothing is wrong. To watch instead of waiting:
+
+```sh
+launchctl print gui/$(id -u)/com.jonalmeida.garmin-import | grep -E 'state|runs|last exit'
+tail -f ~/Library/Logs/garmin-import.log
+```
+
+The throttle is there to stop a crash-looping job hammering Garmin. Drop
+`ThrottleInterval` if the delay is more annoying than that risk.
 
 ## Backfilling maps
 
