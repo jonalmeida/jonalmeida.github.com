@@ -62,6 +62,10 @@ IGNORE_FILE = SCRIPTS_DIR / "garmin_ignore.txt"
 TOKENSTORE = str(SCRIPTS_DIR / ".garmin_tokens")
 START_DATE = "2026-03-07"
 
+# What does not get published. Both signals ride on the activity list payload,
+# so checking them costs no extra API call.
+PRIVATE_MARKERS = ("#nopost", "#private")
+
 # Route map output
 MAPS_DIR = SCRIPTS_DIR.parent.parent / "static" / "runs" / "maps"
 MAP_URL_PREFIX = "/runs/maps"
@@ -198,6 +202,86 @@ def load_ignore_set() -> set[int]:
         if line and not line.startswith("#"):
             ids.add(int(line))
     return ids
+
+
+def append_ignore(activity_id: int) -> None:
+    """Record an activity in garmin_ignore.txt so it is never reconsidered.
+
+    The id alone, with no reason beside it. This file is tracked and published
+    in a public repo, so a trailing "# marker #nopost" would leak exactly the
+    thing the marker was meant to hide. The reason goes to stdout, which ends
+    up in the untracked run log.
+    """
+    if activity_id in load_ignore_set():
+        return
+    text = IGNORE_FILE.read_text() if IGNORE_FILE.exists() else ""
+    IGNORE_FILE.write_text(text.rstrip("\n") + f"\n{activity_id}\n")
+
+
+def _has_marker(text: str, marker: str) -> bool:
+    """True when `marker` appears as a whole token.
+
+    '#' is not a word character, so only the trailing guard matters: #nopost
+    must not fire on #nopostcard.
+    """
+    return re.search(rf"{re.escape(marker)}(?!\w)", text, re.IGNORECASE) is not None
+
+
+def strip_markers(text: str, markers: tuple[str, ...] = PRIVATE_MARKERS) -> str:
+    """Remove the private markers and tidy the whitespace they leave behind.
+
+    Applied to every post, published or not, so a --no-content-filter rescue
+    run cannot leak the token into a published page.
+    """
+    for marker in markers:
+        text = re.sub(rf"{re.escape(marker)}(?!\w)", "", text, flags=re.IGNORECASE)
+    text = "\n".join(line.rstrip() for line in text.splitlines())
+    return re.sub(r"\n{3,}", "\n\n", text).strip()
+
+
+def publish_decision(
+    activity: dict, args: argparse.Namespace, for_retract: bool = False
+) -> tuple[bool, str]:
+    """Return (publish?, reason). The reason is printed, never written to a
+    tracked file.
+
+    Two rules, both free, because activityName and description are already on
+    the get_activities_by_date payload:
+
+      - a #nopost marker in the name or the description. Typed on the phone, in
+        the same box the post prose is written in.
+      - no description at all. Nothing written about it means it was not
+        written for the blog.
+
+    Garmin's own privacy.typeKey is available too, but every activity is
+    "groups" today, so a rule on it would be a no-op. --allowed-privacy wires
+    it up for whenever that changes.
+
+    for_retract drops the description rule. Re-checking an already-published
+    post asks a different question: has consent been withdrawn? A marker or a
+    privacy change says yes. An empty description says nothing was written,
+    which is an absence, not a withdrawal - and prose is often written into the
+    post rather than into Garmin, so treating it as a retraction signal would
+    cry wolf on those posts twice a day forever.
+    """
+    if args.no_content_filter:
+        return True, ""
+
+    if args.allowed_privacy:
+        key = ((activity.get("privacy") or {}).get("typeKey") or "").lower()
+        if key and key not in args.allowed_privacy:
+            return False, f"privacy={key}"
+
+    name = activity.get("activityName") or ""
+    description = activity.get("description") or ""
+    for marker in args.private_marker:
+        if _has_marker(f"{name}\n{description}", marker):
+            return False, f"marker {marker}"
+
+    if not for_retract and not description.strip():
+        return False, "no description"
+
+    return True, ""
 
 
 def load_imported_set() -> set[int]:
@@ -339,7 +423,10 @@ def yaml_dq(value: str) -> str:
 
 
 def activity_to_markdown(
-    activity: dict, map_url: str | None = None, photos: int = 0
+    activity: dict,
+    map_url: str | None = None,
+    photos: int = 0,
+    markers: tuple[str, ...] = PRIVATE_MARKERS,
 ) -> str:
     distance_m: float = activity.get("distance", 0) or 0
     distance_km = round(distance_m / 1000, 2)
@@ -359,16 +446,14 @@ def activity_to_markdown(
 
     date_str = activity_date(activity)
     run_date = datetime.strptime(date_str, "%Y-%m-%d")
-    activity_name = activity["activityName"]
+    activity_name = strip_markers(activity["activityName"], markers)
 
     # Alternative title. Example: "8 March, 2026: Toronto - Easy Run"
     #title = f"{run_date.day} {run_date.strftime('%B')}, {run_date.year}: {activity_name}"
     title = f"{activity_name}"
 
-    # Garmin descriptions often carry trailing spaces from the phone keyboard.
-    description = "\n".join(
-        line.rstrip() for line in (activity.get("description") or "").splitlines()
-    ).strip()
+    # strip_markers also tidies the trailing spaces the phone keyboard leaves.
+    description = strip_markers(activity.get("description") or "", markers)
     mermaid_chart = hr_zones_mermaid(activity)
     chart_section = f"\n## Heart Rate Zones\n\n{mermaid_chart}\n" if mermaid_chart else ""
     mermaid_flag = "\n  mermaid: true" if mermaid_chart else ""
@@ -1734,6 +1819,26 @@ def parse_args() -> argparse.Namespace:
              f"off each end)",
     )
     parser.add_argument(
+        "--no-content-filter", action="store_true",
+        help="import everything, ignoring the marker and description rules",
+    )
+    parser.add_argument(
+        "--private-marker", action="append", metavar="TOKEN", default=None,
+        help="token in the Garmin activity name or description that means "
+             "'do not publish' (repeatable, default: "
+             f"{' '.join(PRIVATE_MARKERS)})",
+    )
+    parser.add_argument(
+        "--allowed-privacy", metavar="LIST", default="",
+        help="comma-separated Garmin privacy typeKeys that may be published, "
+             "e.g. public,subscribers,groups (default: allow every value)",
+    )
+    parser.add_argument(
+        "--retract", choices=("off", "draft", "delete"), default="off",
+        help="what to do when an already-imported run now fails the filter "
+             "(default: %(default)s, which only reports it)",
+    )
+    parser.add_argument(
         "--no-photos", action="store_true",
         help="skip photo download (saves one API call per activity)",
     )
@@ -1779,6 +1884,10 @@ def parse_args() -> argparse.Namespace:
     args = parser.parse_args()
     if args.no_photo_resize:
         args.photo_width = 0
+    args.private_marker = tuple(args.private_marker or PRIVATE_MARKERS)
+    args.allowed_privacy = frozenset(
+        key.strip().lower() for key in args.allowed_privacy.split(",") if key.strip()
+    )
     return args
 
 
@@ -1795,6 +1904,32 @@ def authenticate(email: str, password: str) -> Garmin:
     return client
 
 
+def retract_post(post: Path, activity_id: int, mode: str) -> bool:
+    """Take a published post back down. Returns True when the file changed.
+
+    'draft' flips draft: false -> true, which Zola excludes from the build
+    while leaving the file, the photos and the history in place - the
+    recoverable option. 'delete' removes the post and its map.
+    """
+    if mode == "draft":
+        text = post.read_text()
+        if "\ndraft: true\n" in text:
+            return False
+        post.write_text(text.replace("\ndraft: false\n", "\ndraft: true\n", 1))
+        print(f"  retracted {activity_id}: {post.parent.name}/{post.name} is now a draft")
+        return True
+
+    bundle = post_dir(post)
+    if bundle is not None:
+        shutil.rmtree(bundle)
+    else:
+        post.unlink()
+    (MAPS_DIR / f"{activity_id}.svg").unlink(missing_ok=True)
+    append_ignore(activity_id)
+    print(f"  retracted {activity_id}: deleted the post and its map")
+    return True
+
+
 def run_import(client: Garmin, args: argparse.Namespace) -> None:
     ignore_set = load_ignore_set()
     imported_set = load_imported_set()
@@ -1808,10 +1943,13 @@ def run_import(client: Garmin, args: argparse.Namespace) -> None:
     for activity in activities:
         by_date.setdefault(activity_date(activity), []).append(activity)
 
+    posts_by_id = index_posts_by_activity_id()
+
     count_imported = 0
     count_ignored = 0
     count_already = 0
     count_deferred = 0
+    count_filtered = 0
 
     for activity in activities:
         activity_id = int(activity["activityId"])
@@ -1822,6 +1960,25 @@ def run_import(client: Garmin, args: argparse.Namespace) -> None:
 
         if activity_id in imported_set:
             count_already += 1
+            # The list payload covers imported activities too, so re-checking
+            # is free. Report only: the post is already public and in a feed
+            # readers have cached, so deleting it does not unpublish it and
+            # leaves a 404 at a linked URL. That is not a robot's call to make
+            # at 08:40 with nobody watching.
+            publish, reason = publish_decision(activity, args, for_retract=True)
+            if not publish:
+                post = posts_by_id.get(activity_id)
+                where = f"{post.parent.name}/{post.name}" if post else "(post not found)"
+                print(f"  RETRACT? {activity_id} is now {reason} but {where} is published")
+                if args.retract != "off" and post is not None:
+                    retract_post(post, activity_id, args.retract)
+            continue
+
+        publish, reason = publish_decision(activity, args)
+        if not publish:
+            print(f"  skipping {activity_id}: {reason}")
+            append_ignore(activity_id)
+            count_filtered += 1
             continue
 
         date_str = activity_date(activity)
@@ -1880,7 +2037,11 @@ def run_import(client: Garmin, args: argparse.Namespace) -> None:
         # index.md last. A directory of photos with no index.md is invisible to
         # Zola, so a run that dies here leaves nothing published.
         path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_text(activity_to_markdown(activity, map_url, photos=len(names)))
+        path.write_text(
+            activity_to_markdown(
+                activity, map_url, photos=len(names), markers=args.private_marker
+            )
+        )
         imported_set.add(activity_id)
         count_imported += 1
         print(
@@ -1897,8 +2058,15 @@ def run_import(client: Garmin, args: argparse.Namespace) -> None:
     print(
         f"\nDone. Imported: {count_imported}, "
         f"skipped (ignored): {count_ignored}, "
+        f"skipped (filtered): {count_filtered}, "
         f"skipped (already imported): {count_already}{deferred}."
     )
+    if count_filtered:
+        print(
+            f"\nThe {count_filtered} filtered run(s) are now in "
+            f"{IGNORE_FILE.name}. To publish one, delete its line there and "
+            "either edit it in Garmin or re-run with --no-content-filter."
+        )
 
 
 def run_backfill(client: Garmin, args: argparse.Namespace) -> None:
@@ -2091,6 +2259,86 @@ def selftest_posts() -> None:
     print("  post shape, slugs and gallery insert: ok")
 
 
+def selftest_filter() -> None:
+    """Check the publish rules and the marker stripping."""
+    args = argparse.Namespace(
+        no_content_filter=False,
+        private_marker=PRIVATE_MARKERS,
+        allowed_privacy=frozenset(),
+    )
+
+    def decide(**fields):
+        return publish_decision({"activityName": "Run", **fields}, args)
+
+    # Real posts must keep publishing. "Lisbon Running" is Garmin's own
+    # auto-name and is a published post, so the name is never the signal - only
+    # the marker and the empty description are.
+    assert decide(description="Nice day, flat route.") == (True, "")
+    assert decide(activityName="Lisbon Running", description="Prose.") == (True, "")
+
+    assert decide(description="Great run #nopost") == (False, "marker #nopost")
+    assert decide(description="Great run #NoPost") == (False, "marker #nopost")
+    assert decide(activityName="Run #private", description="x") == (False, "marker #private")
+    # A word that merely starts with the marker must not fire.
+    assert decide(description="Sent a #nopostcard from Lisbon") == (True, "")
+
+    assert decide(description="") == (False, "no description")
+    assert decide(description="   \n  ") == (False, "no description")
+    assert decide() == (False, "no description"), "a missing description key"
+
+    # privacy.typeKey is off unless asked for, because every activity is
+    # "groups" today and an allow-list would otherwise skip everything.
+    assert decide(description="x", privacy={"typeKey": "private"}) == (True, "")
+    strict = argparse.Namespace(
+        no_content_filter=False,
+        private_marker=PRIVATE_MARKERS,
+        allowed_privacy=frozenset({"public", "subscribers", "groups"}),
+    )
+    assert publish_decision(
+        {"activityName": "R", "description": "x", "privacy": {"typeKey": "private"}}, strict
+    ) == (False, "privacy=private")
+    assert publish_decision(
+        {"activityName": "R", "description": "x", "privacy": {"typeKey": "groups"}}, strict
+    ) == (True, "")
+
+    # --no-content-filter bypasses everything.
+    loose = argparse.Namespace(
+        no_content_filter=True,
+        private_marker=PRIVATE_MARKERS,
+        allowed_privacy=frozenset(),
+    )
+    assert publish_decision({"activityName": "R", "description": ""}, loose) == (True, "")
+
+    assert strip_markers("Great run #nopost") == "Great run"
+    assert strip_markers("#nopost\n\nStill prose.") == "Still prose."
+    assert strip_markers("a #nopost b") == "a  b"
+    assert strip_markers("trailing   \nspaces  ") == "trailing\nspaces"
+    assert strip_markers("keep #nopostcard") == "keep #nopostcard"
+
+    # The marker must never survive into a published post, even on a rescue run.
+    published = activity_to_markdown({
+        "activityId": 1,
+        "activityName": "Run #nopost",
+        "startTimeLocal": "2026-09-06 08:00:00",
+        "distance": 5000.0,
+        "duration": 1500.0,
+        "description": "Prose. #nopost",
+    })
+    assert "#nopost" not in published, "the marker leaked into a published post"
+
+    # A published post with no Garmin description must not read as a
+    # retraction: content/runs/2026-08-14-run-2026-08-14.md is exactly that.
+    assert decide(description="") == (False, "no description")
+    assert publish_decision(
+        {"activityName": "Run", "description": ""}, args, for_retract=True
+    ) == (True, ""), "an empty description was read as a retraction"
+    assert publish_decision(
+        {"activityName": "Run", "description": "x #nopost"}, args, for_retract=True
+    ) == (False, "marker #nopost"), "a marker must still retract"
+
+    print("  publish rules and marker stripping: ok")
+
+
 def run_selftest(path: Path) -> None:
     """Check the map maths and write a sample SVG. Needs no credentials."""
     assert percentile([1, 2, 3, 4], 50) == 2.5, "percentile is wrong"
@@ -2155,6 +2403,7 @@ def run_selftest(path: Path) -> None:
     path.write_text(svg)
 
     selftest_posts()
+    selftest_filter()
 
     print(f"Wrote {path} ({len(svg.encode()) / 1024:.1f} KB)")
     print(f"  points after decimation: {len(px)}")
