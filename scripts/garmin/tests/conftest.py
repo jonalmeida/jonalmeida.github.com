@@ -6,7 +6,6 @@ writes runs inside pytest's ``tmp_path``.
 
 from __future__ import annotations
 
-import importlib.util
 import sys
 from pathlib import Path
 

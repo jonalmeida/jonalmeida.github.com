@@ -19,8 +19,6 @@ import re
 import xml.etree.ElementTree as ElementTree
 from pathlib import Path
 
-import pytest
-
 GARMIN_DIR = Path(__file__).resolve().parent.parent
 
 
