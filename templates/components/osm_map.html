@@ -1,0 +1,74 @@
+{#
+  An OpenStreetMap embed for a single place.
+
+  Examples:
+  {{ <osm_map node="8224977217#map=19/38.712716/-9.135753" /> }}
+
+  {{ <osm_map node="8224977217#map=19/38.712716/-9.135753" name="O Velho Eurico" /> }}
+
+  {{ <osm_map lat={43.6532} lon={-79.3832} zoom={14} /> }}
+
+  {{ <osm_map lat={43.6532} lon={-79.3832} zoom={14} layer="cyclosm" width={640} height={400} /> }}
+
+  `node` is an OSM node. Open the place on openstreetmap.org and paste
+  either the whole URL or everything after `/node/`; the id is taken from
+  the last path segment and the `#map=` fragment, if there is one, gives
+  the framing. All of these name the same restaurant:
+
+    8224977217#map=19/38.712716/-9.135753
+    https://www.openstreetmap.org/node/8224977217#map=19/38.712716/-9.135753
+    https://www.openstreetmap.org/api/0.6/node/8224977217
+    8224977217
+
+  Forms without a `#map=` fragment need `lat`, `lon` and `zoom` as well,
+  because those are what the fallback link uses.
+
+  This component emits only a link. `static/osm-map.js` replaces it with
+  the map in the browser, reading the node's own coordinates and its name
+  from the OSM API. That is why `name` is usually unnecessary -- pass it
+  only to override what OSM says. A reader with no JavaScript, or one who
+  cannot reach the API, keeps the link.
+
+  `layer` is one of mapnik, cyclosm, cyclemap, transportmap, hot or
+  shortbread. `width` and `height` set the zoom as well as the size: the
+  embed takes a bounding box rather than a zoom, so the box is sized for
+  that many pixels. The iframe still shrinks below `width` on a narrow
+  screen, where the zoom is then approximate.
+
+  Arguments are strictly typed and there is no integer to float
+  conversion: write `lat={43.0}`, never `lat={43}`, and `zoom={14}`,
+  never `zoom={14.0}`.
+
+  The markup is emitted on a single line: a blank line or an indented
+  line would end the HTML block and hand the rest to the markdown
+  parser. Put the call on its own unindented line.
+#}
+{% component osm_map(node: string = "", name: string = "", lat: float = 0.0, lon: float = 0.0, zoom: integer = 17, width: integer = 425, height: integer = 350, layer: string = "mapnik") -%}
+{%- if layer not in ["mapnik", "cyclosm", "cyclemap", "transportmap", "hot", "shortbread"] -%}
+  {{- throw(message="osm_map: unknown layer `" ~ layer ~ "`; use mapnik, cyclosm, cyclemap, transportmap, hot or shortbread") -}}
+{%- endif -%}
+{%- if not node and lat == 0.0 and lon == 0.0 -%}
+  {{- throw(message="osm_map: pass a `node`, or a `lat` and `lon` pair") -}}
+{%- endif -%}
+{%- set parts = node | split(pat="#") -%}
+{%- if node -%}
+  {%- set node_id = (parts[0] | split(pat="/"))[-1] -%}
+{%- else -%}
+  {%- set node_id = "" -%}
+{%- endif -%}
+{%- if parts | length > 1 -%}
+  {%- set bits = parts[1] | trim_start(pat="map=") | split(pat="/") -%}
+  {%- if bits | length != 3 -%}
+    {{- throw(message="osm_map: the `#map=` part of `node` must be `zoom/lat/lon`") -}}
+  {%- endif -%}
+  {%- set m_zoom = bits[0] -%}
+  {%- set m_lat = bits[1] -%}
+  {%- set m_lon = bits[2] -%}
+{%- else -%}
+  {%- set m_zoom = zoom -%}
+  {%- set m_lat = lat -%}
+  {%- set m_lon = lon -%}
+{%- endif -%}
+{%- set fallback = "https://www.openstreetmap.org/#map=" ~ m_zoom ~ "/" ~ m_lat ~ "/" ~ m_lon -%}
+<div class="osm-map" data-node="{{ node_id }}" data-zoom="{{ m_zoom }}" data-lat="{{ m_lat }}" data-lon="{{ m_lon }}" data-name="{{ name }}" data-width="{{ width }}" data-height="{{ height }}" data-layer="{{ layer }}"><small><a href="{{ fallback }}">View Larger Map</a></small></div><script src="{{ get_url(path='osm-map.js') }}" defer></script>
+{%- endcomponent osm_map %}
