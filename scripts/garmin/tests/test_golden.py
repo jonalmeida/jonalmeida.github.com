@@ -129,11 +129,8 @@ def test_report_keys_match_the_wrapper():
         assert key in REPORT_KEYS, f"run_import.sh reads .{key}, which is not a report key"
 
 
-def test_report_shape(importer, tmp_path, monkeypatch, capsys):
+def test_report_shape(importer, repo, tmp_path, monkeypatch, capsys):
     """run_import with nothing to do still writes every key the wrapper reads."""
-    monkeypatch.setattr(importer, "IGNORE_FILE", tmp_path / "ignore.txt")
-    monkeypatch.setattr(importer, "IMPORTED_FILE", tmp_path / "imported.json")
-    monkeypatch.setattr(importer, "CONTENT_RUNS_DIR", tmp_path / "content" / "runs")
     monkeypatch.setattr(importer, "fetch_running_activities", lambda client: [])
 
     report = tmp_path / "report.json"

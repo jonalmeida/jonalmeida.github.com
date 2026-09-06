@@ -69,21 +69,19 @@ from typing import NamedTuple
 from dotenv import load_dotenv
 from garminconnect import Garmin, GarminConnectAuthenticationError
 
-SCRIPTS_DIR = Path(__file__).parent
-CONTENT_RUNS_DIR = SCRIPTS_DIR.parent.parent / "content" / "runs"
-IMPORTED_FILE = SCRIPTS_DIR / "garmin_imported.json"
-IGNORE_FILE = SCRIPTS_DIR / "garmin_ignore.txt"
-TOKENSTORE = str(SCRIPTS_DIR / ".garmin_tokens")
-START_DATE = "2026-03-07"
+from garminrun import config
+from garminrun.config import (
+    EXIT_NEEDS_LOGIN,
+    MAP_EMBED_WIDTH,
+    MAP_URL_PREFIX,
+    START_DATE,
+)
+
 
 # What does not get published. Both signals ride on the activity list payload,
 # so checking them costs no extra API call.
 PRIVATE_MARKERS = ("#nopost", "#private")
 
-# Route map output
-MAPS_DIR = SCRIPTS_DIR.parent.parent / "static" / "runs" / "maps"
-MAP_URL_PREFIX = "/runs/maps"
-MAP_EMBED_WIDTH = 640
 
 # Photos. Garmin returns them on the full activity DTO, as presigned S3 URLs
 # with no auth header and a 24 h life. Every new post is a Zola page bundle, so
@@ -161,7 +159,6 @@ OVERPASS_URLS = (
 # Reports the free query slots for the main endpoint, and when the next frees up.
 OVERPASS_STATUS_URL = "https://overpass-api.de/api/status"
 OVERPASS_STATUS_MAX_WAIT_S = 120.0
-OVERPASS_CACHE_DIR = SCRIPTS_DIR / ".overpass_cache"
 OVERPASS_TIMEOUT_S = 90       # server-side budget, sent in the query
 OVERPASS_READ_TIMEOUT_S = 180
 OVERPASS_DELAY_S = 2.5        # pause after each query that hit the network
@@ -208,10 +205,10 @@ GREEN_LANDUSE = {
 # ---------------------------------------------------------------------------
 
 def load_ignore_set() -> set[int]:
-    if not IGNORE_FILE.exists():
+    if not config.PATHS.ignore.exists():
         return set()
     ids: set[int] = set()
-    for line in IGNORE_FILE.read_text().splitlines():
+    for line in config.PATHS.ignore.read_text().splitlines():
         line = line.strip()
         if line and not line.startswith("#"):
             ids.add(int(line))
@@ -228,8 +225,8 @@ def append_ignore(activity_id: int) -> None:
     """
     if activity_id in load_ignore_set():
         return
-    text = IGNORE_FILE.read_text() if IGNORE_FILE.exists() else ""
-    IGNORE_FILE.write_text(text.rstrip("\n") + f"\n{activity_id}\n")
+    text = config.PATHS.ignore.read_text() if config.PATHS.ignore.exists() else ""
+    config.PATHS.ignore.write_text(text.rstrip("\n") + f"\n{activity_id}\n")
 
 
 def _has_marker(text: str, marker: str) -> bool:
@@ -299,14 +296,14 @@ def publish_decision(
 
 
 def load_imported_set() -> set[int]:
-    if not IMPORTED_FILE.exists():
+    if not config.PATHS.imported.exists():
         return set()
-    data = json.loads(IMPORTED_FILE.read_text())
+    data = json.loads(config.PATHS.imported.read_text())
     return set(data.get("imported", []))
 
 
 def save_imported_set(imported: set[int]) -> None:
-    IMPORTED_FILE.write_text(
+    config.PATHS.imported.write_text(
         json.dumps({"imported": sorted(imported)}, indent=2) + "\n"
     )
 
@@ -529,8 +526,8 @@ def output_path(slug: str) -> Path:
     Every new post is a page bundle, so a photo uploaded to Garmin after the
     import can be dropped in beside index.md without renaming anything.
     """
-    CONTENT_RUNS_DIR.mkdir(parents=True, exist_ok=True)
-    return CONTENT_RUNS_DIR / slug / "index.md"
+    config.PATHS.content_runs.mkdir(parents=True, exist_ok=True)
+    return config.PATHS.content_runs / slug / "index.md"
 
 
 # ---------------------------------------------------------------------------
@@ -545,7 +542,7 @@ def index_posts_by_activity_id() -> dict[int, Path]:
     index: dict[int, Path] = {}
     # Flat posts and page bundles both exist. _index.md carries no activity id,
     # so ACTIVITY_ID_RE filters it out.
-    candidates = [*CONTENT_RUNS_DIR.glob("*.md"), *CONTENT_RUNS_DIR.glob("*/index.md")]
+    candidates = [*config.PATHS.content_runs.glob("*.md"), *config.PATHS.content_runs.glob("*/index.md")]
     for path in sorted(candidates):
         match = ACTIVITY_ID_RE.search(path.read_text())
         if match:
@@ -1119,7 +1116,7 @@ def _cache_path(query: str) -> Path:
     """Cache file for a query. Keyed by the query text, so changing the tag
     filters or the bounding box misses the cache automatically."""
     digest = hashlib.sha256(query.encode()).hexdigest()[:16]
-    return OVERPASS_CACHE_DIR / f"{digest}.json.gz"
+    return config.PATHS.overpass_cache / f"{digest}.json.gz"
 
 
 def _cache_read(path: Path) -> dict | None:
@@ -1134,7 +1131,7 @@ def _cache_read(path: Path) -> dict | None:
 
 
 def _cache_write(path: Path, raw: bytes) -> None:
-    OVERPASS_CACHE_DIR.mkdir(parents=True, exist_ok=True)
+    config.PATHS.overpass_cache.mkdir(parents=True, exist_ok=True)
     try:
         with gzip.open(path, "wb") as handle:
             handle.write(raw)
@@ -1549,7 +1546,7 @@ def write_route_map(
     refresh_basemap: bool = False,
 ) -> str | None:
     """Write static/runs/maps/<id>.svg. Return its site path, or None."""
-    path = MAPS_DIR / f"{activity_id}.svg"
+    path = config.PATHS.maps / f"{activity_id}.svg"
 
     def give_up(reason: str) -> None:
         """Report, and remove any earlier map for this activity.
@@ -1581,7 +1578,7 @@ def write_route_map(
     data = fetch_basemap(track, use_cache=not refresh_basemap) if basemap else None
     svg = render_route_svg(track, label=label, basemap=data)
 
-    MAPS_DIR.mkdir(parents=True, exist_ok=True)
+    config.PATHS.maps.mkdir(parents=True, exist_ok=True)
     path.write_text(svg)
     size = len(svg.encode())
     # Count only the route's polylines; the basemap has its own.
@@ -1829,9 +1826,6 @@ def download_photos(
 # Main
 # ---------------------------------------------------------------------------
 
-# Exit code the wrapper looks for: Garmin wants a person at a keyboard.
-EXIT_NEEDS_LOGIN = 2
-
 
 class NeedsLogin(Exception):
     """Garmin wants an MFA code and there is nobody to type it."""
@@ -1964,9 +1958,9 @@ def parse_args() -> argparse.Namespace:
 
 def authenticate(email: str, password: str, interactive: bool = True) -> Garmin:
     client = Garmin(email, password)
-    tokenstore_path = Path(TOKENSTORE)
-    if (tokenstore_path / "garmin_tokens.json").exists():
-        client.client.load(TOKENSTORE)
+    tokenstore = config.PATHS.tokenstore
+    if (tokenstore / "garmin_tokens.json").exists():
+        client.client.load(str(tokenstore))
     else:
         if not interactive:
             raise NeedsLogin(
@@ -1975,8 +1969,8 @@ def authenticate(email: str, password: str, interactive: bool = True) -> Garmin:
                 "  uv run scripts/garmin/import_garmin_runs.py"
             )
         client.client.login(email, password, prompt_mfa=lambda: input("Enter MFA code: "))
-        tokenstore_path.mkdir(parents=True, exist_ok=True)
-        client.client.dump(TOKENSTORE)
+        tokenstore.mkdir(parents=True, exist_ok=True)
+        client.client.dump(str(tokenstore))
     print("Authenticated with Garmin Connect.")
     return client
 
@@ -2001,7 +1995,7 @@ def retract_post(post: Path, activity_id: int, mode: str) -> bool:
         shutil.rmtree(bundle)
     else:
         post.unlink()
-    (MAPS_DIR / f"{activity_id}.svg").unlink(missing_ok=True)
+    (config.PATHS.maps / f"{activity_id}.svg").unlink(missing_ok=True)
     append_ignore(activity_id)
     print(f"  retracted {activity_id}: deleted the post and its map")
     return True
@@ -2129,7 +2123,7 @@ def run_import(client: Garmin, args: argparse.Namespace) -> None:
         report_imported.append({
             "activity_id": activity_id,
             "date": date_str,
-            "path": str(path.relative_to(CONTENT_RUNS_DIR.parent.parent)),
+            "path": str(path.relative_to(config.PATHS.repo)),
             "photos": len(names),
         })
         print(
@@ -2156,7 +2150,7 @@ def run_import(client: Garmin, args: argparse.Namespace) -> None:
     if count_filtered:
         print(
             f"\nThe {count_filtered} filtered run(s) are now in "
-            f"{IGNORE_FILE.name}. To publish one, delete its line there and "
+            f"{config.PATHS.ignore.name}. To publish one, delete its line there and "
             "either edit it in Garmin or re-run with --no-content-filter."
         )
 
@@ -2181,7 +2175,7 @@ def run_backfill(client: Garmin, args: argparse.Namespace) -> None:
     count_inserted = 0
 
     for i, activity_id in enumerate(targets):
-        destination = MAPS_DIR / f"{activity_id}.svg"
+        destination = config.PATHS.maps / f"{activity_id}.svg"
         map_url: str | None = None
         post = posts.get(activity_id)
 
@@ -2522,7 +2516,7 @@ def print_crontab(hours: str) -> None:
     The paths come from this file's own location, so a copy-pasted entry cannot
     point at a repo that has moved.
     """
-    wrapper = SCRIPTS_DIR.resolve() / "run_import.sh"
+    wrapper = config.PATHS.scripts / "run_import.sh"
     log = Path.home() / "Library" / "Logs" / "garmin-import.cron.log"
     slots = ",".join(h.strip() for h in hours.split(",") if h.strip())
 
@@ -2556,7 +2550,7 @@ def main() -> None:
         print_crontab(args.cron_hours)
         return
 
-    load_dotenv(SCRIPTS_DIR / ".env")
+    load_dotenv(config.PATHS.scripts / ".env")
     email = os.environ.get("GARMIN_EMAIL")
     password = os.environ.get("GARMIN_PASSWORD")
     if not email or not password:

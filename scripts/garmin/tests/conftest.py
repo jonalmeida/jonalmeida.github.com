@@ -15,6 +15,12 @@ import pytest
 GARMIN_DIR = Path(__file__).resolve().parent.parent
 GOLDEN_DIR = Path(__file__).resolve().parent / "golden"
 
+# `uv run import_garmin_runs.py` puts scripts/garmin/ on sys.path[0], which
+# is how the entry point reaches the garminrun package. Do the same here so
+# the tests import it by exactly the same route.
+if str(GARMIN_DIR) not in sys.path:
+    sys.path.insert(0, str(GARMIN_DIR))
+
 
 # ---------------------------------------------------------------------------
 # The code under test
@@ -40,6 +46,25 @@ def _load_importer():
 def importer():
     """The importer module. Session-scoped: loading it is not free."""
     return _load_importer()
+
+
+@pytest.fixture
+def repo(tmp_path, monkeypatch):
+    """Point the importer at an empty repo under tmp_path, and return it.
+
+    One setattr covers every path the importer reads or writes, because they
+    all hang off config.PATHS and are read at call time. The layout mirrors the
+    real one, so nothing has to know it is in a temporary directory.
+    """
+    from garminrun import config
+
+    scripts = tmp_path / "scripts" / "garmin"
+    scripts.mkdir(parents=True)
+    paths = config.paths_for(scripts, tmp_path)
+    paths.content_runs.mkdir(parents=True)
+    paths.maps.mkdir(parents=True)
+    monkeypatch.setattr(config, "PATHS", paths)
+    return paths
 
 
 # ---------------------------------------------------------------------------
