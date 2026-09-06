@@ -1,8 +1,9 @@
 # Garmin run importer
 
 `import_garmin_runs.py` pulls running activities from Garmin Connect and writes
-them into the site as Zola posts under `content/runs/`, each with a route map
-drawn as an SVG in `static/runs/maps/`.
+them into the site as Zola posts under `content/runs/`, each with the photos
+attached to the activity and a route map drawn as an SVG in
+`static/runs/maps/`. `run_import.sh` wraps it for cron: import, commit, push.
 
 One script, no build step. Dependencies are declared inline (PEP 723), so `uv`
 fetches them on the fly:
@@ -43,14 +44,27 @@ uv run scripts/garmin/import_garmin_runs.py
 ```
 
 Fetches every running activity since `START_DATE` (2026-03-07), skips anything
-already in `garmin_imported.json` or listed in `garmin_ignore.txt`, and for each
-new one writes `content/runs/YYYY-MM-DD-run-YYYY-MM-DD.md` plus
-`static/runs/maps/<activity_id>.svg`. Imported IDs are saved back to
-`garmin_imported.json` at the end.
+already in `garmin_imported.json`, listed in `garmin_ignore.txt`, or held back
+by the content rules below, and for each new one writes a Zola page bundle:
 
-Two runs on the same day get `-2`, `-3` suffixes on the filename.
+```
+content/runs/2026-09-06-run-2026-09-06/
+    index.md
+    2026-09-06-0.jpg
+    2026-09-06-1.jpg
+    2026-09-06-2.jpg
+static/runs/maps/24260009891.svg
+```
 
-Cost per new activity: one `get_activity_details` call and one Overpass query.
+Two runs on the same day get `-2`, `-3` suffixes on the directory name.
+
+Cost per new activity: one `get_activity_details` call, one `get_activity` call
+and one Overpass query.
+
+Imported IDs are saved back to `garmin_imported.json` once the whole run
+finishes. An ID in that file means *fully done* and is never looked at again,
+so an activity that fails part way through is deliberately left out and redone
+from scratch on the next run.
 
 ### Import without maps
 
@@ -69,6 +83,214 @@ uv run scripts/garmin/import_garmin_runs.py --no-basemap
 
 Draws the speed-coloured route on a plain background. No Overpass queries, and a
 much smaller SVG.
+
+## Photos
+
+Garmin serves the photos attached to an activity, even though `garminconnect`
+has no helper for them: they ride along on the full activity DTO as
+`metadataDTO.activityImages`, presigned S3 URLs with no auth header and a 24 h
+life. The importer downloads them into the post's page bundle as
+`YYYY-MM-DD-N.jpg` and adds one line to the post:
+
+```
+{{ <gallery page={page} /> }}
+```
+
+`gallery.html` renders every `.jpg`/`.png` in the bundle as a 240×180
+thumbnail. **Adding a file to a bundle publishes it** — there is no allow-list.
+
+Every new post is a page bundle whether or not it has photos, so a photo
+uploaded to Garmin after the import can be dropped in beside `index.md` without
+renaming anything. Both shapes serve at the same URL, so nothing moves.
+
+### Why 800 px
+
+Photos are resized to 800 px before being committed. Three reasons:
+
+- `gallery.html` links the *committed* file as the full-size image, so 800 px is
+  what a reader actually gets when they click a thumbnail.
+- These are plain git blobs, in the history for good. Garmin's originals are
+  400–660 KB each; at 800 px they are ~130–200 KB. Over a year of two runs a
+  week that is roughly 40 MB instead of 150 MB, paid by every clone and every
+  CI checkout.
+- It matches every photo that was added to `content/runs` by hand.
+
+ImageMagick does the work if it is installed, then `sips`, which ships with
+macOS so nothing needs bootstrapping. If neither is available the script falls
+back to Garmin's own medium variant rather than commit a half-megabyte
+original, and says so.
+
+`--no-photo-resize` commits the bytes as downloaded. `--photo-width PX` picks a
+different width.
+
+Git LFS is deliberately **not** used: `jj` does not support it
+([jj-vcs/jj#80](https://github.com/jj-vcs/jj/issues/80)), and the resize
+removes the problem it would solve.
+
+### Photos uploaded after the import
+
+Photos usually reach Garmin after the run has already synced and been imported.
+
+```sh
+# one activity
+uv run scripts/garmin/import_garmin_runs.py --backfill-photos --activity 24260009891
+
+# every imported activity (one get_activity call each)
+uv run scripts/garmin/import_garmin_runs.py --backfill-photos
+```
+
+This re-downloads all of that activity's photos and inserts the gallery line if
+it is missing. It refuses to touch a flat `.md` post and prints the `mkdir`/`mv`
+to convert it by hand; `--convert-flat` does it for you.
+
+### If a photo cannot be fetched
+
+The activity is deferred, not published: nothing is written to
+`garmin_imported.json` and the next run redoes the whole thing. A post with
+half its photos would be permanent, because an imported ID is never revisited.
+A *missing map*, by contrast, only warns — `--backfill-maps` can fix that
+later.
+
+```sh
+uv run scripts/garmin/import_garmin_runs.py --no-photos   # skip photos entirely
+```
+
+## What does not get published
+
+Two rules decide this from the activity itself. Both are free: the name and the
+description already ride on the activity-list payload.
+
+**A marker in the name or description.** Put `#nopost` (or `#private`) in the
+Garmin activity description — the same box the post prose is written in — and
+the run is skipped. Matched case-insensitively, with a word-boundary guard, so
+`#nopostcard` does not trigger it. The marker is stripped from the name and the
+body of *every* post, published or not, so it can never leak onto the site.
+
+**No description at all.** Nothing written about a run means it was not written
+for the blog.
+
+A skipped ID is appended to `garmin_ignore.txt` as a bare number with **no
+reason beside it** — that file is tracked and public, so a trailing
+`# marker #nopost` would leak exactly what the marker was meant to hide. The
+reason is printed to stdout, which lands in the run log.
+
+`garmin_ignore.txt` wins over everything, including `--no-content-filter`. To
+publish a run that was skipped, delete its line there and either edit it in
+Garmin or:
+
+```sh
+uv run scripts/garmin/import_garmin_runs.py --no-content-filter --max-new 1
+```
+
+Garmin's own per-activity privacy setting is wired up but off by default,
+because every activity is currently `groups` and an allow-list would skip the
+lot:
+
+```sh
+uv run scripts/garmin/import_garmin_runs.py --allowed-privacy public,subscribers,groups
+```
+
+### A published run that is later marked private
+
+Re-checking already-imported runs is free, so the importer does it and reports:
+
+```
+RETRACT? 24312345678 is now marker #nopost but runs/2026-09-08-.../index.md is published
+```
+
+It stops there by default. The post is already public and in a feed that
+readers' clients have cached, so deleting the file does not unpublish it and
+leaves a 404 at a URL that may have been linked. `--retract draft` flips
+`draft: false` to `true`, which drops the page from the build while leaving the
+file and its history in place — the recoverable option. `--retract delete`
+removes the post and its map.
+
+The empty-description rule is ignored for this check: an absence is not a
+withdrawal, and prose is sometimes written into the post rather than into
+Garmin.
+
+## Scheduled imports
+
+`run_import.sh` runs the importer, commits each new run, and pushes. Cron drives
+it twice a day.
+
+### One-time setup
+
+There is no ssh-agent under cron, so the push needs its own credential. Use a
+repo-scoped, passphrase-less deploy key, which leaves `~/.ssh/config` alone so
+interactive `git` and `jj` keep behaving exactly as they do now:
+
+```sh
+ssh-keygen -t ed25519 -N '' -C 'garmin-import' \
+  -f ~/.ssh/id_ed25519_jonalmeida_site
+chmod 600 ~/.ssh/id_ed25519_jonalmeida_site
+pbcopy < ~/.ssh/id_ed25519_jonalmeida_site.pub
+```
+
+Paste it at *Settings → Deploy keys → Add deploy key* on the GitHub repo and
+tick **Allow write access**. Check it works, from a shell with no agent:
+
+```sh
+env -u SSH_AUTH_SOCK GIT_SSH_COMMAND="/usr/bin/ssh \
+  -i ~/.ssh/id_ed25519_jonalmeida_site -o IdentitiesOnly=yes \
+  -o IdentityAgent=none -o BatchMode=yes" ssh -T git@github.com
+```
+
+Then install the cron entry. `--print-crontab` derives the absolute paths from
+the script's own location, so a pasted entry cannot point at a repo that moved:
+
+```sh
+uv run scripts/garmin/import_garmin_runs.py --print-crontab          # look first
+( crontab -l 2>/dev/null; \
+  uv run scripts/garmin/import_garmin_runs.py --print-crontab ) | crontab -
+crontab -l
+```
+
+`--cron-hours 7,19` picks different times.
+
+### What a run does
+
+1. Refuses to act if the working copy has changes, if `jj workspace list` shows
+   more than one workspace, or if no deploy key is present.
+2. Waits for the network — cron can fire before Wi-Fi is up after a wake.
+3. `jj git fetch`, and bails out if `origin/main` is ahead, before spending any
+   Garmin API calls.
+4. Imports one activity at a time (`--max-new 1`) so each gets its own
+   `Run: YYYY-MM-DD.` commit, dated by the *activity*, and moves the `main`
+   bookmark to it. Up to 10 per run.
+5. Runs `zola build` into `/tmp` and only pushes if the site builds. A failure
+   leaves the commits local for you to look at.
+
+A PID-aware lock means a hand-run and a cron run cannot both commit. Try it
+without any of the consequences:
+
+```sh
+scripts/garmin/run_import.sh --dry-run
+tail -30 ~/Library/Logs/garmin-import.log
+```
+
+Exit codes: `0` nothing to do or pushed, `3` refused, `4` already running,
+`5` Garmin needs an interactive login, `6` a step failed.
+
+### When it stops working
+
+`scripts/garmin/.needs_login` appearing means the Garmin tokens expired and MFA
+needs a person. Nothing will import until you run it by hand once:
+
+```sh
+uv run scripts/garmin/import_garmin_runs.py
+```
+
+Two things to know about cron on macOS:
+
+- **It does not catch up.** A slot that falls while the Mac is asleep is skipped
+  entirely, not deferred. To survive that, switch the entry to `40 * * * *` and
+  have the wrapper keep a timestamp, acting only when the last run is more than
+  8 hours old.
+- **Full Disk Access.** The job only touches `~/src`, `~/.ssh` and
+  `~/Library/Logs`, none of which are protected, so it should just work. If it
+  fails silently, grant Full Disk Access to `/usr/sbin/cron`. Do not move the
+  repo under `~/Documents` or `~/Desktop`, which would make that mandatory.
 
 ## Backfilling maps
 
@@ -226,10 +448,15 @@ the drawing code.
 
 Add one activity ID per line to `garmin_ignore.txt`; `#` starts a comment. The
 importer skips those IDs forever. Use it for races logged twice, walks that
-Garmin filed as runs, or anything you do not want on the site.
+Garmin filed as runs, or anything you do not want on the site. The content
+rules above append to this same file, as bare IDs.
 
-To re-import a post from scratch, delete its markdown file and remove its ID
-from the `imported` list in `garmin_imported.json`.
+This list wins over everything, including `--no-content-filter`.
+
+To re-import a post from scratch, remove its ID from the `imported` list in
+`garmin_imported.json`. The post directory and its photos are overwritten, so
+there is no need to delete them first — the slug is derived from the activity's
+position among that date's runs, not from what is on disk.
 
 ## What the map shows
 
@@ -257,26 +484,64 @@ Tracked in git:
 | Path | Purpose |
 |------|---------|
 | `import_garmin_runs.py` | the script |
+| `run_import.sh` | the scheduled wrapper: import, commit, push |
 | `garmin_imported.json` | activity IDs already imported |
 | `garmin_ignore.txt` | activity IDs to skip |
 
-Ignored: `.env`, `.garmin_tokens/`, `.overpass_cache/`.
+Ignored: `.env`, `.garmin_tokens/`, `.overpass_cache/`, `.needs_login`,
+`.last_import.json`.
 
-Written elsewhere in the repo: `content/runs/*.md` and
-`static/runs/maps/<activity_id>.svg`, embedded with
-`{{ <image path="/runs/maps/<id>.svg" width={640} /> }}`.
+Written elsewhere in the repo:
+
+- `content/runs/YYYY-MM-DD-run-YYYY-MM-DD/index.md` and its
+  `YYYY-MM-DD-N.jpg` photos, shown with `{{ <gallery page={page} /> }}`
+- `static/runs/maps/<activity_id>.svg`, embedded with
+  `{{ <image path="/runs/maps/<id>.svg" width={640} /> }}`
+- `~/Library/Logs/garmin-import.log`, the scheduled run log
 
 ## All options
 
 ```
---no-maps            skip route map generation (no extra API calls)
---backfill-maps      generate maps for already-imported activities and insert a
-                     '## Route' block into their posts; imports nothing new
---no-basemap         draw the route without the OpenStreetMap background
---refresh-basemap    ignore the cached Overpass responses and query again
---no-privacy-trim    draw the whole track, including the real start and finish
---activity ID        with --backfill-maps, limit to these IDs (repeatable)
---force              with --backfill-maps, overwrite an SVG that exists already
---delay SECONDS      pause between activity-details API calls (default 0.75)
---selftest [PATH]    render a synthetic route and exit (no credentials needed)
+  --no-maps             skip route map generation (no extra API calls)
+  --backfill-maps       generate route maps for already-imported activities and insert
+                        a '## Route' block into their posts; imports nothing new
+  --no-basemap          draw the route without the OpenStreetMap background (no
+                        Overpass queries, and a much smaller file)
+  --refresh-basemap     ignore the cached Overpass responses and query again (use when
+                        the OpenStreetMap data has changed)
+  --no-privacy-trim     draw the whole track, including the real start and finish
+                        (default: cut a random 400-800 m off each end)
+  --no-content-filter   import everything, ignoring the marker and description rules
+  --private-marker TOKEN
+                        token in the Garmin activity name or description that means
+                        'do not publish' (repeatable, default: #nopost #private)
+  --allowed-privacy LIST
+                        comma-separated Garmin privacy typeKeys that may be published,
+                        e.g. public,subscribers,groups (default: allow every value)
+  --retract {off,draft,delete}
+                        what to do when an already-imported run now fails the filter
+                        (default: off, which only reports it)
+  --no-photos           skip photo download (saves one API call per activity)
+  --backfill-photos     download photos for already-imported activities and insert a
+                        gallery line into their posts; imports nothing new
+  --convert-flat        with --backfill-photos, turn a flat post into a page bundle
+  --photo-variant {url,smallUrl}
+                        which Garmin variant to download (default: url, the largest,
+                        which is then resized locally)
+  --photo-width PX      resize photos to this width before committing (default: 800)
+  --no-photo-resize     commit the downloaded bytes as they are (around 500 KB each)
+  --activity ID         with --backfill-maps or --backfill-photos, limit to these
+                        activity IDs (repeatable)
+  --force               with --backfill-maps, overwrite an SVG that exists already
+  --delay SECONDS       pause between activity-details API calls (default: 0.75)
+  --non-interactive     never prompt; exit 2 if Garmin needs an interactive login
+                        (implied when stdin is not a terminal)
+  --max-new N           import at most N new activities (0 = no limit). The scheduled
+                        job uses 1, so every run gets its own commit
+  --report PATH         write a JSON summary of this run, for the scheduled wrapper
+  --print-crontab       print a crontab entry for the scheduled importer and exit
+                        (needs no Garmin credentials)
+  --cron-hours LIST     with --print-crontab, the hours to run at (default: 8,20)
+  --selftest [PATH]     render a synthetic route and exit (no Garmin credentials
+                        needed)
 ```
