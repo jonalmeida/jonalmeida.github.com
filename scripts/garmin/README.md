@@ -59,7 +59,8 @@ rm -rf scripts/garmin/.garmin_tokens
 uv run scripts/garmin/import_garmin_runs.py
 ```
 
-`--selftest` is the one mode that needs no credentials at all.
+`--sample-map` and `--print-crontab` are the two modes that need no
+credentials at all. So are the tests: `uv run scripts/garmin/run_tests.py`.
 
 ## Typical usage
 
@@ -585,18 +586,58 @@ If a trim would leave too little of a route to be worth drawing, the script
 writes no map and deletes any earlier SVG for that activity — an untrimmed file
 left behind would be worse than no map.
 
-## Self-test
+## Tests
 
 ```sh
-uv run scripts/garmin/import_garmin_runs.py --selftest
-uv run scripts/garmin/import_garmin_runs.py --selftest /tmp/check.svg
+uv run scripts/garmin/run_tests.py
+uv run scripts/garmin/run_tests.py -k trim -x     # arguments go through to pytest
+uv run scripts/garmin/run_tests.py --golden-update
 ```
 
-Renders a synthetic figure-eight route and asserts the map maths: the colour
-ramp, the speed clipping and gap filling, the privacy trim (including a lap run
-that never leaves its own start radius). No credentials, no network, writes to
-`/tmp/route_selftest.svg` unless given a path. Run it after touching anything in
-the drawing code.
+`run_tests.py` is a second PEP 723 script, so pytest needs no installing and
+there is no `pyproject.toml` to keep in step. Everything runs offline: no
+credentials, no network, no Garmin. Run it before every commit.
+
+The suite lives in `tests/`, one file per module. What it is really guarding:
+
+| Area | Why it matters |
+|------|----------------|
+| `test_geo.py` | the privacy trim. Both ends really cut, the result contiguous, stable per activity ID, and a lap run still trimmed. A regression here publishes a home address, permanently, in git history |
+| `test_filters.py` | the publish rules, and that no `#nopost` or `#private` marker survives into a post under any flag combination |
+| `test_run_import.py` | the whole importer against a fake Garmin. Includes the two contracts nothing checked before: that the `--report` JSON carries every key `run_import.sh` reads with `jq`, and that a photo failure leaves no bundle, no stray `.jpg` and no recorded ID |
+| `test_overpass.py` | what happens when an Overpass endpoint misbehaves, including the 200-with-zero-elements answer that must never be cached |
+| `test_golden.py` | golden files holding today's post markdown and route SVG byte for byte. `--golden-update` rewrites them after a wanted change |
+
+`tests/golden/` and `tests/data/wide.jpg` are committed fixtures. GPS fixtures
+are always synthetic — a real trace in the repo is the leak the privacy trim
+exists to prevent.
+
+### Looking at a map
+
+```sh
+uv run scripts/garmin/import_garmin_runs.py --sample-map
+uv run scripts/garmin/import_garmin_runs.py --sample-map /tmp/check.svg
+```
+
+Draws a synthetic figure-eight route so a change to the drawing code can be
+eyeballed. It checks nothing — that is what the tests are for. Writes to
+`/tmp/route_sample.svg` unless given a path. `--selftest` still works as an
+alias for this flag.
+
+### Proving a change to the drawing code changed nothing
+
+The privacy trim is seeded from the activity ID and the basemaps come from
+`.overpass_cache/`, so redrawing a map is deterministic:
+
+```sh
+uv run scripts/garmin/import_garmin_runs.py --backfill-maps --force
+jj diff --stat static/runs/maps/      # must be empty
+```
+
+An empty diff across all the committed maps is the strongest check available
+for a refactor of `garminrun/svg.py`, `track.py` or `geo.py`. It needs Garmin
+(one details call per activity), so it is a before-you-commit check rather than
+a per-edit one.
 
 ## Ignoring activities
 
@@ -637,7 +678,10 @@ Tracked in git:
 
 | Path | Purpose |
 |------|---------|
-| `import_garmin_runs.py` | the script |
+| `import_garmin_runs.py` | the entry point: the PEP 723 header and a call to `cli.main()` |
+| `garminrun/` | the importer itself, one module per concern |
+| `run_tests.py` | the test runner, also a PEP 723 script |
+| `tests/` | the test suite, its golden files and its fixtures |
 | `run_import.sh` | the scheduled wrapper: import, commit, push |
 | `brew-requirements.txt` | Homebrew formulae the script and wrapper need |
 | `garmin_imported.json` | activity IDs already imported |
@@ -646,6 +690,18 @@ Tracked in git:
 Ignored: `.env`, `.garmin_tokens/`, `.overpass_cache/`, `.needs_login`,
 `.last_import.json`.
 
+`garminrun/__init__.py` lists the modules in dependency order and says which
+three reach outside the process. In short: `config` `state` `filters` `ramp`
+`geo` `synthetic` `postfmt` `posts` `track` `svg` `overpass` `maps` `photos`
+`garmin_client` `cli`, each importing only from the ones before it. `svg` sits
+below `overpass` because the tag sets say how a feature is *drawn*, and the
+query only asks for tags the drawing knows what to do with — so `svg` makes no
+network calls and is a pure function of a `Track` plus basemap data.
+
+`overpass._post`, `overpass._get` and `photos._fetch` are the only places the
+importer touches the network, and each module that pauses has its own `_sleep`.
+The tests replace all of them.
+
 Written elsewhere in the repo:
 
 - `content/runs/YYYY-MM-DD-run-YYYY-MM-DD/index.md` and its
@@ -653,50 +709,72 @@ Written elsewhere in the repo:
 - `static/runs/maps/<activity_id>.svg`, embedded with
   `{{ <image path="/runs/maps/<id>.svg" width={640} /> }}`
 - `~/Library/Logs/garmin-import.log`, the scheduled run log
-
 ## All options
 
+Generated from `--help`, so it cannot drift:
+
+```sh
+uv run scripts/garmin/import_garmin_runs.py --help
 ```
+
+```
+  -h, --help            show this help message and exit
   --no-maps             skip route map generation (no extra API calls)
-  --backfill-maps       generate route maps for already-imported activities and insert
-                        a '## Route' block into their posts; imports nothing new
-  --no-basemap          draw the route without the OpenStreetMap background (no
-                        Overpass queries, and a much smaller file)
-  --refresh-basemap     ignore the cached Overpass responses and query again (use when
-                        the OpenStreetMap data has changed)
-  --no-privacy-trim     draw the whole track, including the real start and finish
-                        (default: cut a random 400-800 m off each end)
-  --no-content-filter   import everything, ignoring the marker and description rules
+  --backfill-maps       generate route maps for already-imported activities
+                        and insert a '## Route' block into their posts;
+                        imports nothing new
+  --no-basemap          draw the route without the OpenStreetMap background
+                        (no Overpass queries, and a much smaller file)
+  --refresh-basemap     ignore the cached Overpass responses and query again
+                        (use when the OpenStreetMap data has changed)
+  --no-privacy-trim     draw the whole track, including the real start and
+                        finish (default: cut a random 400-800 m off each end)
+  --no-content-filter   import everything, ignoring the marker and description
+                        rules
   --private-marker TOKEN
-                        token in the Garmin activity name or description that means
-                        'do not publish' (repeatable, default: #nopost #private)
+                        token in the Garmin activity name or description that
+                        means 'do not publish' (repeatable, default: #nopost
+                        #private)
   --allowed-privacy LIST
-                        comma-separated Garmin privacy typeKeys that may be published,
-                        e.g. public,subscribers,groups (default: allow every value)
+                        comma-separated Garmin privacy typeKeys that may be
+                        published, e.g. public,subscribers,groups (default:
+                        allow every value)
   --retract {off,draft,delete}
-                        what to do when an already-imported run now fails the filter
-                        (default: off, which only reports it)
+                        what to do when an already-imported run now fails the
+                        filter (default: off, which only reports it)
   --no-photos           skip photo download (saves one API call per activity)
-  --backfill-photos     download photos for already-imported activities and insert a
-                        gallery line into their posts; imports nothing new
-  --convert-flat        with --backfill-photos, turn a flat post into a page bundle
+  --backfill-photos     download photos for already-imported activities and
+                        insert a gallery line into their posts; imports
+                        nothing new
+  --convert-flat        with --backfill-photos, turn a flat post into a page
+                        bundle
   --photo-variant {url,smallUrl}
-                        which Garmin variant to download (default: url, the largest,
-                        which is then resized locally)
-  --photo-width PX      resize photos to this width before committing (default: 800)
-  --no-photo-resize     commit the downloaded bytes as they are (around 500 KB each)
-  --activity ID         with --backfill-maps or --backfill-photos, limit to these
-                        activity IDs (repeatable)
-  --force               with --backfill-maps, overwrite an SVG that exists already
-  --delay SECONDS       pause between activity-details API calls (default: 0.75)
-  --non-interactive     never prompt; exit 2 if Garmin needs an interactive login
-                        (implied when stdin is not a terminal)
-  --max-new N           import at most N new activities (0 = no limit). The scheduled
-                        job uses 1, so every run gets its own commit
-  --report PATH         write a JSON summary of this run, for the scheduled wrapper
-  --print-crontab       print a crontab entry for the scheduled importer and exit
-                        (needs no Garmin credentials)
-  --cron-hours LIST     with --print-crontab, the hours to run at (default: 8,20)
-  --selftest [PATH]     render a synthetic route and exit (no Garmin credentials
-                        needed)
+                        which Garmin variant to download (default: url, the
+                        largest, which is then resized locally)
+  --photo-width PX      resize photos to this width before committing
+                        (default: 800)
+  --no-photo-resize     commit the downloaded bytes as they are (around 500 KB
+                        each)
+  --activity ID         with --backfill-maps or --backfill-photos, limit to
+                        these activity IDs (repeatable)
+  --force               with --backfill-maps, overwrite an SVG that exists
+                        already
+  --delay SECONDS       pause between activity-details API calls (default:
+                        0.75)
+  --non-interactive     never prompt; exit 2 if Garmin needs an interactive
+                        login (implied when stdin is not a terminal)
+  --max-new N           import at most N new activities (0 = no limit). The
+                        scheduled job uses 1, so every run gets its own commit
+  --report PATH         write a JSON summary of this run, for the scheduled
+                        wrapper
+  --print-crontab       print a crontab entry for the scheduled importer and
+                        exit (needs no Garmin credentials)
+  --cron-hours LIST     with --print-crontab, the hours to run at (default:
+                        8,20)
+  --sample-map, --selftest [PATH]
+                        draw a synthetic route and exit, to eyeball a change
+                        to the drawing code (no Garmin credentials needed).
+                        The assertions that used to ride along with --selftest
+                        are now a pytest suite: uv run
+                        scripts/garmin/run_tests.py
 ```

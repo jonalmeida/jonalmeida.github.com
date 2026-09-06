@@ -2,6 +2,9 @@
 
 from __future__ import annotations
 
+import contextlib
+import io
+import re
 from pathlib import Path
 
 import pytest
@@ -10,7 +13,9 @@ from garminrun.cli import filter_rules, parse_args, print_crontab
 from garminrun.filters import PRIVATE_MARKERS
 from garminrun.photos import PHOTO_TARGET_WIDTH
 
-WRAPPER = Path(__file__).resolve().parent.parent / "run_import.sh"
+GARMIN_DIR = Path(__file__).resolve().parent.parent
+WRAPPER = GARMIN_DIR / "run_import.sh"
+README = GARMIN_DIR / "README.md"
 
 
 # ---------------------------------------------------------------------------
@@ -88,3 +93,33 @@ def test_the_crontab_line_points_at_the_wrapper(capsys):
 def test_the_hours_are_tidied(given, slots, capsys):
     print_crontab(given)
     assert f"40 {slots} * * *" in capsys.readouterr().out
+
+
+# ---------------------------------------------------------------------------
+# The README's option list
+# ---------------------------------------------------------------------------
+
+def all_flags() -> set[str]:
+    """Every long flag the parser accepts, read off its own --help.
+
+    Comparing flag names rather than the wrapped help text keeps this stable
+    across Python versions, which reflow argparse output differently.
+    """
+    buffer = io.StringIO()
+    with contextlib.redirect_stdout(buffer), contextlib.suppress(SystemExit):
+        parse_args(["--help"])
+    return set(re.findall(r"--[a-z][a-z-]+", buffer.getvalue()))
+
+
+def test_every_flag_is_in_the_readme():
+    """A new flag with no documentation is the drift this catches.
+
+    The README block is generated from --help, so this only fails when someone
+    adds a flag and forgets to regenerate it.
+    """
+    documented = set(re.findall(r"--[a-z][a-z-]+", README.read_text()))
+    missing = all_flags() - documented
+    assert not missing, (
+        f"undocumented flags: {sorted(missing)}. Regenerate the '## All "
+        "options' block in README.md from --help."
+    )
