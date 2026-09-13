@@ -1,5 +1,20 @@
 {% extends "zola-bearblog/templates/section.html" %}
 
+{# A section can advertise a taxonomy feed instead of the site-wide one by setting
+   `extra.feed_taxonomy = { kind = "...", term = "..." }`. Both keys are required;
+   `term` is the term name as written in page front matter, not its slug. #}
+{% block rss %}
+  {%- set feed = section.extra?.feed_taxonomy -%}
+  {%- if feed -%}
+    {%- set term_url = get_taxonomy_url(kind=feed.kind, term=feed.term, lang=lang) -%}
+    {%- for feed_filename in config.feed_filenames %}
+  <link rel="alternate" type={% if feed_filename == "atom.xml" %}"application/atom+xml"{% else %}"application/rss+xml"{% endif %} title="{{ config.title }} – {{ feed?.title or section.title or feed.term }}" href="{{ term_url }}{{ feed_filename }}">
+    {%- endfor -%}
+  {%- else -%}
+    {{- super() -}}
+  {%- endif -%}
+{%- endblock rss %}
+
 {% block main %}
   <main>
     <div>
