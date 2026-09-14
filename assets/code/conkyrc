@@ -1,0 +1,246 @@
+##################################
+## VinDSL | rev. 11-05-06 15:37 ##
+## Modified by mrpeachy June 2011 version 3 ##
+##################################
+## changes from original version
+## simplification of formatting
+## simplification of fonts
+## simplification of calendar
+## added additional objects
+## set maximum width for conky to 245
+## optimised for 900 pixel high resolution
+##################################
+
+####
+## Prerequisites (required)
+#
+#  conky-all 1.8.0 or 1.8.1
+#  conkyForecast 2.16 or newer
+#  Weather.com XML Data Feed (XOAP)
+#  UTF-8 Compatible Text Editor
+#  gcal (available from repositories)
+
+####
+## Installed fonts (required)
+#  (list has been modified)
+#  Sans (almost certainly installed)
+#  OpenLogos
+#  ConkyWeather (Stanko Metodiev)
+#  ConkyWindNESW (Stanko Metodiev)
+#  Moon Phases (Curtis Clark)
+#  OpenLogos (Icoma) not required in this version
+#  PizzaDude Bullets (Jakob Fischer)
+#  Radio Space (Iconian Fonts)
+#  StyleBats (Vinterstille)
+#  Weather (Jonathan Macagba)
+#  formintElegance
+#  [url]http://www.box.net/shared/a2tz2o9444[/url] this one for mint heading
+#
+## Tips n' Tricks from Mr. Peachy, djyoung4, and 42dorian (Thanks!)
+## All necessary fonts can be found here: [url]http://ompldr.org/vODYxOQ[/url]
+##  NOTE this archive contains additional fonts for the original version
+## Unzip the fonts into your font folder, for example: /home/username/.fonts
+## Run this command in a terminal (rebuilds font cache file): sudo fc-cache -fv
+
+####
+## Use XFT? Required to Force UTF8 (see below)
+#
+use_xft yes
+xftfont Sans:size=10
+
+####
+## Force UTF8? Requires XFT (see above)
+## Displays degree symbol, instead of Â°, etc.
+#
+override_utf8_locale yes
+
+####
+## This buffer is used for text, single lines, output from $exec, and other variables.
+## Increasing the text buffer size (too high) will drastically reduce Conky's performance.
+## Decreasing the size (too low) will truncate content and cause strange display output.
+## Standard text buffer size is 256 bytes (cannot be less). Adjust YOUR buffer wisely!
+#
+text_buffer_size 384
+
+####
+## Daemonize Conky, aka 'fork to background'.
+#
+background yes
+
+####
+## Update interval in seconds.
+#
+update_interval 2
+
+####
+## This is the number of times Conky will update before quitting.
+## Set to zero to run forever.
+#
+total_run_times 0
+
+####
+## Create own window instead of using desktop (required in nautilus)?
+#
+own_window yes
+own_window_type desktop
+own_window_transparent yes
+own_window_colour black
+
+####
+## Force images to redraw when they change.
+#
+imlib_cache_size 0
+
+####
+## Use double buffering? Reduces flicker.
+#
+double_buffer yes
+
+####
+## Draw shades?
+#
+draw_shades no
+
+####
+## Draw outlines?
+#
+draw_outline no
+
+####
+## Draw borders around text?
+#
+draw_borders no
+
+####
+## Draw borders around graphs?
+#
+draw_graph_borders yes
+
+####
+## Print text to stdout?
+## Print text in console?
+#
+out_to_ncurses no
+out_to_console no
+
+####
+## Text alignment.
+#
+alignment top_right
+
+####
+## Minimum size of text area.
+#
+minimum_size 1050 100
+maximum_width 260
+####
+## Gap between text and screen borders.
+#
+gap_x 12
+gap_y 56
+
+####
+## Shorten MiB/GiB to M/G in stats.
+#
+short_units yes
+
+####
+## Pad % symbol spacing after numbers.
+#
+pad_percents 0
+
+####
+## Pad spacing between text and borders.
+#
+border_inner_margin 4
+
+####
+## Limit the length of names in "Top Processes".
+#
+top_name_width 6
+
+####
+## Subtract file system -/+buffers/cache from used memory?
+## Set to yes, to produce meaningful physical memory stats.
+#
+no_buffers yes
+
+####
+## Set to yes, if you want all text to be in UPPERCASE.
+#
+uppercase no
+
+####
+## Number of cpu samples to average.
+## Set to 1 to disable averaging.
+#
+cpu_avg_samples 2
+
+####
+## Number of net samples to average.
+## Set to 1 to disable averaging.
+#
+net_avg_samples 2
+
+####
+## Add spaces to keep things from moving around?
+## Only affects certain objects.
+#
+use_spacer right
+
+####
+## Colors
+#
+color1 Grey        ##icons
+color2 Ivory       ##text
+color3 DarkGrey    ##divider lines
+color4 Orange        ##headings
+color5 bfff80
+
+#####
+## Load Lua for shading (optional)
+## Set the path to your script here.
+#
+lua_load $HOME/.conky_lua.lua
+lua_draw_hook_pre draw_lua
+
+
+TEXT
+${voffset 3}${color2}${font}${voffset -3}${font Sans:size=18}${color4}Waldorf${font}
+
+${font Sans:bold:size=10.25}${color4}Time & Date  ${color2}${hr 2}
+${time %d %b. %Y}$alignr ${time %H:}${time %M:}${time %S}
+${font Sans:bold:size=10.25}${color4}SYSTEM  ${color3}${hr 2}
+${voffset 4}${font Stylebats:size=10}${color1}${voffset -1}${font}${color2} ${sysname} ${kernel}${alignr}${machine}
+${font StyleBats:size=10}${color1}${voffset -1}${font}${color2} System Uptime${alignr}${uptime_short}
+${font StyleBats:size=10}${color1}${voffset -1}${font}${color2} File System${alignr}${fs_type}
+${voffset 4}${font Sans:bold:size=8}${color4}PROCESSORS  ${color3}${hr 2}
+
+${goto 22}CPU 1${goto 80}CPU 2${goto 150}CPU 3${goto 220}CPU 4
+${voffset 140}${font StyleBats:size=10}${color1}${voffset -1}${font}${color2}${goto 20}${cpu cpu1}% ${font}${color2}${goto 85}${cpu cpu2}% ${font}${color2}${goto 156}${cpu cpu3}% ${font}${color2}${goto 230}${cpu cpu4}%
+${font StyleBats:size=10}${color1}${voffset -1}${font}${color2} ${freq_g 1} GHz  ${freq_g 2} GHz  ${freq_g 3} GHz  ${freq_g 4} GHz
+${voffset 8}${font Sans:bold:size=8.25}${color4}MEMORY  ${color3}${hr 2}
+${voffset 4}${font StyleBats:size=10}${color1}${voffset -2}${font}${color2} RAM${goto 97}${mem}${goto 133}/ ${memmax}${alignr}${memperc}% Used
+${font Sans:bold:size=8.25}${color4}CPU and FANS  ${color3}${hr 2}${font}
+${font StyleBats:size=10}${color1}o${voffset -1}${font}${color2} CPU1 temp ${alignr}${execi 1 sensors | grep 'Core 0' | cut -c 17-21} °C
+${font StyleBats:size=10}${color1}o${voffset -1}${font}${color2} CPU2 temp ${alignr}${execi 1 sensors | grep 'Core 1' | cut -c 17-21} °C
+${font StyleBats:size=10}${color1}o${voffset -1}${font}${color2} CPU Fan:${alignr} ${exec sensors | grep 'Fan' | cut -c 13-17} RPM $color
+#${font StyleBats:size=10}${color1}o${voffset -1}${font}${color2} Mobo Temp:${alignr} ${exec sensors | grep 'temp2' | cut -c15-20}c${color} 
+#${font StyleBats:size=10}${color1}o${voffset -1}${font}${color2} NVidia Temp:${alignr} ${nvidia temp} °C
+${font Sans:bold:size=8.25}${color4}HDD  ${color3}${hr 2}${font}
+${voffset 4}${font StyleBats:size=10}${color1}x${font}${color2} ROOT${goto 95}${fs_used /}${goto 133}/ ${fs_size /}${alignr}${fs_free_perc /}% Free
+${font StyleBats:size=10}${color1}x${font}${color2} HOME${goto 95}${fs_used /home}${goto 133}/ ${fs_size /home}${alignr}${fs_free_perc /home}% Free
+
+${font Sans:bold:size=8.25}${color4}TOP PROCESSES  ${color3}${hr 2}${font}
+${voffset 4}${font StyleBats:size=10}${color1}${voffset -1}${font}${color4} RAM${goto 155}${font StyleBats:size=10}${color1}${voffset -1}${font}${color4} CPU
+${voffset 4}${color2}${top_mem name 1}${goto 60}${top_mem mem_res 1}${goto 100}${top_mem mem 1}%${goto 155}${top name 1}${goto 210}${top cpu 1}%
+${top_mem name 2}${goto 60}${top_mem mem_res 2}${goto 100}${top_mem mem 2}%${goto 155}${top name 2}${goto 210}${top cpu 2}%
+${top_mem name 3}${goto 60}${top_mem mem_res 3}${goto 100}${top_mem mem 3}%${goto 155}${top name 3}${goto 210}${top cpu 3}%
+${voffset 4}${font Sans:bold:size=8.25}${color4}NETWORK  ${color3}${hr 2}${font}
+${voffset 4}${color2}Public IP${alignr}${execi 1800 curl ifconfig.me}
+Private IP${alignr}${addr wlan0}${goto 150}
+${font PizzaDude Bullets:size=9.5}${color1}U${font}${color2} Download${goto 103}${totaldown wlan0}${goto 150}${font PizzaDudeBullets:size=9.5}${color1}T${font}${color2} Down${alignr}${downspeed wlan0}
+${font PizzaDudeBullets:size=9.5}${color1}O${font}${color2} Upload${goto 100}${totalup wlan0}${goto 150}${font PizzaDudeBullets:size=9.5}${color1}N${font}${color2} Up${alignr}${upspeed wlan0}
+
+
+${voffset 40}${execpi 600 sed -n '3p' $HOME/Accuweather_Conky_Int_Images/messages}

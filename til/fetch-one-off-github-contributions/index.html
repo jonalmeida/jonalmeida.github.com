@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <link rel="shortcut icon" href="/favicon.ico"><title>Checkout a Github pull request from one-off contributions | Jonathan Almeida</title>
+  <meta name="title" content="Checkout a Github pull request from one-off contributions">
+<meta name="description" content="Scribblings and nonsense">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+  
+  <link rel="alternate" type="application/atom+xml" title="Jonathan Almeida" href="https://jonalmeida.com/atom.xml"><style>
+    :root {
+    --width: 800px;
+    --font-main: Verdana, sans-serif;
+    --font-secondary: Verdana, sans-serif;
+    --font-scale: 1em;
+    --background-color: #fff;
+    --heading-color: #222;
+    --text-color: #444;
+    --link-color: #3273dc;
+    --visited-color: #8b6fcb;
+    --code-background-color: #f2f2f2;
+    --code-color: #222;
+    --blockquote-color: #222;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --background-color: #01242e;
+      --heading-color: #eee;
+      --text-color: #ddd;
+      --link-color: #8cc2dd;
+      --visited-color: #8b6fcb;
+      --code-background-color: #000;
+      --code-color: #ddd;
+      --blockquote-color: #ccc;
+    }
+  }
+
+  body {
+    font-family: var(--font-secondary);
+    font-size: var(--font-scale);
+    margin: auto;
+    padding: 20px;
+    max-width: var(--width);
+    text-align: left;
+    background-color: var(--background-color);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.5;
+    color: var(--text-color);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-main);
+    color: var(--heading-color);
+  }
+
+  a {
+    color: var(--link-color);
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  nav a {
+    margin-right: 8px;
+  }
+
+  nav span.active {
+    font-weight: bold;
+    margin-right: 10px;
+  }
+  strong,
+  b {
+    color: var(--heading-color);
+  }
+
+  button {
+    margin: 0;
+    cursor: pointer;
+  }
+
+  main {
+    line-height: 1.6;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  hr {
+    border: 0;
+    border-top: 1px dashed;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  pre code {
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    display: block;
+    padding: 20px;
+    white-space: pre-wrap;
+    font-size: 0.875rem;
+    overflow-x: auto;
+  }
+
+  code {
+    font-family: monospace;
+    padding: 2px;
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    border-radius: 3px;
+  }
+
+  blockquote {
+    border-left: 1px solid #999;
+    color: var(--code-color);
+    padding-left: 20px;
+    font-style: italic;
+  }
+
+  footer {
+    padding: 25px 0;
+    text-align: center;
+  }
+
+  .title:hover {
+    text-decoration: none;
+  }
+
+  .title h1 {
+    font-size: 1.5em;
+  }
+
+  .inline {
+    width: auto !important;
+  }
+
+  .highlight,
+  .code {
+    padding: 1px 15px;
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    border-radius: 3px;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    overflow-x: auto;
+  }
+
+  /* blog post list */
+  ul.blog-posts {
+    list-style-type: none;
+    padding: unset;
+  }
+
+  ul.blog-posts li {
+    display: flex;
+  }
+
+  ul.blog-posts li span {
+    flex: 0 0 130px;
+  }
+
+  ul.blog-posts li a:visited {
+    color: var(--visited-color);
+  }
+
+  .tags {
+    font-size: smaller;
+  }
+
+  .footnote-definition {
+    display: flex;
+    margin-top: 1em;
+  }
+  .footnote-definition-label {
+    margin-left: 1rem;
+    margin-right: 0.5rem;
+    vertical-align: baseline;
+  }
+  .footnote-definition-label::after {
+    content: "."
+  }
+  .footnote-definition > p {
+    margin: 0;
+  }
+
+  </style><style>
+
+section#comments {
+  p {
+    font-size: 0.8em;
+  }
+}
+
+
+pre mark {
+  color: var(--code-color);
+}
+
+
+pre {
+  background-color: transparent !important;
+}
+</style>
+
+
+
+</head>
+<body><header>
+  <a href="https://jonalmeida.com/" class="title">
+    <h1>Jonathan Almeida</h1>
+  </a>
+  <nav aria-label="site">
+      <a href="https://jonalmeida.com/">Home</a>
+      <a href="https://jonalmeida.com/blog/">Blog</a>
+      <a href="https://jonalmeida.com/til/">TIL</a>
+  </nav>
+</header>
+
+  <h1>Checkout a Github pull request from one-off contributions</h1>
+      <p>
+        <i>
+          <time datetime="2026-09-14" pubdate>2026-09-14</time>
+        </i>
+      </p>
+  <main>
+    <p>Sometimes on Github, I need to fetch a patch from a fork I don't typically see everyday so I can try it out locally. I use the line at the top of the patch which has a copy button next to it because it's convenient.</p>
+<div><img src="image-1.png" style="display: block; margin-left: auto; margin-right: auto;" /></div>
+<p>The common steps for this are:</p>
+<ol>
+<li>Click the contributor's branch and go to their github fork repository.</li>
+<li>Copy the repository link.</li>
+<li>Add a new git remote with an alias (typically their username).</li>
+<li><code>git fetch &lt;alias&gt;</code></li>
+<li><code>git checkout &lt;alias&gt;/&lt;branch&gt;</code></li>
+</ol>
+<p>Here is a one-liner for it that you can add to your <code>gitconfig</code>:</p>
+<pre class="giallo" style="color-scheme: light dark; color: light-dark(#24292E, #E1E4E8); background-color: light-dark(#FFFFFF, #24292E);" ><code data-lang="toml"><span class="giallo-l"><span>[</span><span style="color: light-dark(#6F42C1, #B392F0);">alias</span><span>]</span></span>
+<span class="giallo-l"><span>  co</span><span> =</span><span style="color: light-dark(#032F62, #9ECBFF);"> &quot;</span><span style="color: light-dark(#032F62, #9ECBFF);">!f() { PNAME=$(basename `git rev-parse --show-toplevel`); OWNER=$(echo $1 | cut -d&#39;:&#39; -f1); BRANCH=$(echo $1 | cut -d&#39;:&#39; -f2); git fetch git@github.com:$OWNER/$PNAME.git $BRANCH; git checkout FETCH_HEAD; }; f</span><span style="color: light-dark(#032F62, #9ECBFF);">&quot;</span></span></code></pre>
+<p>You might ask why do all of this when the github <code>hub</code> CLI does this for you. I haven't had a need for that CLI and this was the most promising feature it had that ends up being an alias for me.</p>
+<p>This fetch also works well with <code>jj</code> too because the fetch and checkout remain headless.</p>
+<hr />
+<p>Formatted and commented, it looks less intimidating:</p>
+<pre class="giallo" style="color-scheme: light dark; color: light-dark(#24292E, #E1E4E8); background-color: light-dark(#FFFFFF, #24292E);" ><code data-lang="shellscript"><span class="giallo-l"><span style="color: light-dark(#6F42C1, #B392F0);">f</span><span>(</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span style="color: light-dark(#6A737D, #6A737D);">  #</span><span style="color: light-dark(#6A737D, #6A737D);"> Get the repository name from your checkout (assuming it is the</span></span>
+<span class="giallo-l"><span style="color: light-dark(#6A737D, #6A737D);">  #</span><span style="color: light-dark(#6A737D, #6A737D);"> original directory name as the remote).</span></span>
+<span class="giallo-l"><span>  PNAME</span><span style="color: light-dark(#D73A49, #F97583);">=</span><span>$(</span><span style="color: light-dark(#6F42C1, #B392F0);">basename</span><span style="color: light-dark(#032F62, #9ECBFF);"> `</span><span style="color: light-dark(#6F42C1, #B392F0);">git</span><span style="color: light-dark(#032F62, #9ECBFF);"> rev-parse</span><span style="color: light-dark(#005CC5, #79B8FF);"> -</span><span style="color: light-dark(#005CC5, #79B8FF);">-show-toplevel</span><span style="color: light-dark(#032F62, #9ECBFF);">`</span><span>)</span><span>;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: light-dark(#6A737D, #6A737D);">  #</span><span style="color: light-dark(#6A737D, #6A737D);"> Parse out the fork&#39;s owner.</span></span>
+<span class="giallo-l"><span style="color: light-dark(#6A737D, #6A737D);">  #</span><span style="color: light-dark(#6A737D, #6A737D);"> Example: `&lt;owner&gt;:&lt;branch&gt;`</span></span>
+<span class="giallo-l"><span>  OWNER</span><span style="color: light-dark(#D73A49, #F97583);">=</span><span>$(</span><span style="color: light-dark(#005CC5, #79B8FF);">echo</span><span style="color: light-dark(#E36209, #FFAB70);"> $</span><span style="color: light-dark(#E36209, #FFAB70);">1</span><span style="color: light-dark(#D73A49, #F97583);"> |</span><span style="color: light-dark(#6F42C1, #B392F0);"> cut</span><span style="color: light-dark(#005CC5, #79B8FF);"> -</span><span style="color: light-dark(#005CC5, #79B8FF);">d</span><span style="color: light-dark(#032F62, #9ECBFF);">&#39;</span><span style="color: light-dark(#032F62, #9ECBFF);">:</span><span style="color: light-dark(#032F62, #9ECBFF);">&#39;</span><span style="color: light-dark(#005CC5, #79B8FF);"> -</span><span style="color: light-dark(#005CC5, #79B8FF);">f1</span><span>)</span><span>;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: light-dark(#6A737D, #6A737D);">  #</span><span style="color: light-dark(#6A737D, #6A737D);"> Parse out the branch name.</span></span>
+<span class="giallo-l"><span style="color: light-dark(#6A737D, #6A737D);">  #</span><span style="color: light-dark(#6A737D, #6A737D);"> Example: `&lt;owner&gt;:&lt;branch&gt;`</span></span>
+<span class="giallo-l"><span>  BRANCH</span><span style="color: light-dark(#D73A49, #F97583);">=</span><span>$(</span><span style="color: light-dark(#005CC5, #79B8FF);">echo</span><span style="color: light-dark(#E36209, #FFAB70);"> $</span><span style="color: light-dark(#E36209, #FFAB70);">1</span><span style="color: light-dark(#D73A49, #F97583);"> |</span><span style="color: light-dark(#6F42C1, #B392F0);"> cut</span><span style="color: light-dark(#005CC5, #79B8FF);"> -</span><span style="color: light-dark(#005CC5, #79B8FF);">d</span><span style="color: light-dark(#032F62, #9ECBFF);">&#39;</span><span style="color: light-dark(#032F62, #9ECBFF);">:</span><span style="color: light-dark(#032F62, #9ECBFF);">&#39;</span><span style="color: light-dark(#005CC5, #79B8FF);"> -</span><span style="color: light-dark(#005CC5, #79B8FF);">f2</span><span>)</span><span>;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: light-dark(#6A737D, #6A737D);">  #</span><span style="color: light-dark(#6A737D, #6A737D);"> Do a fetch of that particular branch using the extracted</span></span>
+<span class="giallo-l"><span style="color: light-dark(#6A737D, #6A737D);">  #</span><span style="color: light-dark(#6A737D, #6A737D);"> information from above.</span></span>
+<span class="giallo-l"><span style="color: light-dark(#6A737D, #6A737D);">  #</span><span style="color: light-dark(#6A737D, #6A737D);"> This assumes the remote is hosted on github.</span></span>
+<span class="giallo-l"><span style="color: light-dark(#6F42C1, #B392F0);">  git</span><span style="color: light-dark(#032F62, #9ECBFF);"> fetch</span><span style="color: light-dark(#032F62, #9ECBFF);"> git@github.com:</span><span>$</span><span>OWNER</span><span style="color: light-dark(#032F62, #9ECBFF);">/</span><span>$</span><span>PNAME</span><span style="color: light-dark(#032F62, #9ECBFF);">.git</span><span> $</span><span>BRANCH</span><span>;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: light-dark(#6A737D, #6A737D);">  #</span><span style="color: light-dark(#6A737D, #6A737D);"> Checkout using the alias `FETCH_HEAD` which git provides.</span></span>
+<span class="giallo-l"><span style="color: light-dark(#6F42C1, #B392F0);">  git</span><span style="color: light-dark(#032F62, #9ECBFF);"> checkout</span><span style="color: light-dark(#032F62, #9ECBFF);"> FETCH_HEAD</span><span>;</span></span>
+<span class="giallo-l"><span>}</span><span>;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: light-dark(#6A737D, #6A737D);">#</span><span style="color: light-dark(#6A737D, #6A737D);"> Execute the function!</span></span>
+<span class="giallo-l"><span style="color: light-dark(#6A737D, #6A737D);">#</span><span style="color: light-dark(#6A737D, #6A737D);"> It&#39;s easier to build a function that holds variables and execute</span></span>
+<span class="giallo-l"><span style="color: light-dark(#6A737D, #6A737D);">#</span><span style="color: light-dark(#6A737D, #6A737D);"> rather than in-line it.</span></span>
+<span class="giallo-l"><span style="color: light-dark(#6F42C1, #B392F0);">f</span></span></code></pre>
+  </main>
+  <p>
+        Categories:
+          <a href="https://jonalmeida.com/categories/til/">#TIL</a>
+        Tags:
+          <a href="https://jonalmeida.com/tags/mozilla/">#mozilla</a>
+          <a href="https://jonalmeida.com/tags/workflow/">#workflow</a>
+  </p>
+  <!-- Add temporary footnote back-links support -->
+  <script src="/footnotes.js"></script>
+<footer>
+</footer>
+<!-- custom_body -->
+</body>
+</html>

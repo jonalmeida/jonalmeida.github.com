@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>Jonathan Almeida - travel</title>
+    <subtitle>Scribblings and nonsense</subtitle>
+    <link rel="self" type="application/atom+xml" href="https://jonalmeida.com/tags/travel/atom.xml"/>
+    <link rel="alternate" type="text/html" href="https://jonalmeida.com"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2026-07-31T00:00:00+00:00</updated>
+    <id>https://jonalmeida.com/tags/travel/atom.xml</id>
+    <entry xml:lang="en">
+        <title>Stuck at an airport for four days - Part 1</title>
+        <published>2026-07-31T00:00:00+00:00</published>
+        <updated>2026-07-31T00:00:00+00:00</updated>
+        
+        <author>
+          <name>Jonathan Almeida</name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/blog/four-days-to-leave/"/>
+        <id>https://jonalmeida.com/blog/four-days-to-leave/</id>
+        <content type="html" xml:base="https://jonalmeida.com/blog/four-days-to-leave/">&lt;p&gt;In April, I had to attend a conference in Paris and I convinced my wife to attend so that could make a short holiday out of it at the end of the week before we head back home.&lt;/p&gt;
+&lt;p&gt;We planned to spend four days there, but it ended up turning into eight because of airline delays, with those four extra days at the airport and the airport hotels.&lt;/p&gt;
+&lt;p&gt;Hilariously, the flight out was also entertaining, so it&#39;s going to be part 1 of the whole trip because I can&#39;t write as much as this needs from me all in one sitting.&lt;/p&gt;
+&lt;h2 id=&quot;the-outbound-flight&quot;&gt;The outbound flight&lt;/h2&gt;
+&lt;p&gt;If this was a movie, it would have been considered foreshadowing. We arrive at the airport early, fresh, and comfortable. We have enough time to roam around the restaurants to look for some snacks for the flight, or maybe a light meal.&lt;/p&gt;
+&lt;p&gt;Eventually, we sit at our gate and while away our time. I pull out my laptop and get to some work - code reviews or cleaning up some patches to put for one, I don&#39;t remember. We hear that the flight is 30 minutes delayed because the inbound flight hasn&#39;t arrived yet. No worries, I&#39;ll continue my work for now.&lt;/p&gt;
+&lt;p&gt;The plane lands. Well, due to the delay the plane needs to be clean and cleared before boarding can behind - fine.&lt;/p&gt;
+&lt;p&gt;Alright, boarding begins and everyone has queued in the front despite the airline staff asking people to not do that, while they board by individual zones. We stay where we are in our seats and wait for our zone to be called, and eventually we get there on to the plane.&lt;/p&gt;
+&lt;p&gt;People start to settle in. We see the flight attendants do their final checks, and then captain starts with some announcements: &quot;Folks, I spoke with one of the passengers, who said she would really like to make it in time to see her daughter [for her birthday?], and rest assured we can make up the time we&#39;ve lost in the air.&quot; - nice!&lt;/p&gt;
+&lt;p&gt;We&#39;re get comfortable as the plane leaves the gate and moves into a conga line of planes that are also heading to the runway. We kept moving and stopping as we made our way in it. We end up stopping again but it didn&#39;t strike me as odd, until some flight attendants were moving to the back of the plane. Sure, I guess, some last minute logistics.&lt;/p&gt;
+&lt;p&gt;A new announcement, &quot;Sorry for the delay, we have some passengers with a sick child who have opted to deboard the flight. We&#39;re going to make our way to the gate.&quot;&lt;/p&gt;
+&lt;p&gt;Totally reasonable - we don&#39;t know what the situation was, but it was reasonable to decide to do want to do so. Thankfully, we find out later that it wasn&#39;t life threatening or requiring emergency services. However, we&#39;re in that conga line, remember? We can&#39;t dip out from it at any point. So we followed it through some more and eventually get out - now we get to a gate. This took about an hour.&lt;/p&gt;
+&lt;p&gt;&quot;Alright, the parents and their kid have gotten off the plane. We&#39;re going to have to get their luggage out too. Please bear with us, it won&#39;t be too long.&quot;&lt;/p&gt;
+&lt;p&gt;It was another 30 minutes.&lt;/p&gt;
+&lt;p&gt;&quot;We just wanted to update you that the baggage was removed. However, with the delays we&#39;re now crossed over past midnight. Canadian aviation regulation states that if you&#39;re flying over the Atlantic at night, you need to fly with three pilots and we&#39;ve got only two. Don&#39;t worry though, we&#39;ve called in our standby pilot and they are heading from their home in Etobicoke, so it should only be about 20 minutes.&quot;&lt;/p&gt;
+&lt;p&gt;The airline crew come around to hand out water and snacks to some folks. We&#39;re surprised, but also in good spirits - we snacked before we got on, we have nice seats (by the aisle for me) and people around us were quite pleasant. No one was getting frustrated or shouty - that was nice. We had some podcasts downloaded, so we listened to that and it was more than 20 minutes later before the next announcement, that&#39;s for sure.&lt;/p&gt;
+&lt;p&gt;&quot;Alright, our third pilot has arrived and we should be ready to go soon. However, since we&#39;ve been waiting, we&#39;ve burnt away some fuel, so we&#39;re going to have to refuel before we head out. It shouldn&#39;t be much longer, thanks for your patience.&quot;&lt;/p&gt;
+&lt;p&gt;You honestly can&#39;t help but laugh at this point. It was a sitcom episode and the laugh-track was playing in our heads: Lemony Snicket&#39;s A Series of Comical Events.&lt;/p&gt;
+&lt;p&gt;We giggle amongst ourselves because we thought it was hilarious. We&#39;re still in a good mood because we have each other and having company through this makes it easier to enjoy the experience.&lt;/p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Make a seat selection when you receive a sub-load ticket</title>
+        <published>2026-04-15T00:00:00+00:00</published>
+        <updated>2026-04-15T00:00:00+00:00</updated>
+        
+        <author>
+          <name>Jonathan Almeida</name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/til/subload-flight-seat/"/>
+        <id>https://jonalmeida.com/til/subload-flight-seat/</id>
+        <content type="html" xml:base="https://jonalmeida.com/til/subload-flight-seat/">&lt;p&gt;If you get stuck at an airport and your flight is rescheduled for a future date, the airline desk at the airport may give you a flight without a confirmed seat (sometimes referred to as a &quot;subject to load&quot; ticket). They mention that you need to take that ticket, head to the gate when it opens, and wait there until everyone else is boarded so that you get an open seat if the flight is full.&lt;/p&gt;
+&lt;p&gt;This is toss-up because the flight can have empty seats at the time but it fills up until the gate opens, or an already full flight is sometimes what you get when the airline staff &lt;em&gt;think&lt;/em&gt; it may open up (spoilers: it doesn&#39;t always!)&lt;/p&gt;
+&lt;p&gt;When you get your sub-load ticket, go online and immediately try to check-in within the 24-hour online check-in period and select a seat, whether it&#39;s free or paid. You then have a confirmed seat on the flight!&lt;/p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>A week at Sunshine and Lake Louise</title>
+        <published>2026-02-28T00:00:00+00:00</published>
+        <updated>2026-02-28T00:00:00+00:00</updated>
+        
+        <author>
+          <name>Jonathan Almeida</name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/blog/sunshine-lake-louise/"/>
+        <id>https://jonalmeida.com/blog/sunshine-lake-louise/</id>
+        <content type="html" xml:base="https://jonalmeida.com/blog/sunshine-lake-louise/">&lt;p&gt;I hadn&#39;t been back to Banff in two years, so naturally I was nervous and excited to be back. It was nice to see that the strength was still there in the legs after a few days to build it back up again.&lt;/p&gt;
+&lt;div&gt;&lt;img src=&quot;image-4.jpg&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; height=&quot;320&quot; /&gt;&lt;/div&gt;
+&lt;p&gt;My skills improved considerably after the second day and I became a more efficient carver with the help of some fresh snow that came in around the same time. After the third day, we pushed past the aches and pains and I found my body adapted to it. We ate and slept well - &quot;second breakfast&quot; and a full nine hours of sleep (even when you can&#39;t sleep), all helped aid in the recovery.&lt;/p&gt;
+&lt;p&gt;I found myself more comfortable at steeper inclines; seems like the trick for me is to not look (too far) down and take my time to catch my breath. Being there on the edge felt like one of those life lessons: if you aren&#39;t pushing yourself in an uncomfortable or new situation, you aren&#39;t learning.&lt;/p&gt;
+&lt;p&gt;We went off with a group, and I learnt that you can always find ways to have fun when with people of different skill levels or preferences.&lt;/p&gt;
+&lt;p&gt;Skiing through trees is a lot of fun. Not many people seem to do it, so the snow is fresher, the air is warmer, and protected me from the wind. It was a pretty grand place to sit and take a break on the mountain.&lt;/p&gt;
+&lt;div&gt;&lt;img src=&quot;image-6.jpg&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;&lt;/div&gt;
+&lt;p&gt;After one of those long days, I&#39;ve had to re-learn again that sleep deprivation causes my calfs to hurt - weird how I still keep forgetting that! Also, who would have known that Banff had surprisingly good ramen and it was glorious to end that day.&lt;/p&gt;
+&lt;div style=&quot;display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;&quot;&gt;&lt;a href=&quot;image-2.jpg&quot; target=&quot;_blank&quot;&gt;&lt;img src=&quot;https://jonalmeida.com/processed_images/image-2.a587d8337b10bf30.jpg&quot; /&gt;&lt;/a&gt;&lt;a href=&quot;image-3.jpg&quot; target=&quot;_blank&quot;&gt;&lt;img src=&quot;https://jonalmeida.com/processed_images/image-3.b839e68862b484c1.jpg&quot; /&gt;&lt;/a&gt;&lt;a href=&quot;image-5.jpg&quot; target=&quot;_blank&quot;&gt;&lt;img src=&quot;https://jonalmeida.com/processed_images/image-5.164786adca9fb5ff.jpg&quot; /&gt;&lt;/a&gt;&lt;/div&gt;
+&lt;div style=&quot;display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;&quot;&gt;&lt;a href=&quot;image-1.jpg&quot; target=&quot;_blank&quot;&gt;&lt;img src=&quot;https://jonalmeida.com/processed_images/image-1.1377f5acd92ba139.jpg&quot; /&gt;&lt;/a&gt;&lt;a href=&quot;image-7.jpg&quot; target=&quot;_blank&quot;&gt;&lt;img src=&quot;https://jonalmeida.com/processed_images/image-7.d18b8bce4db7161d.jpg&quot; /&gt;&lt;/a&gt;&lt;a href=&quot;image-8.jpg&quot; target=&quot;_blank&quot;&gt;&lt;img src=&quot;https://jonalmeida.com/processed_images/image-8.01f507a78cf514e4.jpg&quot; /&gt;&lt;/a&gt;&lt;/div&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>A short visit to Sri Lanka</title>
+        <published>2025-12-27T00:00:00+00:00</published>
+        <updated>2025-12-27T00:00:00+00:00</updated>
+        
+        <author>
+          <name>Jonathan Almeida</name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://jonalmeida.com/blog/sri-lanka/"/>
+        <id>https://jonalmeida.com/blog/sri-lanka/</id>
+        <content type="html" xml:base="https://jonalmeida.com/blog/sri-lanka/">&lt;p&gt;We travelled to Colombo, Sri Lanka for the first time this year and it felt like a lost opportunity that we didn&#39;t do that more often when we lived closer in that region. It was a quick trip to explore but also catch up with friends who moved there years ago.&lt;/p&gt;
+&lt;div style=&quot;display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;&quot;&gt;&lt;a href=&quot;image-0.jpg&quot; target=&quot;_blank&quot;&gt;&lt;img src=&quot;https://jonalmeida.com/processed_images/image-0.cf2f50508881b5ac.jpg&quot; /&gt;&lt;/a&gt;&lt;a href=&quot;image-1.jpg&quot; target=&quot;_blank&quot;&gt;&lt;img src=&quot;https://jonalmeida.com/processed_images/image-1.3efd26bff0d3a564.jpg&quot; /&gt;&lt;/a&gt;&lt;a href=&quot;image-2.jpg&quot; target=&quot;_blank&quot;&gt;&lt;img src=&quot;https://jonalmeida.com/processed_images/image-2.e6c80041fe9b6d25.jpg&quot; /&gt;&lt;/a&gt;&lt;a href=&quot;image-3.jpg&quot; target=&quot;_blank&quot;&gt;&lt;img src=&quot;https://jonalmeida.com/processed_images/image-3.89b613f2b0d9e3df.jpg&quot; /&gt;&lt;/a&gt;&lt;a href=&quot;image-4.jpg&quot; target=&quot;_blank&quot;&gt;&lt;img src=&quot;https://jonalmeida.com/processed_images/image-4.da50fe91c95996e1.jpg&quot; /&gt;&lt;/a&gt;&lt;a href=&quot;image-5.jpg&quot; target=&quot;_blank&quot;&gt;&lt;img src=&quot;https://jonalmeida.com/processed_images/image-5.49699944974691ca.jpg&quot; /&gt;&lt;/a&gt;&lt;/div&gt;
+&lt;p&gt;Some notable observations:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;So much greenery! My inner pessimist expected a city of this size to have removed it all for urban growth, but I was happy it wasn&#39;t so.&lt;/li&gt;
+&lt;li&gt;We noticed there was an organized service of people wearing green t-shirts that kept the city clean of fallen leaves and litter. Local shops also seemed conscious about keeping the areas around their stalls or shops proper.&lt;/li&gt;
+&lt;li&gt;&quot;Hidden technology&quot; is the term I use for modern software or hardware that is helpful for everyday people but not in your face constantly - the inverse example of that would be touchscreens on self-serve machines that make accessibility difficult (e.g. vending machines). Colombo appeared to have some of this going for it with apps for rickshaws or easy payment options everywhere.&lt;/li&gt;
+&lt;li&gt;Sri Lankans come off as kind people. We were frequently mistaken for locals (until we started speaking) so we probably didn&#39;t get the tourist treatment all the time. I thought found it pleasant that there was some sense of religious equality there - you could find a Hindu temple, Muslim mosque, and a Catholic church all practically on the same street and everyone seemed to live happily together.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;It was a short visit and of course not everything is peachy, but I prefer focusing on the positives and potentials. Sri Lanka felt like a dilapidated version of Japan in an affectionate way that has a more people-first approach to development.&lt;/p&gt;
+</content>
+        
+    </entry>
+</feed>
