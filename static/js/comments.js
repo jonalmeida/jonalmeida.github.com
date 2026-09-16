@@ -56,11 +56,16 @@
   }
 
   function loadCssFile(path) {
-    const link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.type = 'text/css';
-    link.href = path; // relative path to your CSS file
-    document.head.appendChild(link);
+    return new Promise(resolve => {
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = path; // relative path to your CSS file
+      // Resolve either way: a missing stylesheet must not hide the comments.
+      link.addEventListener('load', resolve);
+      link.addEventListener('error', resolve);
+      document.head.appendChild(link);
+    });
   }
 
   function loadComments() {
@@ -69,18 +74,22 @@
 
     let commentsWrapper = document.getElementById("comments-wrapper");
     document.getElementById("load-comment").innerHTML = "Loading";
-    fetch(`https://${ host }/api/v1/statuses/${ statusId }/context`)
-      .then(function(response) {
-        return response.json();
-      })
-      .then(function(data) {
+    Promise.all([
+      fetch(`https://${ host }/api/v1/statuses/${ statusId }/context`)
+        .then(function(response) {
+          return response.json();
+        }),
+      purifyPromise,
+      cssPromise,
+    ])
+      .then(function([data]) {
         let descendants = data['descendants'];
         if(
           descendants &&
           Array.isArray(descendants) &&
           descendants.length > 0
         ) {
-          commentsWrapper.innerHTML = "";
+          let fragment = document.createDocumentFragment();
 
           descendants.forEach(function(status) {
             /* For debugging */
@@ -202,11 +211,12 @@
               );
             }
 
-            Promise.all([purifyPromise, cssPromise]).then(() => {
-              commentsWrapper.innerHTML += DOMPurify.sanitize(comment.outerHTML);
-            });
-
+            fragment.appendChild(
+              DOMPurify.sanitize(comment, { RETURN_DOM_FRAGMENT: true })
+            );
           });
+
+          commentsWrapper.replaceChildren(fragment);
         } else {
           commentsWrapper.innerHTML = "<p>No comments.</p>";
         }
