@@ -18,15 +18,43 @@ pre {
 </style>
 
 {% if page?.extra?.mermaid %}
-<script src="{{ get_url(path='js/mermaid.min.js') }}"></script>
+<style>
+{# Pele draws the mermaid source. Its colors come from these variables, so the
+   chart follows the theme's light and dark colors without a new render. #}
+.pele {
+  --pele-bg: transparent;
+  --pele-fg: var(--text-color);
+  --pele-muted: var(--text-color);
+  --pele-line: var(--text-color);
+  --pele-border: var(--text-color);
+  --pele-surface-alt: #e6e6e6;
+}
+@media (prefers-color-scheme: dark) {
+  .pele {
+    --pele-surface-alt: #1d4452;
+  }
+}
+
+{# The heart rate zone colors, zone 5 to zone 1 from top to bottom. #}
+.pele-xychart .pele-bars rect:nth-child(1) { fill: #555555; }
+.pele-xychart .pele-bars rect:nth-child(2) { fill: #FF8200; }
+.pele-xychart .pele-bars rect:nth-child(3) { fill: #56CC3C; }
+.pele-xychart .pele-bars rect:nth-child(4) { fill: #4090D4; }
+.pele-xychart .pele-bars rect:nth-child(5) { fill: #AAAAAA; }
+
+{# Pele puts the SVG in the <pre>. Remove the code block look from it. #}
+pre.mermaid {
+  font: inherit;
+  padding: 0;
+  white-space: normal;
+}
+</style>
+<script src="{{ get_url(path='js/pele-1.9.0.min.js') }}"></script>
 <script>
-  const mermaidTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'default';
-  mermaid.initialize({ startOnLoad: false, theme: mermaidTheme });
-  document.addEventListener('DOMContentLoaded', async () => {
-    const mermaidElements = document.querySelectorAll('.mermaid');
-    if (mermaidElements.length > 0) {
-      await mermaid.run({ nodes: mermaidElements });
-    }
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('pre.mermaid').forEach((el, i) => {
+      pele.mount(el, el.textContent, { idPrefix: `mermaid-${i}-` });
+    });
   });
 </script>
 {% endif %}

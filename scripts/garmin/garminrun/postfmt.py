@@ -99,34 +99,18 @@ def hr_zones_mermaid(activity: dict) -> str:
     if not zones:
         return ""
 
-    n = len(zones)
     labels = ", ".join(f'"Zone {z} {ZONE_NAMES.get(z, "")}"' for z, _ in zones)
+    values = ", ".join(f"{pct:.1f}" for _, pct in zones)
 
-    # One bar series per zone so each picks up its own palette color from the
-    # plotColorPalette defined in mermaid.html (gray, orange, green, blue, lightgray).
-    bar_lines = []
-    for i, (_, pct) in enumerate(zones):
-        values = ["0.0"] * n
-        values[i] = f"{pct:.1f}"
-        bar_lines.append(f"    bar [{', '.join(values)}]")
-
+    # One bar series. Pele ignores mermaid themeVariables, so the bar colors
+    # (gray, orange, green, blue, lightgray) come from CSS in custom_head.html.
     lines = [
         "{% <mermaid> %}",
-        """---
-config:
-  themeVariables:
-    xyChart:
-      plotColorPalette: "#555555,#FF8200,#56CC3C,#4090D4,#AAAAAA"
-      backgroundColor: "transparent"
----
-""",
         "xychart horizontal",
         '    title "Time in Heart Rate Zones (%)"',
         f"    x-axis [{labels}]",
-        # Start at 2 because of a weird mermaid rendering issue that shows
-        # a bar even for zero values.
-        '    y-axis "%" 2 --> 100',
-        *bar_lines,
+        '    y-axis "%" 0 --> 100',
+        f"    bar [{values}]",
         "{% </mermaid> %}",
     ]
     return "\n".join(lines)

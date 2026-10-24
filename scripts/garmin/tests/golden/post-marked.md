@@ -33,21 +33,9 @@ Last one honest.
 ## Heart Rate Zones
 
 {% <mermaid> %}
----
-config:
-  themeVariables:
-    xyChart:
-      plotColorPalette: "#555555,#FF8200,#56CC3C,#4090D4,#AAAAAA"
-      backgroundColor: "transparent"
----
-
 xychart horizontal
     title "Time in Heart Rate Zones (%)"
     x-axis ["Zone 5 Maximum", "Zone 4 Threshold", "Zone 3 Aerobic", "Zone 2 Easy", "Zone 1 Warm Up"]
-    y-axis "%" 2 --> 100
-    bar [2.8, 0.0, 0.0, 0.0, 0.0]
-    bar [0.0, 22.2, 0.0, 0.0, 0.0]
-    bar [0.0, 0.0, 41.7, 0.0, 0.0]
-    bar [0.0, 0.0, 0.0, 25.0, 0.0]
-    bar [0.0, 0.0, 0.0, 0.0, 8.3]
+    y-axis "%" 0 --> 100
+    bar [2.8, 22.2, 41.7, 25.0, 8.3]
 {% </mermaid> %}

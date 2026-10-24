@@ -35,21 +35,9 @@ Keeping the legs fresh.
 ## Heart Rate Zones
 
 {% <mermaid> %}
----
-config:
-  themeVariables:
-    xyChart:
-      plotColorPalette: "#555555,#FF8200,#56CC3C,#4090D4,#AAAAAA"
-      backgroundColor: "transparent"
----
-
 xychart horizontal
     title "Time in Heart Rate Zones (%)"
     x-axis ["Zone 5 Maximum", "Zone 4 Threshold", "Zone 3 Aerobic", "Zone 2 Easy", "Zone 1 Warm Up"]
-    y-axis "%" 2 --> 100
-    bar [0.0, 0.0, 0.0, 0.0, 0.0]
-    bar [0.0, 0.0, 0.0, 0.0, 0.0]
-    bar [0.0, 0.0, 19.0, 0.0, 0.0]
-    bar [0.0, 0.0, 0.0, 57.6, 0.0]
-    bar [0.0, 0.0, 0.0, 0.0, 23.5]
+    y-axis "%" 0 --> 100
+    bar [0.0, 0.0, 19.0, 57.6, 23.5]
 {% </mermaid> %}

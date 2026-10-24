@@ -511,7 +511,7 @@ if Garmin starts returning 429s.
 
 Each post gets the zone data two times:
 
-- A mermaid `xychart` in the body. A browser draws it with JavaScript.
+- A mermaid `xychart` in the body. A browser draws it with Pele (JavaScript).
 - An `hr_zones` list in the front matter, for example
   `- { zone: 5, name: "Maximum", pct: 0.0 }`.
 

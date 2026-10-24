@@ -37,21 +37,9 @@ The post-run pizza craving kicked in on the way home.
 ## Heart Rate Zones
 
 {% <mermaid> %}
----
-config:
-  themeVariables:
-    xyChart:
-      plotColorPalette: "#555555,#FF8200,#56CC3C,#4090D4,#AAAAAA"
-      backgroundColor: "transparent"
----
-
 xychart horizontal
     title "Time in Heart Rate Zones (%)"
     x-axis ["Zone 5 Maximum", "Zone 4 Threshold", "Zone 3 Aerobic", "Zone 2 Easy", "Zone 1 Warm Up"]
-    y-axis "%" 2 --> 100
-    bar [2.7, 0.0, 0.0, 0.0, 0.0]
-    bar [0.0, 0.2, 0.0, 0.0, 0.0]
-    bar [0.0, 0.0, 16.7, 0.0, 0.0]
-    bar [0.0, 0.0, 0.0, 63.9, 0.0]
-    bar [0.0, 0.0, 0.0, 0.0, 16.5]
+    y-axis "%" 0 --> 100
+    bar [2.7, 0.2, 16.7, 63.9, 16.5]
 {% </mermaid> %}

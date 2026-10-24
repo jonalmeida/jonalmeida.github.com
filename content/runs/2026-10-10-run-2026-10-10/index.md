@@ -39,21 +39,9 @@ Geary parkette is also complete.
 ## Heart Rate Zones
 
 {% <mermaid> %}
----
-config:
-  themeVariables:
-    xyChart:
-      plotColorPalette: "#555555,#FF8200,#56CC3C,#4090D4,#AAAAAA"
-      backgroundColor: "transparent"
----
-
 xychart horizontal
     title "Time in Heart Rate Zones (%)"
     x-axis ["Zone 5 Maximum", "Zone 4 Threshold", "Zone 3 Aerobic", "Zone 2 Easy", "Zone 1 Warm Up"]
-    y-axis "%" 2 --> 100
-    bar [8.8, 0.0, 0.0, 0.0, 0.0]
-    bar [0.0, 17.7, 0.0, 0.0, 0.0]
-    bar [0.0, 0.0, 40.8, 0.0, 0.0]
-    bar [0.0, 0.0, 0.0, 22.8, 0.0]
-    bar [0.0, 0.0, 0.0, 0.0, 9.8]
+    y-axis "%" 0 --> 100
+    bar [8.8, 17.7, 40.8, 22.8, 9.8]
 {% </mermaid> %}

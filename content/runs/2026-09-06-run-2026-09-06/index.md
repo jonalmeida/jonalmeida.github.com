@@ -43,21 +43,9 @@ Pistachio chocolate croissant and coffee for breakfast to finish it off! 🥐☕
 ## Heart Rate Zones
 
 {% <mermaid> %}
----
-config:
-  themeVariables:
-    xyChart:
-      plotColorPalette: "#555555,#FF8200,#56CC3C,#4090D4,#AAAAAA"
-      backgroundColor: "transparent"
----
-
 xychart horizontal
     title "Time in Heart Rate Zones (%)"
     x-axis ["Zone 5 Maximum", "Zone 4 Threshold", "Zone 3 Aerobic", "Zone 2 Easy", "Zone 1 Warm Up"]
-    y-axis "%" 2 --> 100
-    bar [0.0, 0.0, 0.0, 0.0, 0.0]
-    bar [0.0, 0.0, 0.0, 0.0, 0.0]
-    bar [0.0, 0.0, 3.1, 0.0, 0.0]
-    bar [0.0, 0.0, 0.0, 52.4, 0.0]
-    bar [0.0, 0.0, 0.0, 0.0, 44.5]
+    y-axis "%" 0 --> 100
+    bar [0.0, 0.0, 3.1, 52.4, 44.5]
 {% </mermaid> %}

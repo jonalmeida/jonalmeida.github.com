@@ -6,8 +6,11 @@ Usage in markdown:
       A[Start] --> B[End]
   {% </mermaid> %}
 
-The CDN approach was used instead of local files since mermaid.min.js is 2.8 MB and would exceed jj's 1 MB
-  snapshot limit.
+Pele (https://pele.run) draws the mermaid source in the browser. The script is
+in static/js/pele-<version>.min.js (706 KB), below jj's 1 MB snapshot limit.
+
+Pele ignores mermaid `themeVariables`. Set colors with CSS in
+templates/custom_head.html.
 #}
 {% component mermaid() %}<pre class="mermaid">
 {{- body -}}
