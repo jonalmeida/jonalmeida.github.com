@@ -22,7 +22,12 @@
 {%- else -%}
   {%- set src = path -%}
 {%- endif -%}
-<div><img src="{{ src }}" style="display: block; margin-left: auto; margin-right: auto;"
+{%- set style = "display: block; margin-left: auto; margin-right: auto;" -%}
+{%- set style = style ~ " max-width: 100%; height: auto;" -%}
+{%- if height and not width -%}
+  {%- set style = style ~ " width: auto; max-height: " ~ height ~ "px;" -%}
+{%- endif -%}
+<div><img src="{{ src }}" style="{{ style }}"
   {%- if width %} width="{{ width }}"{% endif %}
   {%- if height %} height="{{ height }}"{% endif %} /></div>
 {%- endcomponent image %}
