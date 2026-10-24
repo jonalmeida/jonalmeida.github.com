@@ -16,6 +16,7 @@ from garminrun.postfmt import GALLERY_SHORTCODE, activity_to_markdown, route_sho
 from garminrun.posts import (
     index_posts_by_activity_id,
     insert_gallery_shortcode,
+    insert_intervals,
     insert_route_shortcode,
     output_path,
     post_dir,
@@ -251,3 +252,47 @@ def test_retract_delete_of_a_flat_post_leaves_the_directory(repo):
     assert retract_post(post, 24206823662, "delete")
     assert not post.exists()
     assert repo.content_runs.is_dir()
+
+
+LAPS = [{"distance": 1000.0, "duration": 330.0}, {"distance": 400.0, "duration": 80.0}]
+
+
+def test_the_intervals_insert_matches_a_fresh_import(repo):
+    """Backfilling a post gives the same bytes as importing it with laps."""
+    activity = {**LISBON, "hrTimeInZone_2": 600.0}
+    post = write(repo.content_runs / "x" / "index.md",
+                 activity_to_markdown(activity, "/runs/maps/1.svg"))
+    assert insert_intervals(post, LAPS)
+    assert post.read_text() == activity_to_markdown(activity, "/runs/maps/1.svg", laps=LAPS)
+
+
+def test_the_intervals_insert_without_zones_matches_a_fresh_import(repo):
+    post = write(repo.content_runs / "x" / "index.md", activity_to_markdown(LISBON))
+    assert insert_intervals(post, LAPS)
+    assert post.read_text() == activity_to_markdown(LISBON, laps=LAPS)
+
+
+def test_the_intervals_insert_is_idempotent(repo):
+    post = write(repo.content_runs / "x" / "index.md", activity_to_markdown(LISBON))
+    insert_intervals(post, LAPS)
+    before = post.read_text()
+    assert not insert_intervals(post, LAPS)
+    assert post.read_text() == before
+
+
+def test_the_intervals_insert_leaves_a_hand_made_front_matter_alone(repo):
+    post = write(repo.content_runs / "x" / "index.md", """
+        ---
+        title: "R"
+        ---
+        Prose.
+        """)
+    before = post.read_text()
+    assert not insert_intervals(post, LAPS)
+    assert post.read_text() == before
+
+
+def test_the_route_insert_goes_above_the_intervals(repo):
+    post = write(repo.content_runs / "x" / "index.md", activity_to_markdown(LISBON, laps=LAPS))
+    assert insert_route_shortcode(post, route_shortcode("/runs/maps/1.svg"))
+    assert post.read_text() == activity_to_markdown(LISBON, "/runs/maps/1.svg", laps=LAPS)

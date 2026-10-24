@@ -19,6 +19,10 @@ ZONE_LINE = re.compile(
 )
 
 
+# `{% <mermaid> %}`, or with arguments such as `{% <mermaid labels="mm:ss"> %}`.
+MERMAID_OPEN = re.compile(r"\{% <mermaid[ >]")
+
+
 def published_posts():
     """Every post in the real content/runs/, flat and bundled."""
     return sorted(index_posts_by_activity_id().items())
@@ -51,7 +55,7 @@ def test_no_post_carries_a_chart_of_nothing(activity_id, post):
 def test_the_mermaid_flag_matches_whether_there_is_a_chart(activity_id, post):
     """`mermaid: true` loads a script. It has to earn it."""
     text = post.read_text()
-    assert ("mermaid: true" in text) == ("{% <mermaid> %}" in text), (
+    assert ("mermaid: true" in text) == bool(MERMAID_OPEN.search(text)), (
         f"{post.relative_to(config.PATHS.repo)} sets the mermaid flag and the "
         "chart inconsistently"
     )

@@ -13,7 +13,7 @@ from pathlib import Path
 
 from garminrun import config
 from garminrun.config import MAP_URL_PREFIX
-from garminrun.postfmt import GALLERY_SHORTCODE
+from garminrun.postfmt import GALLERY_SHORTCODE, intervals_front_matter, intervals_section
 from garminrun.state import append_ignore
 
 
@@ -82,19 +82,52 @@ def insert_route_shortcode(path: Path, shortcode: str) -> bool:
 
     Returns True when the file changed. Posts carry hand-written prose and
     photos, so this never rewrites a line - it only inserts a block, before the
-    '## Heart Rate Zones' heading when there is one, or at the end.
+    first chart heading when there is one, or at the end.
     """
     text = path.read_text()
     if MAP_URL_PREFIX in text:
         return False
 
-    block = f"## Route\n\n{shortcode}\n\n"
-    anchor = "## Heart Rate Zones"
-    at = text.find(anchor)
-    if at == -1:
+    insert_before_charts(path, text, f"## Route\n\n{shortcode}\n\n",
+                         ("## Intervals", "## Heart Rate Zones"))
+    return True
+
+
+def insert_before_charts(path: Path, text: str, block: str, anchors: tuple[str, ...]) -> None:
+    """Write text with block inserted before the first anchor, or at the end."""
+    found = [at for at in (text.find(anchor) for anchor in anchors) if at != -1]
+    if not found:
         path.write_text(text.rstrip("\n") + "\n\n" + block.rstrip("\n") + "\n")
     else:
+        at = min(found)
         path.write_text(text[:at] + block + text[at:])
+
+
+def insert_intervals(path: Path, laps: list[dict]) -> bool:
+    """Insert the '## Intervals' chart and its front matter into an existing
+    post. Insert only, idempotent.
+
+    Returns True when the file changed. The front matter lines go at the end
+    of the `extra:` table, which the importer always writes last. A post that
+    does not end its front matter with that table is left alone.
+    """
+    text = path.read_text()
+    section = intervals_section(laps)
+    if "## Intervals" in text or not section:
+        return False
+
+    end = text.find("\n---", 4)
+    if not text.startswith("---\n") or end == -1:
+        return False
+    front = text[:end]
+    top_level = [line for line in front.splitlines()[1:] if line and not line[0].isspace()]
+    if not top_level or top_level[-1] != "extra:":
+        print(f"  {path.parent.name}/{path.name}: front matter does not end with extra:; skipping")
+        return False
+
+    flag = "" if "\n  mermaid: true" in front else "\n  mermaid: true"
+    text = front + flag + intervals_front_matter(laps) + text[end:]
+    insert_before_charts(path, text, section + "\n", ("## Heart Rate Zones",))
     return True
 
 

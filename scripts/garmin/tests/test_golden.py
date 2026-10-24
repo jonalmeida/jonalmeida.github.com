@@ -32,9 +32,15 @@ def test_post_bare(importer, activity, golden):
 
 
 def test_post_full(importer, activity, golden):
-    """A post with a route map and a photo gallery."""
+    """A post with a route map, a photo gallery and the interval chart."""
     text = importer.activity_to_markdown(
-        activity(), map_url="/runs/maps/24048177886.svg", photos=3
+        activity(), map_url="/runs/maps/24048177886.svg", photos=3,
+        laps=[
+            {"distance": 1000.0, "duration": 330.0},
+            {"distance": 1609.3, "duration": 402.0},
+            {"distance": 400.0, "duration": 180.0},
+            {"distance": 3.8, "duration": 1.3},
+        ],
     )
     golden("post-full.md", text)
 

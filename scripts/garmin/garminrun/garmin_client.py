@@ -70,6 +70,28 @@ def fetch_activity_points(client: Garmin, activity_id: int) -> list[Point]:
         return []
 
 
+def fetch_activity_laps(client: Garmin, activity_id: int) -> list[dict]:
+    """Return the laps of an activity ([] if none, or on error).
+
+    Same policy as fetch_activity_points: a missing pace chart must never cost
+    us the post, so every failure is a warning.
+    """
+    for attempt in (1, 2):
+        try:
+            splits = client.get_activity_splits(activity_id)
+            break
+        except Exception as exc:  # noqa: BLE001 - never abort the import
+            if attempt == 1:
+                print(f"  splits fetch failed for {activity_id} ({exc}); retrying")
+                _sleep(5)
+            else:
+                print(f"  WARNING: splits fetch failed for {activity_id}: {exc}")
+                return []
+
+    laps = (splits or {}).get("lapDTOs") if isinstance(splits, dict) else None
+    return laps if isinstance(laps, list) else []
+
+
 class NeedsLogin(Exception):
     """Garmin wants an MFA code and there is nobody to type it."""
 

@@ -160,6 +160,7 @@ def fake_client():
             self.activities: list[dict] = []
             self.details: dict[int, dict] = {}
             self.full: dict[int, dict] = {}
+            self.laps: dict[int, list[dict]] = {}
             self.calls: list[tuple] = []
             self.fail_with: Exception | None = None
 
@@ -172,6 +173,10 @@ def fake_client():
         def get_activity_details(self, activity_id, **kwargs):
             self.calls.append(("details", activity_id))
             return self.details.get(int(activity_id), {})
+
+        def get_activity_splits(self, activity_id):
+            self.calls.append(("splits", activity_id))
+            return {"activityId": activity_id, "lapDTOs": self.laps.get(int(activity_id), [])}
 
         def get_activity(self, activity_id):
             self.calls.append(("activity", activity_id))

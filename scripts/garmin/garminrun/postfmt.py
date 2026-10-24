@@ -6,6 +6,7 @@ activity itself carries.
 
 from __future__ import annotations
 
+import math
 from datetime import datetime, timezone
 
 from garminrun.config import MAP_EMBED_WIDTH
@@ -116,6 +117,87 @@ def hr_zones_mermaid(activity: dict) -> str:
     return "\n".join(lines)
 
 
+# A lap shorter than this is a stray press of the lap button, not an interval.
+# The watch also closes a lap of a few metres when the run is saved.
+MIN_INTERVAL_M = 20.0
+
+
+def interval_rows(laps: list[dict]) -> list[tuple[int, float, float]]:
+    """Return [(number, distance in m, duration in s)] for each interval.
+
+    The laps come from get_activity_splits. The list is empty when there are
+    fewer than two intervals: a chart of one bar is the run's own pace.
+    """
+    rows: list[tuple[int, float, float]] = []
+    for lap in laps:
+        distance_m = lap.get("distance") or 0
+        duration_s = lap.get("duration") or 0
+        if distance_m < MIN_INTERVAL_M or duration_s <= 0:
+            continue
+        rows.append((len(rows) + 1, distance_m, duration_s))
+    return rows if len(rows) >= 2 else []
+
+
+def intervals_front_matter(laps: list[dict]) -> str:
+    """Return an `intervals` front matter block, or empty string.
+
+    The feed template (templates/atom.xml) makes a table from it, for the same
+    reason as `hr_zones`.
+    """
+    rows = interval_rows(laps)
+    if not rows:
+        return ""
+
+    lines = ["\n  intervals:"]
+    for n, distance_m, duration_s in rows:
+        lines.append(
+            f'    - {{ lap: {n}, distance_km: "{distance_m / 1000:.2f}", '
+            f'duration: "{format_duration(duration_s)}", '
+            f'pace: "{format_pace(duration_s / distance_m * 1000)}" }}'
+        )
+    return "\n".join(lines)
+
+
+def intervals_mermaid(laps: list[dict]) -> str:
+    """Return a mermaid xychart component for the pace of each interval, or
+    empty string."""
+    rows = interval_rows(laps)
+    if not rows:
+        return ""
+
+    paces = [duration_s / distance_m * 1000 for _, distance_m, duration_s in rows]
+    labels = ", ".join(f'"Lap {n} · {distance_m / 1000:.2f} km"' for n, distance_m, _ in rows)
+    # Three decimals, so the page can turn each value back into the same M:SS
+    # as format_pace.
+    values = ", ".join(f"{pace / 60:.3f}" for pace in paces)
+    top = math.ceil(max(paces) / 60)
+
+    # Vertical bars: the laps run left to right, in the order they were run.
+    # showDataLabel writes each value on its bar, in decimal minutes.
+    # labels="mm:ss" tells the page to write it as M:SS.
+    lines = [
+        '{% <mermaid labels="mm:ss"> %}',
+        "---",
+        "config:",
+        "  xyChart:",
+        "    showDataLabel: true",
+        "---",
+        "xychart",
+        '    title "Pace per Interval (min/km)"',
+        f"    x-axis [{labels}]",
+        f'    y-axis "min/km" 0 --> {top}',
+        f"    bar [{values}]",
+        "{% </mermaid> %}",
+    ]
+    return "\n".join(lines)
+
+
+def intervals_section(laps: list[dict]) -> str:
+    """The '## Intervals' block of a post, or empty string."""
+    chart = intervals_mermaid(laps)
+    return f"## Intervals\n\n{chart}\n" if chart else ""
+
+
 def activity_date(activity: dict) -> str:
     """The activity's local start date as YYYY-MM-DD."""
     start_local = activity.get("startTimeLocal") or activity.get("startTimeGMT", "")
@@ -139,6 +221,7 @@ def activity_to_markdown(
     map_url: str | None = None,
     photos: int = 0,
     markers: tuple[str, ...] = PRIVATE_MARKERS,
+    laps: list[dict] | None = None,
 ) -> str:
     distance_m: float = activity.get("distance", 0) or 0
     distance_km = round(distance_m / 1000, 2)
@@ -163,9 +246,12 @@ def activity_to_markdown(
     description = strip_markers(activity.get("description") or "", markers)
     mermaid_chart = hr_zones_mermaid(activity)
     chart_section = f"\n## Heart Rate Zones\n\n{mermaid_chart}\n" if mermaid_chart else ""
-    mermaid_flag = "\n  mermaid: true" if mermaid_chart else ""
+    intervals = intervals_section(laps or [])
+    intervals_block = intervals_front_matter(laps or [])
+    mermaid_flag = "\n  mermaid: true" if mermaid_chart or intervals else ""
     zones_block = hr_zones_front_matter(activity)
     route_section = f"\n## Route\n\n{route_shortcode(map_url)}\n" if map_url else ""
+    intervals_part = f"\n{intervals}" if intervals else ""
 
     frontmatter = f"""---
 title: "{yaml_dq(title)}"
@@ -179,7 +265,7 @@ extra:
   distance_km: {distance_km}
   duration: "{duration_str}"
   pace_per_km: "{pace_str}"
-  elevation_gain_m: {elevation_str}{mermaid_flag}{zones_block}
+  elevation_gain_m: {elevation_str}{mermaid_flag}{zones_block}{intervals_block}
 ---"""
 
     table = f"""
@@ -197,7 +283,7 @@ extra:
 
     return (
         frontmatter + "\n" + description + "\n" + gallery_section
-        + table + route_section + chart_section
+        + table + route_section + intervals_part + chart_section
     )
 
 

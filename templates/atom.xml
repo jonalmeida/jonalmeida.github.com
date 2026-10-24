@@ -1,11 +1,12 @@
 {#-
   A copy of Zola's built-in atom.xml (v0.23.4), with one change: the
-  heart rate zone chart becomes a plain table.
+  interval pace chart and the heart rate zone chart become plain tables.
 
-  A feed reader removes JavaScript, so the mermaid chart in a run post is
-  only raw source text there. When a page gives its zone data in
-  `extra.hr_zones`, this template cuts the chart section off the content
-  and puts a table in its place. The page itself keeps the chart.
+  A feed reader removes JavaScript, so the mermaid charts in a run post are
+  only raw source text there. When a page gives its data in
+  `extra.intervals` or `extra.hr_zones`, this template cuts the content at
+  the first chart heading and puts tables in place of the charts. The page
+  itself keeps the charts.
 
   Keep the rest of this file the same as the built-in template, so that a
   Zola update is easy to compare.
@@ -63,14 +64,24 @@
         {#- The zone table is built as text, so that the template engine
             escapes it in the same way as the page content. -#}
         <content type="html" xml:base="{{ page.permalink | escape_xml | safe }}">
+        {%- if page?.extra?.hr_zones or page?.extra?.intervals -%}
+{{- page.content | split(pat='<h2 id="intervals">') | first | split(pat='<h2 id="heart-rate-zones">') | first -}}
+        {%- if page?.extra?.intervals -%}
+{{- '<h2>Intervals</h2>' }}
+{{ '<table><thead><tr><th>Lap</th><th>Distance</th><th>Time</th><th>Pace</th></tr></thead><tbody>' }}
+{%- for lap in page.extra.intervals %}
+{{ '<tr><td>' ~ lap.lap ~ '</td><td>' ~ lap.distance_km ~ ' km</td><td>' ~ lap.duration ~ '</td><td>' ~ lap.pace ~ ' /km</td></tr>' }}
+{%- endfor %}
+{{ '</tbody></table>' -}}
+        {%- endif -%}
         {%- if page?.extra?.hr_zones -%}
-{{- page.content | split(pat='<h2 id="heart-rate-zones">') | first -}}
 {{- '<h2>Heart Rate Zones</h2>' }}
 {{ '<table><thead><tr><th>Zone</th><th>Time</th></tr></thead><tbody>' }}
 {%- for zone in page.extra.hr_zones %}
 {{ '<tr><td>Zone ' ~ zone.zone ~ ' ' ~ zone.name ~ '</td><td>' ~ zone.pct ~ '%</td></tr>' }}
 {%- endfor %}
 {{ '</tbody></table>' -}}
+        {%- endif -%}
         {%- else -%}
 {{- page.content -}}
         {%- endif -%}

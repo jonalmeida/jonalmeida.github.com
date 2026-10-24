@@ -1,4 +1,5 @@
-"""Argument parsing and the three commands: import, backfill maps, backfill photos."""
+"""Argument parsing and the four commands: import, and backfill maps, photos
+or intervals."""
 
 from __future__ import annotations
 
@@ -19,6 +20,7 @@ from garminrun.garmin_client import (
     DETAILS_DELAY_S,
     NeedsLogin,
     authenticate,
+    fetch_activity_laps,
     fetch_activity_points,
     fetch_running_activities,
 )
@@ -39,6 +41,7 @@ from garminrun.postfmt import (
 from garminrun.posts import (
     index_posts_by_activity_id,
     insert_gallery_shortcode,
+    insert_intervals,
     insert_route_shortcode,
     output_path,
     post_dir,
@@ -107,6 +110,15 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
              "(default: %(default)s, which only reports it)",
     )
     parser.add_argument(
+        "--no-intervals", action="store_true",
+        help="skip the pace-per-interval chart (saves one API call per activity)",
+    )
+    parser.add_argument(
+        "--backfill-intervals", action="store_true",
+        help="add the pace-per-interval chart to already-imported posts; "
+             "imports nothing new",
+    )
+    parser.add_argument(
         "--no-photos", action="store_true",
         help="skip photo download (saves one API call per activity)",
     )
@@ -134,8 +146,8 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     )
     parser.add_argument(
         "--activity", type=int, action="append", metavar="ID",
-        help="with --backfill-maps or --backfill-photos, limit to these "
-             "activity IDs (repeatable)",
+        help="with --backfill-maps, --backfill-photos or --backfill-intervals, "
+             "limit to these activity IDs (repeatable)",
     )
     parser.add_argument(
         "--force", action="store_true",
@@ -285,6 +297,11 @@ def run_import(client: Garmin, args: argparse.Namespace) -> None:
             if len(points) < 2:
                 print(f"  no GPS data for {activity_id} (treadmill?) - map skipped")
 
+        laps: list[dict] = []
+        if not args.no_intervals:
+            laps = fetch_activity_laps(client, activity_id)
+            time.sleep(args.delay)
+
         slug = slug_for(activity, date_str, by_date[date_str])
         path = output_path(slug)
 
@@ -312,7 +329,8 @@ def run_import(client: Garmin, args: argparse.Namespace) -> None:
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(
             activity_to_markdown(
-                activity, map_url, photos=len(names), markers=args.private_marker
+                activity, map_url, photos=len(names), markers=args.private_marker,
+                laps=laps,
             )
         )
         imported_set.add(activity_id)
@@ -483,6 +501,38 @@ def run_backfill_photos(client: Garmin, args: argparse.Namespace) -> None:
     )
 
 
+def run_backfill_intervals(client: Garmin, args: argparse.Namespace) -> None:
+    """Add the pace-per-interval chart to posts imported before it existed."""
+    targets = sorted(args.activity or load_imported_set())
+    posts = index_posts_by_activity_id()
+    print(f"Backfilling intervals for {len(targets)} activities.")
+
+    count_inserted = 0
+    count_skipped = 0
+
+    for i, activity_id in enumerate(targets):
+        post = posts.get(activity_id)
+        if post is None:
+            print(f"  {activity_id}: no post found; skipping")
+            continue
+        if "## Intervals" in post.read_text():
+            count_skipped += 1
+            continue
+
+        laps = fetch_activity_laps(client, activity_id)
+        if i < len(targets) - 1:
+            time.sleep(args.delay)
+
+        if insert_intervals(post, laps):
+            print(f"  {activity_id}: inserted the intervals into {post.parent.name}/{post.name}")
+            count_inserted += 1
+        else:
+            print(f"  {activity_id}: fewer than two intervals; no chart")
+            count_skipped += 1
+
+    print(f"\nDone. Posts updated: {count_inserted}, skipped: {count_skipped}.")
+
+
 def write_sample_map(path: Path) -> None:
     """Draw the synthetic route to `path` and report what came out.
 
@@ -566,7 +616,9 @@ def main() -> None:
             run_backfill(client, args)
         if args.backfill_photos:
             run_backfill_photos(client, args)
-        if not (args.backfill_maps or args.backfill_photos):
+        if args.backfill_intervals:
+            run_backfill_intervals(client, args)
+        if not (args.backfill_maps or args.backfill_photos or args.backfill_intervals):
             run_import(client, args)
     except NeedsLogin as exc:
         print(f"ERROR: {exc}", file=sys.stderr)

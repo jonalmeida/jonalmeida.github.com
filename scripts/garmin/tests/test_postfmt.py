@@ -12,6 +12,8 @@ from garminrun.postfmt import (
     format_pace,
     format_pace_from_speed,
     hr_zone_percentages,
+    interval_rows,
+    intervals_mermaid,
     yaml_dq,
 )
 
@@ -158,3 +160,44 @@ def test_the_gallery_sits_on_the_seam_before_the_stats_table():
     """Which is where every hand-made post put it."""
     text = activity_to_markdown(LISBON, "/runs/maps/1.svg", photos=3)
     assert f"\n\n{GALLERY_SHORTCODE}\n\n| Stat | Value |" in text
+
+
+# ---------------------------------------------------------------------------
+# Pace per interval
+# ---------------------------------------------------------------------------
+
+LAPS = [
+    {"distance": 1000.0, "duration": 325.4},
+    {"distance": 1.2, "duration": 1.5},
+    {"distance": 385.8, "duration": 74.7},
+    {"distance": 3.8, "duration": 1.3},
+]
+
+
+def test_a_stray_lap_press_is_not_an_interval():
+    """The watch closes a lap of a few metres; it is not a bar on the chart."""
+    assert [(n, d) for n, d, _ in interval_rows(LAPS)] == [(1, 1000.0), (2, 385.8)]
+
+
+def test_one_interval_makes_no_chart():
+    assert interval_rows(LAPS[:2]) == []
+    assert intervals_mermaid(LAPS[:2]) == ""
+
+
+def test_the_chart_shows_the_paces_on_the_bars_and_the_axis_starts_at_zero():
+    chart = intervals_mermaid(LAPS)
+    assert chart.startswith('{% <mermaid labels="mm:ss"> %}')
+    assert "showDataLabel: true" in chart
+    assert '"Lap 1 · 1.00 km", "Lap 2 · 0.39 km"' in chart
+    assert 'y-axis "min/km" 0 --> 6' in chart
+    assert "bar [5.423, 3.227]" in chart
+
+
+def test_intervals_alone_set_the_mermaid_flag():
+    """A run with no strap still has laps, and the chart needs the script."""
+    text = activity_to_markdown(
+        {**LISBON, **{f"hrTimeInZone_{n}": 0.0 for n in range(1, 6)}}, laps=LAPS
+    )
+    assert "\n  mermaid: true\n  intervals:\n" in text
+    assert "## Intervals" in text
+    assert "Heart Rate Zones" not in text

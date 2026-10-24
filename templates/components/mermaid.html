@@ -11,7 +11,29 @@ in static/js/pele-<version>.min.js (706 KB), below jj's 1 MB snapshot limit.
 
 Pele ignores mermaid `themeVariables`. Set colors with CSS in
 templates/custom_head.html.
+
+`labels` sets how the data labels are written (xyChart `showDataLabel`):
+  {% <mermaid labels="mm:ss"> %}
+"mm:ss" writes decimal minutes, for example 5.423, as 5:25. Pele draws the
+chart again when the width changes, so the script watches the <pre> and
+changes the labels after each draw.
+
+The <script> starts on a new line: the markdown HTML block of the <pre> ends
+on the line with </pre>, and a new block starts at <script>.
 #}
-{% component mermaid() %}<pre class="mermaid">
+{% component mermaid(labels: string = "") %}<pre class="mermaid">
 {{- body -}}
-</pre>{% endcomponent mermaid %}
+</pre>
+{%- if labels == "mm:ss" %}
+<script>
+(() => {
+  const el = document.currentScript.previousElementSibling;
+  const format = () => el.querySelectorAll('.pele-data-labels text').forEach((label) => {
+    if (!/^\d+(\.\d+)?$/.test(label.textContent)) return;
+    const seconds = Math.round(parseFloat(label.textContent) * 60);
+    label.textContent = `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, '0')}`;
+  });
+  new MutationObserver(format).observe(el, { childList: true, subtree: true });
+})();
+</script>
+{%- endif %}{% endcomponent mermaid %}

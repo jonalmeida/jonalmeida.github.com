@@ -290,3 +290,25 @@ def test_retract_draft_takes_it_down_when_asked(run, repo):
     run("--no-maps", "--no-photos", "--retract", "draft")
 
     assert "\ndraft: true\n" in (bundle(repo) / "index.md").read_text()
+
+
+# ---------------------------------------------------------------------------
+# Pace per interval
+# ---------------------------------------------------------------------------
+
+def test_the_laps_become_an_interval_chart(run, repo):
+    run.client.activities = [activity(1)]
+    run.client.laps[1] = [{"distance": 5000.0, "duration": 1500.0},
+                          {"distance": 5000.0, "duration": 1500.0}]
+    run("--no-maps", "--no-photos")
+
+    text = (bundle(repo) / "index.md").read_text()
+    assert "## Intervals" in text
+    assert "mermaid: true" in text
+    assert ("splits", 1) in run.client.calls
+
+
+def test_no_intervals_makes_no_splits_call(run, repo):
+    run.client.activities = [activity(1)]
+    run("--no-maps", "--no-photos", "--no-intervals")
+    assert not any(call[0] == "splits" for call in run.client.calls)

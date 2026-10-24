@@ -459,7 +459,7 @@ uv run scripts/garmin/import_garmin_runs.py --backfill-maps
 
 Posts are matched by their `garmin_activity_id` frontmatter key. The insert is
 idempotent and additive: it never rewrites an existing line, it drops the block
-in before `## Heart Rate Zones` (or at the end of the post if there is no such
+in before the first chart heading, `## Intervals` or `## Heart Rate Zones` (or at the end of the post if there is no such
 heading), and it does nothing when the post already links a map. If no post
 matches an ID, the script prints the shortcode line for you to paste manually.
 
@@ -507,6 +507,29 @@ uv run scripts/garmin/import_garmin_runs.py --backfill-maps --delay 3
 `--delay` (default 0.75 s) is the pause between activity-details calls. Raise it
 if Garmin starts returning 429s.
 
+## Pace per interval
+
+Each post gets a `## Intervals` chart: one bar for each lap, with the pace in
+min/km. Pele's `showDataLabel` writes the pace on each bar. The chart opens with
+`{% <mermaid labels="mm:ss"> %}`, so the page writes it as M:SS, not in
+decimal minutes. A lap is an interval, whether the watch closed it every kilometre or
+you pressed the lap button. The data comes from `get_activity_splits`, which
+is one more Garmin call for each activity. `--no-intervals` skips it.
+
+A lap shorter than 20 m is a stray press of the button, so it is not shown.
+A run with fewer than two laps gets no chart.
+
+`--backfill-intervals` adds the chart to posts that were imported before it
+existed. It imports nothing:
+
+```sh
+uv run scripts/garmin/import_garmin_runs.py --backfill-intervals --activity 24761451705
+```
+
+The insert is idempotent and additive, like the map backfill. It adds the
+`intervals` front matter at the end of `extra:` and the section before
+`## Heart Rate Zones`.
+
 ## Heart rate zones in feeds
 
 Each post gets the zone data two times:
@@ -519,6 +542,9 @@ A feed reader removes JavaScript, so it cannot draw the chart. The feed
 template `templates/atom.xml` therefore cuts the `## Heart Rate Zones`
 section off the content and makes a plain table from `hr_zones` instead. A
 post without `hr_zones` keeps its content as it is.
+
+The `## Intervals` chart works the same way, from the `intervals` list in the
+front matter. The feed cuts the content at the first of the two headings.
 
 Keep the two in agreement: `hr_zone_percentages()` is the one source for
 both.
@@ -742,6 +768,10 @@ uv run scripts/garmin/import_garmin_runs.py --help
   --retract {off,draft,delete}
                         what to do when an already-imported run now fails the
                         filter (default: off, which only reports it)
+  --no-intervals        skip the pace-per-interval chart (saves one API call
+                        per activity)
+  --backfill-intervals  add the pace-per-interval chart to already-imported
+                        posts; imports nothing new
   --no-photos           skip photo download (saves one API call per activity)
   --backfill-photos     download photos for already-imported activities and
                         insert a gallery line into their posts; imports
@@ -755,8 +785,8 @@ uv run scripts/garmin/import_garmin_runs.py --help
                         (default: 800)
   --no-photo-resize     commit the downloaded bytes as they are (around 500 KB
                         each)
-  --activity ID         with --backfill-maps or --backfill-photos, limit to
-                        these activity IDs (repeatable)
+  --activity ID         with --backfill-maps, --backfill-photos or --backfill-
+                        intervals, limit to these activity IDs (repeatable)
   --force               with --backfill-maps, overwrite an SVG that exists
                         already
   --delay SECONDS       pause between activity-details API calls (default:

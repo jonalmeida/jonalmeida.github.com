@@ -18,6 +18,10 @@ extra:
     - { zone: 3, name: "Aerobic", pct: 41.7 }
     - { zone: 2, name: "Easy", pct: 25.0 }
     - { zone: 1, name: "Warm Up", pct: 8.3 }
+  intervals:
+    - { lap: 1, distance_km: "1.00", duration: "5:30", pace: "5:30" }
+    - { lap: 2, distance_km: "1.61", duration: "6:42", pace: "4:10" }
+    - { lap: 3, distance_km: "0.40", duration: "3:00", pace: "7:30" }
 ---
 Four by a mile, with the last one honest.
 
@@ -33,6 +37,21 @@ Four by a mile, with the last one honest.
 ## Route
 
 {{ <image path="/runs/maps/24048177886.svg" width={640} /> }}
+
+## Intervals
+
+{% <mermaid labels="mm:ss"> %}
+---
+config:
+  xyChart:
+    showDataLabel: true
+---
+xychart
+    title "Pace per Interval (min/km)"
+    x-axis ["Lap 1 · 1.00 km", "Lap 2 · 1.61 km", "Lap 3 · 0.40 km"]
+    y-axis "min/km" 0 --> 8
+    bar [5.500, 4.163, 7.500]
+{% </mermaid> %}
 
 ## Heart Rate Zones
 

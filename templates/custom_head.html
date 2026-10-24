@@ -35,12 +35,20 @@ pre {
   }
 }
 
-{# The heart rate zone colors, zone 5 to zone 1 from top to bottom. #}
-.pele-xychart .pele-bars rect:nth-child(1) { fill: #555555; }
-.pele-xychart .pele-bars rect:nth-child(2) { fill: #FF8200; }
-.pele-xychart .pele-bars rect:nth-child(3) { fill: #56CC3C; }
-.pele-xychart .pele-bars rect:nth-child(4) { fill: #4090D4; }
-.pele-xychart .pele-bars rect:nth-child(5) { fill: #AAAAAA; }
+{# The heart rate zone colors, zone 5 to zone 1 from top to bottom. The chart
+   is the <pre> after the heading that atom.xml also looks for. #}
+#heart-rate-zones + pre.mermaid .pele-bars rect:nth-child(1) { fill: #555555; }
+#heart-rate-zones + pre.mermaid .pele-bars rect:nth-child(2) { fill: #FF8200; }
+#heart-rate-zones + pre.mermaid .pele-bars rect:nth-child(3) { fill: #56CC3C; }
+#heart-rate-zones + pre.mermaid .pele-bars rect:nth-child(4) { fill: #4090D4; }
+#heart-rate-zones + pre.mermaid .pele-bars rect:nth-child(5) { fill: #AAAAAA; }
+
+{# The pace per interval bars. One color, with a different step for each theme
+   so that it has contrast on the background. #}
+#intervals + pre.mermaid .pele-bars rect { fill: #3273dc; }
+@media (prefers-color-scheme: dark) {
+  #intervals + pre.mermaid .pele-bars rect { fill: #3d8fd6; }
+}
 
 {# Pele puts the SVG in the <pre>. Remove the code block look from it. #}
 pre.mermaid {
