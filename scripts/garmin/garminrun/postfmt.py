@@ -120,6 +120,15 @@ def hr_zones_mermaid(activity: dict) -> str:
 # A lap shorter than this is a stray press of the lap button, not an interval.
 # The watch also closes a lap of a few metres when the run is saved.
 MIN_INTERVAL_M = 20.0
+# Above this many intervals, the chart is in a closed <details> block, so that
+# it does not make the page longer until the reader opens it.
+MAX_OPEN_INTERVALS = 10
+# The height of the chart: the title and the axis, and one row for each lap.
+# Pele gives a fixed height of 500 if there is no height. On a narrow screen it
+# makes the chart about 40% shorter, and below these values it shows only every
+# second lap label and no pace labels.
+HORIZONTAL_BASE_PX = 190
+HORIZONTAL_ROW_PX = 35
 
 
 def interval_rows(laps: list[dict]) -> list[tuple[int, float, float]]:
@@ -166,13 +175,17 @@ def intervals_mermaid(laps: list[dict]) -> str:
         return ""
 
     paces = [duration_s / distance_m * 1000 for _, distance_m, duration_s in rows]
-    labels = ", ".join(f'"Lap {n} · {distance_m / 1000:.2f} km"' for n, distance_m, _ in rows)
+    # No "Lap" in the labels: on a narrow screen, "Lap 12 · 1.00 km" goes on
+    # two lines and Pele hides every second label.
+    labels = ", ".join(f'"{n} · {distance_m / 1000:.2f} km"' for n, distance_m, _ in rows)
     # Three decimals, so the page can turn each value back into the same M:SS
     # as format_pace.
     values = ", ".join(f"{pace / 60:.3f}" for pace in paces)
     top = math.ceil(max(paces) / 60)
 
-    # Vertical bars: the laps run left to right, in the order they were run.
+    # Horizontal bars: the laps run top to bottom, in the order they were run.
+    # The chart gets taller with more laps, not wider, and the labels have
+    # space on a narrow screen.
     # showDataLabel writes each value on its bar, in decimal minutes.
     # labels="mm:ss" tells the page to write it as M:SS.
     lines = [
@@ -181,8 +194,9 @@ def intervals_mermaid(laps: list[dict]) -> str:
         "config:",
         "  xyChart:",
         "    showDataLabel: true",
+        f"    height: {HORIZONTAL_BASE_PX + HORIZONTAL_ROW_PX * len(rows)}",
         "---",
-        "xychart",
+        "xychart horizontal",
         '    title "Pace per Interval (min/km)"',
         f"    x-axis [{labels}]",
         f'    y-axis "min/km" 0 --> {top}',
@@ -195,7 +209,22 @@ def intervals_mermaid(laps: list[dict]) -> str:
 def intervals_section(laps: list[dict]) -> str:
     """The '## Intervals' block of a post, or empty string."""
     chart = intervals_mermaid(laps)
-    return f"## Intervals\n\n{chart}\n" if chart else ""
+    if not chart:
+        return ""
+    rows = interval_rows(laps)
+    if len(rows) > MAX_OPEN_INTERVALS:
+        paces = [duration_s / distance_m * 1000 for _, distance_m, duration_s in rows]
+        summary = (
+            f"{len(rows)} laps, {format_pace(min(paces))} to "
+            f"{format_pace(max(paces))} /km"
+        )
+        # The blank lines end the markdown HTML blocks, so the component
+        # between them is still processed.
+        chart = (
+            f"<details>\n<summary>{summary}</summary>\n\n"
+            f"{chart}\n\n</details>"
+        )
+    return f"## Intervals\n\n{chart}\n"
 
 
 def activity_date(activity: dict) -> str:

@@ -521,6 +521,16 @@ is one more Garmin call for each activity. `--no-intervals` skips it.
 A lap shorter than 20 m is a stray press of the button, so it is not shown.
 A run with fewer than two laps gets no chart.
 
+The bars are horizontal, one row for each lap from top to bottom, so the chart
+gets taller with more laps and not wider. The chart sets its own `height`
+(190 px and 35 px for each lap). On a narrow screen Pele makes the chart about
+40% shorter. With less height, it shows only every second lap label and no
+paces. For the same reason, the labels are `3 · 1.00 km`, not
+`Lap 3 · 1.00 km`. A run with more than 10 laps gets the chart in a closed
+`<details>` block, so that the page does not get longer until the reader opens it.
+The summary line gives the number of laps and the fastest and slowest pace, for
+example `22 laps, 4:52 to 5:41 /km`.
+
 `--backfill-intervals` adds the chart to posts that were imported before it
 existed. It imports nothing:
 

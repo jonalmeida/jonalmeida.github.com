@@ -45,9 +45,11 @@ pre {
 
 {# The pace per interval bars. One color, with a different step for each theme
    so that it has contrast on the background. #}
-#intervals + pre.mermaid .pele-bars rect { fill: #3273dc; }
+#intervals + pre.mermaid .pele-bars rect,
+#intervals + details pre.mermaid .pele-bars rect { fill: #3273dc; }
 @media (prefers-color-scheme: dark) {
-  #intervals + pre.mermaid .pele-bars rect { fill: #3d8fd6; }
+  #intervals + pre.mermaid .pele-bars rect,
+  #intervals + details pre.mermaid .pele-bars rect { fill: #3d8fd6; }
 }
 
 {# Pele puts the SVG in the <pre>. Remove the code block look from it. #}

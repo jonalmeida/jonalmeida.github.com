@@ -45,10 +45,11 @@ Four by a mile, with the last one honest.
 config:
   xyChart:
     showDataLabel: true
+    height: 295
 ---
-xychart
+xychart horizontal
     title "Pace per Interval (min/km)"
-    x-axis ["Lap 1 · 1.00 km", "Lap 2 · 1.61 km", "Lap 3 · 0.40 km"]
+    x-axis ["1 · 1.00 km", "2 · 1.61 km", "3 · 0.40 km"]
     y-axis "min/km" 0 --> 8
     bar [5.500, 4.163, 7.500]
 {% </mermaid> %}

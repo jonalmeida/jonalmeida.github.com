@@ -6,6 +6,7 @@ import pytest
 
 from garminrun.postfmt import (
     GALLERY_SHORTCODE,
+    MAX_OPEN_INTERVALS,
     activity_date,
     activity_to_markdown,
     format_duration,
@@ -14,6 +15,7 @@ from garminrun.postfmt import (
     hr_zone_percentages,
     interval_rows,
     intervals_mermaid,
+    intervals_section,
     yaml_dq,
 )
 
@@ -188,9 +190,40 @@ def test_the_chart_shows_the_paces_on_the_bars_and_the_axis_starts_at_zero():
     chart = intervals_mermaid(LAPS)
     assert chart.startswith('{% <mermaid labels="mm:ss"> %}')
     assert "showDataLabel: true" in chart
-    assert '"Lap 1 · 1.00 km", "Lap 2 · 0.39 km"' in chart
+    assert '"1 · 1.00 km", "2 · 0.39 km"' in chart
     assert 'y-axis "min/km" 0 --> 6' in chart
     assert "bar [5.423, 3.227]" in chart
+
+
+def test_the_bars_are_horizontal_and_the_chart_grows_with_the_laps():
+    """Pele shows every lap label on a phone only with a row this tall."""
+    assert "\nxychart horizontal\n" in intervals_mermaid(LAPS)
+    assert "    height: 260\n" in intervals_mermaid(LAPS)
+    many = [{"distance": 1000.0, "duration": 330.0}] * 22
+    assert "    height: 960\n" in intervals_mermaid(many)
+
+
+def test_a_run_with_few_laps_shows_the_chart():
+    laps = [{"distance": 1000.0, "duration": 330.0}] * MAX_OPEN_INTERVALS
+    section = intervals_section(laps)
+    assert section.startswith('## Intervals\n\n{% <mermaid labels="mm:ss"> %}')
+    assert "<details>" not in section
+
+
+def test_a_run_with_many_laps_puts_the_chart_in_a_closed_block():
+    """The chart does not make the page longer until the reader opens it. The
+    summary gives the number of laps and the fastest and slowest pace."""
+    laps = [{"distance": 1000.0, "duration": 330.0}] * (MAX_OPEN_INTERVALS - 1) + [
+        {"distance": 1000.0, "duration": 290.0},
+        {"distance": 500.0, "duration": 172.5},
+    ]
+    section = intervals_section(laps)
+    assert section.startswith(
+        "## Intervals\n\n<details>\n<summary>11 laps, 4:50 to 5:45 /km</summary>\n\n"
+        '{% <mermaid labels="mm:ss"> %}'
+    )
+    # Blank lines around the component, so markdown still processes it.
+    assert section.endswith("{% </mermaid> %}\n\n</details>\n")
 
 
 def test_intervals_alone_set_the_mermaid_flag():

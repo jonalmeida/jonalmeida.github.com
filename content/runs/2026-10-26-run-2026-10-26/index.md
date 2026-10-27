@@ -49,10 +49,11 @@ Marked a bunch of locations that I wanted to visit - was not disappointed.
 config:
   xyChart:
     showDataLabel: true
+    height: 435
 ---
-xychart
+xychart horizontal
     title "Pace per Interval (min/km)"
-    x-axis ["Lap 1 · 1.00 km", "Lap 2 · 0.52 km", "Lap 3 · 1.00 km", "Lap 4 · 1.00 km", "Lap 5 · 1.00 km", "Lap 6 · 1.00 km", "Lap 7 · 0.21 km"]
+    x-axis ["1 · 1.00 km", "2 · 0.52 km", "3 · 1.00 km", "4 · 1.00 km", "5 · 1.00 km", "6 · 1.00 km", "7 · 0.21 km"]
     y-axis "min/km" 0 --> 9
     bar [5.835, 8.034, 5.931, 5.433, 5.420, 5.267, 5.186]
 {% </mermaid> %}

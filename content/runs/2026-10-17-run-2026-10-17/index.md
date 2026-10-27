@@ -49,10 +49,11 @@ The post-run pizza craving kicked in on the way home.
 config:
   xyChart:
     showDataLabel: true
+    height: 435
 ---
-xychart
+xychart horizontal
     title "Pace per Interval (min/km)"
-    x-axis ["Lap 1 · 1.00 km", "Lap 2 · 0.83 km", "Lap 3 · 1.00 km", "Lap 4 · 1.00 km", "Lap 5 · 0.71 km", "Lap 6 · 0.39 km", "Lap 7 · 1.00 km"]
+    x-axis ["1 · 1.00 km", "2 · 0.83 km", "3 · 1.00 km", "4 · 1.00 km", "5 · 0.71 km", "6 · 0.39 km", "7 · 1.00 km"]
     y-axis "min/km" 0 --> 6
     bar [5.423, 5.488, 5.490, 5.511, 5.620, 3.227, 5.492]
 {% </mermaid> %}
