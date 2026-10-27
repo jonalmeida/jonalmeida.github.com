@@ -21,6 +21,7 @@ LOG="$HOME/Library/Logs/garmin-import.log"
 LOCK="/tmp/garmin-import.lock"
 NEEDS_LOGIN="$REPO/scripts/garmin/.needs_login"
 REPORT="$REPO/scripts/garmin/.last_import.json"
+IGNORE="scripts/garmin/garmin_ignore.txt"
 BUILD_DIR="/tmp/garmin-import-build"
 MAX_COMMITS=10
 
@@ -103,6 +104,22 @@ for _ in $(seq 1 "$MAX_COMMITS"); do
   retract=$(jq -r '.retract_candidates | length' "$REPORT")
   [ "$retract" = "0" ] \
     || notify "$retract published run(s) now fail the filter - review them"
+
+  # A filtered run is appended to the ignore list even when nothing is
+  # imported. Left uncommitted, that change trips the clean working copy check
+  # on every later run, and cron stops importing. Give it its own commit, so a
+  # run commit never carries it either.
+  if [ -n "$(jj diff -r @ --name-only "$IGNORE")" ]; then
+    if [ "$DRY_RUN" = "1" ]; then
+      log "dry run: would commit 'Ignore filtered run(s).' - leaving the change in @"
+    else
+      jj commit "$IGNORE" -m "Ignore filtered run(s)." \
+        || die 6 "jj commit of $IGNORE failed"
+      jj bookmark set main -r @- || die 6 "jj bookmark set main failed"
+      commits=$((commits + 1))
+      log "committed Ignore filtered run(s)."
+    fi
+  fi
 
   new=$(jq -r '.imported_count' "$REPORT")
   if [ "$new" = "0" ]; then log "nothing new"; break; fi

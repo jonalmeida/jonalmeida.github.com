@@ -342,7 +342,9 @@ sleep — see below.
    Garmin API calls.
 4. Imports one activity at a time (`--max-new 1`) so each gets its own
    `Run: YYYY-MM-DD.` commit, dated by the *activity*, and moves the `main`
-   bookmark to it. Up to 10 per run.
+   bookmark to it. Up to 10 per run. A run the filter skipped changes
+   `garmin_ignore.txt`; that change gets its own `Ignore filtered run(s).`
+   commit, so the working copy is clean for the next run.
 5. Runs `zola build` into `/tmp` and only pushes if the site builds. A failure
    leaves the commits local for you to look at.
 
