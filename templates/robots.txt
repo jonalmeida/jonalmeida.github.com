@@ -1,3 +1,8 @@
+# Block AI agents using draft standard
+# See: https://datatracker.ietf.org/doc/draft-kelley-aipref-training-preference-signal/
+User-Agent: __usage_ai-training
+Disallow: /
+
 # Block OpenAI's GPTBot
 User-agent: GPTBot
 Disallow: /
