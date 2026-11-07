@@ -25,6 +25,8 @@ Below is a list of tests that I've used in the past (in no particular order):
   - When you have to verify that [`localStorage`](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage) is truly gone. This is especially helpful for Firefox Focus where private browsing is the primary feature.
 - [`<input>`: The HTML Input element - MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input)
   - There are Too Many™ different prompt and input element types. The MDN docs have the best collection of all of them.
+- [Bottom toolbar test cases: GeckoView and Fenix](bottom-toolbar.html)
+  - Test cases for web content that interacts with a bottom toolbar, such as viewport units, fixed and sticky elements, pull to refresh, the keyboard, zoom, and fullscreen.
 
 ### Browsing privacy and Tracking Protection
 - [badssl.com](https://badssl.com)
