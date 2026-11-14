@@ -1,0 +1,2694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Bottom toolbar test cases: GeckoView and Fenix</title>
+<style>
+:root {
+  color-scheme: light dark;
+  --bg: #ffffff;
+  --fg: #15141a;
+  --muted: #5b5b66;
+  --card: #f0f0f4;
+  --line: #cfcfd8;
+  --accent: #0061e0;
+  --pass: #017a40;
+  --fail: #c50042;
+  --skip: #6f6f7d;
+  --stripe: rgba(0, 97, 224, 0.07);
+  --panel: #ffffff;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #1c1b22;
+    --fg: #fbfbfe;
+    --muted: #bfbfc9;
+    --card: #2b2a33;
+    --line: #52525e;
+    --accent: #00ddff;
+    --pass: #54ffbd;
+    --fail: #ff848b;
+    --skip: #bfbfc9;
+    --stripe: rgba(0, 221, 255, 0.08);
+    --panel: #1c1b22;
+  }
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body {
+  margin: 0;
+  font: 15px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+}
+code {
+  font: 0.9em ui-monospace, "Roboto Mono", monospace;
+  background: var(--card);
+  padding: 0 3px;
+  border-radius: 3px;
+  overflow-wrap: anywhere;
+}
+a { color: var(--accent); }
+button, .btn, select, input[type="search"], input[type="text"] {
+  font: inherit;
+  font-size: 14px;
+  min-height: 34px;
+  padding: 5px 10px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--card);
+  color: var(--fg);
+}
+button, .btn { cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; }
+button.pass, .status.pass { color: var(--pass); border-color: var(--pass); }
+button.fail, .status.fail { color: var(--fail); border-color: var(--fail); }
+button.skip, .status.skip { color: var(--skip); border-color: var(--skip); }
+button[aria-pressed="true"] { outline: 2px solid currentColor; font-weight: 700; }
+
+/* Index */
+.index { max-width: 900px; margin: 0 auto; padding: 12px 14px 160px; }
+.index h1 { font-size: 1.5em; margin: 8px 90px 4px 0; }
+.index h2 { font-size: 1.2em; margin: 28px 0 4px; border-bottom: 2px solid var(--line); padding-bottom: 4px; }
+.index .lead { color: var(--muted); margin-top: 0; }
+.index details.howto { background: var(--card); border-radius: 8px; padding: 8px 12px; margin: 10px 0; }
+.index details.howto summary { font-weight: 600; cursor: pointer; }
+.filters { position: sticky; top: 0; z-index: 5; background: var(--bg); display: flex; flex-wrap: wrap; gap: 6px; padding: 8px 0; border-bottom: 1px solid var(--line); }
+.filters input[type="search"] { flex: 1 1 160px; }
+.progress { font-size: 13px; color: var(--muted); margin: 6px 0; }
+.card { border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; margin: 8px 0; }
+.card-head { display: flex; flex-wrap: wrap; gap: 4px 8px; align-items: baseline; }
+.card-head .cid { font: 600 13px ui-monospace, monospace; color: var(--muted); }
+.card-head a.title { font-weight: 600; flex: 1 1 60%; }
+.badge, .status { font-size: 11px; padding: 1px 6px; border-radius: 10px; border: 1px solid var(--line); white-space: nowrap; }
+.badge.gv { border-color: #9059ff; color: #9059ff; }
+.badge.fenix { border-color: #e66000; color: #e66000; }
+.badge.manual { border-style: dashed; }
+.card details summary { cursor: pointer; font-size: 13px; color: var(--muted); margin-top: 4px; }
+.card h4, #bt-details h4 { margin: 10px 0 2px; font-size: 13px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); }
+.card ul, .card ol, #bt-details ul, #bt-details ol { margin: 2px 0; padding-left: 22px; }
+.src { font-size: 12px; }
+.src li { overflow-wrap: anywhere; }
+
+/* Panel and HUD */
+#bt-panel {
+  position: fixed;
+  top: env(safe-area-inset-top, 0px);
+  left: 0;
+  right: 0;
+  z-index: 2147483000;
+  background: var(--panel);
+  border-bottom: 1px solid var(--line);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  max-height: 75svh;
+  overflow: auto;
+  overscroll-behavior: contain;
+  font-size: 14px;
+  -moz-text-size-adjust: none;
+  text-size-adjust: none;
+}
+#bt-panel .bar { display: flex; gap: 6px; align-items: center; padding: 6px 8px; }
+#bt-panel .bar .cid { font-weight: 600; flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+#bt-details { padding: 0 10px 10px; }
+#bt-details h2 { font-size: 16px; margin: 4px 0; }
+#bt-details .result { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+#bt-details .result input { flex: 1 1 100%; }
+#bt-hud { font: 11.5px/1.35 ui-monospace, "Roboto Mono", monospace; padding: 4px 10px 8px; margin: 0; white-space: pre-wrap; border-top: 1px dashed var(--line); }
+#bt-chip {
+  position: fixed;
+  top: calc(env(safe-area-inset-top, 0px) + 6px);
+  right: 6px;
+  z-index: 2147483000;
+  opacity: 0.93;
+  -moz-text-size-adjust: none;
+  text-size-adjust: none;
+}
+#bt-probes > div { position: fixed; top: 0; left: 0; width: 1px; visibility: hidden; pointer-events: none; }
+#bt-export { position: fixed; inset: 10% 5%; z-index: 2147483001; background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 10px; display: flex; flex-direction: column; gap: 8px; }
+#bt-export textarea { flex: 1; font: 12px ui-monospace, monospace; }
+
+/* Fixture building blocks */
+.rows > div { height: 100px; padding: 8px 12px; border-bottom: 1px solid var(--line); font: 13px ui-monospace, monospace; color: var(--muted); }
+.rows > div:nth-child(even) { background: var(--stripe); }
+.fbar { position: fixed; left: 0; right: 0; bottom: 0; height: 56px; z-index: 10; display: flex; gap: 2px; background: #a33b00; }
+.fbar > * { flex: 1; border: 0; border-radius: 0; background: #ff7139; color: #15141a; font-weight: 600; min-height: 0; }
+.fbar.top { top: 0; bottom: auto; }
+.edge { position: fixed; left: 0; right: 0; bottom: 0; height: 3px; background: #ff0039; z-index: 9; pointer-events: none; }
+.note { margin: 12px; padding: 10px 12px; border-left: 4px solid var(--accent); background: var(--card); border-radius: 4px; }
+.ctl { margin: 12px; display: flex; flex-wrap: wrap; gap: 8px; }
+.spacer-top { height: 60px; }
+.hero { display: flex; flex-direction: column; justify-content: space-between; align-items: stretch; color: #fff; font-weight: 600; }
+.hero > div { padding: 10px; background: rgba(0, 0, 0, 0.35); }
+.big-input { display: block; width: calc(100% - 24px); margin: 12px; min-height: 44px; font-size: 16px; }
+.scroller { margin: 12px; height: 300px; overflow: auto; border: 2px solid var(--accent); }
+.hscroller { margin: 12px; overflow-x: auto; white-space: nowrap; border: 2px solid var(--accent); }
+.hscroller > div { display: inline-block; width: 70vw; height: 160px; margin: 6px; background: var(--stripe); border: 1px solid var(--line); }
+.float { position: fixed; right: 8px; top: 38%; z-index: 20; display: flex; flex-direction: column; gap: 6px; max-width: 46vw; }
+.float > button { box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3); }
+.ubar { position: fixed; top: 0; width: 16px; z-index: 5; pointer-events: none; writing-mode: vertical-rl; font: 10px/16px ui-monospace, monospace; color: #fff; text-align: end; padding-bottom: 4px; opacity: 0.85; }
+.variants { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin: 6px 0; }
+.variants a[aria-current] { font-weight: 700; outline: 2px solid var(--accent); }
+#bt-hudwrap .hudbar { padding: 0 10px; }
+.pad { margin: 12px; height: 260px; border: 2px dashed var(--fail); display: flex; align-items: center; justify-content: center; text-align: center; padding: 10px; }
+</style>
+<script>
+"use strict";
+
+const DEFAULT_VIEWPORT = "width=device-width, initial-scale=1";
+const SRC_ALIASES = {
+  "GV/": "mobile/android/geckoview/src/androidTest/java/org/mozilla/geckoview/test/",
+  "ACW/": "mobile/android/android-components/components/ui/widgets/src/test/java/mozilla/components/ui/widgets/",
+  "AC/": "mobile/android/android-components/components/",
+  "FUT/": "mobile/android/fenix/app/src/test/java/org/mozilla/fenix/",
+  "FUI/": "mobile/android/fenix/app/src/androidTest/java/org/mozilla/fenix/ui/",
+  "APZ/": "gfx/layers/apz/test/mochitest/",
+  "RT/": "layout/reftests/async-scrolling/",
+};
+
+/* Fixture helpers. Each returns an HTML string. */
+function rows(n = 60, label = "Row") {
+  let s = '<div class="rows">';
+  for (let i = 1; i <= n; i++) {
+    s += `<div>${label} ${i}</div>`;
+  }
+  return s + "</div>";
+}
+function fixedBar(label = "Fixed bar (bottom: 0)", cls = "") {
+  return `<div class="fbar ${cls}" data-measure="${label}">` +
+    `<button onclick="BT.tap(event, 'A')">A</button>` +
+    `<button onclick="BT.tap(event, 'B')">B</button>` +
+    `<button onclick="BT.tap(event, 'C')">C</button></div>`;
+}
+function note(html) {
+  return `<div class="note">${html}</div>`;
+}
+function controls(buttons) {
+  return `<div class="ctl">${buttons.map(([label, js]) => `<button onclick="${js}">${label}</button>`).join("")}</div>`;
+}
+
+function float(buttons) {
+  return `<div class="float">${buttons.map(([label, js]) => `<button onclick="${js}">${label}</button>`).join("")}</div>`;
+}
+function unitBars() {
+  const bars = [["100svh", "#0061e0"], ["100dvh", "#017a40"], ["100lvh", "#c50042"], ["100vh", "#7542e5"], ["100%", "#a33b00"]];
+  return bars.map(([h, color], i) =>
+    `<div class="ubar" style="right:${4 + i * 18}px;height:${h};background:${color}">${h}</div>`).join("");
+}
+
+function kbFixture() {
+  return `<div class="spacer-top"></div><input class="big-input" id="kb-top" placeholder="Text field at the top">` +
+    rows(15) + `<input class="big-input" id="kb-mid" placeholder="Text field in the middle">` + rows(15) +
+    `<input class="big-input" id="kb-end" placeholder="Text field at the end of the page"><div style="height:70px"></div>` +
+    '<div class="edge"></div>' + fixedBar();
+}
+function pads(list) {
+  return list.map(([id, label]) => `<div class="pad" id="${id}">${label}</div>`).join("");
+}
+function frame(height, inner) {
+  return `<iframe style="height:${height}" srcdoc="<!DOCTYPE html><html style='height:100%'><body style='margin:0;height:100%'>` +
+    `<div style='box-sizing:border-box;height:${inner};padding:70px 12px;background:linear-gradient(#0061e0,#00b3f4);color:#fff;font:16px sans-serif'>` +
+    `iframe content, height ${inner}</div></body></html>"></iframe>`;
+}
+function form(v, fields, submit) {
+  return `<form method="get" class="ctl" style="flex-direction:column;align-items:stretch;padding-bottom:80px">` +
+    `<input type="hidden" name="case" value="UI-05"><input type="hidden" name="v" value="${v}">` +
+    fields.map(([name, ac, ph, type]) =>
+      `<input class="big-input" style="margin:0;width:100%" name="${name}" autocomplete="${ac}" placeholder="${ph}" type="${type || "text"}">`).join("") +
+    `<button>${submit}</button></form>`;
+}
+function articleText() {
+  const p = [
+    "A browser on a phone has little space. The address bar, the navigation buttons and the page share one small screen. When the address bar is at the bottom of the screen, it is near your thumb, and you can reach it with one hand.",
+    "The toolbar hides when you scroll down. Then the page gets more space. When you scroll up, the toolbar comes back. The engine must tell the page about each change, so that fixed elements and viewport units stay correct.",
+    "Web pages put many elements at the bottom edge. Chat apps put a text field there. Shops put a buy button there. Cookie banners and consent dialogs also sit at the bottom. All of them must stay visible and must not jump.",
+    "The software keyboard also opens at the bottom edge. When the keyboard opens, the page can resize, or the keyboard can cover the page. The interactive-widget key in the meta viewport tells the engine which behavior the page wants.",
+    "Pull to refresh is another gesture at the top of the page. It must start only when the page is at its top, and only when the page does not use the touch for its own purpose, for example a map or a drawing app.",
+    "Fullscreen video removes all browser bars. When you exit fullscreen, the bars must come back fully, and the page must get its old size again. The same is true after you rotate the device, or after you switch tabs.",
+    "Each of these behaviors has automated tests in GeckoView, in Gecko, in Android Components or in Fenix. This article exists so that the reader view and the Listen to page feature have content to show.",
+    "Read this text in reader view. Scroll down and up. The toolbar must hide and show as on a normal page, and the reader view controls must not be under the toolbar.",
+  ];
+  return `<article style="margin:70px 14px 80px;max-width:40em"><h1>How the bottom toolbar shares the screen</h1>` +
+    `<p class="byline">By the Firefox for Android team</p>${p.map(t => `<p>${t}</p>`).join("")}</article>`;
+}
+function frenchText() {
+  const p = [
+    "La barre d'outils du navigateur se trouve en bas de l'écran. Quand vous faites défiler la page vers le bas, la barre d'outils disparaît. Quand vous faites défiler la page vers le haut, elle revient.",
+    "Les sites web placent souvent des éléments fixes en bas de la page, par exemple un bouton d'achat, une bannière de cookies ou un champ de texte pour discuter. Ces éléments doivent rester visibles au-dessus de la barre d'outils.",
+    "Le clavier virtuel s'ouvre aussi en bas de l'écran. La page peut changer de taille, ou le clavier peut couvrir une partie de la page. La clé interactive-widget de la balise meta viewport choisit ce comportement.",
+    "Cette page sert à tester la bannière de traduction. La bannière doit rester au-dessus de la barre d'outils et doit se déplacer avec elle quand vous faites défiler la page.",
+  ];
+  return `<div style="margin:70px 14px 0">${p.concat(p).map(t => `<p>${t}</p>`).join("")}</div>`;
+}
+
+const P = {
+  dyn: "GV/DynamicToolbarTest.kt",
+  iw: "GV/InteractiveWidgetTest.kt",
+  ird: "GV/InputResultDetailTest.kt",
+  pzc: "GV/PanZoomControllerTest.kt",
+  gestures: "ACW/behavior/EngineViewScrollingGesturesBehaviorTest.kt",
+  scrollData: "ACW/behavior/EngineViewScrollingDataBehaviorTest.kt",
+  clipping: "ACW/behavior/EngineViewClippingBehaviorTest.kt",
+  strategy: "ACW/behavior/ViewYTranslationStrategyTest.kt",
+  detector: "ACW/behavior/BrowserGestureDetectorTest.kt",
+  swipeLayout: "ACW/VerticalSwipeRefreshLayoutTest.kt",
+  tbController: "AC/feature/toolbar/src/test/java/mozilla/components/feature/toolbar/ToolbarBehaviorControllerTest.kt",
+  swipeRefresh: "AC/feature/session/src/test/java/mozilla/components/feature/session/SwipeRefreshFeatureTest.kt",
+  fullScreen: "AC/feature/session/src/test/java/mozilla/components/feature/session/FullScreenFeatureTest.kt",
+  nested: "AC/browser/engine-gecko/src/test/java/mozilla/components/browser/engine/gecko/NestedGeckoViewTest.kt",
+  vScroll: "AC/browser/engine-gecko/src/test/java/mozilla/components/browser/engine/gecko/GeckoVerticalScrollListenerTest.kt",
+  engineView: "AC/browser/engine-gecko/src/test/java/mozilla/components/browser/engine/gecko/GeckoEngineViewTest.kt",
+  mediaFs: "AC/feature/media/src/test/java/mozilla/components/feature/media/fullscreen/MediaSessionFullscreenFeatureTest.kt",
+  saveLogin: "AC/feature/prompts/src/test/java/mozilla/components/feature/prompts/dialog/SaveLoginDialogFragmentTest.kt",
+  prompts: "AC/feature/prompts/src/test/java/mozilla/components/feature/prompts/PromptFeatureTest.kt",
+  perms: "AC/feature/sitepermissions/src/test/java/mozilla/components/feature/sitepermissions/SitePermissionsDialogFragmentTest.kt",
+  bbft: "FUT/browser/BaseBrowserFragmentTest.kt",
+  bft: "FUT/browser/BrowserFragmentTest.kt",
+  tit: "FUT/components/toolbar/ToolbarsIntegrationTest.kt",
+  heights: "FUT/ext/BaseBrowserFragmentTest.kt",
+  settings: "FUT/utils/SettingsTest.kt",
+};
+
+const SECTIONS = [
+  { id: "vp", title: "Viewport sizes and events", intro: "These cases measure what the page sees when the toolbar is fully shown, partly hidden and fully hidden. Read the values in the HUD." },
+  { id: "fx", title: "Fixed and sticky content", intro: "Elements that are fixed or stuck to the bottom edge must move with the toolbar. They must not leave a gap, overlap the toolbar, or move away from your tap." },
+  { id: "sc", title: "When the toolbar hides and shows", intro: "The toolbar moves only when the engine reports that the root page used a vertical scroll. These cases find the limits of that rule." },
+  { id: "th", title: "Touch handling", intro: "Touch listeners and `touch-action` can take a gesture away from the browser. Then the toolbar must not move." },
+  { id: "pr", title: "Pull to refresh and overscroll", intro: "Pull to refresh starts only when the page is at its top, the page does not use the touch, and overscroll on the vertical axis is allowed." },
+  { id: "kb", title: "Keyboard and interactive-widget", intro: "The software keyboard opens at the same edge as the toolbar. The `interactive-widget` key of the meta viewport tells the engine how to resize." },
+  { id: "zm", title: "Zoom and wide pages", intro: "Pinch zoom, double-tap zoom and pages that are wider than the screen change the scale. The toolbar rules must stay correct at all scales." },
+  { id: "fs", title: "Fullscreen, safe area and rotation", intro: "Fullscreen removes the toolbar. Safe-area insets and rotation change the edges of the page." },
+  { id: "ui", title: "Fenix UI at the bottom edge", intro: "Fenix puts bars, sheets and prompts at the bottom edge. They must not be under the toolbar or the keyboard, and they must not cover the content that they are for." },
+  { id: "st", title: "Fenix settings and toolbar states", intro: "Settings, accessibility services, layouts and app states that change the toolbar height, or stop the toolbar from moving." },
+];
+
+const CASES = [
+  /* Viewport sizes and events */
+  {
+    id: "VP-01", section: "vp", platforms: ["GV", "Fenix"],
+    title: "Viewport units in each toolbar state",
+    html: () => unitBars() + note("The bars on the right edge use the heights <code>100svh</code>, <code>100dvh</code>, <code>100lvh</code>, <code>100vh</code> and fixed <code>100%</code>. The HUD shows the same values in CSS px.") + rows(40),
+    init() {
+      BT.metric("media query height = client height", () => matchMedia(`(height: ${document.documentElement.clientHeight}px)`).matches);
+    },
+    steps: [
+      "Load the page. Do not scroll. Read `svh`, `dvh`, `lvh`, `vh` and `fixed100%` in the HUD.",
+      "Scroll down slowly. Stop when the toolbar is approximately half hidden. Keep your finger on the screen and read the values.",
+      "Scroll down until the toolbar is fully hidden. Read the values.",
+    ],
+    expected: [
+      "Toolbar fully shown: `svh` = `dvh` = `fixed100%` = `client` height. `lvh` = `vh` = `svh` + the toolbar height. The media query line is `true`.",
+      "Toolbar partly hidden: `svh`, `lvh`, `vh` and `fixed100%` do not change. `dvh` is between `svh` and `lvh`.",
+      "Toolbar fully hidden: `dvh` = `lvh` and `fixed100%` = `lvh`. The green and brown bars touch the bottom edge of the screen.",
+    ],
+    sources: [
+      `${P.dyn} :: viewportVariants, percentBaseValueOnPositionFixedElement`,
+      "layout/base/tests/test_dynamic_toolbar_max_height.html",
+      "testing/web-platform/tests/css/css-values/viewport-units-compute.html",
+      `${P.engineView} :: setDynamicToolbarMaxHeight is forwarded to GeckoView instance`,
+    ],
+  },
+  {
+    id: "VP-02", section: "vp", platforms: ["GV", "Fenix"],
+    title: "Resize events, innerHeight and visualViewport while the toolbar moves",
+    html: () => note("Tap <b>Reset counters</b> in the HUD before each step. The event log shows the <code>inner</code> and <code>vv</code> sizes at each event.") + rows(60),
+    steps: [
+      "Tap `Reset counters`.",
+      "Scroll down very slowly. Keep your finger on the screen until the toolbar is fully hidden.",
+      "Read the counters and the event log.",
+      "Tap `Reset counters`. Scroll up very slowly until the toolbar is fully shown.",
+    ],
+    expected: [
+      "While the toolbar moves, `vv.resize` fires many times. The `vv` height changes with each pixel of toolbar movement.",
+      "While the toolbar moves, no window `resize` event fires, and the `inner` height does not change.",
+      "When the toolbar becomes fully hidden, one window `resize` event fires. The `inner` height increases by the toolbar height.",
+      "When the toolbar starts to show again, one window `resize` event fires. The `inner` height goes back to its first value.",
+    ],
+    sources: [
+      `${P.dyn} :: visualViewportEvents, resizeEvents, windowInnerHeight`,
+      "testing/web-platform/tests/visual-viewport/viewport-url-bar-changes-height-manual.html",
+      "dom/base/test/test_domwindowutils.html :: test_setDynamicToolbarMaxHeight",
+    ],
+  },
+  {
+    id: "VP-03", section: "vp", platforms: ["GV"],
+    title: "Fast direction changes at the end of the toolbar movement",
+    html: () => rows(60),
+    steps: [
+      "Scroll down until the toolbar is almost fully hidden. Do not lift your finger.",
+      "Move your finger quickly up and down by a small distance, five times.",
+      "Lift your finger. Wait 1 second.",
+    ],
+    expected: [
+      "The browser does not crash or freeze.",
+      "The toolbar stops fully shown or fully hidden. The HUD values agree with that state, as in VP-01 and VP-02.",
+    ],
+    sources: [`${P.dyn} :: notCrashOnResizeEvent`],
+  },
+  {
+    id: "VP-04", section: "vp", platforms: ["GV"],
+    title: "IntersectionObserver near the toolbar edge",
+    css: "body { margin: 0; } #io-wrap { position: relative; height: 2000px; } #io-target { position: absolute; left: 0; width: 100%; height: 10px; top: calc(100lvh + 1px); background: red; }",
+    html: () => `<div id="io-wrap">${note("The red line starts 1 px below the bottom edge of the screen (<code>100lvh + 1px</code>). It turns green when the IntersectionObserver reports that it is visible.")}<div id="io-target"></div></div>`,
+    variants: [
+      { label: "Scale 1", note: "Default viewport." },
+      {
+        label: "Desktop scale 0.5", viewport: "width=device-width, minimum-scale=0.5",
+        css: "body { width: 200%; } #io-target { top: calc(200lvh + 1px); }",
+        note: "The page is zoomed out to 0.5.",
+      },
+    ],
+    init() {
+      const t = document.getElementById("io-target");
+      new IntersectionObserver(entries => {
+        for (const e of entries) {
+          t.style.background = e.isIntersecting ? "green" : "red";
+          BT.log(`IO ${e.isIntersecting ? "visible" : "not visible"}`);
+        }
+      }).observe(t);
+      BT.metric("red line top", () => num(t.getBoundingClientRect().top));
+    },
+    steps: [
+      "Scroll down very slowly. Keep your finger on the screen. Look at the line as it comes up from the bottom edge.",
+      "Stop when the toolbar is fully hidden.",
+      "Scroll down 10 px more.",
+    ],
+    expected: [
+      "While the toolbar is partly hidden, the line can show in the strip that the toolbar uncovers, but it stays red. The root of the observer is the layout viewport.",
+      "When the toolbar is fully hidden and the line is on the screen, the line is green.",
+    ],
+    sources: [`${P.dyn} :: withIntersectionObserver1, withIntersectionObserver2, withIntersectionObserverWithDesktopMode1, withIntersectionObserverWithDesktopMode2`],
+  },
+
+  /* Fixed and sticky content */
+  {
+    id: "FX-01", section: "fx", platforms: ["GV", "Fenix"],
+    title: "Fixed bar at bottom: 0 follows the toolbar, and taps hit the correct button",
+    html: () => note("The orange bar is <code>position: fixed; bottom: 0</code>. A red line at <code>bottom: 0</code> is under it. If the bar moves away from the bottom edge, the red line shows.") + rows(60) + '<div class="edge"></div>' + fixedBar(),
+    steps: [
+      "Scroll down slowly. Look at the orange bar while the toolbar moves.",
+      "Lift your finger when the toolbar is fully hidden. Tap `A` immediately.",
+      "Tap `B` and `C` near their top edges.",
+      "Scroll up until the toolbar is fully shown. Tap `A`, `B` and `C`.",
+    ],
+    expected: [
+      "While the toolbar moves, the bar stays directly above the toolbar. There is no gap and no overlap. The red line does not show.",
+      "When the toolbar is fully hidden, the bar touches the bottom edge of the screen. There is no 1 px or 2 px gap under it.",
+      "Each tap increases the counter on the button that you tapped. The log shows `tap A`, `tap B` or `tap C`.",
+      "`innerH-bottom` for the bar is 0 in each state.",
+    ],
+    sources: [
+      "RT/dynamic-toolbar-fixed-bottom-1.html",
+      "GV/VerticalClippingTest.kt :: verticalClippingSucceeds",
+      `${P.clipping} :: GIVEN the toolbar is at the bottom WHEN toolbar is being shifted THEN EngineView adjusts bottom clipping && EngineViewParent position doesn't change, GIVEN a top toolbar almost fully hidden THEN configure the engine view with a fully hidden toolbar`,
+      `${P.strategy} :: BottomToolbarBehaviorStrategy - translate`,
+      "bug 2005988",
+    ],
+  },
+  {
+    id: "FX-02", section: "fx", platforms: ["GV"],
+    title: "A fixed element with top and bottom set does not follow the toolbar",
+    html: () => note("Purple: <code>top: 140px; bottom: 0; height: 150px</code>. The engine ignores <code>bottom</code>. Orange: <code>bottom: 0; height: 150px</code>.") + rows(60) +
+      `<div data-measure="purple (top + bottom)" style="position:fixed;top:140px;bottom:0;height:150px;left:0;width:48%;background:#7542e5;color:#fff;padding:6px">top + bottom</div>` +
+      `<div data-measure="orange (bottom)" style="position:fixed;bottom:0;height:150px;right:0;width:48%;background:#ff7139;padding:6px">bottom only</div>`,
+    steps: [
+      "Scroll down slowly until the toolbar is fully hidden.",
+      "Scroll up slowly until the toolbar is fully shown.",
+    ],
+    expected: [
+      "The purple box does not move while the toolbar moves.",
+      "The orange box stays directly above the toolbar. It touches the bottom edge of the screen when the toolbar is fully hidden.",
+    ],
+    sources: ["RT/dynamic-toolbar-fixed-top-and-bottom-1.html", "RT/dynamic-toolbar-fixed-top-1.html"],
+  },
+  {
+    id: "FX-03", section: "fx", platforms: ["GV"],
+    title: "A fixed element inside a fixed element moves only once",
+    html: () => note("Blue: <code>position: fixed; bottom: 0</code>. Orange: the same, inside the blue box.") + rows(60) +
+      `<div data-measure="outer" style="position:fixed;bottom:0;left:0;right:0;height:200px;background:#0061e0;color:#fff;padding:6px">outer, bottom: 0` +
+      `<div data-measure="inner" style="position:fixed;bottom:0;left:20%;right:20%;height:100px;background:#ff7139;color:#000;padding:6px">inner, bottom: 0</div></div>`,
+    steps: ["Scroll down slowly until the toolbar is fully hidden.", "Scroll up slowly until the toolbar is fully shown."],
+    expected: [
+      "The bottom edges of the blue box and the orange box stay together, directly above the toolbar.",
+      "The orange box does not move two times as far as the blue box. No gap shows under the orange box.",
+    ],
+    sources: ["RT/dynamic-toolbar-nested-fixed-bottom.html", "bug 1894136"],
+  },
+  {
+    id: "FX-04", section: "fx", platforms: ["GV", "Fenix"],
+    title: "Full-height overlays: inset: 0, 100vh, 100svh and 100dvh",
+    css: "#ov { position: fixed; left: 0; right: 0; top: 0; z-index: 30; background: rgba(0, 0, 0, 0.55); color: #fff; display: flex; flex-direction: column; justify-content: space-between; padding: 60px 12px 0; pointer-events: none; } #ov button { pointer-events: auto; min-height: 48px; background: #ffd567; color: #000; border: 0; border-radius: 0; margin: 0 -12px; font-weight: 600; }",
+    html: () => rows(60) + `<div id="ov" data-measure="overlay"><span>Overlay</span><button onclick="BT.tap(event, 'bottom button')">Bottom button</button></div>`,
+    variants: [
+      { label: "inset: 0", css: "#ov { bottom: 0; }", note: "Toolbar fully shown: the button is directly above the toolbar. Fully hidden: the overlay fills the screen and the button touches the bottom edge. During the movement, a strip of page content can show below the overlay, because the engine does not move elements that have both top and bottom set." },
+      { label: "100vh", css: "#ov { height: 100vh; }", note: "Toolbar fully shown: the toolbar covers the button, because 100vh is the large viewport. Fully hidden: the button touches the bottom edge." },
+      { label: "100svh", css: "#ov { height: 100svh; }", note: "Toolbar fully shown: the button is directly above the toolbar. Fully hidden: a strip of page content, as high as the toolbar, shows below the overlay." },
+      { label: "100dvh", css: "#ov { height: 100dvh; }", note: "The button stays directly above the toolbar while it moves. It touches the bottom edge when the toolbar is fully hidden." },
+    ],
+    steps: [
+      "Look at the yellow button while the toolbar is fully shown.",
+      "Scroll down slowly until the toolbar is fully hidden. Look at the bottom edge.",
+      "Tap the yellow button.",
+      "Do these steps for each variant.",
+    ],
+    expected: [
+      "Each variant agrees with its note.",
+      "When the button is visible, a tap on it adds `tap bottom button` to the log.",
+    ],
+    sources: ["RT/dynamic-toolbar-fixed-top-and-bottom-1.html", `${P.dyn} :: viewportVariants`],
+  },
+  {
+    id: "FX-05", section: "fx", platforms: ["GV"],
+    title: "A fixed 200vh element covers the screen after the toolbar hides",
+    viewport: "width=device-width, minimum-scale=0.5",
+    css: "html { width: 100%; height: 100%; scrollbar-width: none; } body { width: 200%; height: 2000px; margin: 0; } #fixed-element { width: 100%; height: 200vh; position: fixed; top: 0; background: green; }",
+    html: () => '<div id="fixed-element"></div>' + float([["Smooth scroll to top", "BT.scrollToY(0, true)"]]),
+    steps: [
+      "Scroll down until the toolbar is fully hidden. Lift your finger. Wait 1 second.",
+      "Tap `Smooth scroll to top`.",
+      "Do the steps again with fast and slow scrolls.",
+    ],
+    expected: ["The full screen is green at all times, also the strip where the toolbar was. No white, black or checkerboard strip shows."],
+    sources: [`${P.dyn} :: positionFixedElementClipping, layoutViewportExpansion`],
+  },
+  {
+    id: "FX-06", section: "fx", platforms: ["GV"],
+    title: "No line of the body background shows between the body and an element that covers it",
+    css: "html { scrollbar-width: none; } body { background: red; margin: 0; } .tall { height: 600vh; background: green; }",
+    html: () => '<div class="tall"></div>',
+    steps: [
+      "Drag up and down by small distances. Stop at different points while the toolbar moves.",
+      "Fling up and down.",
+    ],
+    expected: ["No red line shows at any time, also not at the edge of the toolbar."],
+    sources: [`${P.dyn} :: noGapAppearsBetweenBodyAndElementFullyCoveringBody`, "bug 1764219"],
+  },
+  {
+    id: "FX-07", section: "fx", platforms: ["GV"],
+    title: "A fixed root background fills the area that the toolbar uncovers",
+    html: () => note("The whole screen must stay green."),
+    variants: [
+      { label: "Fixed gradient", css: "html { background: linear-gradient(green, green) fixed; height: 100vh; scrollbar-width: none; } body { margin: 0; }", note: "`background-attachment: fixed` with an image." },
+      { label: "Fixed color", css: "html { background: rgb(0, 128, 0) fixed; height: 100vh; scrollbar-width: none; } body { margin: 0; }", note: "`background-attachment: fixed` with a color." },
+    ],
+    steps: ["Scroll down until the toolbar is fully hidden.", "Scroll up until the toolbar is fully shown."],
+    expected: ["The screen is green from top to bottom, also in the strip where the toolbar was."],
+    sources: [`${P.dyn} :: backgroundImageFixed, backgroundAttachmentFixed`],
+  },
+  {
+    id: "FX-08", section: "fx", platforms: ["GV"],
+    title: "Taps on a sticky bottom button hit the correct element",
+    css: "body { margin: 0; } .st-btn { display: block; width: 100%; height: calc(100lvh - 100svh); min-height: 40px; border: 0; border-radius: 0; font-weight: 600; } #sticky { position: sticky; bottom: 0; background: yellow; color: #000; } #not-sticky { background: #7542e5; color: #fff; }",
+    html: () => `<div style="height:200vh">${note("The yellow button is <code>position: sticky; bottom: 0</code>. Its height is the toolbar height (<code>100lvh - 100svh</code>).")}</div>` +
+      `<button class="st-btn" id="not-sticky" onclick="BT.tap(event, 'not sticky')">Not sticky</button>` +
+      `<button class="st-btn" id="sticky" data-measure="sticky" onclick="BT.tap(event, 'sticky')">Sticky (bottom: 0)</button><div style="height:200vh"></div>`,
+    steps: [
+      "Scroll down slowly until the toolbar is fully hidden. The yellow button sticks to the bottom.",
+      "Tap the lower half of the yellow button.",
+      "Scroll until the purple button is directly above the yellow button. Tap the purple button.",
+    ],
+    expected: [
+      "The yellow button stays at the bottom of the visible area. It is directly above the toolbar when the toolbar is shown, and at the bottom edge when the toolbar is hidden.",
+      "Each tap goes to the button that you tapped. The log shows `tap sticky` or `tap not sticky`.",
+    ],
+    sources: [`${P.dyn} :: hitTestOnPositionSticky, hitTestOnPositionStickyOnMainThread`, "RT/dynamic-toolbar-sticky-bottom-1.html", "bug 2076041"],
+  },
+  {
+    id: "FX-09", section: "fx", platforms: ["GV"],
+    title: "Sticky elements move with the toolbar only while they stick to the bottom",
+    css: ".cols { display: flex; gap: 4px; margin: 0 4px; } .col { flex: 1; } .col .s { position: sticky; height: 50px; padding: 4px; font: 12px ui-monospace, monospace; color: #fff; } .sb { bottom: 20px; background: #c50042; } .sboth { top: 60px; bottom: 20px; background: #7542e5; } .stp { top: 60px; background: #0061e0; } .gap { height: 100vh; }",
+    html: () => note("Red: <code>bottom: 20px</code>. Purple: <code>top: 60px; bottom: 20px</code>. Blue: <code>top: 60px</code>.") +
+      '<div class="cols">' + [["sb", "bottom"], ["sboth", "top + bottom"], ["stp", "top"]].map(([cls, label]) =>
+        `<div class="col"><div class="gap"></div><div class="s ${cls}" data-measure="sticky ${label}">${label}</div><div class="gap"></div></div>`).join("") + "</div>",
+    steps: [
+      "Scroll down slowly until the red and purple boxes stick to the bottom. Continue until the toolbar is fully hidden.",
+      "Scroll up and down slowly through the sticky area.",
+    ],
+    expected: [
+      "While the red and purple boxes stick to the bottom, they stay 20 px above the top edge of the toolbar, and move with it.",
+      "When they do not stick, they scroll with the page and do not move with the toolbar.",
+      "The blue box never moves with the bottom toolbar.",
+    ],
+    sources: ["RT/dynamic-toolbar-sticky-1a.html :: dynamic-toolbar-sticky-1a to 6c", "RT/dynamic-toolbar-sticky-bottom-1.html", "bug 1628484"],
+  },
+  {
+    id: "FX-10", section: "fx", platforms: ["GV"],
+    title: "A view transition covers the area of the hidden toolbar",
+    css: "html { view-transition-name: none; scrollbar-width: none; background: red; } body { margin: 0; height: 400vh; } #vt-target { view-transition-name: target; margin: 80px 12px; padding: 12px; background: #fff; color: #000; } ::view-transition { height: 100%; width: 100%; background: green; } ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation-duration: 3s; }",
+    html: () => '<div id="vt-target">View transition target</div>' + float([["Start view transition (3 s)", "startVt()"]]),
+    init() {
+      window.startVt = () => {
+        if (!document.startViewTransition) {
+          BT.log("startViewTransition is not supported");
+          return;
+        }
+        const t = document.getElementById("vt-target");
+        document.startViewTransition(() => {
+          t.textContent = `Changed at ${new Date().toLocaleTimeString()}`;
+        });
+      };
+    },
+    steps: [
+      "Scroll down until the toolbar is fully hidden.",
+      "Tap `Start view transition`. Look at the bottom edge for 3 seconds.",
+      "Scroll up until the toolbar is fully shown. Do step 2 again.",
+    ],
+    expected: ["During the transition, the full screen is green, also the strip at the bottom where the toolbar was. No red strip shows."],
+    sources: [`${P.dyn} :: viewTransitionSnapshotSize`],
+  },
+
+  /* When the toolbar hides and shows */
+  {
+    id: "SC-01", section: "sc", platforms: ["Fenix"],
+    title: "Long page: the toolbar follows your finger and snaps when you lift it",
+    html: () => rows(80),
+    steps: [
+      "Scroll down slowly. Then scroll up slowly.",
+      "Drag until the toolbar is approximately one third hidden. Lift your finger.",
+      "Drag until the toolbar is approximately two thirds hidden. Lift your finger.",
+      "Fling the page up fast. Wait until it stops.",
+      "When the toolbar is fully hidden, drag down slowly.",
+      "Lift your finger. Touch the screen again while the toolbar still slides.",
+    ],
+    expected: [
+      "The toolbar moves with your finger. It never goes past fully shown or fully hidden.",
+      "Step 2: the toolbar slides back to fully shown. Step 3: it slides to fully hidden. Each slide takes approximately 150 ms.",
+      "Step 4: after the fling, the toolbar is fully shown or fully hidden. It is never partly hidden.",
+      "Step 5: the toolbar shows bit by bit with your finger. It does not jump open.",
+      "Step 6: the toolbar follows the new drag with no jump.",
+    ],
+    sources: [
+      `${P.gestures} :: stopNestedScroll will snap toolbar up if toolbar is more than 50 percent visible, stopNestedScroll will snap toolbar down if toolbar is less than 50 percent visible, startNestedScroll should cancel an ongoing snap animation, Behavior will not forceExpand when scrolling up and !shouldScroll if the touch was not yet handled in the browser`,
+      `${P.strategy} :: BottomToolbarBehaviorStrategy - snapWithAnimation`,
+      P.scrollData,
+      `${P.bbft} :: initializeEngineView should setDynamicToolbarMaxHeight to toolbar height if dynamic toolbar is enabled`,
+    ],
+  },
+  {
+    id: "SC-02", section: "sc", platforms: ["GV", "Fenix"],
+    title: "Content height decides if the toolbar can hide",
+    css: "html, body { margin: 0; height: 100%; } #box { background: linear-gradient(#5ab55a, #0a6b0a); color: #fff; padding: 70px 12px 12px; box-sizing: border-box; }",
+    html: () => '<div id="box">Content height: <b id="box-h"></b>. Swipe up and down on this page.</div>',
+    variants: [
+      { label: "50vh", css: "#box { height: 50vh; }", note: "The toolbar does not hide." },
+      { label: "100%", css: "#box { height: 100%; }", note: "The toolbar does not hide. The content is as tall as the area above the toolbar." },
+      { label: "100svh", css: "#box { height: 100svh; }", note: "The toolbar does not hide." },
+      { label: "100dvh", css: "#box { height: 100dvh; }", note: "The toolbar does not hide. `100dvh` is equal to `100svh` while the toolbar is fully shown." },
+      { label: "100svh + 10px", css: "#box { height: calc(100svh + 10px); }", note: "The toolbar hides when you scroll down. The content is taller than the area above the toolbar." },
+      { label: "98vh", css: "#box { height: 98vh; }", note: "The toolbar hides when you scroll down. `98vh` is taller than `100svh` when the toolbar is taller than 2% of the screen." },
+      { label: "100vh", css: "#box { height: 100vh; }", note: "The toolbar hides when you scroll down. The page scrolls by no more than the toolbar height." },
+      { label: "No meta viewport, short", viewport: null, css: "html, body { height: auto; }", html: '<h3 style="margin:90px 12px">Nothing here</h3>', note: "The toolbar does not hide. The page does not move by a fraction of a pixel." },
+    ],
+    init(fx, v) {
+      const label = document.getElementById("box-h");
+      if (label) {
+        label.textContent = v.label;
+      }
+    },
+    steps: ["Select a variant.", "Swipe up slowly, then down slowly, three times.", "Do the steps for each variant."],
+    expected: ["Each variant agrees with its note."],
+    sources: [
+      `${P.pzc} :: touchEventForResultWithoutEventHandler, touchEventForResultWithEventHandler`,
+      `${P.ird} :: testTouchAction, testScrollableWithDynamicToolbar, testFractionalScrollPortSize`,
+      "gfx/layers/apz/test/gtest/TestPointerEventsConsumable.cpp :: DynamicToolbar",
+      `${P.gestures} :: GIVEN a gesture that doesn't scroll the toolbar WHEN startNestedScroll THEN nested scroll is not accepted`,
+    ],
+  },
+  {
+    id: "SC-03", section: "sc", platforms: ["GV", "Fenix"],
+    title: "The toolbar shows again when the page stops scrolling",
+    html: () => `<div id="sc-rows">${rows(60)}</div>` + float([
+      ["html overflow: hidden", "document.documentElement.style.overflow='hidden';BT.log('html overflow hidden')"],
+      ["body position: fixed", "document.body.style.position='fixed';BT.log('body position fixed')"],
+      ["html position: fixed", "document.documentElement.style.position='fixed';BT.log('html position fixed')"],
+      ["Remove the rows", "document.getElementById('sc-rows').remove();BT.log('rows removed')"],
+      ["Reset", "location.reload()"],
+    ]),
+    steps: [
+      "Scroll down until the toolbar is fully hidden. Lift your finger.",
+      "Tap one of the buttons on the right.",
+      "Tap `Reset`. Do the steps again for each button.",
+    ],
+    expected: [
+      "After each button, the toolbar shows again, fully, without a new touch.",
+      "The toolbar does not stay hidden on a page that you cannot scroll.",
+    ],
+    sources: [
+      `${P.dyn} :: showDynamicToolbar, showDynamicToolbarOnFrameReconstruction, showDynamicToolbarOnOverflowHidden`,
+      `${P.tbController} :: Controller should expand the toolbar and set showToolbarAsExpanded to false when showToolbarAsExpanded is true`,
+      "bug 1690296",
+    ],
+  },
+  {
+    id: "SC-04", section: "sc", platforms: ["GV", "Fenix"],
+    title: "Inner scroller: the toolbar moves only after the box hands the scroll to the page",
+    html: () => note("The blue box is a scroll container in a long page.") + `<div class="scroller" id="inner">${rows(15, "Inner row")}</div>` + rows(40),
+    variants: [
+      { label: "overscroll-behavior: auto", note: "Default." },
+      { label: "overscroll-behavior: none", css: "#inner { overscroll-behavior: none; }", note: "The result is the same. The toolbar can still move after the box reaches its end." },
+    ],
+    steps: [
+      "Swipe up inside the blue box. Stop before the box reaches its end.",
+      "Scroll the box to its end. Lift your finger.",
+      "Swipe up inside the box again.",
+      "Swipe up outside the box.",
+    ],
+    expected: [
+      "Step 1: only the box scrolls. The toolbar does not move.",
+      "Step 3: the page scrolls and the toolbar hides, because the box hands the new gesture to the page.",
+      "Step 4: the page scrolls and the toolbar hides.",
+    ],
+    sources: [
+      `${P.ird} :: testTouchAction, testOverscrollBehaviorNoneOnNonRootWithDynamicToolbar`,
+      `${P.pzc} :: touchEventForResultWithoutEventHandler`,
+      "gfx/layers/apz/test/gtest/TestEventResult.cpp",
+    ],
+  },
+  {
+    id: "SC-05", section: "sc", platforms: ["GV"],
+    title: "iframes: the toolbar hides only if the top page can scroll",
+    css: "html, body { margin: 0; height: 100%; } iframe { display: block; width: 100%; border: 0; }",
+    variants: [
+      { label: "100% iframe, not scrollable", html: () => frame("100%", "100%"), note: "The toolbar does not hide." },
+      { label: "100% iframe, scrollable", html: () => frame("100%", "500vh"), note: "Only the iframe scrolls. The toolbar does not hide, also at the end of the iframe, because the top page cannot scroll." },
+      { label: "98vh iframe, not scrollable", html: () => frame("98vh", "100%"), note: "The toolbar hides, because the top page is taller than the area above the toolbar." },
+      { label: "98vh iframe, scrollable", html: () => frame("98vh", "500vh"), note: "First the iframe scrolls and the toolbar does not move. At the end of the iframe, a new swipe hides the toolbar." },
+    ],
+    steps: ["Swipe up and down inside the iframe.", "Scroll the iframe to its end. Lift your finger. Swipe up again.", "Do the steps for each variant."],
+    expected: ["Each variant agrees with its note."],
+    sources: [`${P.pzc} :: touchEventForResultWithoutEventHandler, touchEventForResultWithEventHandler`],
+  },
+  {
+    id: "SC-06", section: "sc", platforms: ["GV", "Fenix"],
+    title: "App-shell page: only an inner element scrolls",
+    css: "html, body { margin: 0; height: 100%; overflow: hidden; } main { height: 100%; overflow: auto; }",
+    html: () => `<main>${note("The root does not scroll. Only this <code>main</code> element scrolls. Many web apps use this layout.")}${rows(60)}</main>`,
+    steps: ["Scroll down and up in the page.", "At the top, pull down."],
+    expected: [
+      "The page content scrolls. The toolbar does not hide, because only a scroll of the root page moves the toolbar (bug 1861329).",
+      "Pull to refresh does not start, because the root has `overflow: hidden`.",
+    ],
+    sources: [`${P.ird} :: testDisallowPullToRefreshOnSubScroller, testOverflow`, "bug 1861329"],
+  },
+  {
+    id: "SC-07", section: "sc", platforms: ["Fenix"],
+    title: "Horizontal swipes do not move the toolbar",
+    html: () => note("Swipe sideways on the carousel and on the page.") + `<div class="hscroller">${"<div></div>".repeat(8)}</div>` + rows(40),
+    variants: [
+      { label: "Carousel", note: "A horizontal scroll container." },
+      { label: "Wide page", viewport: "width=device-width, initial-scale=1, minimum-scale=1", css: "body { width: 250%; }", note: "The root page scrolls sideways." },
+    ],
+    steps: [
+      "Swipe left and right on the carousel.",
+      "Swipe left and right on the page.",
+      "Swipe diagonally, more vertically than horizontally.",
+    ],
+    expected: [
+      "A swipe that is more horizontal than vertical does not move the toolbar.",
+      "A diagonal swipe that is more vertical moves the toolbar.",
+    ],
+    sources: [
+      `${P.gestures} :: startNestedScroll should not accept nested scrolls on the horizontal axis, Behavior should not accept nested scrolls on the horizontal axis`,
+      `${P.detector} :: Detector should prioritize vertical scrolls over horizontal scrolls`,
+    ],
+  },
+  {
+    id: "SC-08", section: "sc", platforms: ["Fenix"],
+    title: "A scroll from JavaScript does not move the toolbar",
+    html: () => note("Use the buttons on the right. Do not touch the page while it scrolls.") + float([
+      ["scrollTo end", "BT.scrollToBottom()"],
+      ["Smooth to end", "BT.scrollToBottom(true)"],
+      ["Smooth to top", "BT.scrollToY(0, true)"],
+      ["Anchor #row-end", "location.hash='row-end'"],
+      ["scrollIntoView end", "document.getElementById('row-end').scrollIntoView({block:'end'})"],
+    ]) + rows(60) + '<div id="row-end" data-measure="last row" style="height:60px;background:#ffd567;color:#000;padding:8px">Last row (#row-end)</div>',
+    steps: ["If the toolbar is hidden, scroll up until it shows.", "Tap each button. Wait for the scroll to stop."],
+    expected: [
+      "The toolbar does not move. Only a scroll that your finger starts moves the toolbar.",
+      "When the page stops at its end, the last row is fully visible above the toolbar.",
+    ],
+  },
+  {
+    id: "SC-09", section: "sc", platforms: ["Fenix"],
+    title: "Page load: the toolbar shows and stays while the page loads",
+    html: () => (PARAMS.get("slow") ? '<img src="http://10.255.255.1/slow.png" alt="" width="1" height="1">' : "") +
+      note("<b>Open the slow page</b> loads an image from an address that does not answer. The load continues until the connection times out (approximately 20 s to 60 s).") +
+      float([["Open the slow page", "location.href='?case=SC-09&slow='+Date.now()"]]) + rows(60),
+    steps: [
+      "Scroll down until the toolbar is fully hidden.",
+      "Tap `Open the slow page`.",
+      "While the page loads, scroll down.",
+      "Wait until the load stops. Scroll down.",
+      "Press Back.",
+    ],
+    expected: [
+      "Step 2: the toolbar shows when the load starts. The progress bar is on the top edge of the bottom toolbar.",
+      "Step 3: the toolbar does not hide while the page loads.",
+      "Step 4: the toolbar hides again.",
+      "Step 5: the toolbar is fully shown when the previous page loads. If the log shows `pageshow from bfcache`, write the result in the note.",
+    ],
+    sources: [
+      `${P.tbController} :: Controller should disableScrolling if the current tab is loading, Controller should enableScrolling if the current tab is not loading, GIVEN the current tab is loading an url WHEN the page is scrolled THEN expand toolbar`,
+      "bug 1900622",
+    ],
+  },
+
+  /* Touch handling */
+  {
+    id: "TH-01", section: "th", platforms: ["GV", "Fenix"],
+    title: "Touch listeners: preventDefault stops the toolbar and pull to refresh",
+    html: () => rows(1) + pads([
+      ["pad-ts", "1. touchstart calls preventDefault()"],
+      ["pad-tm", "2. touchmove calls preventDefault()"],
+      ["pad-np", "3. touchstart listener, passive: false, no preventDefault()"],
+      ["pad-p", "4. touchstart listener, passive: true"],
+    ]) + rows(40),
+    init() {
+      const add = (id, type, prevent, passive) => document.getElementById(id).addEventListener(type, e => {
+        if (prevent) {
+          e.preventDefault();
+        }
+      }, { passive });
+      add("pad-ts", "touchstart", true, false);
+      add("pad-tm", "touchmove", true, false);
+      add("pad-np", "touchstart", false, false);
+      add("pad-p", "touchstart", false, true);
+    },
+    steps: [
+      "Swipe up and down inside each pad.",
+      "Swipe up and down outside the pads.",
+      "Go to the top of the page. Pull down inside pad 1, then inside pad 3.",
+    ],
+    expected: [
+      "Pads 1 and 2: the page does not scroll and the toolbar does not move.",
+      "Pads 3 and 4: the page scrolls and the toolbar moves, as outside the pads. In pad 3 the toolbar can start a little later, because the browser waits for the page.",
+      "Step 3: no refresh in pad 1. The page refreshes in pad 3.",
+    ],
+    sources: [
+      `${P.pzc} :: touchEventForResultWithPreventDefault`,
+      `${P.ird} :: testTouchAction`,
+      "gfx/layers/apz/test/gtest/TestEventResult.cpp :: HandledByRootApzcFlag",
+      `${P.nested} :: verify parent don't intercept touch if the delayed result is INPUT_RESULT_HANDLED_CONTENT`,
+    ],
+  },
+  {
+    id: "TH-02", section: "th", platforms: ["GV", "Fenix"],
+    title: "touch-action: none, pan-x and pinch-zoom stop the toolbar",
+    css: "#ta-none { touch-action: none; } #ta-panx { touch-action: pan-x; } #ta-pz { touch-action: pinch-zoom; } #ta-pany { touch-action: pan-y; } #ta-man { touch-action: manipulation; }",
+    html: () => rows(1) + pads([
+      ["ta-none", "touch-action: none"],
+      ["ta-panx", "touch-action: pan-x"],
+      ["ta-pz", "touch-action: pinch-zoom"],
+      ["ta-pany", "touch-action: pan-y"],
+      ["ta-man", "touch-action: manipulation"],
+    ]) + rows(40),
+    steps: ["Swipe up and down inside each pad.", "Go to the top of the page. Pull down inside the first pad."],
+    expected: [
+      "`none`, `pan-x` and `pinch-zoom`: a vertical swipe does not scroll the page and does not move the toolbar. Pull to refresh does not start.",
+      "`pan-y` and `manipulation`: the page scrolls and the toolbar moves.",
+    ],
+    sources: [
+      "gfx/layers/apz/test/gtest/TestPointerEventsConsumable.cpp",
+      `${P.ird} :: testTouchAction`,
+      `${P.pzc} :: touchActionWithWheelListener`,
+    ],
+  },
+  {
+    id: "TH-03", section: "th", platforms: ["GV", "Fenix"],
+    title: "The whole page uses the touch (drawing or map app)",
+    html: () => `<div id="tpage" style="height:200vh;padding:70px 12px;background:repeating-linear-gradient(#fff0 0 50px, var(--stripe) 50px 100px)">The page uses all touches. Swipe anywhere.</div>`,
+    variants: [
+      { label: "touchstart preventDefault", key: "ts", note: "A non-passive `touchstart` listener on the document calls `preventDefault()`." },
+      { label: "touchmove preventDefault", key: "tm", note: "A non-passive `touchmove` listener on the document calls `preventDefault()`." },
+      { label: "touch-action: none + wheel listener", key: "ta", css: "#tpage { touch-action: none; }", note: "No touch listener. The page has a non-passive `wheel` listener." },
+    ],
+    init(fx, v) {
+      let moves = 0;
+      document.addEventListener("touchmove", () => moves++, { passive: true });
+      BT.metric("touchmove events", () => moves);
+      if (v.key === "ts" || v.key === "tm") {
+        document.addEventListener(v.key === "ts" ? "touchstart" : "touchmove", e => e.preventDefault(), { passive: false });
+      } else {
+        document.addEventListener("wheel", () => {}, { passive: false });
+      }
+    },
+    steps: ["Swipe up and down.", "Pull down at the top."],
+    expected: [
+      "The page does not scroll and the toolbar does not move.",
+      "Pull to refresh does not start.",
+      "The `touchmove events` counter increases while you swipe.",
+    ],
+    sources: [
+      `${P.pzc} :: touchEventForResultWithPreventDefault, touchActionWithWheelListener`,
+      `${P.ird} :: testScrollableWithDynamicToolbar, testPreventTouchMoveAfterLongTap`,
+      "bug 1988041",
+    ],
+  },
+  {
+    id: "TH-04", section: "th", platforms: ["GV"],
+    title: "Reverse drag during a fast fling",
+    html: () => rows(200),
+    init() {
+      document.addEventListener("wheel", () => {}, { passive: false });
+    },
+    steps: ["Fling the page up fast.", "While the page still moves, drag down."],
+    expected: ["The page stops and moves in the new direction at once. The toolbar shows when you drag down."],
+    sources: [`${P.ird} :: testOppositeTouchScrollingDuringFastFling`],
+  },
+
+  /* Pull to refresh and overscroll */
+  {
+    id: "PR-01", section: "pr", platforms: ["Fenix"],
+    title: "Pull to refresh works only at the top, with one finger, in one direction",
+    html: () => note("The HUD line <code>page loads in this tab</code> increases each time the page loads.") + rows(60),
+    init() {
+      const n = Number(sessionStorage.getItem("bt-loads") || 0) + 1;
+      sessionStorage.setItem("bt-loads", String(n));
+      BT.metric("page loads in this tab", () => n);
+    },
+    steps: [
+      "At the top of the page, pull down and release.",
+      "Scroll down by one row. Pull down.",
+      "At the top, swipe up a small distance. Without lifting your finger, pull down past the top.",
+      "At the top, pinch with two fingers. Then double-tap and drag. Then pull mostly sideways.",
+      "Settings > Customize > Pull to refresh: off. Do step 1 again.",
+    ],
+    expected: [
+      "Step 1: the refresh spinner shows and the page reloads. On Android 11 and later, the device vibrates.",
+      "Step 2: the page scrolls to the top and stops. No spinner shows.",
+      "Step 3: no refresh. A gesture that starts downward never becomes pull to refresh.",
+      "Step 4: no spinner shows.",
+      "Step 5: no spinner shows.",
+      "The spinner and an overscroll glow do not show at the same time.",
+    ],
+    sources: [
+      `${P.swipeRefresh} :: gesture should only work if the content can be overscrolled, onRefresh should refresh the active session and perform haptic feedback`,
+      `${P.nested} :: touch events are never intercepted once after scrolled down, GIVEN page is not at its top touch events WHEN user pulls page up THEN parent doesn't intercept the gesture`,
+      P.swipeLayout,
+      "FUI/SettingsCustomizeTest.kt :: pullToRefreshPreferenceTest",
+      `${P.bft} :: WHEN isPullToRefreshEnabledInBrowser is disabled THEN pull down refresh is disabled`,
+      "bug 1807073",
+      "bug 1854113",
+    ],
+  },
+  {
+    id: "PR-02", section: "pr", platforms: ["GV", "Fenix"],
+    title: "overscroll-behavior on the root controls pull to refresh",
+    html: () => note("The root has the <code>overscroll-behavior</code> value of the selected variant.") + rows(40),
+    variants: [
+      { label: "auto", css: "html { overscroll-behavior: auto; }", note: "Pull to refresh starts." },
+      { label: "contain", css: "html { overscroll-behavior: contain; }", note: "Pull to refresh does not start." },
+      { label: "none", css: "html { overscroll-behavior: none; }", note: "Pull to refresh does not start." },
+      { label: "auto none", css: "html { overscroll-behavior: auto none; }", note: "The vertical value is `none`. Pull to refresh does not start." },
+      { label: "none auto", css: "html { overscroll-behavior: none auto; }", note: "The vertical value is `auto`. Pull to refresh starts." },
+    ],
+    steps: ["At the top, pull down.", "Scroll down and up."],
+    expected: ["Pull to refresh agrees with the note of the variant.", "The toolbar hides and shows on scroll in all variants."],
+    sources: [
+      `${P.ird} :: testOverscrollBehaviorAuto, testOverscrollBehaviorAutoNone, testOverscrollBehaviorNoneAuto`,
+      "gfx/layers/apz/test/gtest/TestEventResult.cpp :: OverscrollDirections",
+    ],
+  },
+  {
+    id: "PR-03", section: "pr", platforms: ["GV", "Fenix"],
+    title: "Root overflow: hidden and clip stop pull to refresh",
+    variants: [
+      { label: "html overflow-y: hidden", css: "html { overflow-y: hidden; }", html: () => rows(40), note: "No pull to refresh. The page does not scroll and the toolbar does not hide." },
+      { label: "html overflow-y: clip", css: "html { overflow-y: clip; }", html: () => rows(40), note: "No pull to refresh. The page does not scroll and the toolbar does not hide." },
+      { label: "body overflow-y: hidden", css: "body { overflow-y: hidden; }", html: () => rows(40), note: "The value moves to the viewport. No pull to refresh." },
+      { label: "html overflow-y: auto, short page", css: "html { overflow-y: auto; }", html: () => note("Short page."), note: "Pull to refresh starts, also on a short page. The toolbar does not hide." },
+    ],
+    steps: ["At the top, pull down.", "Swipe up and down."],
+    expected: ["Each variant agrees with its note."],
+    sources: [`${P.ird} :: testOverflow`, "bug 1819563", "bug 1902313"],
+  },
+  {
+    id: "PR-04", section: "pr", platforms: ["GV", "Fenix"],
+    title: "Inner scrollers and pull to refresh",
+    variants: [
+      {
+        label: "Box at its top", html: () => note("Pull down inside the blue box.") + `<div class="scroller" id="inner">${rows(15, "Inner row")}</div>` + rows(40),
+        note: "With the box and the page at their tops, a pull inside the box refreshes. If the box is not at its top, the pull scrolls the box and stops at its top, with no refresh in the same gesture.",
+      },
+      {
+        label: "Box with overscroll-behavior-y: contain", css: "#inner { overscroll-behavior-y: contain; }",
+        html: () => note("Pull down inside the blue box, then outside it.") + `<div class="scroller" id="inner">${rows(15, "Inner row")}</div>` + rows(40),
+        note: "A pull inside the box does not refresh. A pull outside the box refreshes.",
+      },
+      {
+        label: "Nested scrollers, root overflow: hidden",
+        css: "html { overflow: hidden; } body { margin: 0; } #scroller { overflow: auto; height: 100vh; } #subscroller { overflow: auto; height: 100vh; }",
+        html: () => `<div id="scroller"><div id="subscroller">${rows(20, "Sub row")}</div>${rows(20, "Outer row")}</div>`,
+        note: "No refresh, also after you scroll down and back up in one gesture.",
+      },
+    ],
+    steps: ["Pull down inside the scroll box.", "Scroll the box down a little. In one gesture, pull down past its top.", "Do the steps for each variant."],
+    expected: ["Each variant agrees with its note."],
+    sources: [`${P.ird} :: testScrollHandoff, testDisallowPullToRefreshOnSubScroller`, "gfx/layers/apz/test/gtest/TestEventResult.cpp"],
+  },
+  {
+    id: "PR-05", section: "pr", platforms: ["Fenix"],
+    title: "A cancelled refresh stops the spinner",
+    html: () => note("This page asks before it unloads. A page can ask only after you interact with it.") + rows(10),
+    init() {
+      window.addEventListener("beforeunload", e => {
+        e.preventDefault();
+        e.returnValue = "";
+      });
+    },
+    steps: ["Tap the page once.", "Pull to refresh.", "In the prompt, select Stay.", "Pull to refresh again."],
+    expected: ["Step 3: the spinner stops. The page does not reload.", "Step 4: the prompt shows again."],
+    sources: [`${P.swipeRefresh} :: feature MUST reset refreshCanceled after is used, feature clears the swipeRefreshLayout#isRefreshing when tab fishes loading or a refreshCanceled`],
+  },
+
+  /* Keyboard and interactive-widget */
+  {
+    id: "KB-01", section: "kb", platforms: ["GV", "Fenix"],
+    title: "Keyboard with the default mode (resizes-visual)",
+    html: kbFixture,
+    variants: [
+      { label: "No interactive-widget", note: "The default is `resizes-visual` (pref `dom.interactive_widget_default_resizes_visual`)." },
+      { label: "resizes-visual", viewport: "width=device-width, initial-scale=1, interactive-widget=resizes-visual", note: "The same result as the default." },
+    ],
+    init() {
+      BT.metric("navigator.virtualKeyboard", () => (navigator.virtualKeyboard ? "present" : "not implemented (bug 1730568)"));
+    },
+    steps: [
+      "Tap `Reset counters`.",
+      "Tap the text field at the top. Wait for the keyboard.",
+      "Read the HUD. Look at the toolbar and at the orange bar.",
+      "Scroll to the end of the page with the keyboard open.",
+      "Close the keyboard with the Back gesture.",
+    ],
+    expected: [
+      "`vv.resize` fires and the `vv` height decreases. The `inner` height does not change. The keyboard causes no window `resize` event.",
+      "The toolbar, or a minimal bar (KB-10), is directly above the keyboard. It does not hide when you scroll while the keyboard is open.",
+      "The orange bar does not move in the layout. At the end of the page, it is fully visible. The keyboard and the toolbar do not cover it.",
+      "After the keyboard closes, the `vv` height goes back to its first value. The toolbar is fully shown, and scrolling hides it again.",
+    ],
+    sources: [
+      "layout/base/tests/test_interactive_widget.html",
+      `${P.iw} :: fixedElementWithKeyboardOnResizesVisual, fixedElementWithDynamicToolbarOnResizesVisual, fixedElementWithHalfVisibleDynamicToolbarOnResizesVisual`,
+      "GV/GeckoRuntimeTest.kt :: isInteractiveWidgetDefaultResizesVisualTrue, isInteractiveWidgetDefaultResizesVisualFalse",
+      `${P.bbft} :: GIVEN default engine view resize behavior and only a bottom toolbar ...`,
+      P.tit,
+      "bug 1884807",
+    ],
+  },
+  {
+    id: "KB-02", section: "kb", platforms: ["GV", "Fenix"],
+    title: "Keyboard with interactive-widget=resizes-content",
+    viewport: "width=device-width, initial-scale=1, interactive-widget=resizes-content",
+    html: kbFixture,
+    steps: ["Tap `Reset counters`.", "Tap the text field at the top. Wait for the keyboard.", "Read the HUD. Look at the orange bar.", "Close the keyboard."],
+    expected: [
+      "A window `resize` event fires. The `inner` height and the `vv` height decrease by the keyboard height.",
+      "The orange bar moves up. It is directly above the keyboard, or above the toolbar if the toolbar is above the keyboard.",
+      "After the keyboard closes, the sizes go back to their first values.",
+    ],
+    sources: ["layout/base/tests/test_interactive_widget.html", "bug 1831649"],
+  },
+  {
+    id: "KB-03", section: "kb", platforms: ["GV", "Fenix"],
+    title: "Keyboard with interactive-widget=overlays-content",
+    viewport: "width=device-width, initial-scale=1, interactive-widget=overlays-content",
+    html: () => kbFixture() + '<div id="under" style="position:absolute;top:90vh;left:0;width:100%;height:40px;background:#ffd567;color:#000;padding:8px">Box at 90vh</div>' +
+      float([["scrollIntoView box at 90vh", "document.getElementById('under').scrollIntoView({behavior:'instant'});BT.log('scrollIntoView, scrollY='+scrollY)"]]),
+    steps: [
+      "Tap `Reset counters`.",
+      "Tap the text field at the top. Wait for the keyboard.",
+      "Read the HUD. Look at the orange bar.",
+      "Tap `scrollIntoView box at 90vh`.",
+      "If the toolbar can move while the keyboard is open, scroll. Look at `dvh` and at the orange bar.",
+    ],
+    expected: [
+      "No window `resize` and no `vv.resize` event fires. The `inner` and `vv` heights do not change.",
+      "The keyboard covers the orange bar.",
+      "Step 4: `scrollY` does not change, although the keyboard covers the box.",
+      "Step 5: `dvh` and the orange bar do not change while the keyboard is open.",
+    ],
+    sources: ["layout/base/tests/test_interactive_widget.html", `${P.iw} :: overlaysContent`, "bug 2013264"],
+  },
+  {
+    id: "KB-04", section: "kb", platforms: ["GV"],
+    title: "Change interactive-widget while the page is open",
+    html: () => kbFixture() + float([
+      ["resizes-visual", "BT.setViewport('width=device-width, initial-scale=1, interactive-widget=resizes-visual')"],
+      ["resizes-content", "BT.setViewport('width=device-width, initial-scale=1, interactive-widget=resizes-content')"],
+      ["overlays-content", "BT.setViewport('width=device-width, initial-scale=1, interactive-widget=overlays-content')"],
+    ]),
+    steps: ["Tap a mode button.", "Tap the text field at the top. Read the HUD.", "Close the keyboard.", "Do the steps for each mode."],
+    expected: ["Each mode applies the next time that the keyboard opens. The results agree with KB-01, KB-02 and KB-03.", "The log shows each `meta viewport` change."],
+    sources: ["layout/base/tests/test_interactive_widget.html"],
+  },
+  {
+    id: "KB-05", section: "kb", platforms: ["GV", "Fenix"],
+    title: "A focused text field near the toolbar is not covered",
+    variants: [
+      {
+        label: "Field at 98svh", css: "#f98 { display: block; width: 100%; height: 80px; margin-top: 98svh; font-size: 16px; }",
+        html: '<input id="f98" placeholder="Text field at 98svh">',
+        note: "Only the top 2% of the field shows above the toolbar. Tap that strip.",
+      },
+      {
+        label: "bottom: 0, resizes-visual", viewport: "width=device-width, interactive-widget=resizes-visual",
+        css: "body { margin: 0; } #abs { position: absolute; bottom: 0; left: 0; height: 40px; width: 100vw; } #abs input { width: 100%; height: 100%; font-size: 16px; }",
+        html: '<div id="abs"><input placeholder="Text field at bottom: 0"></div>',
+        note: "The field is directly above the toolbar.",
+      },
+      {
+        label: "Page between svh and lvh", css: "body { margin: 0; height: calc(100svh + (100lvh - 100svh) / 2); position: relative; } #mid { position: absolute; bottom: 0; width: 100%; height: 40px; font-size: 16px; }",
+        html: '<input id="mid" placeholder="Text field at the end of the page">',
+        note: "The engine hides the toolbar for a field that is less than one toolbar height from the page end.",
+      },
+      {
+        label: "Tall page, field at the end", html: () => rows(30) + '<input class="big-input" placeholder="Text field at the end of the page"><div style="height:20px"></div>',
+        note: "Known gap: for pages taller than `100lvh`, the engine does not hide the toolbar for a focused field (FIXME in AsyncPanZoomController::ZoomToRect). Write what you see in the note.",
+      },
+    ],
+    steps: ["Scroll to the field, if necessary.", "Tap the text field. Wait for the keyboard."],
+    expected: ["The field is fully visible. The toolbar and the keyboard do not cover it."],
+    sources: [
+      `${P.dyn} :: hideDynamicToolbarToRevealFocusedInput`,
+      `${P.iw} :: hideDynamicToolbarOnResizesVisual`,
+      "bug 1855990",
+      "bug 1920019",
+    ],
+  },
+  {
+    id: "KB-06", section: "kb", platforms: ["GV", "Fenix"],
+    title: "A fixed text field at the bottom (chat layout)",
+    variants: [
+      {
+        label: "Fixed field", viewport: "width=device-width, initial-scale=1, interactive-widget=resizes-visual",
+        css: "body { margin: 0; } #ff { position: fixed; bottom: 0; left: 0; width: 100%; height: calc(100lvh - 100svh); min-height: 40px; padding: 0; border: none; font-size: 20px; background: #ffd567; color: #000; } .ruler { height: 100px; font-size: 40px; border: 1px solid #000; background: #bbb; color: #000; }",
+        html: () => '<input id="ff" type="text" value="text" data-measure="fixed field">' + Array.from({ length: 20 }, (_, i) => `<div class="ruler">${i + 1}</div>`).join(""),
+        note: "The field is `position: fixed; bottom: 0`.",
+      },
+      {
+        label: "Field in nested fixed boxes",
+        css: "#nf { position: fixed; bottom: 0; left: 0; right: 0; height: 50px; } #nf > div { position: absolute; bottom: 0; left: 0; right: 0; } #nf input { width: 100%; height: 44px; font-size: 16px; }",
+        html: () => rows(40) + '<div id="nf"><div><input placeholder="Field in nested fixed boxes" data-measure="nested field"></div></div>',
+        note: "An absolutely positioned box in a fixed box.",
+      },
+      {
+        label: "Textarea in a fixed box, page end",
+        css: "html { height: 500vh; } .nfc, .nfc textarea { position: fixed; bottom: 10px; height: 100px; width: calc(100% - 30px); left: 15px; }",
+        html: '<div class="nfc"><textarea placeholder="Textarea in a fixed box"></textarea></div>',
+        note: "Scroll to the end of the page before you tap the textarea.",
+      },
+    ],
+    steps: [
+      "Note `scrollY` in the HUD.",
+      "Tap the field. Wait for the keyboard.",
+      "Read `scrollY`, `offTop` and `pageTop` in the HUD.",
+      "Close the keyboard. Pinch to zoom in to approximately 2x. Do steps 1 to 3 again.",
+    ],
+    expected: [
+      "The field is directly above the keyboard, or above the toolbar if the toolbar is above the keyboard.",
+      "`scrollY` does not change. Only the visual viewport moves: `offTop` increases.",
+      "When the page is zoomed, the bottom of the field is at the bottom of the visual viewport. The field is not in the center.",
+    ],
+    sources: [
+      `${P.iw} :: bug1993407`,
+      "APZ/helper_zoomToFocusedInput_for_position_fixed.html",
+      "APZ/helper_zoomToFocusedInput_scroll_visually_bug1943865.html",
+      "APZ/helper_zoomToFocusedInput_nested_position_fixed.html",
+      "APZ/helper_zoomToFocusedInput_fixed_bug1673511.html",
+      "bug 1955158",
+    ],
+  },
+  {
+    id: "KB-07", section: "kb", platforms: ["GV"],
+    title: "The scroll position is correct after the keyboard closes",
+    viewport: "width=device-width, initial-scale=1, interactive-widget=resizes-visual",
+    css: "body { margin: 0; } #blue { width: 100vw; height: 200vh; background: linear-gradient(#0061e0, #002275); }",
+    html: '<div class="spacer-top"></div><input class="big-input" placeholder="Tap to open the keyboard"><div id="blue"></div>',
+    steps: [
+      "Tap the text field.",
+      "With the keyboard open, scroll down by approximately one screen.",
+      "Note `scrollY` and `pageTop`.",
+      "Close the keyboard.",
+      "Read `scrollY` and `pageTop` again.",
+    ],
+    expected: [
+      "Step 3: `scrollY` can be different from `pageTop` while the keyboard is open.",
+      "Step 5: a `vv.resize` event fires and the `vv` height goes back to its first value. `scrollY` becomes equal to `pageTop`. The content does not jump.",
+    ],
+    sources: [`${P.iw} :: bug1994311`],
+  },
+  {
+    id: "KB-08", section: "kb", platforms: ["GV"],
+    title: "scrollIntoView on a visible fixed element does nothing",
+    viewport: "width=device-width, initial-scale=1, interactive-widget=resizes-visual",
+    css: "html { scrollbar-width: none; } body { margin: 0; } #fx8 { position: fixed; width: 100%; height: 100px; bottom: 0; left: 0; background: #0061e0; color: #fff; padding: 8px; }",
+    html: () => '<div class="spacer-top"></div><input class="big-input" placeholder="Tap to open the keyboard"><div id="fx8" data-measure="fixed box">Fixed box</div><div style="height:1000vh"></div>' +
+      float([["scrollIntoView fixed box", "document.getElementById('fx8').scrollIntoView();BT.log('scrollIntoView')"]]),
+    init() {
+      BT.metric("scrollY / pageTop", () => `${num(scrollY)} / ${num(visualViewport.pageTop)}`);
+    },
+    steps: ["Tap the text field.", "Tap `scrollIntoView fixed box`. Note `scrollY / pageTop`.", "Tap `scrollIntoView fixed box` again."],
+    expected: ["Step 2 can move the visual viewport, so that the fixed box shows above the keyboard.", "Step 3 changes neither `scrollY` nor `pageTop`."],
+    sources: [`${P.iw} :: scrollIntoViewToPositionFixed`],
+  },
+  {
+    id: "KB-09", section: "kb", platforms: ["GV"],
+    title: "Fixed footer with the keyboard open and the toolbar hidden",
+    viewport: "width=device-width, initial-scale=1, interactive-widget=resizes-visual",
+    css: "html { scrollbar-width: none; } body { margin: 0; border-bottom: calc(100lvh - 100svh) solid red; background: #fff; } .footer9 { height: calc(100lvh - 100svh); width: 100%; position: fixed; background: rgb(0, 128, 0); bottom: 0; } .tall9 { height: 100lvh; } #kb9 { position: fixed; top: 45%; left: 0; margin: 0 12px; width: calc(100% - 24px); }",
+    html: '<div class="tall9" id="tall9"></div><div class="footer9" data-measure="footer"></div><input class="big-input" id="kb9" placeholder="Tap to open the keyboard">',
+    init() {
+      BT.metric("100lvh box height", () => num(document.getElementById("tall9").getBoundingClientRect().height));
+    },
+    steps: [
+      "Scroll down until the toolbar is fully hidden.",
+      "Tap the text field.",
+      "Compare `footer` bottom with `100lvh box height` in the HUD.",
+      "Scroll to the end of the page.",
+    ],
+    expected: ["Step 3: the `footer` bottom is equal to the `100lvh box height`.", "Step 4: the green footer is at the bottom of the visible area. No red shows."],
+    sources: [`${P.iw} :: fixedElementRectOnCollapsedToolbarWithKeyboardOnResizesVisual, fixedElementWithDynamicToolbarOnResizesVisual`, "bug 2028072"],
+  },
+  {
+    id: "KB-10", section: "kb", platforms: ["Fenix"],
+    title: "Minimal toolbar while you type",
+    setup: ["The minimal address bar feature is on: Nimbus feature `minimalAddressbar`, variable `atBottomWhileEnteringText`."],
+    html: kbFixture,
+    steps: [
+      "Scroll down until the toolbar is fully hidden.",
+      "Tap the text field at the end of the page.",
+      "Scroll while the keyboard is open.",
+      "Close the keyboard. Scroll down.",
+    ],
+    expected: [
+      "Step 2: the toolbar expands and becomes a minimal bar directly above the keyboard. `lvh-svh` becomes 0, because Fenix sets the toolbar max height to 0.",
+      "Step 3: the minimal bar does not hide. The focused field is not under the minimal bar.",
+      "Step 4: the full toolbar comes back. Scrolling hides it again.",
+    ],
+    sources: [P.tit, "bug 1988730"],
+  },
+  {
+    id: "KB-11", section: "kb", platforms: ["Fenix"],
+    title: "The toolbar moves with the keyboard animation",
+    setup: ["The minimal address bar feature is off (default)."],
+    html: kbFixture,
+    steps: [
+      "Tap the text field at the top. Look at the toolbar while the keyboard opens.",
+      "Close the keyboard. Look at the toolbar.",
+      "Scroll down until the toolbar is hidden. Tap the field at the end of the page.",
+      "Close the keyboard.",
+      "Settings > Customize > Address bar location: Top. Do steps 1 to 4 again.",
+    ],
+    expected: [
+      "The toolbar stays directly on top of the keyboard during the open and close animations. No gap shows between them.",
+      "The page does not resize many times during the animation. The event log shows few events.",
+      "After the keyboard closes, the toolbar is fully shown.",
+      "With the address bar at the top, only the page area changes.",
+    ],
+    sources: [P.tit, "bug 1917818", "bug 1946404", "bug 1933488"],
+  },
+  {
+    id: "KB-12", section: "kb", platforms: ["GV"],
+    title: "Focus on a text field does not zoom the page when it must not",
+    variants: [
+      {
+        label: "touch-action: none, page between svh and lvh", viewport: "width=device-width, height=device-height, initial-scale=1",
+        css: "body { margin: 0; } .touch-none { height: calc(100svh + (100lvh - 100svh) / 2); margin: 0; touch-action: none; } #in12 { margin-top: 70px; }",
+        html: '<div class="touch-none"><input id="in12" placeholder="Tap here"></div>',
+        note: "The page does not zoom. `scale` does not change.",
+      },
+      {
+        label: "user-scalable=no, tall field", viewport: "width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1, maximum-scale=1, user-scalable=no",
+        css: "#in12b { display: block; width: 100%; height: 200px; border: 5px solid black; margin-top: 70px; }",
+        html: '<input id="in12b" placeholder="Tap here">',
+        note: "The page does not zoom. `scale` does not change.",
+      },
+      {
+        label: "Field in a touch-action: none area",
+        html: '<div style="touch-action:none;padding:70px 12px 12px;background:rgba(197,0,66,0.1)"><input style="font-size:8px" placeholder="small text, touch-action: none"></div><div style="padding:12px"><input style="font-size:8px" placeholder="small text, normal area"></div>',
+        note: "The field in the `touch-action: none` area does not zoom the page. The other field can zoom the page.",
+      },
+    ],
+    steps: ["Tap the text field. Wait for the keyboard.", "Read `scale` in the HUD."],
+    expected: ["Each variant agrees with its note."],
+    sources: [
+      "APZ/helper_zoomToFocusedInput_dynamic_toolbar_bug1828235.html",
+      "APZ/helper_zoomToFocusedInput_nozoom_bug1738696.html",
+      "APZ/helper_zoomToFocusedInput_touch-action.html",
+      "APZ/test_group_zoomToFocusedInput.html",
+    ],
+  },
+
+  {
+    id: "KB-13", section: "kb", platforms: ["GV", "Fenix"],
+    title: "No keyboard height stays after you type in the address bar",
+    html: () => note("Seen on Fenix Nightly 161 (Android 15) during the test of this page: after you type a URL in the address bar, the engine can keep the height of the closed keyboard. Then the layout viewport is taller than the screen, and the fixed bar is off the screen.") +
+      rows(40) + '<div class="edge"></div>' + fixedBar(),
+    steps: [
+      "Tap the address bar. Type the URL of this case. Tap Enter.",
+      "Do not touch the page. Read the HUD.",
+      "Do steps 1 and 2 five times.",
+    ],
+    expected: [
+      "`inner` height = `client` height = `vv` height = `svh`. The keyboard height is not added to them.",
+      "The orange bar is directly above the toolbar. `innerH-bottom` is 0.",
+      "If the values are wrong, tap a text field in a page and close the keyboard. The values become correct again. Write the result in the note.",
+    ],
+  },
+
+  /* Zoom and wide pages */
+  {
+    id: "ZM-01", section: "zm", platforms: ["GV", "Fenix"],
+    title: "Pinch zoom: the toolbar snaps, viewport units stay the same",
+    html: () => unitBars() + note("Pinch to zoom in and out.") + rows(40),
+    variants: [
+      { label: "Long page", note: "Default." },
+      { label: "Short page (height: 100%)", viewport: "width=device-width", css: "html, body { height: 100%; margin: 0; }", html: () => note("Short page. Pinch to zoom in, then zoom out fully."), note: "After you zoom out fully, `scale` is exactly 1.00." },
+    ],
+    steps: [
+      "Note `vh`, `svh` and `lvh`.",
+      "Pinch to zoom in to approximately 2x. Look at the toolbar when the pinch starts.",
+      "Read the values.",
+      "Pinch to zoom out as far as possible. Read `scale`.",
+    ],
+    expected: [
+      "When the pinch starts, the toolbar goes to fully shown or fully hidden at once. It does not move during the pinch.",
+      "`vh`, `svh` and `lvh` do not change with zoom. Only the `vv` size and `scale` change.",
+      "Step 4: `scale` is exactly 1.00.",
+    ],
+    sources: [
+      "layout/base/tests/test_viewport_units_with_dynamic_toolbar.html",
+      "APZ/helper_zoom_with_dynamic_toolbar.html",
+      `${P.detector} :: Detector should not attempt to detect scrolls if a zoom gesture is in progress`,
+      `${P.strategy} :: BottomToolbarBehaviorStrategy - snapImmediately`,
+      `${P.vScroll} :: GIVEN multiple scroll and zoom updates in a GeckoSession WHEN observing them THEN get the scroll values and scroll deltas only if not zooming`,
+      "bug 1909181",
+    ],
+  },
+  {
+    id: "ZM-02", section: "zm", platforms: ["GV"],
+    title: "Zoomed in and scrolled: no area without paint",
+    css: "html { scrollbar-width: none; } body { margin: 0; } .g300 { width: 100%; height: 300vh; background: green; }",
+    html: '<div class="g300"></div>',
+    steps: ["Pinch to zoom in as far as possible.", "Scroll down approximately 500 px until the toolbar is fully hidden."],
+    expected: ["The whole screen stays green. No blank, white or checkerboard area shows at the bottom."],
+    sources: [`${P.dyn} :: bug1909181`],
+  },
+  {
+    id: "ZM-03", section: "zm", platforms: ["GV"],
+    title: "Zoomed in on a page with overflow: hidden",
+    css: "html { scrollbar-width: none; } body { overflow: hidden; height: 100%; width: 100%; margin: 0; background: rgb(0, 128, 0); } #bb { width: 100%; position: fixed; bottom: 0; left: 0; background: lime; height: 10%; }",
+    html: '<div id="bb" data-measure="lime banner"></div>',
+    variants: [
+      { label: "body overflow: hidden", note: "Default." },
+      { label: "html position: fixed, body overflow: scroll", css: "html { position: fixed; } body { overflow: scroll; }", note: "The root is fixed." },
+    ],
+    steps: ["Pinch to zoom in as far as possible.", "Pan to the bottom of the page. Try to make the toolbar hide."],
+    expected: ["The screen is fully green or lime. No blank strip shows at the bottom, also if the toolbar hides."],
+    sources: [`${P.dyn} :: zoomedOverflowHidden, zoomedPositionFixedRoot`],
+  },
+  {
+    id: "ZM-04", section: "zm", platforms: ["GV"],
+    title: "Fixed footer while zoomed in with the toolbar hidden",
+    html: () => rows(60) + '<div class="edge"></div><div data-measure="footer" style="position:fixed;left:0;right:0;bottom:0;height:60px;z-index:10;background:#ff7139;color:#000;display:flex;align-items:center;justify-content:center;font-weight:600">Footer (bottom: 0)</div>',
+    steps: [
+      "Pinch to zoom in to approximately 2x.",
+      "Scroll to the end of the page until the toolbar is fully hidden.",
+      "Pan to the bottom-left and bottom-right corners.",
+    ],
+    expected: ["The footer stays at the bottom of the layout viewport. When you pan to the bottom, it touches the bottom edge of the screen. No gap and no red line show."],
+    sources: ["RT/dynamic-toolbar-fixed-bottom-zoomed.html", "bug 1880375", "bug 2012700"],
+  },
+  {
+    id: "ZM-05", section: "zm", platforms: ["GV"],
+    title: "Double-tap zoom out with the toolbar",
+    viewport: "width=2000, initial-scale=1, minimum-scale=0.25",
+    css: "html, body { margin: 0; } body { width: 800vw; background: repeating-linear-gradient(90deg, #0a0 0 200px, #070 200px 400px); }",
+    html: () => note("Double-tap the page."),
+    variants: [
+      { label: "Page 100lvh tall", css: "body { height: 100lvh; }", note: "After the zoom out, the page fills the full screen height, also the area under the toolbar." },
+      { label: "Page between svh and lvh", css: "body { height: calc(100svh + (100lvh - 100svh) / 2); }", note: "The page fits the area above the toolbar. It is not zoomed out too far." },
+    ],
+    steps: ["Double-tap the page.", "Do it again with the toolbar fully hidden."],
+    expected: ["Each variant agrees with its note.", "No gap shows at the bottom after the zoom."],
+    sources: ["APZ/helper_doubletap_zoom_out_dynamic_toolbar.html", "bug 2082215"],
+  },
+  {
+    id: "ZM-06", section: "zm", platforms: ["GV"],
+    title: "Meta viewport with width=1600 and height=device-height",
+    viewport: "width=1600, height=device-height",
+    css: "body { margin: 0; } .dh { width: 100vw; } .dh1 { height: 100vh; background: green; } .dh2 { height: 500vh; background: blue; }",
+    html: '<div class="dh dh1"></div><div class="dh dh2"></div>',
+    steps: ["Load the page.", "Scroll down until the toolbar is fully hidden."],
+    expected: ["The page shows zoomed out. The green block covers approximately the top half of the screen.", "When the toolbar hides, no gap shows at the bottom."],
+    sources: ["layout/reftests/meta-viewport/device-height-with-dynamic-toolbar.html", "bug 1640223"],
+  },
+  {
+    id: "ZM-07", section: "zm", platforms: ["GV", "Fenix"],
+    title: "Page with no meta viewport (desktop width)",
+    viewport: null,
+    html: () => note("This page has no meta viewport. It is 980 px wide.") + rows(60) + '<div class="edge"></div>' + fixedBar(),
+    steps: ["Scroll down and up.", "Tap `A`, `B` and `C`."],
+    expected: [
+      "The page shows zoomed out. The test panel is larger, so that you can read it.",
+      "The toolbar hides and shows. The fixed bar follows the toolbar with no gap.",
+      "Each tap goes to the button that you tapped.",
+    ],
+    sources: [`${P.ird} :: testFractionalScrollPortSize`, `${P.dyn} :: withIntersectionObserverWithDesktopMode1`],
+  },
+  {
+    id: "ZM-08", section: "zm", platforms: ["GV"],
+    title: "Fixed elements on a page that is wider than the screen",
+    viewport: "width=device-width",
+    css: "html, body { width: 800px; height: 1000px; margin: 0; } .fx8 { position: fixed; right: 0; width: 120px; height: 120px; background: #0061e0; color: #fff; padding: 6px; } #fx8a { top: 0; } #fx8b { bottom: 0; }",
+    html: () => note("The page is 800 px wide. The engine zooms out to show all of it.") + '<div class="fx8" id="fx8a">top right</div><div class="fx8" id="fx8b" data-measure="bottom right box">bottom right</div>',
+    steps: ["Load the page.", "Scroll down and up."],
+    expected: [
+      "The blue boxes are at the top-right and bottom-right corners of the screen.",
+      "The bottom box follows the toolbar.",
+    ],
+    sources: [
+      "layout/reftests/meta-viewport/position-fixed-on-minimum-scale-size.html",
+      "testing/web-platform/mozilla/tests/css/css-position/sticky/position-sticky-on-minimum-scale.html",
+    ],
+  },
+
+  /* Fullscreen, safe area and rotation */
+  {
+    id: "FS-01", section: "fs", platforms: ["GV", "Fenix"],
+    title: "Fullscreen API on the page and on an element",
+    html: () => note("Use the buttons on the right.") + rows(20) +
+      '<div id="fsbox" style="margin:12px;padding:12px;background:#0061e0;color:#fff;min-height:200px">Fullscreen box<input class="big-input" style="margin:12px 0;width:100%" placeholder="Text field in the fullscreen box"></div>' +
+      rows(30) + '<div class="edge"></div>' + fixedBar() +
+      float([["Fullscreen: page", "BT.fullscreen()"], ["Fullscreen: box", "BT.fullscreen('#fsbox')"]]),
+    steps: [
+      "Scroll down until the toolbar is fully hidden.",
+      "Tap `Fullscreen: page`. Read the HUD.",
+      "At the top of the page, pull down.",
+      "Press Back.",
+      "Tap `Fullscreen: box`. Tap the text field in the box. Close the keyboard.",
+      "Rotate the device, then rotate it back. Press Back.",
+    ],
+    expected: [
+      "In fullscreen, no toolbar and no navigation bar show. The page fills the screen.",
+      "`lvh-svh` is 0, because Fenix sets the toolbar max height to 0. The orange bar touches the bottom edge of the screen.",
+      "Pull to refresh does not start in fullscreen.",
+      "Back exits fullscreen. It does not go back in the history.",
+      "The keyboard does not bring the toolbar back in fullscreen.",
+      "After you exit, the toolbar is fully shown and not clipped. The HUD values are the same as before fullscreen.",
+    ],
+    sources: [
+      "GV/ContentDelegateTest.kt :: fullscreen, sessionExitFullscreen",
+      `${P.fullScreen} :: Selected tab switching to fullscreen mode, Fixed tab switching to fullscreen mode and back, onBackPressed will invoke usecase for active fullscreen mode`,
+      `${P.bbft} :: WHEN asked to expand the browser view THEN hide all toolbars ..., GIVEN toolbars should be visible WHEN asked to collapse ...`,
+      `${P.swipeRefresh} :: feature disables the swipeRefreshLayout in fullscreen and re-enables it after exiting`,
+      `${P.bft} :: WHEN selected tab changes THEN full screen mode is exited`,
+    ],
+  },
+  {
+    id: "FS-02", section: "fs", platforms: ["GV"],
+    title: "Fullscreen ignores the meta viewport",
+    html: () => note("Tap <b>Fullscreen</b>. Press Back to exit.") + rows(30) + float([["Fullscreen", "BT.fullscreen()"]]),
+    variants: [
+      { label: "width=1200", viewport: "width=1200", note: "In fullscreen, the page uses the device width at scale 1: the `inner` width is equal to the `screen` width. After you exit, the `inner` width is 1200 again." },
+      {
+        label: "overflow-x: hidden, wide child", css: "body { overflow-x: hidden; } .wide { width: 200%; height: 100px; background: linear-gradient(90deg, #0a0, #00f); }",
+        html: () => '<div class="spacer-top"></div><div class="wide"></div>' + rows(20) + float([["Fullscreen", "BT.fullscreen()"]]),
+        note: "In fullscreen, a horizontal swipe does not move the page sideways. `offLeft` stays 0.",
+      },
+    ],
+    steps: ["Tap `Fullscreen`. Read the HUD.", "Swipe sideways.", "Press Back. Read the HUD."],
+    expected: ["Each variant agrees with its note."],
+    sources: ["APZ/helper_fullscreen.html", "bug 1696717"],
+  },
+  {
+    id: "FS-03", section: "fs", platforms: ["Fenix"],
+    title: "Fullscreen video",
+    html: () => note("Tap <b>Make test video</b>. The page records a 3 s video with a quiet tone. Then tap <b>Play</b>.") +
+      '<video id="vid" controls playsinline loop style="display:block;width:100%;max-height:60vh;background:#000"></video>' +
+      controls([["Make test video", "makeVideo()"], ["Play", "document.getElementById('vid').play()"], ["Video fullscreen", "document.getElementById('vid').requestFullscreen()"]]) + rows(30),
+    variants: [
+      { label: "Landscape video", size: [640, 360], note: "The screen rotates to landscape in fullscreen." },
+      { label: "Portrait video", size: [360, 640], note: "The screen stays in portrait in fullscreen." },
+    ],
+    init(fx, v) {
+      window.makeVideo = () => {
+        const [w, h] = v.size;
+        const canvas = document.createElement("canvas");
+        canvas.width = w;
+        canvas.height = h;
+        const ctx = canvas.getContext("2d");
+        let frame = 0;
+        let drawing = true;
+        const draw = () => {
+          frame++;
+          ctx.fillStyle = `hsl(${(frame * 3) % 360}, 70%, 40%)`;
+          ctx.fillRect(0, 0, w, h);
+          ctx.fillStyle = "#fff";
+          ctx.font = `${Math.round(h / 10)}px sans-serif`;
+          ctx.fillText(`${w}x${h} frame ${frame}`, 20, h / 2);
+          if (drawing) {
+            requestAnimationFrame(draw);
+          }
+        };
+        draw();
+        const stream = canvas.captureStream(30);
+        const ac = new AudioContext();
+        const osc = ac.createOscillator();
+        const gain = ac.createGain();
+        gain.gain.value = 0.05;
+        const dest = ac.createMediaStreamDestination();
+        osc.connect(gain).connect(dest);
+        osc.start();
+        stream.addTrack(dest.stream.getAudioTracks()[0]);
+        const rec = new MediaRecorder(stream);
+        const chunks = [];
+        rec.ondataavailable = e => chunks.push(e.data);
+        rec.onstop = () => {
+          drawing = false;
+          osc.stop();
+          ac.close();
+          document.getElementById("vid").src = URL.createObjectURL(new Blob(chunks, { type: rec.mimeType }));
+          BT.log("test video ready");
+        };
+        rec.start();
+        BT.log("recording 3 s");
+        setTimeout(() => rec.stop(), 3000);
+      };
+    },
+    steps: [
+      "Tap `Make test video`. Wait for `test video ready` in the log.",
+      "Tap `Play`. Tap `Video fullscreen`, or the fullscreen button of the video.",
+      "Exit fullscreen with Back.",
+      "Do the steps for each variant.",
+    ],
+    expected: [
+      "In fullscreen, no toolbar shows and the video fills the screen.",
+      "The orientation agrees with the note of the variant.",
+      "After you exit, the screen can rotate freely again. The toolbar is fully shown.",
+    ],
+    sources: [
+      P.mediaFs,
+      `${P.fullScreen} :: Fixed tab switching to fullscreen mode and back`,
+      `${P.bbft} :: WHEN asked to expand the browser view THEN hide all toolbars ...`,
+    ],
+  },
+  {
+    id: "FS-04", section: "fs", platforms: ["GV", "Fenix"],
+    title: "Safe-area insets and viewport-fit",
+    viewport: "width=device-width, initial-scale=1, viewport-fit=cover",
+    css: "#sa-top, #sa-bottom { position: fixed; left: 0; right: 0; z-index: 10; background: #7542e5; color: #fff; font-weight: 600; text-align: center; padding-left: env(safe-area-inset-left); padding-right: env(safe-area-inset-right); } #sa-top { top: 0; padding-top: calc(env(safe-area-inset-top) + 8px); padding-bottom: 8px; } #sa-bottom { bottom: 0; padding-bottom: calc(env(safe-area-inset-bottom) + 8px); padding-top: 8px; }",
+    html: () => '<div id="sa-top">Top bar (safe-area padding)</div>' + '<div class="spacer-top"></div>' + rows(40) +
+      '<div id="sa-bottom" data-measure="bottom bar">Bottom bar (safe-area padding)</div>' +
+      float([
+        ["viewport-fit=cover", "BT.setViewport('width=device-width, initial-scale=1, viewport-fit=cover')"],
+        ["viewport-fit=contain", "BT.setViewport('width=device-width, initial-scale=1, viewport-fit=contain')"],
+        ["viewport-fit=auto", "BT.setViewport('width=device-width, initial-scale=1, viewport-fit=auto')"],
+        ["Fullscreen", "BT.fullscreen()"],
+      ]),
+    steps: [
+      "Read `safe-area` in the HUD. Look at the bottom bar.",
+      "Scroll down until the toolbar is fully hidden.",
+      "Tap `Fullscreen`. Rotate the device to landscape, then back to portrait.",
+      "Press Back. Read `safe-area` again.",
+      "Tap `viewport-fit=contain`, then `viewport-fit=auto`. Do steps 1 to 4 for each.",
+    ],
+    expected: [
+      "The text of the bars is never under the system navigation bar, the status bar or a display cutout.",
+      "With the toolbar shown, the bottom bar is directly above the toolbar.",
+      "After you exit fullscreen, the viewport-fit mode and the insets are the same as before.",
+    ],
+    sources: [
+      "dom/base/test/meta_viewport/test_meta_viewport_fit.html",
+      `${P.fullScreen} :: GIVEN a viewport-fit was applied WHEN leaving fullscreen THEN the viewport-fit is applied again`,
+      `${P.bft} :: WHEN the viewport fit changes THEN the cutout mode is applied`,
+    ],
+  },
+  {
+    id: "FS-05", section: "fs", platforms: ["GV", "Fenix"],
+    title: "Rotation with the toolbar shown and hidden",
+    html: () => unitBars() + rows(60) + '<div class="edge"></div>' + fixedBar(),
+    steps: [
+      "With the toolbar fully shown, rotate to landscape.",
+      "Read `lvh-svh`. Scroll down until the toolbar is hidden.",
+      "Rotate to portrait while the toolbar is hidden.",
+      "Scroll up.",
+      "Settings > Customize > Toolbar layout: Expanded. Do the steps again.",
+    ],
+    expected: [
+      "After each rotation, the orange bar is directly above the toolbar, or at the bottom edge if the toolbar is hidden. No gap and no overlap show.",
+      "`lvh-svh` is equal to the toolbar height in the new orientation.",
+      "With the Expanded layout, the navigation bar does not show when the window is wide. The toolbar height changes to agree.",
+      "The toolbar is never stuck partly hidden after a rotation.",
+    ],
+    sources: [
+      "FUI/NavigationToolbarExpandedTest.kt",
+      "FUI/efficiency/tests/SettingsCustomizeExpandedToolbarTest.kt",
+      P.heights,
+      `${P.settings} :: getBrowserToolbarHeight`,
+    ],
+  },
+
+  /* Fenix UI at the bottom edge */
+  {
+    id: "UI-01", section: "ui", platforms: ["Fenix"],
+    title: "Find in page with the toolbar at the bottom",
+    html: () => note("The word zebra is in rows 5, 20 and 40, and in the last line of the page.") +
+      rows(60).replace(/Row (5|20|40)<\//g, "Row $1 zebra</") + '<p style="margin:12px 12px 70px">Last line: zebra</p>' + '<div class="edge"></div>' + fixedBar(),
+    steps: [
+      "Scroll down until the toolbar is hidden. Then scroll up a little, so that it shows.",
+      "Open the menu. Tap Find in page.",
+      "Type zebra.",
+      "Tap the next arrow until you get to the last match.",
+      "Rotate the device. Rotate it back.",
+      "Close the find bar.",
+    ],
+    expected: [
+      "While the find bar is open, the toolbar is hidden. The find bar is at the bottom, and nothing overlaps it.",
+      "Each match scrolls into view above the find bar and the keyboard. The last match is fully visible.",
+      "Rotation does not break the layout.",
+      "After you close the find bar, the toolbar is fully shown. The orange bar is directly above it.",
+    ],
+    sources: [
+      "FUT/components/FindInPageIntegrationTest.kt",
+      "FUI/MainMenuTest.kt :: verifyTheFindInPageMenuItemTest, verifyTheFindInPageOptionInPDFsTest",
+      `${P.bbft} :: GIVEN find in page active ...`,
+      "bug 1908639",
+    ],
+  },
+  {
+    id: "UI-02", section: "ui", platforms: ["Fenix"],
+    title: "Download dialog and snackbars",
+    html: () => controls([["Download a file", "dl()"]]) + rows(40) + controls([["Download a file (page end)", "dl()"]]) + '<div style="height:60px"></div>',
+    init() {
+      window.dl = () => {
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(new Blob(["Bottom toolbar test file\n".repeat(2000)], { type: "text/plain" }));
+        a.download = "bottom-toolbar-test.txt";
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        BT.log("download started");
+      };
+    },
+    steps: [
+      "Scroll to the end of the page until the toolbar is hidden.",
+      "Tap `Download a file (page end)`.",
+      "Look at the download dialog or snackbar.",
+      "Open the tabs tray. Close a tab, so that the undo snackbar shows.",
+      "Do the steps again with Toolbar layout: Expanded, and with the address bar at the top.",
+    ],
+    expected: [
+      "When the download completes, the toolbar expands.",
+      "The download dialog and the snackbars are directly above the highest visible bottom bar. They are never under the toolbar.",
+      "If the toolbar hides while a snackbar shows, the snackbar moves to the bottom edge of the screen.",
+    ],
+    sources: [
+      "FUT/components/SnackbarBehaviorTest.kt",
+      "FUI/DownloadTest.kt :: verifyTheDownloadPromptsTest",
+      `${P.bbft} :: shouldShowCompletedDownloadDialog`,
+    ],
+  },
+  {
+    id: "UI-03", section: "ui", platforms: ["Fenix"],
+    title: "Form controls and dialogs near the bottom",
+    html: () => rows(25) +
+      '<div class="ctl" style="flex-direction:column;align-items:stretch;padding-bottom:80px">' +
+      `<select>${Array.from({ length: 12 }, (_, i) => `<option>Option ${i + 1}</option>`).join("")}</select>` +
+      '<input type="date"><input type="time"><input type="datetime-local"><input type="color"><input type="file">' +
+      `<button onclick="alert('alert()')">alert()</button><button onclick="confirm('confirm()')">confirm()</button><button onclick="prompt('prompt()')">prompt()</button></div>` +
+      `<div class="fbar"><select><option>Select in the fixed bar</option><option>Option 2</option><option>Option 3</option></select><input type="date"></div>`,
+    steps: [
+      "Scroll to the end of the page.",
+      "Tap each control and each button. Close each picker or dialog.",
+      "Tap the select and date controls in the orange bar.",
+      "Do the steps with the toolbar fully shown, and with it fully hidden.",
+    ],
+    expected: [
+      "Each picker and dialog is fully visible. The toolbar does not cover it.",
+      "The value that you select shows in the control.",
+      "After a picker closes, the toolbar and the page are in the same state as before.",
+    ],
+    sources: [
+      "FUI/WebControlsTest.kt :: verifyCalendarFormInteractionsTest, verifyClockFormInteractionsTest, verifyColorPickerInteractionsTest, verifyDropdownMenuInteractionsTest",
+      P.prompts,
+    ],
+  },
+  {
+    id: "UI-04", section: "ui", platforms: ["Fenix"],
+    title: "Context menu, text selection and caret near the bottom",
+    html: () => rows(20) +
+      '<p style="margin:12px">Long-press a word in this paragraph to select it. Drag the end handle down toward the toolbar. The selection menu and the handles must stay visible, and the toolbar must not move while you drag.</p>' +
+      '<p style="margin:12px"><a href="?case=UI-04#link">A link near the bottom</a></p>' +
+      '<p style="margin:12px"><img id="ctx-img" width="200" height="100" alt="Test image"></p>' +
+      '<textarea class="big-input" rows="3">Text in a textarea near the bottom. Tap here and drag the caret handle.</textarea><div style="height:20px"></div>',
+    init() {
+      const c = document.createElement("canvas");
+      c.width = 200;
+      c.height = 100;
+      const ctx = c.getContext("2d");
+      ctx.fillStyle = "#0061e0";
+      ctx.fillRect(0, 0, 200, 100);
+      ctx.fillStyle = "#fff";
+      ctx.font = "20px sans-serif";
+      ctx.fillText("Test image", 40, 58);
+      document.getElementById("ctx-img").src = c.toDataURL();
+    },
+    steps: [
+      "Scroll to the end of the page.",
+      "Long-press the link. Close the menu.",
+      "Long-press the image. Close the menu.",
+      "Long-press a word in the paragraph. Drag the end handle down toward the toolbar.",
+      "Tap in the textarea. Drag the caret handle down.",
+    ],
+    expected: [
+      "The context menus are fully visible.",
+      "The text selection menu and the handles are not under the toolbar.",
+      "While you drag a handle or the caret, the toolbar does not move.",
+    ],
+    sources: ["FUI/ContextMenusTest.kt", "FUI/TextSelectionTest.kt", "bug 1917640"],
+  },
+  {
+    id: "UI-05", section: "ui", platforms: ["Fenix"],
+    title: "Login and autofill forms: select bars and save sheets",
+    variants: [
+      { label: "Login", html: () => rows(20) + form(0, [["username", "username", "User name"], ["password", "current-password", "Password (use a fake one)", "password"]], "Sign in"), note: "Save-login sheet, and the login select bar if you have saved logins." },
+      { label: "New password", html: () => rows(20) + form(1, [["username", "username", "User name"], ["password", "new-password", "New password", "password"]], "Create account"), note: "The strong password bar." },
+      { label: "Credit card", html: () => rows(20) + form(2, [["ccname", "cc-name", "Name on card"], ["ccnumber", "cc-number", "Card number (use 4111 1111 1111 1111)"], ["ccexp", "cc-exp", "Expiry (MM/YY)"]], "Pay"), note: "Save-card sheet, and the card select bar if you have saved cards." },
+      { label: "Address", html: () => rows(20) + form(3, [["name", "name", "Full name"], ["street", "street-address", "Street address"], ["city", "address-level2", "City"], ["zip", "postal-code", "Postal code"], ["email", "email", "Email"]], "Save address"), note: "Save-address sheet, and the address select bar if you have saved addresses." },
+    ],
+    steps: [
+      "Scroll to the end of the page.",
+      "Tap the first field.",
+      "Fill the fields with fake data. Tap the submit button while the keyboard is open.",
+      "Do the steps again after you save the data, to see the select bar.",
+    ],
+    expected: [
+      "The select bar is directly above the keyboard. It does not cover the focused field.",
+      "After you submit, the save sheet opens fully expanded at the bottom edge of the screen. It is not in the middle of the screen.",
+      "The strong password bar (New password variant) is above the keyboard.",
+    ],
+    sources: [
+      P.saveLogin,
+      P.prompts,
+      "FUT/browser/AutofillSelectBarBehaviorTest.kt",
+      "FUT/components/FenixAutocompletePromptTest.kt :: GIVEN the prompt is shown with toolbar at bottom WHEN view is expanded THEN the autocomplete bar is placed at the bottom",
+    ],
+  },
+  {
+    id: "UI-06", section: "ui", platforms: ["Fenix"],
+    title: "Site permission prompts",
+    html: () => {
+      const buttons = [
+        ["Location", "navigator.geolocation.getCurrentPosition(p=>BT.log('location: allowed'),e=>BT.log('location: '+e.message))"],
+        ["Notifications", "Notification.requestPermission().then(r=>BT.log('notifications: '+r))"],
+        ["Camera", "navigator.mediaDevices.getUserMedia({video:true}).then(s=>{s.getTracks().forEach(t=>t.stop());BT.log('camera: allowed')},e=>BT.log('camera: '+e.name))"],
+        ["Microphone", "navigator.mediaDevices.getUserMedia({audio:true}).then(s=>{s.getTracks().forEach(t=>t.stop());BT.log('microphone: allowed')},e=>BT.log('microphone: '+e.name))"],
+      ];
+      return '<div class="spacer-top"></div>' + controls(buttons) + rows(40) + controls(buttons) + '<div style="height:60px"></div>';
+    },
+    steps: [
+      "Tap each button while the toolbar is fully shown. Answer each prompt with Block or Don't allow.",
+      "Clear the permissions of this site (site information icon in the address bar).",
+      "Scroll to the end of the page until the toolbar is hidden. Tap each button again.",
+    ],
+    expected: [
+      "Each permission prompt is fully visible at the bottom of the screen. The toolbar and the keyboard do not cover it.",
+      "After you answer, the toolbar is in the same state as before.",
+    ],
+    sources: [P.perms],
+  },
+  {
+    id: "UI-07", section: "ui", platforms: ["Fenix"],
+    title: "Translations banner with the bottom toolbar",
+    lang: "fr",
+    setup: ["Translations are available for French in your build."],
+    html: () => frenchText() + rows(20),
+    steps: ["Load the page. Wait for the translations prompt.", "Scroll down and up slowly. Stop when the toolbar is half hidden, and lift your finger."],
+    expected: [
+      "The translations banner or prompt is above the toolbar. It moves with the toolbar when you scroll.",
+      "When you lift your finger, the banner snaps with the toolbar.",
+    ],
+    sources: ["FUT/browser/TranslationsBannerBehaviorTest.kt"],
+  },
+  {
+    id: "UI-08", section: "ui", platforms: ["Fenix"],
+    title: "PDF viewer with the toolbar at the bottom",
+    html: () => note("The button makes a 5-page PDF in the page and opens it.") + controls([["Open a 5-page PDF", "openPdf()"]]) + rows(10),
+    init() {
+      const makePdf = pages => {
+        const kids = [];
+        const objs = [];
+        let n = 4;
+        for (let i = 0; i < pages; i++) {
+          const pageId = n++;
+          const contentId = n++;
+          kids.push(`${pageId} 0 R`);
+          const text = `BT /F1 36 Tf 72 700 Td (Page ${i + 1} of ${pages}) Tj ET`;
+          objs.push([pageId, `<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R >> >> /Contents ${contentId} 0 R >>`]);
+          objs.push([contentId, `<< /Length ${text.length} >>\nstream\n${text}\nendstream`]);
+        }
+        const all = [
+          [1, "<< /Type /Catalog /Pages 2 0 R >>"],
+          [2, `<< /Type /Pages /Kids [${kids.join(" ")}] /Count ${pages} >>`],
+          [3, "<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>"],
+          ...objs,
+        ];
+        let out = "%PDF-1.4\n";
+        const offsets = [];
+        for (const [id, body] of all) {
+          offsets[id] = out.length;
+          out += `${id} 0 obj\n${body}\nendobj\n`;
+        }
+        const xref = out.length;
+        out += `xref\n0 ${all.length + 1}\n0000000000 65535 f \n`;
+        for (let id = 1; id <= all.length; id++) {
+          out += `${String(offsets[id]).padStart(10, "0")} 00000 n \n`;
+        }
+        return out + `trailer\n<< /Size ${all.length + 1} /Root 1 0 R >>\nstartxref\n${xref}\n%%EOF\n`;
+      };
+      window.openPdf = () => {
+        location.href = URL.createObjectURL(new Blob([makePdf(5)], { type: "application/pdf" }));
+      };
+    },
+    steps: [
+      "Tap `Open a 5-page PDF`.",
+      "Scroll down and up in the PDF.",
+      "At the top of the PDF, pull down.",
+      "Open Find in page. Search for Page.",
+      "If PDF tools show (for example, a signature button), tap one that opens a dialog.",
+    ],
+    expected: [
+      "The PDF tools are above the toolbar and move with it.",
+      "Pull to refresh does not start in the PDF viewer.",
+      "Find in page works, and its bar is at the bottom.",
+      "Dialogs of the PDF tools are above the keyboard.",
+    ],
+    sources: [
+      "FUT/pdf/PdfOverlayBehaviorTest.kt",
+      "FUT/pdf/PdfToolsIntegrationTest.kt",
+      `${P.swipeRefresh} :: feature disables the swipeRefreshLayout on a PDF and re-enables it after leaving`,
+      "FUI/MainMenuTest.kt :: verifyTheFindInPageOptionInPDFsTest",
+      "FUI/CustomTabsTest.kt :: verifyPDFViewerInACustomTabTest",
+      "bug 2054920",
+    ],
+  },
+  {
+    id: "UI-09", section: "ui", platforms: ["Fenix"],
+    title: "Reader view and Listen to page",
+    html: articleText,
+    steps: [
+      "Wait for the reader view icon in the address bar. Tap it.",
+      "Scroll down and up. Open the reader view settings.",
+      "Exit reader view. Open the menu. Start Listen to page, if your build has it.",
+      "Scroll down and up.",
+    ],
+    expected: [
+      "In reader view, the toolbar hides and shows on scroll as on a normal page. The reader view controls are not under the toolbar.",
+      "The Listen to page sheet is above the toolbar and moves with it. Snackbars show above the sheet.",
+    ],
+    sources: ["FUT/listentopage/ListenSheetIntegrationTest.kt", "FUT/components/SnackbarBehaviorTest.kt"],
+  },
+
+  /* Fenix settings and toolbar states */
+  {
+    id: "ST-01", section: "st", platforms: ["Fenix"],
+    title: "Scroll to hide toolbar: off",
+    setup: ["Settings > Customize > Scroll to hide toolbar: off."],
+    html: () => unitBars() + rows(60) + '<div class="edge"></div>' + fixedBar(),
+    steps: ["Scroll down and up.", "Read `lvh-svh`."],
+    expected: [
+      "The toolbar does not hide.",
+      "`lvh-svh` is 0, because the toolbar max height is 0.",
+      "The page ends directly above the toolbar. The orange bar is directly above the toolbar.",
+    ],
+    sources: [
+      `${P.bbft} :: initializeEngineView should setDynamicToolbarMaxHeight to 0 if dynamic toolbar is disabled`,
+      "FUI/efficiency/tests/SettingsCustomizeExpandedToolbarTest.kt :: verifyTheScrollToHideToolbarOptionTest",
+    ],
+  },
+  {
+    id: "ST-02", section: "st", platforms: ["Fenix"],
+    title: "An accessibility service makes the toolbar fixed",
+    setup: ["Turn on TalkBack, or a switch access service."],
+    html: () => unitBars() + rows(60) + fixedBar(),
+    steps: [
+      "Scroll down and up. With TalkBack, use two fingers.",
+      "With the page open, turn the service off. Scroll again.",
+      "Turn the service on again. Scroll again.",
+    ],
+    expected: [
+      "With the service on, the toolbar does not hide, and `lvh-svh` is 0.",
+      "When you turn the service off, the toolbar hides on scroll again, without a reload.",
+      "When you turn it on again, the toolbar is fixed again.",
+    ],
+    sources: [
+      `${P.bbft} :: initializeEngineView should setDynamicToolbarMaxHeight to 0 if bottom toolbar is forced for a11y`,
+      "FUT/FenixApplicationTest.kt",
+    ],
+  },
+  {
+    id: "ST-03", section: "st", platforms: ["Fenix"],
+    title: "Expanded toolbar layout: address bar and navigation bar",
+    setup: ["Settings > Customize > Toolbar layout: Expanded."],
+    html: () => fixedBar("Fixed bar (top: 0)", "top") + rows(60) + '<div class="edge"></div>' + fixedBar(),
+    steps: [
+      "Set Address bar location: Bottom. Open this case. Read `lvh-svh`.",
+      "Scroll down and up.",
+      "Set Address bar location: Top. Open this case again. Read `lvh-svh`.",
+      "Scroll down and up.",
+    ],
+    expected: [
+      "`lvh-svh` is equal to the sum of the heights of all bars that can hide.",
+      "The address bar and the navigation bar hide and show together.",
+      "The fixed bars stay attached to the edges of the visible area. With the address bar at the top, the page moves down with the top bar.",
+    ],
+    sources: [
+      `${P.bbft} :: WHEN initializeEngineView is called THEN setDynamicToolbarMaxHeight sets max height to the engine view as a sum of two toolbars heights`,
+      "FUT/components/toolbar/NavbarToolbarSyncBehaviorTest.kt",
+      `${P.clipping} :: WHEN both of the toolbars are being shifted ...`,
+      "FUI/NavigationToolbarExpandedTest.kt :: verifyTheExpandedToolbarHomepageItemsTest",
+      P.heights,
+      `${P.settings} :: getBrowserToolbarHeight`,
+    ],
+  },
+  {
+    id: "ST-04", section: "st", platforms: ["Fenix"],
+    title: "Tab strip on a tablet",
+    setup: ["Tablet, or a large window.", "Settings > Customize > Tab bar display: Show tab bar on. If your build shows a position for the tab bar, do the case for Bottom and for Top."],
+    html: () => unitBars() + rows(60) + fixedBar(),
+    steps: ["Read `lvh-svh`.", "Scroll down and up.", "Do the steps for each tab bar position and each address bar location."],
+    expected: [
+      "`lvh-svh` includes the tab strip height when the tab strip is at the bottom.",
+      "The tab strip hides and shows with the toolbar.",
+      "Custom tabs do not show the tab strip.",
+    ],
+    sources: [`${P.settings} :: shouldShowTabStripAtBottom`, "FUI/NavigationToolbarExpandedTest.kt :: verifyTheTabStripUITest", P.heights],
+  },
+  {
+    id: "ST-05", section: "st", platforms: ["Fenix"],
+    title: "App events that expand the toolbar",
+    html: () => note("Before each step, scroll down until the toolbar is fully hidden.") + rows(60),
+    steps: [
+      "Open a second tab. Switch back to this tab.",
+      "Switch to another app. Come back.",
+      "Download a file (UI-02).",
+      "Open and close the keyboard (KB-11).",
+      "In another tab, type `about:crashcontent` in the address bar, if your build allows it. Come back to this tab.",
+    ],
+    expected: [
+      "After each step, the toolbar is fully shown.",
+      "After a tab switch, `dvh` is equal to `svh` in the HUD.",
+    ],
+    sources: [
+      `${P.bft} :: WHEN selected tab changes THEN toolbar is expanded`,
+      "FUT/crashes/CrashContentIntegrationTest.kt",
+      `${P.tbController}`,
+    ],
+  },
+  {
+    id: "ST-06", section: "st", platforms: ["Fenix"],
+    title: "Installed web app (PWA) has no toolbar",
+    manifest: true,
+    html: () => note("This case adds a web app manifest with <code>display: standalone</code>.") + rows(30) +
+      '<input class="big-input" placeholder="Text field"><p style="margin:12px"><a href="http://127.0.0.1:8000/bottom-toolbar.html">Link out of the app scope (other origin)</a></p>' +
+      rows(5) + fixedBar(),
+    steps: [
+      "Open the menu. Tap Add app to Home screen (or Install).",
+      "Open the app from the home screen.",
+      "Scroll down and up. Tap the text field.",
+      "Tap the link out of the app scope.",
+    ],
+    expected: [
+      "The app opens with no toolbar. `lvh-svh` is 0. The orange bar touches the bottom edge of the screen.",
+      "The keyboard does not bring a toolbar back.",
+      "The link out of scope opens with a custom tab toolbar.",
+      "If the menu shows only Add to Home screen, the build did not accept the manifest. Then use any web app that you can install.",
+    ],
+    sources: [
+      "FUI/PwaTest.kt :: appLikeExperiencePWATest, externalLinkPWATest",
+      `${P.bbft} :: GIVEN a PWA WHEN reinitializing ...`,
+      P.tit,
+    ],
+  },
+  {
+    id: "ST-07", section: "st", platforms: ["Fenix"],
+    title: "Custom tab with the toolbar at the bottom",
+    setup: ["Open this case from an app that uses Custom Tabs."],
+    html: () => note("Open this page in a custom tab.") + rows(40) + controls([["Download a file", "dl()"]]),
+    init() {
+      window.dl = () => {
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(new Blob(["Custom tab test file\n"], { type: "text/plain" }));
+        a.download = "custom-tab-test.txt";
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+      };
+    },
+    steps: ["Scroll down and up.", "Use Find in page.", "Tap `Download a file`."],
+    expected: [
+      "The custom tab toolbar is at the bottom when the address bar location is Bottom.",
+      "`lvh-svh` does not include a navigation bar or a tab strip.",
+      "The progress bar shows on the top edge of the bottom toolbar while a page loads.",
+      "Find in page and downloads work as in UI-01 and UI-02.",
+    ],
+    sources: [
+      "FUT/components/toolbar/CustomTabBrowserToolbarMiddlewareTest.kt :: GIVEN a bottom toolbar WHEN the loading progress changes THEN update the progress bar",
+      "FUI/CustomTabsTest.kt :: verifyDownloadInACustomTabTest, verifyPDFViewerInACustomTabTest",
+      `${P.tbController} :: Controller should check the status of the provided custom tab id`,
+    ],
+  },
+  {
+    id: "ST-08", section: "st", platforms: ["Fenix"],
+    title: "Swipe gestures on the bottom toolbar",
+    setup: ["Two or more tabs are open."],
+    html: () => rows(30),
+    steps: [
+      "Swipe up on the toolbar.",
+      "Close the tabs tray.",
+      "Swipe left and right on the address bar.",
+      "Settings > Customize > Toolbar layout: Expanded. Do the steps again, also on the navigation bar.",
+    ],
+    expected: [
+      "A swipe up opens the tabs tray.",
+      "A sideways swipe switches tabs. The preview shows the toolbar at the bottom.",
+      "A swipe that starts in the system gesture area at the bottom edge goes to the system, not to the toolbar.",
+    ],
+    sources: [
+      "FUT/components/toolbar/gestures/ToolbarVerticalGesturesHandlerTest.kt",
+      "FUI/efficiency/tests/NavigationToolbarTest.kt :: verifySwipeToolbarVerticallyOpensTheTabDrawerTest, swipeToSwitchTabTest",
+      "FUI/SettingsCustomizeTest.kt :: turnOffSwipeToSwitchTabsPreferenceTest",
+    ],
+  },
+  {
+    id: "ST-09", section: "st", platforms: ["Fenix"],
+    title: "Change the address bar location while a page is open",
+    html: () => unitBars() + rows(60) + '<div class="edge"></div>' + fixedBar(),
+    steps: [
+      "Open this case. Read `lvh-svh`.",
+      "Settings > Customize > Address bar location: Top. Go back to the page.",
+      "Scroll down and up.",
+      "Set Address bar location: Bottom. Go back to the page. Scroll down and up.",
+      "Open the home screen. Look at the address bar.",
+    ],
+    expected: [
+      "The address bar moves to the new location.",
+      "`lvh-svh` and the orange bar are correct after each change. No old gap stays.",
+      "The home screen shows the address bar at the location that you selected.",
+    ],
+    sources: ["FUI/SettingsCustomizeTest.kt :: setToolbarPositionTest, verifyTheToolbarLayoutSectionTest", "bug 2040906"],
+  },
+  {
+    id: "ST-10", section: "st", platforms: ["Fenix"],
+    title: "Microsurvey prompt above the bottom toolbar",
+    setup: ["A microsurvey is active. A print of a page can start the print survey."],
+    html: () => unitBars() + rows(60),
+    steps: [
+      "Open the menu. Tap Print. Cancel the print.",
+      "Go back to this page. Wait for the survey prompt above the toolbar.",
+      "Read `lvh-svh`. Scroll down and up.",
+      "Rotate to landscape, then back to portrait.",
+      "Switch tabs and come back.",
+    ],
+    expected: [
+      "`lvh-svh` includes the height of the survey prompt.",
+      "The prompt and the toolbar hide and show together.",
+      "After rotation, the layout is correct. The prompt is still active after a tab switch.",
+    ],
+    sources: [
+      "FUI/MicrosurveyTest.kt :: activationOfThePrintMicrosurveyTest, verifyTheSurveyRemainsActivatedWhileChangingTabsTest",
+      `${P.bbft} :: GIVEN addressbar and micro survey shown ...`,
+      "bug 2006295",
+    ],
+  },
+  {
+    id: "ST-11", section: "st", platforms: ["Fenix"],
+    title: "Search suggestions with the address bar at the bottom",
+    html: () => note("This case uses only the Fenix UI.") + rows(10),
+    steps: [
+      "Tap the address bar.",
+      "Type a word.",
+      "Copy a URL to the clipboard. Tap the address bar.",
+    ],
+    expected: [
+      "The suggestion list grows up from the address bar, above the keyboard. The first suggestion is next to the address bar.",
+      "The clipboard suggestion shows for the bottom address bar.",
+    ],
+    sources: ["FUT/search/SearchFragmentStoreTest.kt :: createInitialSearchFragmentState with no tab in normal browsing mode"],
+  },
+  {
+    id: "ST-12", section: "st", platforms: ["Fenix"],
+    title: "Menus and popups of the bottom toolbar",
+    html: () => note("This case uses only the Fenix UI.") + rows(10),
+    steps: [
+      "Tap the menu button.",
+      "Long-press the tab counter.",
+      "Long-press the address bar.",
+      "Tap the site information icon.",
+    ],
+    expected: [
+      "The menu opens up from the bottom toolbar. The navigation actions are at the bottom of the menu.",
+      "The tab counter menu and the paste popup show above the toolbar.",
+      "The site information panel is fully visible.",
+    ],
+    sources: ["FUT/components/menu/configuration/BrowserMenuConfigurationTest.kt", "FUT/components/toolbar/FenixTabCounterMenuTest.kt"],
+  },
+];
+
+const INDEX_INTRO = "Manual test cases for the bottom toolbar in Fenix, and for the GeckoView features that it uses. " +
+  "The cases come from the GeckoView, Gecko, Android Components and Fenix tests. Each case shows the automated tests that cover it.";
+
+const INDEX_HOWTO = `<details class="howto">
+<summary>How to use this page</summary>
+<h4>Open the page on the device</h4>
+<ol>
+<li>On the computer, go to the directory of this file. Run <code>python3 -m http.server 8000</code>.</li>
+<li>Connect the device with USB. Run <code>adb reverse tcp:8000 tcp:8000</code>.</li>
+<li>On the device, open <code>http://localhost:8000/bottom-toolbar.html</code> in Fenix.</li>
+</ol>
+<h4>Default Fenix settings</h4>
+<ul>
+<li>Settings &gt; Customize &gt; Address bar location: <b>Bottom</b>.</li>
+<li>Settings &gt; Customize &gt; Toolbar layout: <b>Simple</b>, unless the case tells you to use Expanded.</li>
+<li>Settings &gt; Customize &gt; Scroll to hide toolbar: <b>on</b>.</li>
+<li>Settings &gt; Customize &gt; Pull to refresh: <b>on</b>.</li>
+<li>TalkBack and switch access: <b>off</b>. Portrait orientation.</li>
+</ul>
+<h4>Words in the steps</h4>
+<ul>
+<li><b>Toolbar</b>: all the Fenix bars at the bottom edge (address bar, navigation bar, tab strip and microsurvey prompt).</li>
+<li><b>Scroll down</b>: move your finger up, so that the page shows lower content. The toolbar hides.</li>
+<li><b>Scroll up</b>: move your finger down. The toolbar shows.</li>
+<li>When you lift your finger, Fenix moves the toolbar to fully shown or fully hidden. To see a <b>partly hidden</b> toolbar, keep your finger on the screen.</li>
+</ul>
+<h4>The test panel</h4>
+<ul>
+<li>Each case opens with a panel at the top. <b>Info</b> shows the steps. <b>HUD</b> shows live values. <b>&#8211;</b> makes the panel small.</li>
+<li>The HUD shows CSS px. <code>inner</code> is <code>innerWidth</code> x <code>innerHeight</code>. <code>vv</code> is <code>visualViewport</code>. <code>lvh-svh</code> is the toolbar height that the engine knows.</li>
+<li>For each element with a <code>data-measure</code> label, the HUD shows its top and bottom. <code>innerH-bottom</code> is the distance from the element bottom to the bottom of the layout viewport.</li>
+<li>Values can differ by less than 1 px, because <code>innerHeight</code> and <code>clientHeight</code> are whole numbers.</li>
+<li>The HUD draws 0.2 s after the page stops moving. It does not draw during a gesture, because a draw during a gesture can delay the toolbar.</li>
+<li>Mark each case Pass, Fail or Skip, and add a note. The results stay on this device. <b>Export results</b> makes a Markdown table that you can put in a bug.</li>
+<li>The page adds touch listeners only in the cases that need them. A touch listener changes how the engine reports touches, and the toolbar uses that report.</li>
+</ul>
+<h4>GeckoView</h4>
+<p>The cases with the GeckoView label use web content only. Run them in Fenix, or in a GeckoView app that calls <code>GeckoView.setDynamicToolbarMaxHeight</code>. "Automated coverage" shows the tests for each case.</p>
+<h4>Two scroll behaviors</h4>
+<p>Android Components has two behaviors for a bottom toolbar: gestures (the default) and scroll data (opt-in, <code>EngineViewScrollingDataBehavior</code>). The cases in "When the toolbar hides and shows" can give different results. If you know the behavior of your build, write it in the note.</p>
+<h4>Not covered by this page</h4>
+<p>A web page cannot cause these conditions, so only automated tests cover them: a toolbar max height larger than the screen (<code>DynamicToolbarTest.outOfRangeValue</code>), an invalid (NaN) toolbar offset, offsets larger than the toolbar height, and the selection of the scroll behavior (<code>EngineViewScrollingBehaviorFactory</code>).</p>
+</details>`;
+
+const PARAMS = new URLSearchParams(location.search);
+const CURRENT = CASES.find(c => c.id === PARAMS.get("case")) || null;
+const VARIANT_INDEX = CURRENT && CURRENT.variants
+  ? Math.min(CURRENT.variants.length - 1, Math.max(0, parseInt(PARAMS.get("v") || "0", 10) || 0))
+  : -1;
+const VARIANT = VARIANT_INDEX >= 0 ? CURRENT.variants[VARIANT_INDEX] : null;
+
+(function applyViewportAndCss() {
+  let content = DEFAULT_VIEWPORT;
+  if (CURRENT && CURRENT.viewport !== undefined) {
+    content = CURRENT.viewport;
+  }
+  if (VARIANT && VARIANT.viewport !== undefined) {
+    content = VARIANT.viewport;
+  }
+  if (PARAMS.has("vp")) {
+    content = PARAMS.get("vp") || null;
+  }
+  if (content !== null) {
+    const meta = document.createElement("meta");
+    meta.name = "viewport";
+    meta.id = "bt-viewport";
+    meta.content = content;
+    document.head.appendChild(meta);
+  }
+  if (CURRENT && CURRENT.lang) {
+    document.documentElement.lang = CURRENT.lang;
+  }
+  if (CURRENT && CURRENT.manifest) {
+    const icon = "data:image/svg+xml," + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192"><rect width="192" height="192" rx="32" fill="#ff7139"/><rect x="24" y="140" width="144" height="28" rx="6" fill="#15141a"/></svg>');
+    const manifest = {
+      name: "Bottom toolbar test",
+      short_name: "BT test",
+      start_url: location.href,
+      scope: location.origin + location.pathname,
+      display: "standalone",
+      background_color: "#ffffff",
+      theme_color: "#ff7139",
+      icons: [{ src: icon, sizes: "192x192 512x512", type: "image/svg+xml" }],
+    };
+    const link = document.createElement("link");
+    link.rel = "manifest";
+    link.href = "data:application/manifest+json," + encodeURIComponent(JSON.stringify(manifest));
+    document.head.appendChild(link);
+  }
+  const css = ((CURRENT && CURRENT.css) || "") + ((VARIANT && VARIANT.css) || "");
+  if (css) {
+    const style = document.createElement("style");
+    style.textContent = css;
+    document.head.appendChild(style);
+  }
+})();
+</script>
+</head>
+<body>
+<noscript>This page needs JavaScript.</noscript>
+<script>
+"use strict";
+
+const STORE_KEY = "bottom-toolbar-results-v1";
+const UI_KEY = "bottom-toolbar-ui-v1";
+const T0 = performance.now();
+const counters = { resize: 0, vvResize: 0, vvScroll: 0, scroll: 0 };
+const eventLog = [];
+const customMetrics = [];
+// The HUD draws only when scroll and viewport events stop. A draw during a
+// gesture delays the toolbar enough to change the result of the test.
+const HUD_IDLE_MS = 200;
+let lastActivity = 0;
+let hudTimer = 0;
+
+function esc(s) {
+  return String(s).replace(/[&<>"]/g, ch => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[ch]);
+}
+function fmt(s) {
+  return esc(s).replace(/`([^`]+)`/g, "<code>$1</code>");
+}
+function num(x) {
+  if (Math.abs(x) < 0.05) {
+    return "0";
+  }
+  return Number.isInteger(x) ? String(x) : x.toFixed(1);
+}
+function loadJson(key) {
+  try {
+    return JSON.parse(localStorage.getItem(key)) || {};
+  } catch (e) {
+    return {};
+  }
+}
+function saveJson(key, value) {
+  try {
+    localStorage.setItem(key, JSON.stringify(value));
+  } catch (e) {}
+}
+const results = loadJson(STORE_KEY);
+const ui = Object.assign({ details: true, hud: true, min: false }, loadJson(UI_KEY));
+
+function setResult(id, patch) {
+  results[id] = Object.assign({}, results[id], patch, { ts: new Date().toISOString() });
+  if (!results[id].status && !results[id].note) {
+    delete results[id];
+  }
+  saveJson(STORE_KEY, results);
+}
+
+function srcHtml(src) {
+  if (/^bug \d+/i.test(src)) {
+    const id = src.match(/\d+/)[0];
+    return `<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=${id}">${esc(src)}</a>`;
+  }
+  let [path, tests] = src.split(" :: ");
+  for (const [alias, full] of Object.entries(SRC_ALIASES)) {
+    if (path.startsWith(alias)) {
+      path = full + path.slice(alias.length);
+    }
+  }
+  const file = path.split("/").pop();
+  return `<a href="https://searchfox.org/firefox-main/source/${esc(path)}" title="${esc(path)}">${esc(file)}</a>` +
+    (tests ? `: <code>${esc(tests)}</code>` : "");
+}
+
+function listHtml(tag, items) {
+  if (!items || !items.length) {
+    return "";
+  }
+  return `<${tag}>${items.map(i => `<li>${fmt(i)}</li>`).join("")}</${tag}>`;
+}
+
+function hasTests(c) {
+  return (c.sources || []).some(s => !/^bug \d+/i.test(s));
+}
+
+function caseBody(c) {
+  let coverage = "<h4>Automated coverage</h4>";
+  if (!hasTests(c)) {
+    coverage = c.sources && c.sources.length ? "<h4>Related bugs (no automated test found)</h4>" : "";
+  }
+  return (c.setup && c.setup.length ? `<h4>Setup</h4>${listHtml("ul", c.setup)}` : "") +
+    (c.variants ? `<h4>Variants</h4><ul>${c.variants.map(v => `<li><strong>${fmt(v.label)}</strong>${v.note ? ": " + fmt(v.note) : ""}</li>`).join("")}</ul>` : "") +
+    `<h4>Steps</h4>${listHtml("ol", c.steps)}` +
+    `<h4>Expected result</h4>${listHtml("ul", c.expected)}` +
+    (c.sources && c.sources.length
+      ? `${coverage}<ul class="src">${c.sources.map(s => `<li>${srcHtml(s)}</li>`).join("")}</ul>`
+      : `<h4>Automated coverage</h4><p class="src">None found. Manual only.</p>`);
+}
+
+function platformBadges(c) {
+  return (c.platforms || []).map(p => `<span class="badge ${p.toLowerCase()}">${p === "GV" ? "GeckoView" : p}</span>`).join(" ") +
+    (hasTests(c) ? "" : ` <span class="badge manual">manual only</span>`);
+}
+
+function statusHtml(id) {
+  const r = results[id];
+  return r && r.status ? `<span class="status ${r.status}">${r.status.toUpperCase()}</span>` : "";
+}
+
+/* Live metrics */
+function tagOf(t) {
+  if (!t || !t.tagName) {
+    return "";
+  }
+  return t.tagName.toLowerCase() + (t.type ? `[${t.type}]` : "") + (t.id ? `#${t.id}` : "");
+}
+function inPanel(t) {
+  return t && t.closest && t.closest("#bt-panel, #bt-chip, #bt-export");
+}
+function logEvent(name, extra) {
+  const vv = window.visualViewport;
+  const t = ((performance.now() - T0) / 1000).toFixed(2);
+  eventLog.push(`${t}s ${name}${extra ? " " + extra : ""}  in=${innerWidth}x${innerHeight}` +
+    (vv ? ` vv=${num(vv.width)}x${num(vv.height)}@${num(vv.offsetTop)}` : ""));
+  if (eventLog.length > 60) {
+    eventLog.shift();
+  }
+  scheduleHud();
+}
+function hudVisible() {
+  return ui.hud && !ui.min && !!document.getElementById("bt-hud");
+}
+function scheduleHud() {
+  lastActivity = performance.now();
+  if (!hudVisible()) {
+    return;
+  }
+  clearTimeout(hudTimer);
+  hudTimer = setTimeout(renderHud, HUD_IDLE_MS);
+}
+function refreshHudIfIdle() {
+  if (hudVisible() && performance.now() - lastActivity >= HUD_IDLE_MS) {
+    renderHud();
+  }
+}
+function probeHeight(id) {
+  const e = document.getElementById(id);
+  return e ? num(e.getBoundingClientRect().height) : "?";
+}
+function safeArea() {
+  const e = document.getElementById("bt-probe-sa");
+  if (!e) {
+    return "?";
+  }
+  const cs = getComputedStyle(e);
+  return `t${parseFloat(cs.paddingTop)} r${parseFloat(cs.paddingRight)} b${parseFloat(cs.paddingBottom)} l${parseFloat(cs.paddingLeft)}`;
+}
+function renderHud() {
+  const hud = document.getElementById("bt-hud");
+  if (!hud) {
+    return;
+  }
+  const vv = window.visualViewport;
+  const de = document.documentElement;
+  const se = document.scrollingElement || de;
+  const maxY = typeof window.scrollMaxY === "number" ? window.scrollMaxY : se.scrollHeight - innerHeight;
+  const svh = parseFloat(probeHeight("bt-probe-svh"));
+  const lvh = parseFloat(probeHeight("bt-probe-lvh"));
+  const lines = [
+    `inner ${innerWidth}x${innerHeight}  client ${de.clientWidth}x${de.clientHeight}  dpr ${num(devicePixelRatio)}`,
+    vv ? `vv ${num(vv.width)}x${num(vv.height)}  offLeft ${num(vv.offsetLeft)}  offTop ${num(vv.offsetTop)}  pageTop ${num(vv.pageTop)}  scale ${vv.scale.toFixed(2)}` : "vv: not supported",
+    `vh ${probeHeight("bt-probe-vh")}  svh ${svh}  lvh ${lvh}  dvh ${probeHeight("bt-probe-dvh")}  fixed100% ${probeHeight("bt-probe-pct")}`,
+    `lvh-svh ${num(lvh - svh)} (toolbar max)  screen ${screen.width}x${screen.height}`,
+    `scrollY ${num(scrollY)} / ${num(maxY)}  safe-area ${safeArea()}`,
+    `count: resize ${counters.resize}  vv.resize ${counters.vvResize}  vv.scroll ${counters.vvScroll}  scroll ${counters.scroll}`,
+  ];
+  if (document.fullscreenElement) {
+    lines.push(`fullscreen: ${tagOf(document.fullscreenElement)}`);
+  }
+  for (const m of document.querySelectorAll("[data-measure]")) {
+    const r = m.getBoundingClientRect();
+    lines.push(`${m.dataset.measure}: top ${num(r.top)} bottom ${num(r.bottom)} innerH-bottom ${num(innerHeight - r.bottom)}`);
+  }
+  for (const [label, fn] of customMetrics) {
+    let v;
+    try {
+      v = fn();
+    } catch (e) {
+      v = "error: " + e.message;
+    }
+    lines.push(`${label}: ${v}`);
+  }
+  lines.push("-- events --", ...eventLog.slice(-8).reverse());
+  hud.textContent = lines.join("\n");
+}
+
+window.addEventListener("resize", () => {
+  counters.resize++;
+  logEvent("resize");
+});
+if (window.visualViewport) {
+  visualViewport.addEventListener("resize", () => {
+    counters.vvResize++;
+    logEvent("vv.resize");
+    fitPanelToScale();
+  });
+  visualViewport.addEventListener("scroll", () => {
+    counters.vvScroll++;
+    scheduleHud();
+  });
+}
+window.addEventListener("scroll", () => {
+  counters.scroll++;
+  scheduleHud();
+}, { passive: true });
+document.addEventListener("fullscreenchange", () => logEvent("fullscreenchange", document.fullscreenElement ? "on" : "off"));
+if (screen.orientation) {
+  screen.orientation.addEventListener("change", () => logEvent("orientation", screen.orientation.type));
+}
+document.addEventListener("focusin", e => {
+  if (!inPanel(e.target)) {
+    logEvent("focusin", tagOf(e.target));
+  }
+});
+document.addEventListener("focusout", e => {
+  if (!inPanel(e.target)) {
+    logEvent("focusout", tagOf(e.target));
+  }
+});
+document.addEventListener("visibilitychange", () => logEvent("visibility", document.visibilityState));
+window.addEventListener("pageshow", e => logEvent("pageshow", e.persisted ? "from bfcache" : ""));
+window.addEventListener("load", () => fitPanelToScale());
+window.addEventListener("error", e => logEvent("JS ERROR", e.message));
+
+/* API for the fixtures. */
+const BT = {
+  log(msg) {
+    logEvent(msg);
+  },
+  tap(ev, label) {
+    const b = ev.currentTarget;
+    b.dataset.n = String((parseInt(b.dataset.n || "0", 10)) + 1);
+    b.textContent = `${label} (${b.dataset.n})`;
+    logEvent(`tap ${label}`, `clientY=${num(ev.clientY)}`);
+  },
+  metric(label, fn) {
+    customMetrics.push([label, fn]);
+    scheduleHud();
+  },
+  scrollToY(y, smooth) {
+    window.scrollTo({ top: y, behavior: smooth ? "smooth" : "instant" });
+  },
+  scrollToBottom(smooth) {
+    const se = document.scrollingElement || document.documentElement;
+    window.scrollTo({ top: se.scrollHeight, behavior: smooth ? "smooth" : "instant" });
+  },
+  toggle(id) {
+    const e = document.getElementById(id);
+    e.hidden = !e.hidden;
+    logEvent(`toggle #${id}`, e.hidden ? "hidden" : "shown");
+  },
+  setViewport(content) {
+    let meta = document.getElementById("bt-viewport");
+    if (!meta) {
+      meta = document.createElement("meta");
+      meta.name = "viewport";
+      meta.id = "bt-viewport";
+      document.head.appendChild(meta);
+    }
+    meta.content = content;
+    logEvent("meta viewport", `"${content}"`);
+  },
+  resetCounters() {
+    for (const k of Object.keys(counters)) {
+      counters[k] = 0;
+    }
+    eventLog.length = 0;
+    logEvent("counters reset");
+  },
+  fullscreen(sel) {
+    const e = sel ? document.querySelector(sel) : document.documentElement;
+    e.requestFullscreen().catch(err => logEvent("requestFullscreen failed", err.message));
+  },
+};
+
+/* Rendering */
+function buildProbes() {
+  const p = document.createElement("div");
+  p.id = "bt-probes";
+  p.setAttribute("aria-hidden", "true");
+  p.innerHTML =
+    '<div id="bt-probe-vh" style="height:100vh"></div>' +
+    '<div id="bt-probe-svh" style="height:100svh"></div>' +
+    '<div id="bt-probe-lvh" style="height:100lvh"></div>' +
+    '<div id="bt-probe-dvh" style="height:100dvh"></div>' +
+    '<div id="bt-probe-pct" style="height:100%"></div>' +
+    '<div id="bt-probe-sa" style="height:0;padding:env(safe-area-inset-top,0px) env(safe-area-inset-right,0px) env(safe-area-inset-bottom,0px) env(safe-area-inset-left,0px)"></div>';
+  document.body.appendChild(p);
+}
+
+function saveUi() {
+  saveJson(UI_KEY, ui);
+}
+
+function buildPanel(c) {
+  const idx = c ? CASES.indexOf(c) : -1;
+  const prev = idx > 0 ? CASES[idx - 1] : null;
+  const next = idx >= 0 && idx < CASES.length - 1 ? CASES[idx + 1] : null;
+  const panel = document.createElement("div");
+  panel.id = "bt-panel";
+  panel.setAttribute("role", "region");
+  panel.setAttribute("aria-label", "Test panel");
+  panel.innerHTML =
+    '<div class="bar">' +
+    (c ? '<a class="btn" href="?">Index</a>' +
+      (prev ? `<a class="btn" href="?case=${prev.id}" aria-label="Previous case">&#9664;</a>` : "") +
+      (next ? `<a class="btn" href="?case=${next.id}" aria-label="Next case">&#9654;</a>` : "") : "") +
+    `<span class="cid">${c ? esc(c.id) + " " + statusHtml(c.id) : "Live metrics"}</span>` +
+    (c ? `<button data-act="details" aria-pressed="${ui.details}">Info</button>` : "") +
+    `<button data-act="hud" aria-pressed="${ui.hud}">HUD</button>` +
+    '<button data-act="min" aria-label="Minimize panel">&#8211;</button>' +
+    "</div>" +
+    (c ? `<div id="bt-details"${ui.details ? "" : " hidden"}>` +
+      `<h2>${fmt(c.title)}</h2><div>${platformBadges(c)}</div>` +
+      (c.variants ? '<div class="variants">Variant: ' + c.variants.map((v, i) =>
+        `<a class="btn" href="?case=${c.id}&amp;v=${i}"${i === VARIANT_INDEX ? ' aria-current="true"' : ""}>${fmt(v.label)}</a>`).join("") + "</div>" : "") +
+      caseBody(c) +
+      '<div class="result">' +
+      '<button class="pass" data-status="pass">Pass</button>' +
+      '<button class="fail" data-status="fail">Fail</button>' +
+      '<button class="skip" data-status="skip">Skip</button>' +
+      '<button data-status="">Clear</button>' +
+      `<input type="text" id="bt-note" placeholder="Note (device, build, what you saw)" value="${esc((results[c.id] || {}).note || "")}">` +
+      "</div></div>" : "") +
+    `<div id="bt-hudwrap"${ui.hud ? "" : " hidden"}><pre id="bt-hud"></pre>` +
+    '<div class="hudbar"><button data-act="reset">Reset counters</button></div></div>';
+  const chip = document.createElement("button");
+  chip.id = "bt-chip";
+  chip.textContent = c ? `☰ ${c.id}` : "☰ Metrics";
+  chip.hidden = !ui.min;
+  panel.hidden = ui.min;
+
+  const refreshStatus = () => {
+    const r = results[c.id] || {};
+    for (const b of panel.querySelectorAll("[data-status]")) {
+      b.setAttribute("aria-pressed", String(!!b.dataset.status && b.dataset.status === r.status));
+    }
+    panel.querySelector(".cid").innerHTML = esc(c.id) + " " + statusHtml(c.id);
+  };
+  panel.addEventListener("click", e => {
+    const b = e.target.closest("button");
+    if (!b) {
+      return;
+    }
+    if (b.dataset.act === "details") {
+      ui.details = !ui.details;
+      panel.querySelector("#bt-details").hidden = !ui.details;
+      b.setAttribute("aria-pressed", String(ui.details));
+    } else if (b.dataset.act === "hud") {
+      ui.hud = !ui.hud;
+      panel.querySelector("#bt-hudwrap").hidden = !ui.hud;
+      b.setAttribute("aria-pressed", String(ui.hud));
+      scheduleHud();
+    } else if (b.dataset.act === "reset") {
+      BT.resetCounters();
+    } else if (b.dataset.act === "min") {
+      ui.min = true;
+      panel.hidden = true;
+      chip.hidden = false;
+    } else if ("status" in b.dataset) {
+      setResult(c.id, { status: b.dataset.status || undefined });
+      refreshStatus();
+    }
+    saveUi();
+  });
+  if (c) {
+    panel.querySelector("#bt-note").addEventListener("change", e => {
+      setResult(c.id, { note: e.target.value || undefined });
+    });
+  }
+  chip.addEventListener("click", () => {
+    ui.min = false;
+    panel.hidden = false;
+    chip.hidden = true;
+    saveUi();
+    scheduleHud();
+  });
+  document.body.append(panel, chip);
+  if (c) {
+    refreshStatus();
+  }
+  fitPanelToScale();
+}
+
+let lastScale = 0;
+function fitPanelToScale() {
+  const vv = window.visualViewport;
+  if (!vv || vv.scale === lastScale) {
+    return;
+  }
+  lastScale = vv.scale;
+  const z = Math.min(3, Math.max(1, Math.round((1 / vv.scale) * 10) / 10));
+  for (const id of ["bt-panel", "bt-chip"]) {
+    const e = document.getElementById(id);
+    if (e) {
+      e.style.zoom = z;
+    }
+  }
+}
+
+function renderCase(c) {
+  document.title = `${c.id}: ${c.title}`;
+  const fx = document.createElement("div");
+  fx.id = "fixture";
+  const html = VARIANT && VARIANT.html !== undefined ? VARIANT.html : c.html;
+  fx.innerHTML = typeof html === "function" ? html() : (html || rows());
+  document.body.appendChild(fx);
+  buildProbes();
+  buildPanel(c);
+  if (c.init) {
+    c.init(fx, VARIANT);
+  }
+  setInterval(refreshHudIfIdle, 1000);
+  scheduleHud();
+}
+
+function exportMarkdown() {
+  const lines = [
+    "# Bottom toolbar test results",
+    "",
+    `- Date: ${new Date().toISOString()}`,
+    `- User agent: ${navigator.userAgent}`,
+    `- Screen: ${screen.width}x${screen.height}, devicePixelRatio ${devicePixelRatio}`,
+    `- Page: ${location.href.split("?")[0]}`,
+    "",
+    "| ID | Test | Status | Note |",
+    "| --- | --- | --- | --- |",
+  ];
+  for (const c of CASES) {
+    const r = results[c.id];
+    if (r) {
+      lines.push(`| ${c.id} | ${c.title.replace(/\|/g, "/")} | ${(r.status || "-").toUpperCase()} | ${(r.note || "").replace(/\|/g, "/")} |`);
+    }
+  }
+  const text = lines.join("\n");
+  const show = () => {
+    const box = document.createElement("div");
+    box.id = "bt-export";
+    box.innerHTML = '<strong>Results (Markdown)</strong><textarea readonly></textarea><button>Close</button>';
+    box.querySelector("textarea").value = text;
+    box.querySelector("button").onclick = () => box.remove();
+    document.body.appendChild(box);
+    box.querySelector("textarea").select();
+  };
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(text).then(() => alert("The results are on the clipboard."), show);
+  } else {
+    show();
+  }
+}
+
+function renderIndex() {
+  const unknown = PARAMS.get("case");
+  const counts = { pass: 0, fail: 0, skip: 0 };
+  for (const c of CASES) {
+    const r = results[c.id];
+    if (r && counts[r.status] !== undefined) {
+      counts[r.status]++;
+    }
+  }
+  const run = counts.pass + counts.fail + counts.skip;
+  let html = '<div class="index">' +
+    "<h1>Bottom toolbar test cases</h1>" +
+    `<p class="lead">${INDEX_INTRO}</p>` +
+    (unknown ? `<p class="note">The case <code>${esc(unknown)}</code> does not exist.</p>` : "") +
+    INDEX_HOWTO +
+    '<div class="filters">' +
+    '<input type="search" id="f-text" placeholder="Search" aria-label="Search cases">' +
+    '<select id="f-platform" aria-label="Platform"><option value="">All platforms</option><option value="GV">GeckoView</option><option value="Fenix">Fenix</option></select>' +
+    '<select id="f-cov" aria-label="Automated coverage"><option value="">All coverage</option><option value="auto">Automated</option><option value="manual">Manual only</option></select>' +
+    '<select id="f-status" aria-label="Status"><option value="">All results</option><option value="none">Not run</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="skip">Skip</option></select>' +
+    '<button id="f-export">Export results</button>' +
+    '<button id="f-reset">Clear results</button>' +
+    "</div>" +
+    `<p class="progress">${CASES.length} cases. ${run} run: ${counts.pass} pass, ${counts.fail} fail, ${counts.skip} skip.</p>`;
+  for (const s of SECTIONS) {
+    const cs = CASES.filter(c => c.section === s.id);
+    if (!cs.length) {
+      continue;
+    }
+    html += `<section data-section="${s.id}"><h2>${fmt(s.title)}</h2><p class="lead">${fmt(s.intro)}</p>`;
+    for (const c of cs) {
+      const r = results[c.id] || {};
+      html += `<article class="card" data-id="${c.id}" data-platforms="${(c.platforms || []).join(" ")}" ` +
+        `data-cov="${hasTests(c) ? "auto" : "manual"}" data-status="${r.status || "none"}" ` +
+        `data-text="${esc((c.id + " " + c.title + " " + (c.steps || []).join(" ") + " " + (c.expected || []).join(" ")).toLowerCase())}">` +
+        `<div class="card-head"><span class="cid">${c.id}</span><a class="title" href="?case=${c.id}">${fmt(c.title)}</a>` +
+        `${platformBadges(c)} ${statusHtml(c.id)}</div>` +
+        `<details><summary>Steps, expected result, coverage</summary>${caseBody(c)}` +
+        (r.note ? `<h4>Note</h4><p>${esc(r.note)}</p>` : "") +
+        "</details></article>";
+    }
+    html += "</section>";
+  }
+  html += "</div>";
+  document.body.insertAdjacentHTML("beforeend", html);
+
+  const apply = () => {
+    const text = document.getElementById("f-text").value.trim().toLowerCase();
+    const platform = document.getElementById("f-platform").value;
+    const cov = document.getElementById("f-cov").value;
+    const status = document.getElementById("f-status").value;
+    for (const card of document.querySelectorAll(".card")) {
+      card.hidden = !!((text && !card.dataset.text.includes(text)) ||
+        (platform && !card.dataset.platforms.split(" ").includes(platform)) ||
+        (cov && card.dataset.cov !== cov) ||
+        (status && card.dataset.status !== status));
+    }
+    for (const sec of document.querySelectorAll("section[data-section]")) {
+      sec.hidden = !sec.querySelector(".card:not([hidden])");
+    }
+  };
+  for (const id of ["f-text", "f-platform", "f-cov", "f-status"]) {
+    document.getElementById(id).addEventListener("input", apply);
+  }
+  document.getElementById("f-export").addEventListener("click", exportMarkdown);
+  document.getElementById("f-reset").addEventListener("click", () => {
+    if (confirm("Clear all results on this device?")) {
+      localStorage.removeItem(STORE_KEY);
+      location.reload();
+    }
+  });
+  buildProbes();
+  ui.min = ui.min || !PARAMS.has("hud");
+  buildPanel(null);
+  setInterval(refreshHudIfIdle, 1000);
+}
+
+if (CURRENT) {
+  renderCase(CURRENT);
+} else {
+  renderIndex();
+}
+</script>
+</body>
+</html>
