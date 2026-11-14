@@ -62,10 +62,14 @@ log "=== start (dry_run=$DRY_RUN) ==="
 
 # --- refuse to touch a working copy that is not ours --------------------------
 
-workspaces=$(jj workspace list | wc -l | tr -d ' ')
+# Capture each jj query before testing it: a jj failure inside `[ "$(jj ...)" ]`
+# is silent, and an empty answer would pass for "nothing there".
+workspaces=$(jj workspace list) || die 6 "jj workspace list failed"
+workspaces=$(printf '%s\n' "$workspaces" | wc -l | tr -d ' ')
 [ "$workspaces" = "1" ] || die 3 "jj shows $workspaces workspaces; refusing to commit"
 
-[ "$(jj log -r @ -T empty --no-graph)" = "true" ] \
+wc_empty=$(jj log -r @ -T empty --no-graph) || die 6 "jj log of @ failed"
+[ "$wc_empty" = "true" ] \
   || die 3 "the working copy has changes; refusing to import on top of them"
 
 if [ "$DRY_RUN" = "0" ] && [ ! -f "$DEPLOY_KEY" ]; then
@@ -81,7 +85,9 @@ for _ in 1 2 3 4 5 6; do
 done
 
 jj git fetch --remote origin --quiet || die 6 "jj git fetch failed"
-[ -z "$(jj log -r 'main@origin ~ ::main' -T '"x"' --no-graph)" ] \
+ahead=$(jj log -r 'main@origin ~ ::main' -T '"x"' --no-graph) \
+  || die 6 "jj log of main@origin failed"
+[ -z "$ahead" ] \
   || die 3 "origin/main is ahead of local main; sort it out by hand"
 
 # --- import, one activity per commit -----------------------------------------
@@ -109,7 +115,9 @@ for _ in $(seq 1 "$MAX_COMMITS"); do
   # imported. Left uncommitted, that change trips the clean working copy check
   # on every later run, and cron stops importing. Give it its own commit, so a
   # run commit never carries it either.
-  if [ -n "$(jj diff -r @ --name-only "$IGNORE")" ]; then
+  ignore_diff=$(jj diff -r @ --name-only "$IGNORE") \
+    || die 6 "jj diff of $IGNORE failed"
+  if [ -n "$ignore_diff" ]; then
     if [ "$DRY_RUN" = "1" ]; then
       log "dry run: would commit 'Ignore filtered run(s).' - leaving the change in @"
     else
@@ -125,7 +133,7 @@ for _ in $(seq 1 "$MAX_COMMITS"); do
   if [ "$new" = "0" ]; then log "nothing new"; break; fi
 
   date=$(jq -r '.imported[0].date' "$REPORT")
-  changed=$(jj diff -r @ --summary)
+  changed=$(jj diff -r @ --summary) || die 6 "jj diff of @ failed"
   [ -n "$changed" ] || die 6 "the importer reported $date but the working copy is empty"
   log "changed for $date:"; printf '%s\n' "$changed" >>"$LOG"
 
